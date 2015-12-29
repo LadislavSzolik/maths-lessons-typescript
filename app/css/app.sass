@@ -1,0 +1,317 @@
+@import "bourbon/bourbon"
+
+$button-bcg-color: rgb(26, 100, 202)
+$btn-bcg-color-dis: #99ccff
+$exec-field-size: 350px
+$exec-result-width: 180px
+$exe1-field-sum: 100px
+$valid-result-color: rgb(85, 248, 85)
+$invalid-result-color: rgb(255, 88, 88)
+
+a:link, a:visited, a:hover, a:active
+  text-decoration: none
+  color: white
+
+ul
+  list-style: none
+  padding: 0px
+
+body
+  font-weight: 300
+  color: black
+  background-color: #F2F2F2
+
+
+/* Main menu header */
+.header
+  background-color: rgb(86, 205, 16)
+
+header, section
+  position: relative
+
+.nav-btn
+  float: left
+  padding: 5px 5px
+  border-radius: 35px
+  color: white
+  background-color: #3E7AD0
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50)
+  position: absolute
+  transition: all 0.2s linear
+
+  &-close
+    @extend .nav-btn
+    top: -10px
+    right: 10px
+
+  &-help
+    @extend .nav-btn
+    width: 50px
+    height: 50px
+    font-size: 28px
+    font-weight: bold
+    left: 20px
+    top: -10px
+
+  &-reload
+    @extend .nav-btn
+    top: -12px
+    left: 775px
+
+  &-top-left
+    @extend .nav-btn
+    top: $exec-field-size/2
+    left: 50px
+
+  &-top-right
+    @extend .nav-btn
+    top: $exec-field-size/2
+    right: 50px
+
+  &-bottom-left
+    @extend .nav-btn
+    left: 50px
+    bottom: 0px
+
+  &-bottom-right
+    @extend .nav-btn
+    right: 50px
+    bottom: 0px
+
+.nav-btn-animate
+  transform-origin: center
+  transform: scale(0.8,0.8)
+
+
+.exe-header
+  h1
+    font-family: "Helvetica Neue", Arial, sans-serif
+    font-size: 40px
+
+
+.disabled
+  background-color: $btn-bcg-color-dis !important
+  cursor: not-allowed
+
+.valid-result
+  background-color: $valid-result-color !important
+  cursor: pointer !important
+
+.invalid-result
+  background-color: $invalid-result-color !important
+  cursor: pointer !important
+
+.exercise-container
+  border-radius: 8px
+  background-color: #FFF
+  box-shadow: 5px 5px 4px #888888
+  text-align: center
+  margin-left: auto
+  margin-right: auto
+  margin-top: 10px
+  width: 1000px !important
+  padding: 5px 5px 20px 5px
+
+/* customized uib progress bar */
+@mixin progress-bar-text($color)
+  color: $color
+  font-size: 26px
+  position: absolute
+  text-align: center
+  top: 4px
+  width: 100%
+  z-index: 2
+  left: 0px
+
+.progess-container
+  margin-top: 25px
+
+  .progress-box
+    width: 500px
+    display: inline-block
+    height: 30px
+    background-color: white
+    position: relative
+
+  .progress-bar-exe1
+    background-color: #FFEED6
+    b
+      color: #E48400
+      font-size: 26px
+      position: absolute
+      text-align: center
+      top: 4px
+      width: 100%
+      z-index: 2
+      left: 0px
+
+  .progress-color-exe1
+    border: 2px solid #E48400
+
+  .progress-bar-exe2
+    background-color: #F4CBFC
+    b
+      color: #E24CFF
+      font-size: 26px
+      position: absolute
+      text-align: center
+      top: 4px
+      width: 100%
+      z-index: 2
+      left: 0px
+
+  .progress-color-exe2
+    border: 2px solid #E24CFF
+
+
+
+/* container with objects and result */
+@mixin exe-box-color($color)
+  border-radius: 8px
+  border: 2px solid $color
+  background-color: #FFF
+
+.main-content
+
+  .subexe-container-box
+    width: 680px
+    height: 480px
+    border-radius: 10px
+    padding: 15px
+    margin: auto
+    position: relative
+
+    .object-arena
+      position: relative
+      float: left
+      height: $exec-field-size
+      width: $exec-field-size
+      margin-right: 5px
+      @include exe-box-color(#FF9D23)
+
+    .exe2-position
+      float: right !important
+      margin-top: 50px
+      margin-right: 35px
+      border-radius: 8px
+      border: 2px solid #7C3A78
+      background-color: #FFF
+
+    .arena-small
+      height: $exe1-field-sum !important
+      width: $exe1-field-sum !important
+
+    .remove-btn
+      position: absolute
+      top: 30px
+      right: 20px
+      transition: all 0.1s ease-in-out
+
+      &-exe2-postion
+        top: 2px
+        right: 2px
+
+      &-animate
+        top: 40px
+        right: 30px
+
+
+
+
+  .exe1-background
+    background-image: url(../img/exe1_bcg.png)
+
+  .exe2-background
+    background-image: url(../img/exe2_bcg.png)
+
+
+.container-field-exe2-summary
+  position: relative
+  float: left
+  height: $exe1-field-sum
+  width: $exe1-field-sum
+  margin: 5px 25px 5px 5px
+  @include exe-box-color(#E24CFF)
+
+
+@mixin user-result-common($color)
+  height: 100%
+  margin-bottom: 20px
+  padding: 10px 5px
+  text-align: center
+  @include exe-box-color($color)
+
+.user-result-summary-container
+  float: left
+  margin: 0% 5% 0% 1%
+
+.user-result
+  float: left
+  margin-left: 7%
+  font-size: 100px
+  margin-top: $exec-field-size/4
+  width: $exec-result-width
+  @include user-result-common(#FF9D23)
+
+
+.user-result-summary
+  font-size: 36px
+  margin-top: $exe1-field-sum/6
+  width: 70px
+  @include user-result-common(#FF9D23)
+  cursor: pointer
+
+
+/* EXE 2 style */
+
+.exe2-number-box
+  font-size: 80px
+  font-weight: bold
+  top: 50px
+  left: 68px
+  width: 144px
+  height: 144px
+  border-radius: 80px
+  border: 2px solid #7C3A78
+  text-align: center
+  position: absolute
+  background-color: #E2DA97 !important
+
+.exe2-object-holder-box
+  height: 200px
+  width: 200px
+  border-radius: 120px
+  border: 2px solid #7C3A78
+  background-color: #E2DA97
+  position: absolute
+  top: 260px
+  left: 40px
+
+.exe2-number-box-small
+  font-size: 36px
+  margin-top: 10px
+  width: 70px
+  @include user-result-common(#E24CFF)
+
+/* require for exe1 */
+.counted-object
+  position: absolute
+  transform-origin: center
+
+.number-row-container
+  margin-top: 2%
+
+  .input-number-row-li
+    display: inline-block
+
+    .input-number-row
+      transition: all 0.3s ease-in-out
+      font-size: 48px
+      font-weight: bold
+      padding: 0px 13px
+      margin: 0px 4px
+      color: white
+      box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50)
+
+
+/* ---- Drag and drop exercise --- */
