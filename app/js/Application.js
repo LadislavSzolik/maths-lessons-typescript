@@ -11,14 +11,74 @@ var exercises;
         return BaseItem;
     })();
     exercises.BaseItem = BaseItem;
-    var Exercise1Item = (function (_super) {
-        __extends(Exercise1Item, _super);
-        function Exercise1Item() {
-            _super.apply(this, arguments);
+    var Exercise1Item = (function () {
+        function Exercise1Item(number) {
+            this.number = number;
         }
+        Exercise1Item.prototype.getElementSizeForFrameSize = function (size, numberOfRange) {
+            var frameArea = size * size;
+            var limitCorrection = CommonMath.findNextSqrt(numberOfRange);
+            return Math.sqrt(Math.floor(frameArea / limitCorrection));
+        };
+        Exercise1Item.prototype.getListOfPositions = function (numberOfRange, largeFrame, smallFrame) {
+            if (angular.isUndefined(this.listOfPositions)) {
+                this.listOfPositions = [];
+                this.largeElementSize = this.getElementSizeForFrameSize(largeFrame, numberOfRange);
+                this.smallElementSize = this.getElementSizeForFrameSize(smallFrame, numberOfRange);
+                var largeFrameRowsNumber = Math.round(largeFrame / this.largeElementSize);
+                var possiblePositions = CommonMath.getNumberArr(largeFrameRowsNumber * largeFrameRowsNumber, 1);
+                for (var i = 0; i < this.number; i++) {
+                    var position = (possiblePositions.splice(Math.floor(Math.random() * possiblePositions.length), 1))[0];
+                    var largeTop = Math.floor(this.largeElementSize * Math.floor(position / largeFrameRowsNumber));
+                    var largeLeft = Math.floor(this.largeElementSize * (position % largeFrameRowsNumber));
+                    var smallTop = Math.floor(this.smallElementSize * Math.floor(position / largeFrameRowsNumber));
+                    var smallLeft = Math.floor(this.smallElementSize * (position % largeFrameRowsNumber));
+                    this.listOfPositions.push(new ObjectPosition(largeTop, largeLeft, smallTop, smallLeft));
+                }
+            }
+            return this.listOfPositions;
+        };
         return Exercise1Item;
-    })(BaseItem);
+    })();
     exercises.Exercise1Item = Exercise1Item;
+    var ObjectPosition = (function () {
+        function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
+            this.largePositionTop = largePositionTop;
+            this.largePositionLeft = largePositionLeft;
+            this.smallPositionTop = smallPositionTop;
+            this.smallPositionLeft = smallPositionLeft;
+        }
+        ObjectPosition.prototype.getLargePosition = function () {
+            return { top: this.largePositionTop + 'px', left: this.largePositionLeft + 'px' };
+        };
+        ObjectPosition.prototype.getSmallPosition = function () {
+            return { top: this.smallPositionTop + 'px', left: this.smallPositionLeft + 'px' };
+        };
+        return ObjectPosition;
+    })();
+    exercises.ObjectPosition = ObjectPosition;
+    var CommonMath = (function () {
+        function CommonMath() {
+        }
+        CommonMath.findNextSqrt = function (x) {
+            if (Math.sqrt(x) % 1 > 0) {
+                return this.findNextSqrt(x + 1);
+            }
+            else {
+                return x;
+            }
+        };
+        CommonMath.getNumberArr = function (upperLimit, repeatCount) {
+            var numberArr = [];
+            var counter = 0;
+            while (numberArr.length < (repeatCount * upperLimit)) {
+                numberArr.push((counter++ % upperLimit));
+            }
+            return numberArr;
+        };
+        return CommonMath;
+    })();
+    exercises.CommonMath = CommonMath;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -54,10 +114,11 @@ var exercises;
 var exercises;
 (function (exercises) {
     var NavigationBase = (function () {
-        function NavigationBase($scope, $location, $route) {
+        function NavigationBase($scope, $location, $route, totalItems) {
             this.$scope = $scope;
             this.$location = $location;
             this.$route = $route;
+            this.totalItems = totalItems;
             $scope.vm = this;
             this.currentPage = 1;
         }
@@ -72,18 +133,21 @@ var exercises;
         };
         NavigationBase.prototype.checkResult = function () {
         };
+        NavigationBase.prototype.isSummaryActive = function () {
+            return false;
+        };
         NavigationBase.prototype.selectPage = function (page) {
-            if (page > 0 && page <= this.$scope.totalItems) {
-                this.$scope.currentPage = page;
+            if (page > 0 && page <= this.totalItems) {
+                this.currentPage = page;
             }
         };
         ;
         NavigationBase.prototype.noPrevious = function () {
-            return this.$scope.currentPage === 1;
+            return this.currentPage === 1;
         };
         ;
         NavigationBase.prototype.noNext = function () {
-            return this.$scope.currentPage === this.$scope.totalItems;
+            return this.currentPage === this.totalItems;
         };
         ;
         return NavigationBase;
@@ -92,14 +156,46 @@ var exercises;
     var Exercise1Ctrl = (function (_super) {
         __extends(Exercise1Ctrl, _super);
         function Exercise1Ctrl($scope, $location, $route, exercise1Data) {
-            _super.call(this, $scope, $location, $route);
+            _super.call(this, $scope, $location, $route, exercise1Data.subexerciseListDTO.length);
             this.$scope = $scope;
             this.$location = $location;
             this.$route = $route;
             this.exercise1Data = exercise1Data;
             this.exetype = "N1a";
+            for (var i = 0; i < exercise1Data.subexerciseListDTO.length; i++) {
+                var exeItem = new exercises.Exercise1Item(exercise1Data.subexerciseListDTO[i].number);
+                exercise1Data.subexerciseListDTO[i] = exeItem;
+                exercise1Data.subexerciseListDTO[i].getListOfPositions(exercise1Data.numberOfRange, 330, 80);
+            }
         }
         ;
+        Exercise1Ctrl.prototype.backspace = function (index) {
+            if (!this.isSummaryActive() && angular.isDefined(this.exercise1Data.subexerciseListDTO[index].givenNumber)) {
+                var givenNumber = this.exercise1Data.subexerciseListDTO[index].givenNumber.toString();
+                var tempNumberString = givenNumber.substring(0, givenNumber.length - 1);
+                var finalNumber;
+                if (tempNumberString.length == 0) {
+                    finalNumber = undefined;
+                }
+                else {
+                    finalNumber = parseInt(tempNumberString);
+                }
+                this.exercise1Data.subexerciseListDTO[index].givenNumber = finalNumber;
+            }
+        };
+        Exercise1Ctrl.prototype.setUserInput = function (index, newVal) {
+            if (!this.isSummaryActive()) {
+                var givenNumber = this.exercise1Data.subexerciseListDTO[index].givenNumber;
+                if (angular.isUndefined(givenNumber) || givenNumber == null) {
+                    givenNumber = newVal;
+                }
+                else if (givenNumber.toString().length < 2) {
+                    givenNumber = parseInt(String(givenNumber) + String(newVal));
+                }
+                console.log(givenNumber.toString().length);
+                this.exercise1Data.subexerciseListDTO[index].givenNumber = givenNumber;
+            }
+        };
         Exercise1Ctrl.$inject = ['$scope', '$location', '$route', 'exercise1Data'];
         return Exercise1Ctrl;
     })(NavigationBase);

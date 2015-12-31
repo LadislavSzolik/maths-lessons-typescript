@@ -11,7 +11,7 @@
 
   <section class="progess-container">
     <uib-progressbar class="progress-box progress-color-exe1" type="exe1" value="currentPage*onePercentage">
-      <b>{{vm.currentPage}}/{{vm.exercise1Data.subexerciseListDTO.length}}</b>
+      <b>{{vm.currentPage}}/{{vm.totalItems}}</b>
     </uib-progressbar>
 
     <a animate-button  class="nav-btn-reload" href ng-click="vm.reload()">
@@ -33,7 +33,7 @@
       <div class="subexe-container-box exe1-background" ng-switch-when="N1a">
         <ul>
           <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.exercise1Data.subexerciseListDTO">
-            <section ng-if="vm.isSummaryActive && $index==0">
+            <section ng-if="vm.isSummaryActive() && $index==0">
               <ul>
                 <li ng-if="$index!==0" ng-repeat="summary in $parent.vm.exercise1Data.subexerciseListDTO">
                   <a href ng-click="selectPage($index+1,$event)">
@@ -48,19 +48,19 @@
               </ul>
             </section>
 
-            <section ng-if="!vm.isSummaryActive || $index !== 0">
+            <section ng-if="!vm.isSummaryActive() || $index !== 0">
               <div class="clearfix">
                 <div class="object-arena">
-                  <img class="counted-object" height="{{vm.elementSize}}" ng-repeat="pos in subExercise.positions" ng-src="{{exe1SubCtrl.imgUrl}}" ng-style="{{pos}}"/>
+                  <img class="counted-object" ng-repeat="pos in subExercise.listOfPositions" src="./app/img/pink-flower.png" ng-style="{{pos.getLargePosition()}}" height="{{subExercise.largeElementSize}}" />
                 </div>
-                <input class="form-control user-result" maxlength="2" ng-change="exe1SubCtrl.changeInput()" ng-class="getResultColor($index+1)" ng-disabled="isSummaryActive" ng-model="exe1SubCtrl.userInput" placeholder="?" required="" type="text"/>
-                <a animate-rubber class="remove-btn" href ng-class="{hide:isSummaryActive}" ng-click="exe1SubCtrl.backspace()">
+                <input class="form-control user-result" maxlength="2"  ng-class="getResultColor($index+1)" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.givenNumber" placeholder="?" required="" type="text"/>
+                <a animate-rubber class="remove-btn" href ng-class="{hide:vm.isSummaryActive()}" ng-click="vm.backspace($index)">
                   <img src="./app/img/rubber.png"/>
                 </a>
               </div>
               <ul class="number-row-container">
                 <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
-                  <input animate-button class="input-number-row" ng-click="exe1SubCtrl.setUserInput($index)" ng-disabled="isSummaryActive" ng-style="exe1SubCtrl.getNumberStyle($index)" type="button" value="{{key}}"/>
+                  <input animate-button class="input-number-row" ng-click="vm.setUserInput($parent.$index, $index)" ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
                 </li>
               </ul>
             </section>
@@ -115,10 +115,10 @@
 
     </div>
 
-    <a animate-button  class="nav-btn-top-right" href ng-class="{disabled:noNext()}" ng-click="selectPage(currentPage+1,$event)">
+    <a animate-button  class="nav-btn-top-right" href ng-class="{disabled:vm.noNext()}" ng-click="vm.selectPage(vm.currentPage+1,$event)">
       <ng-md-icon icon="navigate_next" size="48" style="fill:white"/>
     </a>
-    <a animate-button class="nav-btn-bottom-right" href ng-class="{disabled:isSummaryActive}" ng-click="checkResult()">
+    <a animate-button class="nav-btn-bottom-right" href ng-class="{disabled:vm.isSummaryActive()}" ng-click="vm.checkResult()">
       <ng-md-icon icon="done_all" size="48" style="fill:white"/>
     </a>
   </section>

@@ -329,4 +329,24 @@ header, section {
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
 }
 
+.number-row-container .input-number-row-li:nth-child(1) .input-number-row, .number-row-container .input-number-row-li:nth-child(5) .input-number-row, .number-row-container .input-number-row-li:nth-child(9) .input-number-row {
+  background: #FFB651;
+  border: 2px solid #E48400;
+}
+
+.number-row-container .input-number-row-li:nth-child(2) .input-number-row, .number-row-container .input-number-row-li:nth-child(6) .input-number-row, .number-row-container .input-number-row-li:nth-child(10) .input-number-row {
+  background: #3E7AD0;
+  border: 2px solid #0053CA;
+}
+
+.number-row-container .input-number-row-li:nth-child(3) .input-number-row, .number-row-container .input-number-row-li:nth-child(7) .input-number-row {
+  background: #FF7746;
+  border: 2px solid #FF4400;
+}
+
+.number-row-container .input-number-row-li:nth-child(4) .input-number-row, .number-row-container .input-number-row-li:nth-child(8) .input-number-row {
+  background: #00B47D;
+  border: 2px solid #016F4D;
+}
+
 /* ---- Drag and drop exercise --- */
