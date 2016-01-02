@@ -1,0 +1,21 @@
+<div class="exercise-container menu-padding">
+    <header >
+        <h1>{{vm.texts.mainMenuTitleText}}</h1>
+    </header>
+
+    <section class="clearfix">
+        <div class="col-menu"><span class="header">Numbers &amp; Digits</span></div>
+        <div class="col-menu "><span class="header">+/-</span></div>
+        <div class="col-menu "><span class="header">* / /</span></div>
+        <div class="col-menu "><span class="header">Units</span></div>
+        <div class="col-menu "><span class="header">Geometry</span></div>
+    </section>
+
+    <div class="clearfix">
+        <div class="col-menu" ng-repeat="level in vm.menuData">
+            <div class="clearfix" ng-style="{{exercise.bcgColor}}" ng-repeat="exercise in level.exerciseListDTO">
+                    <a animate-button  class="menu-item"  ng-href="#/{{exercise.exerciseContentDTO.content}}">{{exercise.exerciseContentDTO.content}}</a>
+            </div>
+        </div>
+    </div>
+</div>

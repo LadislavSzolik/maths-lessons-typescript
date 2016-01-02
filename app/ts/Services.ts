@@ -1,7 +1,10 @@
 module exercises {
 
 export interface IExerciseServices {
+  getMenuData():any;
   getExercise1Data():any;
+  getExercise2Data():any;
+  getTexts():any;
 }
 
   export class ExerciseServices implements IExerciseServices {
@@ -10,8 +13,20 @@ export interface IExerciseServices {
     constructor(public $http: ng.IHttpService){
     }
 
+    getMenuData(){
+      return this.$http.get('app/data/menuData.json').then((result) => {return result.data});
+    }
+
     getExercise1Data() {
       return this.$http.get('app/data/exe1Data.json').then((result) => {return result.data});
+    }
+
+    getExercise2Data() {
+      return this.$http.get('app/data/exe2Data.json').then((result) => {return result.data});
+    }
+
+    getTexts() {
+      return this.$http.get('app/data/appTexts.json').then((result) => {return result.data});
     }
   }
 }

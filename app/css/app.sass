@@ -24,10 +24,35 @@ body
 
 /* Main menu header */
 .header
-  background-color: rgb(86, 205, 16)
+  background-color: #FF1654
+  width: 100%
+  display: inline-block
+  padding-top: 15px
+  padding-bottom: 15px
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50)
+  color: white
+  font-size: 15px
+  font-weight: bold
 
 header, section
   position: relative
+
+.col-menu
+  width: 20%
+  float: left
+  padding: 5px
+
+.menu-item
+  float: left
+  width: 100%
+  margin-top: 5px
+  margin-bottom: 5px
+  padding-top: 15px
+  padding-bottom: 15px
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50)
+  background-color: #70C1B3
+  font-size: 20px
+  transition: all 0.2s linear
 
 .nav-btn
   float: left
@@ -111,6 +136,10 @@ header, section
   margin-top: 10px
   width: 1000px !important
   padding: 5px 5px 20px 5px
+
+.menu-padding
+  padding-left: 20px
+  padding-right: 20px
 
 /* customized uib progress bar */
 @mixin progress-bar-text($color)

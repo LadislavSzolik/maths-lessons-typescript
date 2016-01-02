@@ -6,7 +6,7 @@
     <a animate-button class="nav-btn-close" href ng-click="vm.exit()">
       <ng-md-icon icon="close" size="36" style="fill:white"/>
     </a>
-    <h1>{{allTexts.countExericseTitleText}}</h1>
+    <h1>{{vm.texts.exe1TitleText}}</h1>
   </header>
 
   <section class="progess-container">
@@ -14,18 +14,18 @@
       <b>{{vm.currentPage}}/{{vm.totalItems}}</b>
     </uib-progressbar>
 
-    <a animate-button  class="nav-btn-reload" href ng-click="vm.reload()">
+    <a animate-button class="nav-btn-reload" href ng-click="vm.reload()">
       <ng-md-icon icon="refresh" size="36" style="fill:white"/>
     </a>
   </section>
 
   <section class="main-content">
     <!-- ng-swipe-left="selectPage(currentPage-1,$event)" ng-swipe-right="selectPage(currentPage+1,$event)" -->
-    <a animate-button  class="nav-btn-top-left" href ng-class="{disabled:vm.noPrevious()}" ng-click="vm.selectPage(vm.currentPage-1,$event)">
+    <a animate-button class="nav-btn-top-left" href ng-class="{disabled:vm.noPrevious()}" ng-click="vm.selectPage(vm.currentPage-1,$event)">
       <ng-md-icon icon="navigate_before" size="48" style="fill:white"/>
     </a>
 
-    <a animate-button class="nav-btn-bottom-left hide" href ng-class="{show:vm.isSummaryActive}" ng-click="vm.currentPage = 1">
+    <a animate-button class="nav-btn-bottom-left hide" href ng-class="{show:vm.isSummaryActive()}" ng-click="vm.currentPage = 1">
       <ng-md-icon icon="apps" size="48" style="fill:white"/>
     </a>
 
@@ -35,13 +35,13 @@
           <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.exercise1Data.subexerciseListDTO">
             <section ng-if="vm.isSummaryActive() && $index==0">
               <ul>
-                <li ng-if="$index!==0" ng-repeat="summary in $parent.vm.exercise1Data.subexerciseListDTO">
-                  <a href ng-click="selectPage($index+1,$event)">
+                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise1Data.subexerciseListDTO">
+                  <a href ng-click="vm.selectPage($index+1,$event)">
                     <div class="object-arena arena-small">
-                      <img class="counted-object" height="{{exe1SubCtrlSummary.elementSize}}" ng-repeat="pos in exe1SubCtrlSummary.positionArray" ng-src="{{exe1SubCtrlSummary.imgUrl}}" ng-style="{{pos}}"/>
+                      <img class="counted-object" height="{{summary.smallElementSize}}" ng-repeat="pos in summary.listOfPositions" ng-style="{{pos.getSmallPosition()}}" src="./app/img/pink-flower.png"/>
                     </div>
                     <div class="user-result-summary-container">
-                      <input class="form-control user-result-summary" disabled ng-class="summary.resultStyle" type="text" value="{{exe1SubCtrlSummary.userInput}}"/>
+                      <input class="form-control user-result-summary" disabled ng-class="{'valid-result':vm.isCorrect($index), 'invalid-result':!vm.isCorrect($index)}" type="text" value="{{summary.givenNumber}}"/>
                     </div>
                   </a>
                 </li>
@@ -51,9 +51,9 @@
             <section ng-if="!vm.isSummaryActive() || $index !== 0">
               <div class="clearfix">
                 <div class="object-arena">
-                  <img class="counted-object" ng-repeat="pos in subExercise.listOfPositions" src="./app/img/pink-flower.png" ng-style="{{pos.getLargePosition()}}" height="{{subExercise.largeElementSize}}" />
+                  <img class="counted-object" height="{{subExercise.largeElementSize}}" ng-repeat="pos in subExercise.listOfPositions" ng-style="{{pos.getLargePosition()}}" src="./app/img/pink-flower.png"/>
                 </div>
-                <input class="form-control user-result" maxlength="2"  ng-class="getResultColor($index+1)" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.givenNumber" placeholder="?" required="" type="text"/>
+                <input class="form-control user-result" maxlength="2" ng-class="{'valid-result':vm.isCorrect($index) && vm.isSummaryActive() , 'invalid-result':!vm.isCorrect($index) && vm.isSummaryActive()}" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.givenNumber" placeholder="?" required="" type="text"/>
                 <a animate-rubber class="remove-btn" href ng-class="{hide:vm.isSummaryActive()}" ng-click="vm.backspace($index)">
                   <img src="./app/img/rubber.png"/>
                 </a>
@@ -68,19 +68,20 @@
         </ul>
       </div>
 
+      <!-- exercise 2 view -->
       <div class="subexe-container-box exe2-background" ng-switch-when="N1b">
         <ul>
-          <li ng-if="isCurrentExercise($index)" ng-repeat="subExercise in countExerciseData">
-            <div ng-if="isSummaryActive && $index==0">
+          <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.exercise2Data.subexerciseListDTO">
+            <div ng-if="vm.isSummaryActive() && $index==0">
               <ul>
-                <li ng-controller="exe2Summary as exe2Summary" ng-if="$index!==0" ng-repeat="summary in $parent.countExerciseData">
-                  <a href ng-click="selectPage($index+1,$event)">
+                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise2Data.subexerciseListDTO">
+                  <a href ng-click="vm.selectPage($index+1,$event)">
                     <div style="float:left; margin:0% 1% 0% 1%">
                       <input class="form-control exe2-number-box-small" disabled style="background-color: #FBF168 !important;" type="text" value="{{summary.expectedResult}}"/>
                     </div>
                     <div class="container-field-exe2-summary" ng-class="summary.resultStyle">
-                      <div class="counted-object" ng-repeat="pos in exe2Summary.positionArray" ng-show="exe2Summary.isAdded(pos)" ng-style="{{pos.initPlace}}" style="cursor:pointer;">
-                        <img height="{{exe2Summary.elementSize}}" ng-src="{{exe2Summary.imgUrl}}"/>
+                      <div class="counted-object" ng-repeat="pos in summary.listOfPositions" ng-show="vm.isAdded(pos)" ng-style="{{pos.initPlace}}" style="cursor:pointer;">
+                        <img height="{{exe2Summary.elementSize}}" src="./app/img/pink-flower.png"/>
                       </div>
                     </div>
                   </a>
@@ -88,23 +89,24 @@
               </ul>
             </div>
 
-            <div ng-controller="exe2SubCtrl as exe2SubCtrl" ng-if="!isSummaryActive || $index !== 0">
-              <input class="form-control exe2-number-box" disabled type="text" value="{{subExercise.expectedResult}}"/>
+            <div ng-if="!vm.isSummaryActive() || $index !== 0">
+              <input class="form-control exe2-number-box" disabled type="text" value="{{subExercise.number}}"/>
               <div class="exe2-object-holder-box" droppable-origin >
                 <!--  <a href ng-click="exe2SubCtrl.addObject()"> -->
                 <div class="counted-object" style="top:80px; left:125px;">
-                  <img height="66px" ng-src="{{exe2SubCtrl.imgUrl}}"/>
+                  <img height="66px" src="./app/img/pink-flower.png"/>
                 </div>
                 <div class="counted-object" style="top: 80px; left:10px;">
-                  <img height="66px" ng-src="{{exe2SubCtrl.imgUrl}}"/>
+                  <img height="66px" src="./app/img/pink-flower.png"/>
                 </div>
                 <!--</a> -->
               </div>
 
-              <div class="object-arena exe2-position" droppable-object ng-class="getResultColor($index+1)">
-                <img class="counted-object" height="{{exe2SubCtrl.elementSize}}" original-height="{{pos.elementSize}}" draggable-object ng-repeat="pos in exe2SubCtrl.positionArray" ng-show="exe2SubCtrl.isAdded(pos)" ng-src="{{exe2SubCtrl.imgUrl}}" id="{{pos.id}}" ng-style="{{pos.initPlace}}" target-top="{{pos.targetPlace.top}}" target-left="{{pos.targetPlace.left}}" style="cursor:pointer;"/>
+              <div class="object-arena exe2-position" droppable-object ng-class="{'valid-result':vm.isCorrect($index) && vm.isSummaryActive() , 'invalid-result':!vm.isCorrect($index) && vm.isSummaryActive()}">
+                <img class="counted-object" draggable-object height="{{subExercise.largeElementSize}}" id="{{object.id}}" ng-repeat="object in subExercise.listOfPositions" ng-show="object.isDisplayed" ng-style="{{object.getInitPlace()}}" original-height="{{subExercise.largeElementSize}}" src="./app/img/pink-flower.png" style="cursor:pointer;" target-left="{{object.largePositionLeft}" target-top="{{object.largePositionTop}}"/>
+
               </div>
-              <a class="remove-btn remove-btn-exe2-postion" animate-rubber ng-click="exe2SubCtrl.removeOne()"  href ng-class="{hide:isSummaryActive}">
+              <a animate-rubber class="remove-btn remove-btn-exe2-postion" href ng-class="{hide:vm.isSummaryActive()}" ng-click="vm.removeOne()">
                 <img src="./app/img/rubber.png"/>
               </a>
             </div>
@@ -112,10 +114,11 @@
           </li>
         </ul>
       </div>
+      <!-- end of exercise 2 view -->
 
     </div>
 
-    <a animate-button  class="nav-btn-top-right" href ng-class="{disabled:vm.noNext()}" ng-click="vm.selectPage(vm.currentPage+1,$event)">
+    <a animate-button class="nav-btn-top-right" href ng-class="{disabled:vm.noNext()}" ng-click="vm.selectPage(vm.currentPage+1,$event)">
       <ng-md-icon icon="navigate_next" size="48" style="fill:white"/>
     </a>
     <a animate-button class="nav-btn-bottom-right" href ng-class="{disabled:vm.isSummaryActive()}" ng-click="vm.checkResult()">

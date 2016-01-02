@@ -5,4 +5,5 @@
 /// <reference path="./Services.ts"/>
 /// <reference path="./ExerciseStorage.ts"/>
 /// <reference path="./ExerciseCtrl.ts"/>
+/// <reference path="./Directives.ts"/>
 /// <reference path="./Application.ts"/>

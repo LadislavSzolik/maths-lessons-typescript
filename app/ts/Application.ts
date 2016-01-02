@@ -3,20 +3,33 @@
 module exercises {
 
 var mathApp = angular.module('maths', ['ngMdIcons', 'ngTouch','ui.bootstrap', 'ngRoute']);
+
+mathApp.controller('homeCtrl',HomeCtrl);
 mathApp.controller('exercise1Ctrl',Exercise1Ctrl);
+mathApp.controller('exercise2Ctrl',Exercise2Ctrl);
+
 mathApp.service('exerciseServices', ExerciseServices);
+
+mathApp.directive('animateRubber',animateRubber);
+mathApp.directive('animateButton',animateButton);
+mathApp.directive('draggableObject',draggableObject);
+mathApp.directive('droppableObject',droppableObject);
+mathApp.directive('droppableOrigin',droppableOrigin);
+
+
+// TODO: resolve caching of the services
 
 mathApp.config(['$routeProvider', function($routeProvider:any ) {
     $routeProvider.when('/', {
         templateUrl: 'app/components/homeView.html',
         controller: 'homeCtrl',
         resolve: {
-          allTexts: ['textService', function(textService:any) {
-            return textService.getAllTexts();
-          }],
-          mainMenuData: ['menuLoaderService', function(menuLoaderService:any) {
-            return menuLoaderService.getMainMenuData();
-          }]
+          'menuData': (exerciseServices:IExerciseServices) => {
+            return exerciseServices.getMenuData();
+          },
+          'texts': (exerciseServices:IExerciseServices) => {
+            return exerciseServices.getTexts();
+          }
         }
       }).when('/N1a', {
         templateUrl: 'app/components/exerciseView.html',
@@ -24,20 +37,23 @@ mathApp.config(['$routeProvider', function($routeProvider:any ) {
         resolve: {
           'exercise1Data': (exerciseServices:IExerciseServices) => {
             return exerciseServices.getExercise1Data();
+          },
+          'texts': (exerciseServices:IExerciseServices) => {
+            return exerciseServices.getTexts();
           }
 
         }
       }).when('/N1b', {
         templateUrl: 'app/components/exerciseView.html',
-        controller: 'exercise2Controller',
+        controller: 'exercise2Ctrl',
         exetype: 'N1b',
         resolve: {
-          'countExerciseServiceData': function(exercise2Service:any) {
-            return exercise2Service.dataLoadPromise;
+          'exercise2Data': (exerciseServices:IExerciseServices) => {
+            return exerciseServices.getExercise2Data();
           },
-          allTexts: ['textService', function(textService:any) {
-            return textService.getAllTexts();
-          }],
+          'texts': (exerciseServices:IExerciseServices) => {
+            return exerciseServices.getTexts();
+          }
         }
       }).when('/N1c', {
         templateUrl: 'app/components/testerPage.html',

@@ -7,13 +7,19 @@ module exercises {
     numberOfRange: number;
     subexerciseListDTO: Exercise1Item[];
   }
-  export class BaseItem { }
+
+  export interface IExercise2 {
+    numberOfElements: number;
+    numberOfRange: number;
+    subexerciseListDTO: Exercise2Item[];
+  }
+
 
   export class Exercise1Item {
     public givenNumber: number;
     public listOfPositions: ObjectPosition[];
-    public largeElementSize:number;
-    public smallElementSize:number;
+    public largeElementSize: number;
+    public smallElementSize: number;
 
     constructor(public number: number) {
 
@@ -50,19 +56,53 @@ module exercises {
 
   }
 
+  export class Exercise2Item extends Exercise1Item {
+
+    constructor(public number: number) {
+      super(number);  
+    }
+
+    addObject() {
+      for (var i = 0; i < this.listOfPositions.length; i++) {
+        if (this.listOfPositions[i].isDisplayed == false) {
+          this.listOfPositions[i].isDisplayed = true;
+          return;
+        }
+      }
+    }
+  }
+
+
+
+
+
+
   export class ObjectPosition {
+    public isDisplayed: boolean;
+
     constructor(public largePositionTop: number,
       public largePositionLeft: number,
       public smallPositionTop: number,
-      public smallPositionLeft: number) {
+      public smallPositionLeft: number
+      ) {
+      this.isDisplayed = false;
     }
 
-    getLargePosition():Object {
-      return {top: this.largePositionTop+'px', left: this.largePositionLeft+'px'};
+    getInitPlace(): Object {
+      return {
+        top: '230px',
+        left: '-200px',
+        height: '120px',
+        'z-index': '99'
+      };
     }
 
-    getSmallPosition():Object {
-      return {top: this.smallPositionTop+'px', left: this.smallPositionLeft+'px'};
+    getLargePosition(): Object {
+      return { top: this.largePositionTop + 'px', left: this.largePositionLeft + 'px' };
+    }
+
+    getSmallPosition(): Object {
+      return { top: this.smallPositionTop + 'px', left: this.smallPositionLeft + 'px' };
     }
   }
 
