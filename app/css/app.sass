@@ -120,11 +120,9 @@ header, section
 
 .valid-result
   background-color: $valid-result-color !important
-  cursor: pointer !important
 
 .invalid-result
   background-color: $invalid-result-color !important
-  cursor: pointer !important
 
 .exercise-container
   border-radius: 8px
@@ -318,9 +316,20 @@ header, section
 
 .exe2-number-box-small
   font-size: 36px
-  margin-top: 10px
+  margin-top: 20px
   width: 70px
-  @include user-result-common(#E24CFF)
+  height: 70px
+  border-radius: 40px
+  margin-bottom: 20px
+  padding: 10px 5px
+  text-align: center
+  background-color: #E2DA97 !important
+  border: 2px solid #7C3A78
+
+.disabling-layer
+  opacity: 0.5
+  z-index: 99
+  background-color: white !important
 
 /* require for exe1 */
 .counted-object

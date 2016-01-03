@@ -8,30 +8,34 @@ var exercises;
     var Exercise1Item = (function () {
         function Exercise1Item(number) {
             this.number = number;
+            this.itemId = Exercise1Item.id++;
         }
         Exercise1Item.prototype.getElementSizeForFrameSize = function (size, numberOfRange) {
             var frameArea = size * size;
             var limitCorrection = CommonMath.findNextSqrt(numberOfRange);
             return Math.sqrt(Math.floor(frameArea / limitCorrection));
         };
-        Exercise1Item.prototype.getListOfPositions = function (numberOfRange, largeFrame, smallFrame) {
+        Exercise1Item.prototype.getListOfPositions = function (numberOfRange, largeFrame, smallFrame, targetNumber) {
             if (angular.isUndefined(this.listOfPositions)) {
                 this.listOfPositions = [];
                 this.largeElementSize = this.getElementSizeForFrameSize(largeFrame, numberOfRange);
                 this.smallElementSize = this.getElementSizeForFrameSize(smallFrame, numberOfRange);
                 var largeFrameRowsNumber = Math.round(largeFrame / this.largeElementSize);
                 var possiblePositions = CommonMath.getNumberArr(largeFrameRowsNumber * largeFrameRowsNumber, 1);
-                for (var i = 0; i < this.number; i++) {
+                for (var i = 0; i < targetNumber; i++) {
                     var position = (possiblePositions.splice(Math.floor(Math.random() * possiblePositions.length), 1))[0];
                     var largeTop = Math.floor(this.largeElementSize * Math.floor(position / largeFrameRowsNumber));
                     var largeLeft = Math.floor(this.largeElementSize * (position % largeFrameRowsNumber));
                     var smallTop = Math.floor(this.smallElementSize * Math.floor(position / largeFrameRowsNumber));
                     var smallLeft = Math.floor(this.smallElementSize * (position % largeFrameRowsNumber));
-                    this.listOfPositions.push(new ObjectPosition(largeTop, largeLeft, smallTop, smallLeft));
+                    var objectPosition = new ObjectPosition(largeTop, largeLeft, smallTop, smallLeft);
+                    objectPosition.parentId = this.itemId;
+                    this.listOfPositions.push(objectPosition);
                 }
             }
             return this.listOfPositions;
         };
+        Exercise1Item.id = 0;
         return Exercise1Item;
     })();
     exercises.Exercise1Item = Exercise1Item;
@@ -59,21 +63,41 @@ var exercises;
             this.smallPositionTop = smallPositionTop;
             this.smallPositionLeft = smallPositionLeft;
             this.isDisplayed = false;
+            this.objectId = ObjectPosition.id++;
+            this.isDropped = false;
+            this.isDisabled = false;
         }
         ObjectPosition.prototype.getInitPlace = function () {
-            return {
-                top: '230px',
-                left: '-200px',
-                height: '120px',
-                'z-index': '99'
-            };
+            if (this.isDropped) {
+                return {
+                    top: this.largePositionTop,
+                    left: this.largePositionLeft,
+                };
+            }
+            else {
+                return {
+                    top: '230px',
+                    left: '-200px',
+                    height: '120px',
+                    'z-index': '99'
+                };
+            }
         };
         ObjectPosition.prototype.getLargePosition = function () {
             return { top: this.largePositionTop + 'px', left: this.largePositionLeft + 'px' };
         };
+        ObjectPosition.prototype.setLargePosition = function (top, left) {
+            this.largePositionTop = top;
+            this.largePositionLeft = left;
+        };
         ObjectPosition.prototype.getSmallPosition = function () {
             return { top: this.smallPositionTop + 'px', left: this.smallPositionLeft + 'px' };
         };
+        ObjectPosition.prototype.setSmallPosition = function (top, left) {
+            this.smallPositionTop = top;
+            this.smallPositionLeft = left;
+        };
+        ObjectPosition.id = 0;
         return ObjectPosition;
     })();
     exercises.ObjectPosition = ObjectPosition;
@@ -214,7 +238,7 @@ var exercises;
             for (var i = 0; i < exercise1Data.subexerciseListDTO.length; i++) {
                 var exeItem = new exercises.Exercise1Item(exercise1Data.subexerciseListDTO[i].number);
                 exercise1Data.subexerciseListDTO[i] = exeItem;
-                exercise1Data.subexerciseListDTO[i].getListOfPositions(exercise1Data.numberOfRange, 330, 90);
+                exercise1Data.subexerciseListDTO[i].getListOfPositions(exercise1Data.numberOfRange, 330, 90, exercise1Data.subexerciseListDTO[i].number);
             }
         }
         ;
@@ -253,20 +277,60 @@ var exercises;
     exercises.Exercise1Ctrl = Exercise1Ctrl;
     var Exercise2Ctrl = (function (_super) {
         __extends(Exercise2Ctrl, _super);
-        function Exercise2Ctrl($scope, $location, $route, exercise2Data, texts) {
+        function Exercise2Ctrl($scope, $location, $route, exercise2Data, texts, $rootScope) {
+            var _this = this;
             _super.call(this, $scope, $location, $route, exercise2Data);
             this.$scope = $scope;
             this.$location = $location;
             this.$route = $route;
             this.exercise2Data = exercise2Data;
             this.texts = texts;
+            this.$rootScope = $rootScope;
             this.exetype = "N1b";
+            this.isLastElement = false;
             for (var i = 0; i < exercise2Data.subexerciseListDTO.length; i++) {
                 var exeItem = new exercises.Exercise2Item(exercise2Data.subexerciseListDTO[i].number);
                 exercise2Data.subexerciseListDTO[i] = exeItem;
-                exercise2Data.subexerciseListDTO[i].getListOfPositions(exercise2Data.numberOfRange, 330, 90);
+                exercise2Data.subexerciseListDTO[i].getListOfPositions(exercise2Data.numberOfRange, 330, 90, 25);
                 exercise2Data.subexerciseListDTO[i].addObject();
             }
+            $rootScope.$on('dropped', function (event, args) {
+                var countOfDisplayed = 0;
+                var countOfDropped = 0;
+                for (var i = 0; i < exercise2Data.subexerciseListDTO.length; i++) {
+                    if (exercise2Data.subexerciseListDTO[i].itemId == args.parentId) {
+                        for (var j = 0; j < exercise2Data.subexerciseListDTO[i].listOfPositions.length; j++) {
+                            if (exercise2Data.subexerciseListDTO[i].listOfPositions[j].isDisplayed) {
+                                countOfDisplayed++;
+                            }
+                            if (exercise2Data.subexerciseListDTO[i].listOfPositions[j].isDropped) {
+                                countOfDropped++;
+                            }
+                        }
+                        exercise2Data.subexerciseListDTO[i].givenNumber = countOfDropped;
+                        if (countOfDropped == exercise2Data.subexerciseListDTO[i].listOfPositions.length) {
+                            _this.isLastElement = true;
+                            $rootScope.$digest();
+                        }
+                        if (countOfDisplayed == countOfDropped) {
+                            exercise2Data.subexerciseListDTO[i].addObject();
+                            $rootScope.$digest();
+                        }
+                    }
+                }
+            });
+            $scope.$watch('vm.summaryActivated', function (summaryActivated) {
+                if (summaryActivated == false) {
+                    return;
+                }
+                for (var i = 0; i < exercise2Data.subexerciseListDTO.length; i++) {
+                    if (angular.isDefined(exercise2Data.subexerciseListDTO[i].listOfPositions)) {
+                        for (var j = 0; j < exercise2Data.subexerciseListDTO[i].listOfPositions.length; j++) {
+                            exercise2Data.subexerciseListDTO[i].listOfPositions[j].isDisabled = true;
+                        }
+                    }
+                }
+            });
         }
         ;
         Exercise2Ctrl.prototype.backspace = function (index) {
@@ -298,7 +362,7 @@ var exercises;
         Exercise2Ctrl.prototype.isCorrect = function (index) {
             return this.exercise1Data.subexerciseListDTO[index].givenNumber == this.exercise1Data.subexerciseListDTO[index].number;
         };
-        Exercise2Ctrl.$inject = ['$scope', '$location', '$route', 'exercise2Data', 'texts'];
+        Exercise2Ctrl.$inject = ['$scope', '$location', '$route', 'exercise2Data', 'texts', '$rootScope'];
         return Exercise2Ctrl;
     })(NavigationBase);
     exercises.Exercise2Ctrl = Exercise2Ctrl;
@@ -336,58 +400,59 @@ var exercises;
     function draggableObject($rootScope) {
         return {
             link: function ($scope, element, attr) {
-                var alreadyDropped = false;
+                if ($scope.object.isDisabled) {
+                    return;
+                }
                 var hideObject = function () {
-                    $(element).css({
-                        top: "230px",
-                        left: "-200px",
-                        height: "120px"
-                    });
-                    $rootScope.$emit('hideObject', {
-                        objectId: attr.id
-                    });
+                    $scope.object.isDisplayed = false;
+                    $rootScope.$digest();
+                    $(element).css($scope.object.getInitPlace());
                 };
                 $rootScope.$on('hide.with.rubber', function (event, args) {
                     if (args.objectId == attr.id) {
-                        alreadyDropped = false;
+                        $scope.object.isDropped = false;
                     }
                 });
                 $(element).draggable({
-                    revert: "invalid",
+                    revert: function (dropped) { console.log(dropped); },
                     stop: function (event, ui) {
-                        if (ui.helper.data('dropped-target') == true && alreadyDropped != true) {
+                        $scope.object.setLargePosition($(this).position().top, $(this).position().left);
+                        $scope.object.setSmallPosition($(this).position().top / 3.67, $(this).position().left / 3.67);
+                        if (ui.helper.data('dropped-target') == true && $scope.object.isDropped != true) {
+                            $scope.object.isDropped = true;
                             $(this).animate({
                                 height: attr.originalHeight
                             }, 200);
                             $rootScope.$emit('dropped', {
-                                objectId: attr.id
+                                objectId: $scope.object.objectId,
+                                parentId: $scope.object.parentId
                             });
-                            alreadyDropped = true;
                         }
                         else if (ui.helper.data('dropped-origin') == true) {
+                            $scope.object.isDropped = false;
                             ui.helper.data('dropped-target', false);
                             ui.helper.data('dropped-origin', false);
-                            alreadyDropped = false;
                             hideObject();
                         }
                     }
                 });
                 $(element).on("click", function () {
-                    if (alreadyDropped == true) {
+                    if ($scope.object.isDropped == true) {
+                        $scope.object.isDropped = false;
                         hideObject();
-                        alreadyDropped = false;
                     }
                     else {
+                        $scope.object.isDropped = true;
                         $(this).animate({
                             height: attr.originalHeight,
-                            top: attr.targetTop,
-                            left: attr.targetLeft
+                            top: $scope.object.largePositionTop,
+                            left: $scope.object.largePositionLeft
                         }, 200);
-                        alreadyDropped = true;
-                        $rootScope.$emit('dropped', {
-                            objectId: attr.id
-                        });
                     }
+                    $rootScope.$emit('dropped', {
+                        objectId: $scope.object.objectId,
+                        parentId: $scope.object.parentId
+                    });
                 });
             }
         };

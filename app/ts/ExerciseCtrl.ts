@@ -90,7 +90,7 @@ module exercises {
       for (var i: number = 0; i < exercise1Data.subexerciseListDTO.length; i++) {
         var exeItem: Exercise1Item = new Exercise1Item(exercise1Data.subexerciseListDTO[i].number);
         exercise1Data.subexerciseListDTO[i] = exeItem;
-        exercise1Data.subexerciseListDTO[i].getListOfPositions(exercise1Data.numberOfRange, 330, 90);
+        exercise1Data.subexerciseListDTO[i].getListOfPositions(exercise1Data.numberOfRange, 330, 90, exercise1Data.subexerciseListDTO[i].number);
       }
     };
 
@@ -134,25 +134,74 @@ module exercises {
 
     public exetype: String = "N1b";
     public elementSize: number;
-    public static $inject = ['$scope', '$location', '$route', 'exercise2Data', 'texts'];
+    public static $inject = ['$scope', '$location', '$route', 'exercise2Data', 'texts', '$rootScope'];
+    public isLastElement: boolean;
 
     constructor(
       protected $scope: any,
       protected $location: ng.ILocationService,
       protected $route: any,
       public exercise2Data: IExercise2,
-      public texts: any) {
+      public texts: any,
+      public $rootScope: any) {
+
       super($scope, $location, $route, exercise2Data);
+
+      this.isLastElement = false;
+
       for (var i: number = 0; i < exercise2Data.subexerciseListDTO.length; i++) {
         var exeItem: Exercise2Item = new Exercise2Item(exercise2Data.subexerciseListDTO[i].number);
         exercise2Data.subexerciseListDTO[i] = exeItem;
-        exercise2Data.subexerciseListDTO[i].getListOfPositions(exercise2Data.numberOfRange, 330, 90);
+        exercise2Data.subexerciseListDTO[i].getListOfPositions(exercise2Data.numberOfRange, 330, 90, 25);
         exercise2Data.subexerciseListDTO[i].addObject();
       }
 
+      $rootScope.$on('dropped', (event: any, args: any) => {
+        var countOfDisplayed = 0;
+        var countOfDropped = 0;
+
+        for (var i: number = 0; i < exercise2Data.subexerciseListDTO.length; i++) {
+          if (exercise2Data.subexerciseListDTO[i].itemId == args.parentId) {
+            for (var j: number = 0; j < exercise2Data.subexerciseListDTO[i].listOfPositions.length; j++) {
+              if (exercise2Data.subexerciseListDTO[i].listOfPositions[j].isDisplayed) {
+                countOfDisplayed++;
+              }
+              if (exercise2Data.subexerciseListDTO[i].listOfPositions[j].isDropped) {
+                countOfDropped++;
+              }
+            }
+
+            exercise2Data.subexerciseListDTO[i].givenNumber = countOfDropped;
+
+            if (countOfDropped == exercise2Data.subexerciseListDTO[i].listOfPositions.length) {
+              this.isLastElement = true;
+              $rootScope.$digest();
+            }
+
+            if (countOfDisplayed == countOfDropped) {
+              exercise2Data.subexerciseListDTO[i].addObject();
+              $rootScope.$digest();
+            }
+
+
+          }
+        }
+      });
+
+      $scope.$watch('vm.summaryActivated', (summaryActivated: boolean) => {
+        if (summaryActivated == false) {
+          return
+        }
+        for (var i: number = 0; i < exercise2Data.subexerciseListDTO.length; i++) {
+          if (angular.isDefined(exercise2Data.subexerciseListDTO[i].listOfPositions)) {
+            for (var j: number = 0; j < exercise2Data.subexerciseListDTO[i].listOfPositions.length; j++) {
+              exercise2Data.subexerciseListDTO[i].listOfPositions[j].isDisabled = true;
+            }
+          }
+        }
+      });
+
     };
-
-
 
     backspace(index: number) {
       if (!this.isSummaryActive() && angular.isDefined(this.exercise1Data.subexerciseListDTO[index].givenNumber)) {

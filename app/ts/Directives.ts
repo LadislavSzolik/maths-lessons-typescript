@@ -30,60 +30,70 @@ module exercises {
 
   export function draggableObject($rootScope: any): ng.IDirective {
     return {
-      link: ($scope: ng.IScope, element: JQuery, attr: any) => {
-        var alreadyDropped = false;
+      link: ($scope: any, element: JQuery, attr: any) => {
+
+        if($scope.object.isDisabled) {
+          return
+        }
+
         var hideObject = function() {
-          $(element).css({
-            top: "230px",
-            left: "-200px",
-            height: "120px"
-          });
-          $rootScope.$emit('hideObject', {
-            objectId: attr.id
-          });
+          $scope.object.isDisplayed = false;
+          $rootScope.$digest();  // necessary for ng-show re-render
+          $(element).css($scope.object.getInitPlace());
         };
+
         $rootScope.$on('hide.with.rubber', function(event: any, args: any) {
           if (args.objectId == attr.id) {
-            alreadyDropped = false;
+            $scope.object.isDropped = false;
           }
         });
+
         $(element).draggable({
-          revert: "invalid",
+          revert: (dropped:any) => { console.log(dropped)},
           stop: function(event, ui) {
-            if (ui.helper.data('dropped-target') == true && alreadyDropped != true) {
+            $scope.object.setLargePosition($(this).position().top, $(this).position().left);
+            $scope.object.setSmallPosition($(this).position().top/3.67, $(this).position().left/3.67);
+
+            if (ui.helper.data('dropped-target') == true && $scope.object.isDropped != true) {
+              $scope.object.isDropped = true;
               $(this).animate({
                 height: attr.originalHeight
               }, 200);
+
               $rootScope.$emit('dropped', {
-                objectId: attr.id
+                objectId: $scope.object.objectId,
+                parentId: $scope.object.parentId
               });
-              alreadyDropped = true;
             }
             else if (ui.helper.data('dropped-origin') == true) {
+              $scope.object.isDropped = false;
               ui.helper.data('dropped-target', false);
               ui.helper.data('dropped-origin', false);
-              alreadyDropped = false;
               hideObject();
             }
           }
         });
+
+        // On Click event
         $(element).on("click", function() {
-          if (alreadyDropped == true) {
+          if ($scope.object.isDropped == true) {
+            $scope.object.isDropped = false;
             hideObject();
-            alreadyDropped = false;
           }
           else {
+            $scope.object.isDropped = true;
             $(this).animate({
               height: attr.originalHeight,
-              top: attr.targetTop,
-              left: attr.targetLeft
+              top: $scope.object.largePositionTop,
+              left: $scope.object.largePositionLeft
             }, 200);
-            alreadyDropped = true;
-            $rootScope.$emit('dropped', {
-              objectId: attr.id
-            });
           }
+          $rootScope.$emit('dropped', {
+            objectId: $scope.object.objectId,
+            parentId: $scope.object.parentId
+          });
         });
+
       }
     }
   };
