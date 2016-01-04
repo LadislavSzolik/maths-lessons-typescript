@@ -37,19 +37,19 @@ module exercises {
         }
 
         var hideObject = function() {
-          $scope.object.isDisplayed = false;
-          $rootScope.$digest();  // necessary for ng-show re-render
+          $scope.object.isDropped = false;
+          $scope.object.isDisplayed = false;        
           $(element).css($scope.object.getInitPlace());
         };
 
-        $rootScope.$on('hide.with.rubber', function(event: any, args: any) {
-          if (args.objectId == attr.id) {
-            $scope.object.isDropped = false;
+        $rootScope.$on('rubber.remove', (event:any, args:any) =>{
+          if(args.objectId == $scope.object.objectId) {
+            hideObject();
           }
-        });
+        })
 
         $(element).draggable({
-          revert: (dropped:any) => { console.log(dropped)},
+          revert: "invalid",
           stop: function(event, ui) {
             $scope.object.setLargePosition($(this).position().top, $(this).position().left);
             $scope.object.setSmallPosition($(this).position().top/3.67, $(this).position().left/3.67);
@@ -66,7 +66,6 @@ module exercises {
               });
             }
             else if (ui.helper.data('dropped-origin') == true) {
-              $scope.object.isDropped = false;
               ui.helper.data('dropped-target', false);
               ui.helper.data('dropped-origin', false);
               hideObject();
@@ -77,7 +76,6 @@ module exercises {
         // On Click event
         $(element).on("click", function() {
           if ($scope.object.isDropped == true) {
-            $scope.object.isDropped = false;
             hideObject();
           }
           else {
@@ -121,10 +119,8 @@ module exercises {
       link: ($scope: ng.IScope, element: JQuery, attributes: any) => {
         $(element).droppable({
           drop: function(event, ui) {
-            if (ui.draggable.data('dropped-target') == true && ui.draggable.data('dropped-origin') != true) {
               ui.draggable.data('dropped-origin', true);
               ui.draggable.data('dropped-target', false);
-            }
           }
         });
       }

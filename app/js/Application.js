@@ -187,6 +187,7 @@ var exercises;
             this.currentPage = 1;
             this.totalItems = this.exercise1Data.subexerciseListDTO.length;
             this.summaryActivated = false;
+            this.onePercentage = 100 / this.exercise1Data.subexerciseListDTO.length;
         }
         NavigationBase.prototype.isCurrentExercise = function (index) {
             return this.currentPage == (index + 1);
@@ -333,18 +334,14 @@ var exercises;
             });
         }
         ;
-        Exercise2Ctrl.prototype.backspace = function (index) {
-            if (!this.isSummaryActive() && angular.isDefined(this.exercise1Data.subexerciseListDTO[index].givenNumber)) {
-                var givenNumber = this.exercise1Data.subexerciseListDTO[index].givenNumber.toString();
-                var tempNumberString = givenNumber.substring(0, givenNumber.length - 1);
-                var finalNumber;
-                if (tempNumberString.length == 0) {
-                    finalNumber = undefined;
+        Exercise2Ctrl.prototype.removeOne = function (index) {
+            if (!this.isSummaryActive() && angular.isDefined(this.exercise2Data.subexerciseListDTO[index].givenNumber)) {
+                for (var i = 0; i < this.exercise2Data.subexerciseListDTO[index].listOfPositions.length; i++) {
+                    if (this.exercise2Data.subexerciseListDTO[index].listOfPositions[i].isDropped == true) {
+                        this.$rootScope.$emit('rubber.remove', { objectId: this.exercise2Data.subexerciseListDTO[index].listOfPositions[i].objectId });
+                        return;
+                    }
                 }
-                else {
-                    finalNumber = parseInt(tempNumberString);
-                }
-                this.exercise1Data.subexerciseListDTO[index].givenNumber = finalNumber;
             }
         };
         Exercise2Ctrl.prototype.setUserInput = function (index, newVal) {
@@ -404,17 +401,17 @@ var exercises;
                     return;
                 }
                 var hideObject = function () {
+                    $scope.object.isDropped = false;
                     $scope.object.isDisplayed = false;
-                    $rootScope.$digest();
                     $(element).css($scope.object.getInitPlace());
                 };
-                $rootScope.$on('hide.with.rubber', function (event, args) {
-                    if (args.objectId == attr.id) {
-                        $scope.object.isDropped = false;
+                $rootScope.$on('rubber.remove', function (event, args) {
+                    if (args.objectId == $scope.object.objectId) {
+                        hideObject();
                     }
                 });
                 $(element).draggable({
-                    revert: function (dropped) { console.log(dropped); },
+                    revert: "invalid",
                     stop: function (event, ui) {
                         $scope.object.setLargePosition($(this).position().top, $(this).position().left);
                         $scope.object.setSmallPosition($(this).position().top / 3.67, $(this).position().left / 3.67);
@@ -429,7 +426,6 @@ var exercises;
                             });
                         }
                         else if (ui.helper.data('dropped-origin') == true) {
-                            $scope.object.isDropped = false;
                             ui.helper.data('dropped-target', false);
                             ui.helper.data('dropped-origin', false);
                             hideObject();
@@ -438,7 +434,6 @@ var exercises;
                 });
                 $(element).on("click", function () {
                     if ($scope.object.isDropped == true) {
-                        $scope.object.isDropped = false;
                         hideObject();
                     }
                     else {
@@ -482,10 +477,8 @@ var exercises;
             link: function ($scope, element, attributes) {
                 $(element).droppable({
                     drop: function (event, ui) {
-                        if (ui.draggable.data('dropped-target') == true && ui.draggable.data('dropped-origin') != true) {
-                            ui.draggable.data('dropped-origin', true);
-                            ui.draggable.data('dropped-target', false);
-                        }
+                        ui.draggable.data('dropped-origin', true);
+                        ui.draggable.data('dropped-target', false);
                     }
                 });
             }

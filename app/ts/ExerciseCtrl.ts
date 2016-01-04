@@ -19,6 +19,7 @@ module exercises {
     public currentPage: number;
     public summaryActivated: boolean;
     public totalItems: number;
+    public onePercentage:number;
 
     constructor(
       protected $scope: any,
@@ -29,6 +30,7 @@ module exercises {
       this.currentPage = 1;
       this.totalItems = this.exercise1Data.subexerciseListDTO.length;
       this.summaryActivated = false;
+      this.onePercentage = 100/this.exercise1Data.subexerciseListDTO.length;
 
     }
 
@@ -203,18 +205,14 @@ module exercises {
 
     };
 
-    backspace(index: number) {
-      if (!this.isSummaryActive() && angular.isDefined(this.exercise1Data.subexerciseListDTO[index].givenNumber)) {
-        var givenNumber: string = this.exercise1Data.subexerciseListDTO[index].givenNumber.toString();
-        var tempNumberString: string = givenNumber.substring(0, givenNumber.length - 1);
-        var finalNumber: number;
-
-        if (tempNumberString.length == 0) {
-          finalNumber = undefined;
-        } else {
-          finalNumber = parseInt(tempNumberString);
+    removeOne(index: number) {
+      if (!this.isSummaryActive() && angular.isDefined(this.exercise2Data.subexerciseListDTO[index].givenNumber)) {
+        for(var i:number =0; i< this.exercise2Data.subexerciseListDTO[index].listOfPositions.length; i++) {
+          if(this.exercise2Data.subexerciseListDTO[index].listOfPositions[i].isDropped == true) {
+            this.$rootScope.$emit('rubber.remove', {objectId:this.exercise2Data.subexerciseListDTO[index].listOfPositions[i].objectId});            
+            return;
+          }
         }
-        this.exercise1Data.subexerciseListDTO[index].givenNumber = finalNumber;
       }
     }
 
