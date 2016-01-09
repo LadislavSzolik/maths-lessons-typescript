@@ -7,6 +7,7 @@ var mathApp = angular.module('maths', ['ngMdIcons', 'ngTouch','ui.bootstrap', 'n
 mathApp.controller('homeCtrl',HomeCtrl);
 mathApp.controller('exercise1Ctrl',Exercise1Ctrl);
 mathApp.controller('exercise2Ctrl',Exercise2Ctrl);
+mathApp.controller('exercise3Ctrl', Exercise3Ctrl);
 
 mathApp.service('exerciseServices', ExerciseServices);
 
@@ -15,6 +16,9 @@ mathApp.directive('animateButton',animateButton);
 mathApp.directive('draggableObject',draggableObject);
 mathApp.directive('droppableObject',droppableObject);
 mathApp.directive('droppableOrigin',droppableOrigin);
+
+mathApp.directive('droppableBall',droppableBall);
+mathApp.directive('draggableBall',draggableBall);
 
 
 // TODO: resolve caching of the services
@@ -46,7 +50,6 @@ mathApp.config(['$routeProvider', function($routeProvider:any ) {
       }).when('/N1b', {
         templateUrl: 'app/components/exerciseView.html',
         controller: 'exercise2Ctrl',
-        exetype: 'N1b',
         resolve: {
           'exercise2Data': (exerciseServices:IExerciseServices) => {
             return exerciseServices.getExercise2Data();
@@ -56,13 +59,14 @@ mathApp.config(['$routeProvider', function($routeProvider:any ) {
           }
         }
       }).when('/N1c', {
-        templateUrl: 'app/components/testerPage.html',
-        controller: 'exercise1Ctrl',
+        templateUrl: 'app/components/exerciseView.html',
+        controller: 'exercise3Ctrl',
         resolve: {
-          'exercise1Data': (exerciseServices:IExerciseServices) =>{
-            return exerciseServices.getExercise1Data();
+          'exercise3Data': (exerciseServices:IExerciseServices) => {
+            return exerciseServices.getExercise3Data();
           }
         }
+
       })
       .otherwise({
         redirectTo: '/'

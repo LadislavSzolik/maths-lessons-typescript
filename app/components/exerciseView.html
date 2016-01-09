@@ -117,6 +117,23 @@
       </div>
       <!-- end of exercise 2 view -->
 
+      <!-- exercise 3 view -->
+      <div class="subexe-container-box exe3-background" ng-switch-when="N1c">
+        <ul>
+          <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.exercise3Data.subexerciseListDTO">
+            <div ng-repeat="ball in subExercise.listOfGivenNumbers" class="ball-with-number" ng-hide="vm.isNumberMissing($index)" ng-style="vm.positions[$index]">
+              {{ball}}
+            </div>
+            <div ng-repeat="ball in subExercise.listOfGivenNumbers" class="ball-without-number" droppable-ball ball-value="{{ball}}" ng-show="vm.isNumberMissing($index)" ng-style="vm.positions[$index]"></div>
+
+            <div ng-repeat="ball in subExercise.missingNumbers" class="ball-with-number" draggable-ball ball-value="{{ball}}" ng-show="vm.isVisible(ball)" ng-style="vm.startingPosition">
+              {{ball}}
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- end of exercise 3 view -->
+
     </div>
 
     <a animate-button class="nav-btn-top-right" href ng-class="{disabled:vm.noNext()}" ng-click="vm.selectPage(vm.currentPage+1,$event)">

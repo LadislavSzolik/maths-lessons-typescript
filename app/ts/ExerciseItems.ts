@@ -14,6 +14,10 @@ module exercises {
     subexerciseListDTO: Exercise2Item[];
   }
 
+  export interface IExercise3 {
+    subexerciseListDTO:Exercise3Item[];
+  }
+
 
   export class Exercise1Item {
     public givenNumber: number;
@@ -77,6 +81,24 @@ module exercises {
     }
   }
 
+  export class Exercise3Item {
+    public static id: number = 0;
+    public itemId:number;
+    public listOfGivenNumbers:number[] ;
+    public listOfVisibleNumbers:number[];
+    constructor(public startFrom: number, public missingNumbers:number[]) {
+      this.itemId = Exercise3Item.id++;
+      this.listOfGivenNumbers = [];
+      this.listOfVisibleNumbers = [];
+      for(var i:number=startFrom; i<startFrom+9;i++) {
+        this.listOfGivenNumbers.push(i);
+      }
+
+      this.listOfVisibleNumbers.push(missingNumbers[0]);
+    }
+
+  }
+
   export class ObjectPosition {
     public isDisplayed: boolean;
     public isDropped: boolean;
@@ -129,7 +151,7 @@ module exercises {
       this.smallPositionTop = top;
       this.smallPositionLeft = left ;
     }
-    
+
   }
 
   export class CommonMath {

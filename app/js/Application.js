@@ -56,6 +56,22 @@ var exercises;
         return Exercise2Item;
     })(Exercise1Item);
     exercises.Exercise2Item = Exercise2Item;
+    var Exercise3Item = (function () {
+        function Exercise3Item(startFrom, missingNumbers) {
+            this.startFrom = startFrom;
+            this.missingNumbers = missingNumbers;
+            this.itemId = Exercise3Item.id++;
+            this.listOfGivenNumbers = [];
+            this.listOfVisibleNumbers = [];
+            for (var i = startFrom; i < startFrom + 9; i++) {
+                this.listOfGivenNumbers.push(i);
+            }
+            this.listOfVisibleNumbers.push(missingNumbers[0]);
+        }
+        Exercise3Item.id = 0;
+        return Exercise3Item;
+    })();
+    exercises.Exercise3Item = Exercise3Item;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -140,6 +156,9 @@ var exercises;
         ExerciseServices.prototype.getExercise2Data = function () {
             return this.$http.get('app/data/exe2Data.json').then(function (result) { return result.data; });
         };
+        ExerciseServices.prototype.getExercise3Data = function () {
+            return this.$http.get('app/data/exe3Data.json').then(function (result) { return result.data; });
+        };
         ExerciseServices.prototype.getTexts = function () {
             return this.$http.get('app/data/appTexts.json').then(function (result) { return result.data; });
         };
@@ -178,16 +197,15 @@ var exercises;
     })();
     exercises.HomeCtrl = HomeCtrl;
     var NavigationBase = (function () {
-        function NavigationBase($scope, $location, $route, exercise1Data) {
+        function NavigationBase($scope, $location, $route, totalItems) {
             this.$scope = $scope;
             this.$location = $location;
             this.$route = $route;
-            this.exercise1Data = exercise1Data;
+            this.totalItems = totalItems;
             $scope.vm = this;
             this.currentPage = 1;
-            this.totalItems = this.exercise1Data.subexerciseListDTO.length;
             this.summaryActivated = false;
-            this.onePercentage = 100 / this.exercise1Data.subexerciseListDTO.length;
+            this.onePercentage = 100 / totalItems;
         }
         NavigationBase.prototype.isCurrentExercise = function (index) {
             return this.currentPage == (index + 1);
@@ -198,14 +216,6 @@ var exercises;
         NavigationBase.prototype.reload = function () {
             this.$route.reload();
         };
-        NavigationBase.prototype.checkResult = function () {
-            if (!this.isSummaryActive()) {
-                this.summaryActivated = true;
-                this.exercise1Data.subexerciseListDTO.unshift(new exercises.Exercise1Item(99));
-                this.currentPage = 1;
-                this.totalItems = this.exercise1Data.subexerciseListDTO.length;
-            }
-        };
         NavigationBase.prototype.isSummaryActive = function () {
             return this.summaryActivated;
         };
@@ -214,22 +224,23 @@ var exercises;
                 this.currentPage = page;
             }
         };
-        ;
         NavigationBase.prototype.noPrevious = function () {
             return this.currentPage === 1;
         };
-        ;
         NavigationBase.prototype.noNext = function () {
             return this.currentPage === this.totalItems;
         };
-        ;
+        NavigationBase.prototype.checkResult = function () {
+            this.summaryActivated = true;
+            this.currentPage = 1;
+        };
         return NavigationBase;
     })();
     exercises.NavigationBase = NavigationBase;
     var Exercise1Ctrl = (function (_super) {
         __extends(Exercise1Ctrl, _super);
         function Exercise1Ctrl($scope, $location, $route, exercise1Data, texts) {
-            _super.call(this, $scope, $location, $route, exercise1Data);
+            _super.call(this, $scope, $location, $route, exercise1Data.subexerciseListDTO.length);
             this.$scope = $scope;
             this.$location = $location;
             this.$route = $route;
@@ -242,7 +253,13 @@ var exercises;
                 exercise1Data.subexerciseListDTO[i].getListOfPositions(exercise1Data.numberOfRange, 330, 90, exercise1Data.subexerciseListDTO[i].number);
             }
         }
-        ;
+        Exercise1Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+                this.exercise1Data.subexerciseListDTO.unshift(new exercises.Exercise1Item(99));
+                this.totalItems = this.exercise1Data.subexerciseListDTO.length;
+            }
+        };
         Exercise1Ctrl.prototype.backspace = function (index) {
             if (!this.isSummaryActive() && angular.isDefined(this.exercise1Data.subexerciseListDTO[index].givenNumber)) {
                 var givenNumber = this.exercise1Data.subexerciseListDTO[index].givenNumber.toString();
@@ -280,7 +297,7 @@ var exercises;
         __extends(Exercise2Ctrl, _super);
         function Exercise2Ctrl($scope, $location, $route, exercise2Data, texts, $rootScope) {
             var _this = this;
-            _super.call(this, $scope, $location, $route, exercise2Data);
+            _super.call(this, $scope, $location, $route, exercise2Data.subexerciseListDTO.length);
             this.$scope = $scope;
             this.$location = $location;
             this.$route = $route;
@@ -333,7 +350,13 @@ var exercises;
                 }
             });
         }
-        ;
+        Exercise2Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+                this.exercise2Data.subexerciseListDTO.unshift(new exercises.Exercise2Item(99));
+                this.totalItems = this.exercise2Data.subexerciseListDTO.length;
+            }
+        };
         Exercise2Ctrl.prototype.removeOne = function (index) {
             if (!this.isSummaryActive() && angular.isDefined(this.exercise2Data.subexerciseListDTO[index].givenNumber)) {
                 for (var i = 0; i < this.exercise2Data.subexerciseListDTO[index].listOfPositions.length; i++) {
@@ -344,25 +367,72 @@ var exercises;
                 }
             }
         };
-        Exercise2Ctrl.prototype.setUserInput = function (index, newVal) {
-            if (!this.isSummaryActive()) {
-                var givenNumber = this.exercise1Data.subexerciseListDTO[index].givenNumber;
-                if (angular.isUndefined(givenNumber) || givenNumber == null) {
-                    givenNumber = newVal;
-                }
-                else if (givenNumber.toString().length < 2) {
-                    givenNumber = parseInt(String(givenNumber) + String(newVal));
-                }
-                this.exercise1Data.subexerciseListDTO[index].givenNumber = givenNumber;
-            }
-        };
         Exercise2Ctrl.prototype.isCorrect = function (index) {
-            return this.exercise1Data.subexerciseListDTO[index].givenNumber == this.exercise1Data.subexerciseListDTO[index].number;
+            return this.exercise2Data.subexerciseListDTO[index].givenNumber == this.exercise2Data.subexerciseListDTO[index].number;
         };
         Exercise2Ctrl.$inject = ['$scope', '$location', '$route', 'exercise2Data', 'texts', '$rootScope'];
         return Exercise2Ctrl;
     })(NavigationBase);
     exercises.Exercise2Ctrl = Exercise2Ctrl;
+    var Exercise3Ctrl = (function (_super) {
+        __extends(Exercise3Ctrl, _super);
+        function Exercise3Ctrl($scope, $location, $route, $rootScope, exercise3Data) {
+            var _this = this;
+            _super.call(this, $scope, $location, $route, exercise3Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.exercise3Data = exercise3Data;
+            this.exetype = "N1c";
+            for (var i = 0; i < exercise3Data.subexerciseListDTO.length; i++) {
+                var exeItem = new exercises.Exercise3Item(exercise3Data.subexerciseListDTO[i].startFrom, exercise3Data.subexerciseListDTO[i].missingNumbers);
+                exercise3Data.subexerciseListDTO[i] = exeItem;
+            }
+            this.positions = [
+                { top: '359px', left: '39px' },
+                { top: '301px', left: '179px' },
+                { top: '300px', left: '322px' },
+                { top: '207px', left: '438px' },
+                { top: '122px', left: '581px' },
+                { top: '18px', left: '468px' },
+                { top: '84px', left: '312px' },
+                { top: '15px', left: '176px' },
+                { top: '105px', left: '51px' }];
+            this.startingPosition = { top: '364px', left: '561px' };
+            this.listOfCorrect = [];
+            $rootScope.$on('ball.dropped', function (event, args) {
+                console.log('before listOfCorrect' + _this.listOfCorrect);
+                if (args.dropped == args.destination) {
+                    _this.listOfCorrect.push(args.dropped);
+                }
+                else if (_this.listOfCorrect.indexOf(args.dropped, 0) > -1) {
+                    _this.listOfCorrect.splice(_this.listOfCorrect.indexOf(args.dropped, 0), 1);
+                }
+                console.log('after listOfCorrect' + _this.listOfCorrect);
+                _this.addNextVisible();
+            });
+        }
+        Exercise3Ctrl.prototype.addNextVisible = function () {
+            for (var i = 0; i < this.exercise3Data.subexerciseListDTO[this.currentPage - 1].missingNumbers.length; i++) {
+                var missingNumber = this.exercise3Data.subexerciseListDTO[this.currentPage - 1].missingNumbers[i];
+                if (this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.indexOf(missingNumber, 0) == -1) {
+                    this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.push(missingNumber);
+                    this.$rootScope.$digest();
+                    return;
+                }
+            }
+        };
+        Exercise3Ctrl.prototype.isNumberMissing = function (index) {
+            return this.exercise3Data.subexerciseListDTO[this.currentPage - 1].missingNumbers.indexOf(index, 0) > -1;
+        };
+        Exercise3Ctrl.prototype.isVisible = function (number) {
+            return this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.indexOf(number, 0) > -1;
+        };
+        Exercise3Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'exercise3Data'];
+        return Exercise3Ctrl;
+    })(NavigationBase);
+    exercises.Exercise3Ctrl = Exercise3Ctrl;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -486,6 +556,50 @@ var exercises;
     }
     exercises.droppableOrigin = droppableOrigin;
     ;
+    function draggableBall() {
+        return {
+            link: function ($scope, element, attributes) {
+                $(element).draggable({
+                    revert: "invalid",
+                    start: function (event, ui) {
+                        $(element).css({ boxShadow: "0px 3px 4px 1px rgba(0,0,0,0.50)" });
+                    },
+                    stop: function (event, ui) {
+                    }
+                });
+            }
+        };
+    }
+    exercises.draggableBall = draggableBall;
+    ;
+    function droppableBall($rootScope) {
+        return {
+            link: function ($scope, element, attributes) {
+                var isDroppable = true;
+                $(element).droppable({
+                    accept: function (draggable) {
+                        console.log('accept triggered with isDroppable ' + isDroppable);
+                        return isDroppable;
+                    },
+                    out: function (event, ui) {
+                        console.log('out triggered');
+                        isDroppable = true;
+                    },
+                    drop: function (event, ui) {
+                        isDroppable = false;
+                        ui.draggable.css({ top: $(element).position().top + "px", left: $(element).position().left + "px", boxShadow: "0px 0px 0px 0px rgba(0,0,0,0)" });
+                        $rootScope.$emit('ball.dropped', {
+                            dropped: ui.draggable.context.attributes['ball-value'].value,
+                            destination: attributes.ballValue
+                        });
+                    }
+                });
+            }
+        };
+    }
+    exercises.droppableBall = droppableBall;
+    ;
+    droppableBall.$inject = ['$rootScope'];
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -493,12 +607,15 @@ var exercises;
     mathApp.controller('homeCtrl', exercises.HomeCtrl);
     mathApp.controller('exercise1Ctrl', exercises.Exercise1Ctrl);
     mathApp.controller('exercise2Ctrl', exercises.Exercise2Ctrl);
+    mathApp.controller('exercise3Ctrl', exercises.Exercise3Ctrl);
     mathApp.service('exerciseServices', exercises.ExerciseServices);
     mathApp.directive('animateRubber', exercises.animateRubber);
     mathApp.directive('animateButton', exercises.animateButton);
     mathApp.directive('draggableObject', exercises.draggableObject);
     mathApp.directive('droppableObject', exercises.droppableObject);
     mathApp.directive('droppableOrigin', exercises.droppableOrigin);
+    mathApp.directive('droppableBall', exercises.droppableBall);
+    mathApp.directive('draggableBall', exercises.draggableBall);
     mathApp.config(['$routeProvider', function ($routeProvider) {
             $routeProvider.when('/', {
                 templateUrl: 'app/components/homeView.html',
@@ -525,7 +642,6 @@ var exercises;
             }).when('/N1b', {
                 templateUrl: 'app/components/exerciseView.html',
                 controller: 'exercise2Ctrl',
-                exetype: 'N1b',
                 resolve: {
                     'exercise2Data': function (exerciseServices) {
                         return exerciseServices.getExercise2Data();
@@ -535,11 +651,11 @@ var exercises;
                     }
                 }
             }).when('/N1c', {
-                templateUrl: 'app/components/testerPage.html',
-                controller: 'exercise1Ctrl',
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'exercise3Ctrl',
                 resolve: {
-                    'exercise1Data': function (exerciseServices) {
-                        return exerciseServices.getExercise1Data();
+                    'exercise3Data': function (exerciseServices) {
+                        return exerciseServices.getExercise3Data();
                     }
                 }
             })
