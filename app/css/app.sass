@@ -176,9 +176,9 @@ header, section
     border: 2px solid #E48400
 
   .progress-bar-exe2
-    background-color: #F4CBFC
+    background-color: #E3D985
     b
-      color: #E24CFF
+      color: #7C3A78
       font-size: 26px
       position: absolute
       text-align: center
@@ -188,7 +188,22 @@ header, section
       left: 0px
 
   .progress-color-exe2
-    border: 2px solid #E24CFF
+    border: 2px solid #7C3A78
+
+  .progress-bar-exe3
+    background-color: #F7F4EA
+    b
+      color: #C5BFE0
+      font-size: 26px
+      position: absolute
+      text-align: center
+      top: 4px
+      width: 100%
+      z-index: 2
+      left: 0px
+
+  .progress-color-exe3
+    border: 2px solid #C5BFE0
 
 
 
@@ -253,6 +268,44 @@ header, section
 
   .exe3-background
     background-image: url(../img/exe3_bcg.png)
+
+    .exe3-bcg-adds
+      background: url(../img/exe3_bcg_adds.png) no-repeat
+      width: 680px
+      height: 480px
+      margin: -15px
+      margin-top: 17px
+      position: relative
+
+  .exe3-summary-background
+    width: 144px
+    height: 100px
+    float: left
+    margin-right: 40px
+    margin-left: 30px
+    margin-bottom: 15px
+    background-image: url(../img/exe3_summary_item.png)
+    position: relative  
+
+    .ball-with-number-small
+      position: absolute
+      height: 17px
+      width: 17px
+      background: #80A1D4
+      border-radius: 10px
+      color: white
+      font-size: 10px
+      font-weight: bold
+      padding-top: 2px
+      box-shadow: 0px 2px 2px 1px rgba(0,0,0,0.50)
+
+    .ball-without-number-small
+      position: absolute
+      height: 17px
+      width: 17px
+      background: #DED9E2
+      border-radius: 10px
+      box-shadow: 0px 2px 2px 1px rgba(0,0,0,0.50)
 
 .container-field-exe2-summary
   position: relative
@@ -373,23 +426,31 @@ header, section
         background: #00B47D
         border: 2px solid #016F4D
 
+.exe3-background
+  .ball-with-number
+    position: absolute
+    height: 82px
+    width: 82px
+    background: #80A1D4
+    border-radius: 40px
+    color: white
+    font-size: 45px
+    font-weight: bold
+    padding-top: 7px
+    box-shadow: 0px 3px 4px 1px rgba(0,0,0,0.50)
 
-.ball-with-number
-  position: absolute
-  height: 82px
-  width: 82px
-  background: #80A1D4
-  border-radius: 40px
-  color: white
-  font-size: 45px
-  font-weight: bold
-  padding-top: 7px
-  box-shadow: 0px 3px 4px 1px rgba(0,0,0,0.50)
+  .ball-without-number
+    position: absolute
+    height: 82px
+    width: 82px
+    background: #DED9E2
+    border-radius: 40px
+    box-shadow: 0px 3px 4px 1px rgba(0,0,0,0.50)
 
-.ball-without-number
-  position: absolute
-  height: 82px
-  width: 82px
-  background: #DED9E2
-  border-radius: 40px
-  box-shadow: 0px 3px 4px 1px rgba(0,0,0,0.50)
+  .ball-container
+    position: absolute
+    border-radius: 100px
+    height: 150px
+    width: 150px
+    top: 323px
+    left: 527px

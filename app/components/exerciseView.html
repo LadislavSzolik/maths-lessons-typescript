@@ -6,11 +6,11 @@
     <a animate-button class="nav-btn-close" href ng-click="vm.exit()">
       <ng-md-icon icon="close" size="36" style="fill:white"/>
     </a>
-    <h1>{{vm.texts.exe1TitleText}}</h1>
+    <h1>{{vm.titleText}}</h1>
   </header>
 
   <section class="progess-container">
-    <uib-progressbar class="progress-box progress-color-exe1" type="exe1" value="vm.currentPage * vm.onePercentage">
+    <uib-progressbar class="progress-box" ng-class="vm.progressBarClass" type="{{vm.progressBarType}}" value="vm.currentPage * vm.onePercentage">
       <b>{{vm.currentPage}}/{{vm.totalItems}}</b>
     </uib-progressbar>
 
@@ -121,14 +121,44 @@
       <div class="subexe-container-box exe3-background" ng-switch-when="N1c">
         <ul>
           <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.exercise3Data.subexerciseListDTO">
-            <div ng-repeat="ball in subExercise.listOfGivenNumbers" class="ball-with-number" ng-hide="vm.isNumberMissing($index)" ng-style="vm.positions[$index]">
-              {{ball}}
+            <div ng-if="vm.isSummaryActive() && $index == 0">
+              <ul>
+                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise3Data.subexerciseListDTO">
+                  <a href ng-click="vm.selectPage($index+1,$event)">
+                    <div class="exe3-summary-background">
+                      <div class="ball-with-number-small" ng-hide="vm.isNumberMissing($parent.$index, ball)" ng-repeat="ball in summary.listOfGivenNumbers" ng-style="vm.smallPositions[$index]">
+                        {{ball}}
+                      </div>
+                      <div class="ball-without-number-small" ng-class="{'invalid-result':true}" ng-repeat="ball in summary.listOfGivenNumbers" ng-show="!vm.isDropped($parent.$index, ball) && vm.isNumberMissing($parent.$index, ball)" ng-style="vm.smallPositions[$index]"></div>
+                      <div class="ball-with-number-small" ng-class="{'valid-result':vm.isCorrect($parent.$index, ball), 'invalid-result':!vm.isCorrect($parent.$index, ball)}" ng-repeat="ball in summary.listOfGivenNumbers" ng-show="vm.isNumberMissing($parent.$index, ball) && vm.isDropped($parent.$index, ball)" ng-style="vm.smallPositions[$index]">
+                        {{ball}}
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
             </div>
-            <div ng-repeat="ball in subExercise.listOfGivenNumbers" class="ball-without-number" droppable-ball ball-value="{{ball}}" ng-show="vm.isNumberMissing($index)" ng-style="vm.positions[$index]"></div>
 
-            <div ng-repeat="ball in subExercise.missingNumbers" class="ball-with-number" draggable-ball ball-value="{{ball}}" ng-show="vm.isVisible(ball)" ng-style="vm.startingPosition">
-              {{ball}}
+            <div ng-if="!vm.isSummaryActive() || $index !== 0">
+              <div class="exe3-bcg-adds"></div>
+
+              <div ball-value="-99" class="ball-container" droppable-ball-container></div>
+              <!-- base numbers -->
+              <div class="ball-with-number" ng-hide="vm.isNumberMissing($parent.$index, ball)" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-style="vm.positions[$index]">
+                {{ball}}
+              </div>
+              <!-- draggable and droppable numbers -->
+              <div ball-value="{{ball}}" class="ball-without-number" droppable-ball ng-repeat="ball in subExercise.listOfGivenNumbers" ng-show="vm.isNumberMissing($parent.$index, ball) && !vm.isSummaryActive()" ng-style="vm.positions[$index]"></div>
+              <div ball-value="{{ball}}" class="ball-with-number" draggable-ball ng-repeat="ball in subExercise.missingNumbers" ng-show="vm.isVisible($parent.$index, ball) && !vm.isSummaryActive()" ng-style="vm.startingPosition">
+                {{ball}}
+              </div>
+              <!-- summary numbers -->
+              <div class="ball-without-number" ng-class="{'invalid-result':true}" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-show="vm.isSummaryActive() && !vm.isDropped($parent.$index, ball) && vm.isNumberMissing($parent.$index, ball)" ng-style="vm.positions[$index]"></div>
+              <div class="ball-with-number" ng-class="{'valid-result':vm.isCorrect($parent.$index, ball), 'invalid-result':!vm.isCorrect($parent.$index, ball)}" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-show="vm.isNumberMissing($parent.$index, ball) && vm.isDropped($parent.$index, ball) && vm.isSummaryActive()" ng-style="vm.positions[$index]">
+                {{ball}}
+              </div>
             </div>
+
           </li>
         </ul>
       </div>

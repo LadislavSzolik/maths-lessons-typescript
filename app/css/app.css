@@ -173,11 +173,11 @@ header, section {
 }
 
 .progess-container .progress-bar-exe2 {
-  background-color: #F4CBFC;
+  background-color: #E3D985;
 }
 
 .progess-container .progress-bar-exe2 b {
-  color: #E24CFF;
+  color: #7C3A78;
   font-size: 26px;
   position: absolute;
   text-align: center;
@@ -188,7 +188,26 @@ header, section {
 }
 
 .progess-container .progress-color-exe2 {
-  border: 2px solid #E24CFF;
+  border: 2px solid #7C3A78;
+}
+
+.progess-container .progress-bar-exe3 {
+  background-color: #F7F4EA;
+}
+
+.progess-container .progress-bar-exe3 b {
+  color: #C5BFE0;
+  font-size: 26px;
+  position: absolute;
+  text-align: center;
+  top: 4px;
+  width: 100%;
+  z-index: 2;
+  left: 0px;
+}
+
+.progess-container .progress-color-exe3 {
+  border: 2px solid #C5BFE0;
 }
 
 /* container with objects and result */
@@ -253,6 +272,48 @@ header, section {
 
 .main-content .exe3-background {
   background-image: url(../img/exe3_bcg.png);
+}
+
+.main-content .exe3-background .exe3-bcg-adds {
+  background: url(../img/exe3_bcg_adds.png) no-repeat;
+  width: 680px;
+  height: 480px;
+  margin: -15px;
+  margin-top: 17px;
+  position: relative;
+}
+
+.main-content .exe3-summary-background {
+  width: 144px;
+  height: 100px;
+  float: left;
+  margin-right: 40px;
+  margin-left: 30px;
+  margin-bottom: 15px;
+  background-image: url(../img/exe3_summary_item.png);
+  position: relative;
+}
+
+.main-content .exe3-summary-background .ball-with-number-small {
+  position: absolute;
+  height: 17px;
+  width: 17px;
+  background: #80A1D4;
+  border-radius: 10px;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding-top: 2px;
+  box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.5);
+}
+
+.main-content .exe3-summary-background .ball-without-number-small {
+  position: absolute;
+  height: 17px;
+  width: 17px;
+  background: #DED9E2;
+  border-radius: 10px;
+  box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.5);
 }
 
 .container-field-exe2-summary {
@@ -389,7 +450,7 @@ header, section {
   border: 2px solid #016F4D;
 }
 
-.ball-with-number {
+.exe3-background .ball-with-number {
   position: absolute;
   height: 82px;
   width: 82px;
@@ -402,11 +463,20 @@ header, section {
   box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.5);
 }
 
-.ball-without-number {
+.exe3-background .ball-without-number {
   position: absolute;
   height: 82px;
   width: 82px;
   background: #DED9E2;
   border-radius: 40px;
   box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.5);
+}
+
+.exe3-background .ball-container {
+  position: absolute;
+  border-radius: 100px;
+  height: 150px;
+  width: 150px;
+  top: 323px;
+  left: 527px;
 }

@@ -32,7 +32,7 @@ module exercises {
     return {
       link: ($scope: any, element: JQuery, attr: any) => {
 
-        if($scope.object.isDisabled) {
+        if ($scope.object.isDisabled) {
           return
         }
 
@@ -42,8 +42,8 @@ module exercises {
           $(element).css($scope.object.getInitPlace());
         };
 
-        $rootScope.$on('rubber.remove', (event:any, args:any) =>{
-          if(args.objectId == $scope.object.objectId) {
+        $rootScope.$on('rubber.remove', (event: any, args: any) => {
+          if (args.objectId == $scope.object.objectId) {
             hideObject();
           }
         })
@@ -52,7 +52,7 @@ module exercises {
           revert: "invalid",
           stop: function(event, ui) {
             $scope.object.setLargePosition($(this).position().top, $(this).position().left);
-            $scope.object.setSmallPosition($(this).position().top/3.67, $(this).position().left/3.67);
+            $scope.object.setSmallPosition($(this).position().top / 3.67, $(this).position().left / 3.67);
 
             if (ui.helper.data('dropped-target') == true && $scope.object.isDropped != true) {
               $scope.object.isDropped = true;
@@ -119,8 +119,8 @@ module exercises {
       link: ($scope: ng.IScope, element: JQuery, attributes: any) => {
         $(element).droppable({
           drop: function(event, ui) {
-              ui.draggable.data('dropped-origin', true);
-              ui.draggable.data('dropped-target', false);
+            ui.draggable.data('dropped-origin', true);
+            ui.draggable.data('dropped-target', false);
           }
         });
       }
@@ -131,13 +131,28 @@ module exercises {
   export function draggableBall(): ng.IDirective {
     return {
       link: ($scope: ng.IScope, element: JQuery, attributes: any) => {
+        $(element).css({ cursor: 'pointer' });
         $(element).draggable({
           revert: "invalid",
-          start:function(event,ui){
-            $(element).css({boxShadow: "0px 3px 4px 1px rgba(0,0,0,0.50)"});
+          start: function(event, ui) {
+            ui.helper.data('originalPosition', ui.position);
+            ui.helper.data('iWasDroppedHere', ui.helper.data('iAmDroppedHere'));
+
+            $(element).css({ boxShadow: "0px 3px 4px 1px rgba(0,0,0,0.50)" });
           },
           stop: function(event, ui) {
+            if (ui.helper.data('iWasDroppedHere') != undefined &&
+              ui.helper.data('iAmDroppedHere').attr('ball-value') != ui.helper.data('iWasDroppedHere').attr('ball-value')) {
+              ui.helper.data('iWasDroppedHere').data('droppedBall', null);
 
+              if (ui.helper.data('iAmDroppedHere').attr('ball-value') == '-99'){
+                ui.helper.data('iAmDroppedHere', null);
+                $(element).css({top:'364px', left: '561px'});
+              }
+            }
+            if (ui.helper.data('iAmDroppedHere') != undefined && ui.helper.data('iAmDroppedHere').attr('ball-value') != '-99') {
+              $(element).css({ boxShadow: "0px 0px 0px 0px rgba(0,0,0,0)" });              
+            }
           }
         });
       }
@@ -148,22 +163,20 @@ module exercises {
   export function droppableBall($rootScope: any): ng.IDirective {
     return {
       link: ($scope: ng.IScope, element: JQuery, attributes: any) => {
-        var isDroppable = true;
         $(element).droppable({
-          accept: (draggable:JQuery) => {
-            console.log('accept triggered with isDroppable '+ isDroppable);
-            return isDroppable;
+          accept: (draggable: any) => {
+            if ($(element).data('droppedBall') != undefined && $(element).data('droppedBall') != $(draggable).attr('ball-value')) {
+              return false;
+            } else {
+              return true;
+            }
           },
-          out: (event:any, ui:any) => {
-            console.log('out triggered');
-            isDroppable = true;
-          }
-          ,
           drop: function(event, ui) {
-            isDroppable = false;
-            ui.draggable.css({top:$(element).position().top+"px", left:$(element).position().left+"px", boxShadow: "0px 0px 0px 0px rgba(0,0,0,0)"});
-            $rootScope.$emit('ball.dropped',{
-              dropped: ui.draggable.context.attributes['ball-value'].value,
+            $(element).data('droppedBall', $(ui.draggable).attr('ball-value'));
+            ui.draggable.data('iAmDroppedHere', $(element));
+            ui.draggable.css({ top: $(element).position().top + "px", left: $(element).position().left + "px" });
+            $rootScope.$emit('ball.dropped', {
+              dropped: $(ui.draggable).attr('ball-value'),
               destination: attributes.ballValue
             })
           }
@@ -173,4 +186,30 @@ module exercises {
   };
 
   droppableBall.$inject = ['$rootScope'];
+
+  // EXE3 droppable original place for the balls
+  export function droppableBallContainer($rootScope: any): ng.IDirective {
+    return {
+      link: ($scope: ng.IScope, element: JQuery, attributes: any) => {
+        $(element).droppable({
+          accept: (draggable: any) => {
+            if (draggable.data('iAmDroppedHere') == undefined) {
+              return false;
+            } else {
+              return true;
+            }
+          },
+          drop: (event: any, ui: any) => {
+            ui.draggable.data('iAmDroppedHere', $(element));
+            console.log('shadows added in container');
+            ui.draggable.css({ boxShadow: "0px 3px 4px 1px rgba(0,0,0,0.50)" });
+            $rootScope.$emit('ball.removed', {
+              removedBall: $(ui.draggable).attr('ball-value')
+            });
+          }
+        })
+      }
+    };
+  }
+  droppableBallContainer.$inject = ['$rootScope'];
 }

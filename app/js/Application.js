@@ -63,6 +63,8 @@ var exercises;
             this.itemId = Exercise3Item.id++;
             this.listOfGivenNumbers = [];
             this.listOfVisibleNumbers = [];
+            this.listOfCorrectNumbers = [];
+            this.listOfDroppedNumbers = [];
             for (var i = startFrom; i < startFrom + 9; i++) {
                 this.listOfGivenNumbers.push(i);
             }
@@ -247,6 +249,9 @@ var exercises;
             this.exercise1Data = exercise1Data;
             this.texts = texts;
             this.exetype = "N1a";
+            this.progressBarType = "exe1";
+            this.progressBarClass = "progress-color-exe1";
+            this.titleText = texts.exe1TitleText;
             for (var i = 0; i < exercise1Data.subexerciseListDTO.length; i++) {
                 var exeItem = new exercises.Exercise1Item(exercise1Data.subexerciseListDTO[i].number);
                 exercise1Data.subexerciseListDTO[i] = exeItem;
@@ -305,7 +310,10 @@ var exercises;
             this.texts = texts;
             this.$rootScope = $rootScope;
             this.exetype = "N1b";
+            this.progressBarType = "exe2";
+            this.progressBarClass = "progress-color-exe2";
             this.isLastElement = false;
+            this.titleText = texts.exe2TitleText;
             for (var i = 0; i < exercise2Data.subexerciseListDTO.length; i++) {
                 var exeItem = new exercises.Exercise2Item(exercise2Data.subexerciseListDTO[i].number);
                 exercise2Data.subexerciseListDTO[i] = exeItem;
@@ -376,7 +384,7 @@ var exercises;
     exercises.Exercise2Ctrl = Exercise2Ctrl;
     var Exercise3Ctrl = (function (_super) {
         __extends(Exercise3Ctrl, _super);
-        function Exercise3Ctrl($scope, $location, $route, $rootScope, exercise3Data) {
+        function Exercise3Ctrl($scope, $location, $route, $rootScope, exercise3Data, texts) {
             var _this = this;
             _super.call(this, $scope, $location, $route, exercise3Data.subexerciseListDTO.length);
             this.$scope = $scope;
@@ -384,7 +392,11 @@ var exercises;
             this.$route = $route;
             this.$rootScope = $rootScope;
             this.exercise3Data = exercise3Data;
+            this.texts = texts;
             this.exetype = "N1c";
+            this.progressBarType = "exe3";
+            this.progressBarClass = "progress-color-exe3";
+            this.titleText = texts.exe3TitleText;
             for (var i = 0; i < exercise3Data.subexerciseListDTO.length; i++) {
                 var exeItem = new exercises.Exercise3Item(exercise3Data.subexerciseListDTO[i].startFrom, exercise3Data.subexerciseListDTO[i].missingNumbers);
                 exercise3Data.subexerciseListDTO[i] = exeItem;
@@ -399,37 +411,77 @@ var exercises;
                 { top: '84px', left: '312px' },
                 { top: '15px', left: '176px' },
                 { top: '105px', left: '51px' }];
+            this.smallPositions = [
+                { top: '74px', left: '8px' },
+                { top: '60px', left: '37px' },
+                { top: '65px', left: '68px' },
+                { top: '43px', left: '93px' },
+                { top: '25px', left: '123px' },
+                { top: '3px', left: '98px' },
+                { top: '17px', left: '66px' },
+                { top: '3px', left: '37px' },
+                { top: '21px', left: '11px' },
+            ];
             this.startingPosition = { top: '364px', left: '561px' };
-            this.listOfCorrect = [];
             $rootScope.$on('ball.dropped', function (event, args) {
-                console.log('before listOfCorrect' + _this.listOfCorrect);
+                var droppedBall = parseInt(args.dropped);
+                if (_this.exercise3Data.subexerciseListDTO[_this.currentPage - 1].listOfDroppedNumbers.indexOf(droppedBall, 0) == -1) {
+                    _this.exercise3Data.subexerciseListDTO[_this.currentPage - 1].listOfDroppedNumbers.push(droppedBall);
+                }
                 if (args.dropped == args.destination) {
-                    _this.listOfCorrect.push(args.dropped);
+                    _this.exercise3Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.push(droppedBall);
                 }
-                else if (_this.listOfCorrect.indexOf(args.dropped, 0) > -1) {
-                    _this.listOfCorrect.splice(_this.listOfCorrect.indexOf(args.dropped, 0), 1);
+                else if (_this.exercise3Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.indexOf(droppedBall, 0) > -1) {
+                    _this.exercise3Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.splice(_this.exercise3Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.indexOf(droppedBall, 0), 1);
                 }
-                console.log('after listOfCorrect' + _this.listOfCorrect);
                 _this.addNextVisible();
+            });
+            $rootScope.$on('ball.removed', function (event, args) {
+                _this.removeBall(args.removedBall);
             });
         }
         Exercise3Ctrl.prototype.addNextVisible = function () {
-            for (var i = 0; i < this.exercise3Data.subexerciseListDTO[this.currentPage - 1].missingNumbers.length; i++) {
-                var missingNumber = this.exercise3Data.subexerciseListDTO[this.currentPage - 1].missingNumbers[i];
-                if (this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.indexOf(missingNumber, 0) == -1) {
-                    this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.push(missingNumber);
-                    this.$rootScope.$digest();
-                    return;
+            if (this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfDroppedNumbers.length == this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.length) {
+                for (var i = 0; i < this.exercise3Data.subexerciseListDTO[this.currentPage - 1].missingNumbers.length; i++) {
+                    var missingNumber = this.exercise3Data.subexerciseListDTO[this.currentPage - 1].missingNumbers[i];
+                    if (this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.indexOf(missingNumber, 0) == -1) {
+                        this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.push(missingNumber);
+                        this.$rootScope.$apply();
+                        return;
+                    }
                 }
             }
         };
-        Exercise3Ctrl.prototype.isNumberMissing = function (index) {
-            return this.exercise3Data.subexerciseListDTO[this.currentPage - 1].missingNumbers.indexOf(index, 0) > -1;
+        Exercise3Ctrl.prototype.removeBall = function (ballNumberString) {
+            var ballNumber = parseInt(ballNumberString);
+            this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.splice(this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.indexOf(ballNumber, 0), 1);
+            this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfDroppedNumbers.splice(this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfDroppedNumbers.indexOf(ballNumber, 0), 1);
+            if (this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfCorrectNumbers.indexOf(ballNumber, 0) > -1) {
+                this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfCorrectNumbers.splice(this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfCorrectNumbers.indexOf(ballNumber, 0), 1);
+            }
+            this.$rootScope.$apply();
+            this.addNextVisible();
         };
-        Exercise3Ctrl.prototype.isVisible = function (number) {
-            return this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.indexOf(number, 0) > -1;
+        Exercise3Ctrl.prototype.isNumberMissing = function (parentIndex, index) {
+            return this.exercise3Data.subexerciseListDTO[parentIndex].missingNumbers.indexOf(index, 0) > -1;
         };
-        Exercise3Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'exercise3Data'];
+        Exercise3Ctrl.prototype.isVisible = function (parentIndex, number) {
+            return this.exercise3Data.subexerciseListDTO[parentIndex].listOfVisibleNumbers.indexOf(number, 0) > -1;
+        };
+        Exercise3Ctrl.prototype.isDropped = function (parentIndex, number) {
+            return this.exercise3Data.subexerciseListDTO[parentIndex].listOfDroppedNumbers.indexOf(number, 0) > -1;
+        };
+        Exercise3Ctrl.prototype.isCorrect = function (parentIndex, number) {
+            return this.exercise3Data.subexerciseListDTO[parentIndex].listOfCorrectNumbers.indexOf(number, 0) > -1;
+        };
+        Exercise3Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+                this.exercise3Data.subexerciseListDTO.unshift(new exercises.Exercise3Item(99, []));
+                this.totalItems = this.exercise3Data.subexerciseListDTO.length;
+            }
+        };
+        Exercise3Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'exercise3Data', 'texts'];
         return Exercise3Ctrl;
     })(NavigationBase);
     exercises.Exercise3Ctrl = Exercise3Ctrl;
@@ -559,12 +611,26 @@ var exercises;
     function draggableBall() {
         return {
             link: function ($scope, element, attributes) {
+                $(element).css({ cursor: 'pointer' });
                 $(element).draggable({
                     revert: "invalid",
                     start: function (event, ui) {
+                        ui.helper.data('originalPosition', ui.position);
+                        ui.helper.data('iWasDroppedHere', ui.helper.data('iAmDroppedHere'));
                         $(element).css({ boxShadow: "0px 3px 4px 1px rgba(0,0,0,0.50)" });
                     },
                     stop: function (event, ui) {
+                        if (ui.helper.data('iWasDroppedHere') != undefined &&
+                            ui.helper.data('iAmDroppedHere').attr('ball-value') != ui.helper.data('iWasDroppedHere').attr('ball-value')) {
+                            ui.helper.data('iWasDroppedHere').data('droppedBall', null);
+                            if (ui.helper.data('iAmDroppedHere').attr('ball-value') == '-99') {
+                                ui.helper.data('iAmDroppedHere', null);
+                                $(element).css({ top: '364px', left: '561px' });
+                            }
+                        }
+                        if (ui.helper.data('iAmDroppedHere') != undefined && ui.helper.data('iAmDroppedHere').attr('ball-value') != '-99') {
+                            $(element).css({ boxShadow: "0px 0px 0px 0px rgba(0,0,0,0)" });
+                        }
                     }
                 });
             }
@@ -575,21 +641,21 @@ var exercises;
     function droppableBall($rootScope) {
         return {
             link: function ($scope, element, attributes) {
-                var isDroppable = true;
                 $(element).droppable({
                     accept: function (draggable) {
-                        console.log('accept triggered with isDroppable ' + isDroppable);
-                        return isDroppable;
-                    },
-                    out: function (event, ui) {
-                        console.log('out triggered');
-                        isDroppable = true;
+                        if ($(element).data('droppedBall') != undefined && $(element).data('droppedBall') != $(draggable).attr('ball-value')) {
+                            return false;
+                        }
+                        else {
+                            return true;
+                        }
                     },
                     drop: function (event, ui) {
-                        isDroppable = false;
-                        ui.draggable.css({ top: $(element).position().top + "px", left: $(element).position().left + "px", boxShadow: "0px 0px 0px 0px rgba(0,0,0,0)" });
+                        $(element).data('droppedBall', $(ui.draggable).attr('ball-value'));
+                        ui.draggable.data('iAmDroppedHere', $(element));
+                        ui.draggable.css({ top: $(element).position().top + "px", left: $(element).position().left + "px" });
                         $rootScope.$emit('ball.dropped', {
-                            dropped: ui.draggable.context.attributes['ball-value'].value,
+                            dropped: $(ui.draggable).attr('ball-value'),
                             destination: attributes.ballValue
                         });
                     }
@@ -600,6 +666,32 @@ var exercises;
     exercises.droppableBall = droppableBall;
     ;
     droppableBall.$inject = ['$rootScope'];
+    function droppableBallContainer($rootScope) {
+        return {
+            link: function ($scope, element, attributes) {
+                $(element).droppable({
+                    accept: function (draggable) {
+                        if (draggable.data('iAmDroppedHere') == undefined) {
+                            return false;
+                        }
+                        else {
+                            return true;
+                        }
+                    },
+                    drop: function (event, ui) {
+                        ui.draggable.data('iAmDroppedHere', $(element));
+                        console.log('shadows added in container');
+                        ui.draggable.css({ boxShadow: "0px 3px 4px 1px rgba(0,0,0,0.50)" });
+                        $rootScope.$emit('ball.removed', {
+                            removedBall: $(ui.draggable).attr('ball-value')
+                        });
+                    }
+                });
+            }
+        };
+    }
+    exercises.droppableBallContainer = droppableBallContainer;
+    droppableBallContainer.$inject = ['$rootScope'];
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -616,6 +708,7 @@ var exercises;
     mathApp.directive('droppableOrigin', exercises.droppableOrigin);
     mathApp.directive('droppableBall', exercises.droppableBall);
     mathApp.directive('draggableBall', exercises.draggableBall);
+    mathApp.directive('droppableBallContainer', exercises.droppableBallContainer);
     mathApp.config(['$routeProvider', function ($routeProvider) {
             $routeProvider.when('/', {
                 templateUrl: 'app/components/homeView.html',
@@ -656,6 +749,9 @@ var exercises;
                 resolve: {
                     'exercise3Data': function (exerciseServices) {
                         return exerciseServices.getExercise3Data();
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
                     }
                 }
             })

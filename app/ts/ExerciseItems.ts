@@ -86,10 +86,16 @@ module exercises {
     public itemId:number;
     public listOfGivenNumbers:number[] ;
     public listOfVisibleNumbers:number[];
+    public listOfCorrectNumbers:number[];
+    public listOfDroppedNumbers:number[];
+
     constructor(public startFrom: number, public missingNumbers:number[]) {
       this.itemId = Exercise3Item.id++;
       this.listOfGivenNumbers = [];
       this.listOfVisibleNumbers = [];
+      this.listOfCorrectNumbers = [];
+      this.listOfDroppedNumbers = [];
+      
       for(var i:number=startFrom; i<startFrom+9;i++) {
         this.listOfGivenNumbers.push(i);
       }

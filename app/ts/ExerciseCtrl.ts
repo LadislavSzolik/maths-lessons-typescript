@@ -66,9 +66,11 @@ module exercises {
   export class Exercise1Ctrl extends NavigationBase {
 
     public exetype: String = "N1a";
+    public progressBarType:string = "exe1";
+    public progressBarClass:string = "progress-color-exe1";
     public elementSize: number;
     public static $inject = ['$scope', '$location', '$route', 'exercise1Data', 'texts'];
-
+    public titleText:string;
     constructor(
       protected $scope: any,
       protected $location: ng.ILocationService,
@@ -76,6 +78,9 @@ module exercises {
       public exercise1Data: IExercise1,
       public texts: any) {
       super($scope, $location, $route, exercise1Data.subexerciseListDTO.length);
+
+      this.titleText = texts.exe1TitleText;
+
       for (var i: number = 0; i < exercise1Data.subexerciseListDTO.length; i++) {
         var exeItem: Exercise1Item = new Exercise1Item(exercise1Data.subexerciseListDTO[i].number);
         exercise1Data.subexerciseListDTO[i] = exeItem;
@@ -130,11 +135,13 @@ module exercises {
   * Exercise 2 controller
   */
   export class Exercise2Ctrl extends NavigationBase {
-
     public exetype: String = "N1b";
+    public progressBarType:string = "exe2";
+    public progressBarClass:string = "progress-color-exe2";
     public elementSize: number;
     public static $inject = ['$scope', '$location', '$route', 'exercise2Data', 'texts', '$rootScope'];
     public isLastElement: boolean;
+    public titleText:string;
 
     constructor(
       protected $scope: any,
@@ -144,7 +151,10 @@ module exercises {
       public texts: any,
       public $rootScope: any) {
       super($scope, $location, $route, exercise2Data.subexerciseListDTO.length);
+
       this.isLastElement = false;
+
+      this.titleText = texts.exe2TitleText;
 
       for (var i: number = 0; i < exercise2Data.subexerciseListDTO.length; i++) {
         var exeItem: Exercise2Item = new Exercise2Item(exercise2Data.subexerciseListDTO[i].number);
@@ -221,21 +231,26 @@ module exercises {
 
   export class Exercise3Ctrl extends NavigationBase {
     public exetype: String = "N1c";
-    public static $inject = ['$scope', '$location', '$route', '$rootScope', 'exercise3Data'];
+    public progressBarType:string = "exe3";
+    public progressBarClass:string = "progress-color-exe3";
+    public static $inject = ['$scope', '$location', '$route', '$rootScope', 'exercise3Data', 'texts'];
     public positions:any;
     public startingPosition:Object;
-    public listOfCorrect:number[];
+    public smallPositions:Object;
+    public titleText:string;
+
 
     constructor(
       protected $scope: any,
       protected $location: ng.ILocationService,
       protected $route: any,
       public $rootScope: any,
-      public exercise3Data: IExercise3
+      public exercise3Data: IExercise3,
+      public texts:any
       ) {
 
       super($scope, $location, $route, exercise3Data.subexerciseListDTO.length);
-
+      this.titleText = texts.exe3TitleText;
       for (var i: number = 0; i < exercise3Data.subexerciseListDTO.length; i++) {
         var exeItem: Exercise3Item = new Exercise3Item(exercise3Data.subexerciseListDTO[i].startFrom, exercise3Data.subexerciseListDTO[i].missingNumbers);
         exercise3Data.subexerciseListDTO[i] = exeItem;
@@ -252,43 +267,102 @@ module exercises {
         {top:'15px', left: '176px'},  //8
         {top:'105px', left: '51px'}];//9
 
+      this.smallPositions = [
+        {top:'74px', left:'8px'},
+        {top:'60px', left:'37px'},
+        {top:'65px', left:'68px'},
+        {top:'43px', left:'93px'},
+        {top:'25px', left:'123px'},
+        {top:'3px', left:'98px'},
+        {top:'17px', left:'66px'},
+        {top:'3px', left:'37px'},
+        {top:'21px', left:'11px'},
+        ];
+
       this.startingPosition = {top:'364px', left: '561px'};
 
-      this.listOfCorrect = [];
+
 
       $rootScope.$on('ball.dropped', (event:any, args:any) => {
-        console.log('before listOfCorrect'+ this.listOfCorrect);
-        if(args.dropped ==  args.destination) {
-          this.listOfCorrect.push(args.dropped);
-        } else if(this.listOfCorrect.indexOf(args.dropped,0) > -1) {
-          this.listOfCorrect.splice(this.listOfCorrect.indexOf(args.dropped,0),1);
-        }
-        console.log('after listOfCorrect'+ this.listOfCorrect);
-        this.addNextVisible()
+        var droppedBall:number = parseInt(args.dropped);
 
-      })
+        // check listOfDroppedNumbers
+        if(this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfDroppedNumbers.indexOf(droppedBall,0) == -1){
+          this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfDroppedNumbers.push(droppedBall);
+        }
+        // check listOfCorrectNumbers
+        if(args.dropped ==  args.destination) {
+          this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfCorrectNumbers.push(droppedBall);
+        } else if(this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfCorrectNumbers.indexOf(droppedBall,0) > -1) {
+          this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfCorrectNumbers.splice(this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfCorrectNumbers.indexOf(droppedBall,0),1);
+        }
+        // try to add the next
+        this.addNextVisible();
+
+      });
+
+      $rootScope.$on('ball.removed',(event:any, args:any) => {
+        this.removeBall(args.removedBall);
+      });
+
     }
 
     addNextVisible() {
-      for(var i:number = 0; i< this.exercise3Data.subexerciseListDTO[this.currentPage-1].missingNumbers.length; i++) {
-        var missingNumber:number = this.exercise3Data.subexerciseListDTO[this.currentPage-1].missingNumbers[i];
-        if(this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfVisibleNumbers.indexOf(missingNumber,0) == -1){
-          this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfVisibleNumbers.push(missingNumber);
-          this.$rootScope.$digest();
-          return;
+      // check listOfDroppedNumbers.length = listOfVisibleNumbers.length
+      if(this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfDroppedNumbers.length == this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfVisibleNumbers.length) {
 
+        for(var i:number = 0; i< this.exercise3Data.subexerciseListDTO[this.currentPage-1].missingNumbers.length; i++) {
+
+          var missingNumber:number = this.exercise3Data.subexerciseListDTO[this.currentPage-1].missingNumbers[i];
+          if(this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfVisibleNumbers.indexOf(missingNumber,0) == -1){
+            this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfVisibleNumbers.push(missingNumber);
+            this.$rootScope.$apply();
+            return;
+          }
         }
       }
     }
 
-    isNumberMissing(index:number) {
-      return this.exercise3Data.subexerciseListDTO[this.currentPage-1].missingNumbers.indexOf(index,0) > -1;
+    removeBall(ballNumberString:any) {
+      var ballNumber:number = parseInt(ballNumberString);
+      // remove it from listOfVisibleNumbers
+      this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfVisibleNumbers.splice(this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfVisibleNumbers.indexOf(ballNumber,0), 1);
+      // remove it from listOfDroppedNumbers
+      this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfDroppedNumbers.splice(this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfDroppedNumbers.indexOf(ballNumber,0), 1);
+      // if it's part of listOfCorrectNumbers remove it from there too
+      if(this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfCorrectNumbers.indexOf(ballNumber,0) > -1) {
+        this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfCorrectNumbers.splice(this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfCorrectNumbers.indexOf(ballNumber,0), 1);
+      }
+
+      this.$rootScope.$apply();
+
+      // if it was the last then should be added back
+      this.addNextVisible();
     }
 
-    isVisible(number:number) {
-      return this.exercise3Data.subexerciseListDTO[this.currentPage-1].listOfVisibleNumbers.indexOf(number,0) > -1;
+    isNumberMissing(parentIndex:number, index:number) {
+      return this.exercise3Data.subexerciseListDTO[parentIndex].missingNumbers.indexOf(index,0) > -1;
     }
 
+    isVisible(parentIndex:number, number:number) {
+      return this.exercise3Data.subexerciseListDTO[parentIndex].listOfVisibleNumbers.indexOf(number,0) > -1;
+    }
+
+    isDropped(parentIndex:number, number:number){
+      return this.exercise3Data.subexerciseListDTO[parentIndex].listOfDroppedNumbers.indexOf(number,0) > -1;
+    }
+
+    isCorrect(parentIndex:number, number:number) {
+      return this.exercise3Data.subexerciseListDTO[parentIndex].listOfCorrectNumbers.indexOf(number,0) > -1;
+    }
+
+    checkResult() {
+      if (!this.isSummaryActive()) {
+        super.checkResult();
+        this.exercise3Data.subexerciseListDTO.unshift(new Exercise3Item(99,[]));
+        this.totalItems = this.exercise3Data.subexerciseListDTO.length;
+      }
+    }
   }
 
 }

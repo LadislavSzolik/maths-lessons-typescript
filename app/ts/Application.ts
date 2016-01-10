@@ -19,6 +19,7 @@ mathApp.directive('droppableOrigin',droppableOrigin);
 
 mathApp.directive('droppableBall',droppableBall);
 mathApp.directive('draggableBall',draggableBall);
+mathApp.directive('droppableBallContainer',droppableBallContainer);
 
 
 // TODO: resolve caching of the services
@@ -64,6 +65,9 @@ mathApp.config(['$routeProvider', function($routeProvider:any ) {
         resolve: {
           'exercise3Data': (exerciseServices:IExerciseServices) => {
             return exerciseServices.getExercise3Data();
+          },
+          'texts': (exerciseServices:IExerciseServices) => {
+            return exerciseServices.getTexts();
           }
         }
 
