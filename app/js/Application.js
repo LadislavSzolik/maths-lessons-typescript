@@ -525,12 +525,12 @@ var exercises;
                 { top: '36px', left: '21px' },
                 { top: '135px', left: '32px', transform: 'rotate(347deg)' },
                 { top: '231px', left: '72px', transform: 'rotate(328deg)' },
-                { top: '309px', left: '143px', transform: 'rotate(38deg)' },
-                { top: '355px', left: '241px', transform: 'rotate(13deg)' },
+                { top: '309px', left: '143px', transform: 'rotate(308deg)' },
+                { top: '355px', left: '241px', transform: 'rotate(283deg)' },
                 { top: '355px', left: '350px', transform: 'rotate(256deg)' },
-                { top: '289px', left: '427px', transform: 'rotate(320deg)' },
-                { top: '214px', left: '496px', transform: 'rotate(303deg)' },
-                { top: '126px', left: '544px', transform: 'rotate(285deg)' },
+                { top: '304px', left: '447px', transform: 'rotate(320deg)' },
+                { top: '225px', left: '514px', transform: 'rotate(303deg)' },
+                { top: '129px', left: '554px', transform: 'rotate(285deg)' },
                 { top: '36px', left: '568px' }];
             this.smallPositions = [
                 { top: '74px', left: '8px' },
