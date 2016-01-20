@@ -408,11 +408,11 @@ module exercises {
         {top:'231px', left: '72px', transform: 'rotate(328deg)'}, //3
         {top:'309px', left: '143px', transform: 'rotate(308deg)'}, //4
         {top:'355px', left: '241px', transform: 'rotate(283deg)'}, //5
-        {top:'355px', left: '350px', transform: 'rotate(256deg)'},  //6
-        {top:'304px', left: '447px', transform: 'rotate(320deg)'},  //7
-        {top:'225px', left: '514px', transform: 'rotate(303deg)'},  //8
-        {top:'129px', left: '554px', transform: 'rotate(285deg)'},  //9
-        {top:'36px', left: '568px'}]; //10
+        {top:'355px', left: '353px', transform: 'rotate(-283deg)'},  //6
+        {top:'307px', left: '450px', transform: 'rotate(-308deg)'},  //7
+        {top:'227px', left: '521px', transform: 'rotate(-328deg)'},  //8
+        {top:'130px', left: '559px', transform: 'rotate(-347deg)'},  //9
+        {top:'32px', left: '568px'}]; //10
 
       this.smallPositions = [
         {top:'74px', left:'8px'},

@@ -109,13 +109,27 @@ module exercises {
 
   }
 
-  export class Exercise4Item extends Exercise3Item {
+  export class Exercise4Item  {
     public static id: number = 0;
     public itemId:number;
-
+    public listOfGivenNumbers:number[] ;
+    public listOfVisibleNumbers:number[];
+    public listOfCorrectNumbers:number[];
+    public listOfDroppedNumbers:number[];
+    public maxNumber:number = 10;
     constructor(public startFrom: number, public missingNumbers:number[], public blockedNumbers:number[])  {
-      super(startFrom,missingNumbers);
+
       this.itemId = Exercise4Item.id++;
+      this.listOfGivenNumbers = [];
+      this.listOfVisibleNumbers = [];
+      this.listOfCorrectNumbers = [];
+      this.listOfDroppedNumbers = [];
+
+      for(var i:number=startFrom; i<startFrom+this.maxNumber;i++) {
+        this.listOfGivenNumbers.push(i);
+      }
+
+      this.listOfVisibleNumbers.push(missingNumbers[0]);
     }
 
   }

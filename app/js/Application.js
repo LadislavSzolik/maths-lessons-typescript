@@ -75,18 +75,25 @@ var exercises;
         return Exercise3Item;
     }());
     exercises.Exercise3Item = Exercise3Item;
-    var Exercise4Item = (function (_super) {
-        __extends(Exercise4Item, _super);
+    var Exercise4Item = (function () {
         function Exercise4Item(startFrom, missingNumbers, blockedNumbers) {
-            _super.call(this, startFrom, missingNumbers);
             this.startFrom = startFrom;
             this.missingNumbers = missingNumbers;
             this.blockedNumbers = blockedNumbers;
+            this.maxNumber = 10;
             this.itemId = Exercise4Item.id++;
+            this.listOfGivenNumbers = [];
+            this.listOfVisibleNumbers = [];
+            this.listOfCorrectNumbers = [];
+            this.listOfDroppedNumbers = [];
+            for (var i = startFrom; i < startFrom + this.maxNumber; i++) {
+                this.listOfGivenNumbers.push(i);
+            }
+            this.listOfVisibleNumbers.push(missingNumbers[0]);
         }
         Exercise4Item.id = 0;
         return Exercise4Item;
-    }(Exercise3Item));
+    }());
     exercises.Exercise4Item = Exercise4Item;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
@@ -527,11 +534,11 @@ var exercises;
                 { top: '231px', left: '72px', transform: 'rotate(328deg)' },
                 { top: '309px', left: '143px', transform: 'rotate(308deg)' },
                 { top: '355px', left: '241px', transform: 'rotate(283deg)' },
-                { top: '355px', left: '350px', transform: 'rotate(256deg)' },
-                { top: '304px', left: '447px', transform: 'rotate(320deg)' },
-                { top: '225px', left: '514px', transform: 'rotate(303deg)' },
-                { top: '129px', left: '554px', transform: 'rotate(285deg)' },
-                { top: '36px', left: '568px' }];
+                { top: '355px', left: '353px', transform: 'rotate(-283deg)' },
+                { top: '307px', left: '450px', transform: 'rotate(-308deg)' },
+                { top: '227px', left: '521px', transform: 'rotate(-328deg)' },
+                { top: '130px', left: '559px', transform: 'rotate(-347deg)' },
+                { top: '32px', left: '568px' }];
             this.smallPositions = [
                 { top: '74px', left: '8px' },
                 { top: '60px', left: '37px' },

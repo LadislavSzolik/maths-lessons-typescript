@@ -189,8 +189,8 @@
             <div ng-if="!vm.isSummaryActive() || $index !== 0">
               <div ball-value="-99" class="cube-container" droppable-ball-container></div>
               <!-- base numbers -->
-              <div class="cube-with-number" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-style="vm.positions[$index]">
-                {{ball}}
+              <div class="cube-with-number" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-style="vm.positions[$index]">                
+                  {{ball}}
               </div>
               <!-- draggable and droppable numbers -->
               <div ball-value="{{ball}}" class="ball-without-number" droppable-ball ng-repeat="ball in subExercise.listOfGivenNumbers" ng-show="vm.isNumberMissing($parent.$index, ball) && !vm.isSummaryActive()" ng-style="vm.positions[$index]"></div>

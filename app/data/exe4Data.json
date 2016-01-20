@@ -14,7 +14,7 @@
     },
     "subexerciseListDTO": [
         {
-            "startFrom": 0,
+            "startFrom": 1,
             "missingNumbers" : [2, 4, 6, 7],
             "blockedNumbers" : [1, 5]
 },
