@@ -37,7 +37,7 @@ var exercises;
         };
         Exercise1Item.id = 0;
         return Exercise1Item;
-    })();
+    }());
     exercises.Exercise1Item = Exercise1Item;
     var Exercise2Item = (function (_super) {
         __extends(Exercise2Item, _super);
@@ -54,26 +54,40 @@ var exercises;
             }
         };
         return Exercise2Item;
-    })(Exercise1Item);
+    }(Exercise1Item));
     exercises.Exercise2Item = Exercise2Item;
     var Exercise3Item = (function () {
         function Exercise3Item(startFrom, missingNumbers) {
             this.startFrom = startFrom;
             this.missingNumbers = missingNumbers;
+            this.maxNumber = 9;
             this.itemId = Exercise3Item.id++;
             this.listOfGivenNumbers = [];
             this.listOfVisibleNumbers = [];
             this.listOfCorrectNumbers = [];
             this.listOfDroppedNumbers = [];
-            for (var i = startFrom; i < startFrom + 9; i++) {
+            for (var i = startFrom; i < startFrom + this.maxNumber; i++) {
                 this.listOfGivenNumbers.push(i);
             }
             this.listOfVisibleNumbers.push(missingNumbers[0]);
         }
         Exercise3Item.id = 0;
         return Exercise3Item;
-    })();
+    }());
     exercises.Exercise3Item = Exercise3Item;
+    var Exercise4Item = (function (_super) {
+        __extends(Exercise4Item, _super);
+        function Exercise4Item(startFrom, missingNumbers, blockedNumbers) {
+            _super.call(this, startFrom, missingNumbers);
+            this.startFrom = startFrom;
+            this.missingNumbers = missingNumbers;
+            this.blockedNumbers = blockedNumbers;
+            this.itemId = Exercise4Item.id++;
+        }
+        Exercise4Item.id = 0;
+        return Exercise4Item;
+    }(Exercise3Item));
+    exercises.Exercise4Item = Exercise4Item;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -117,7 +131,7 @@ var exercises;
         };
         ObjectPosition.id = 0;
         return ObjectPosition;
-    })();
+    }());
     exercises.ObjectPosition = ObjectPosition;
     var CommonMath = (function () {
         function CommonMath() {
@@ -139,7 +153,7 @@ var exercises;
             return numberArr;
         };
         return CommonMath;
-    })();
+    }());
     exercises.CommonMath = CommonMath;
 })(exercises || (exercises = {}));
 var exercises;
@@ -161,11 +175,14 @@ var exercises;
         ExerciseServices.prototype.getExercise3Data = function () {
             return this.$http.get('app/data/exe3Data.json').then(function (result) { return result.data; });
         };
+        ExerciseServices.prototype.getExercise4Data = function () {
+            return this.$http.get('app/data/exe4Data.json').then(function (result) { return result.data; });
+        };
         ExerciseServices.prototype.getTexts = function () {
             return this.$http.get('app/data/appTexts.json').then(function (result) { return result.data; });
         };
         return ExerciseServices;
-    })();
+    }());
     exercises.ExerciseServices = ExerciseServices;
 })(exercises || (exercises = {}));
 var exercises;
@@ -182,7 +199,7 @@ var exercises;
             localStorage.setItem(this.STORAGE_ID, JSON.stringify(todos));
         };
         return ExerciseStorage;
-    })();
+    }());
     exercises.ExerciseStorage = ExerciseStorage;
 })(exercises || (exercises = {}));
 var exercises;
@@ -196,7 +213,7 @@ var exercises;
         }
         HomeCtrl.$inject = ['$scope', 'menuData', 'texts'];
         return HomeCtrl;
-    })();
+    }());
     exercises.HomeCtrl = HomeCtrl;
     var NavigationBase = (function () {
         function NavigationBase($scope, $location, $route, totalItems) {
@@ -237,7 +254,7 @@ var exercises;
             this.currentPage = 1;
         };
         return NavigationBase;
-    })();
+    }());
     exercises.NavigationBase = NavigationBase;
     var Exercise1Ctrl = (function (_super) {
         __extends(Exercise1Ctrl, _super);
@@ -296,7 +313,7 @@ var exercises;
         };
         Exercise1Ctrl.$inject = ['$scope', '$location', '$route', 'exercise1Data', 'texts'];
         return Exercise1Ctrl;
-    })(NavigationBase);
+    }(NavigationBase));
     exercises.Exercise1Ctrl = Exercise1Ctrl;
     var Exercise2Ctrl = (function (_super) {
         __extends(Exercise2Ctrl, _super);
@@ -380,7 +397,7 @@ var exercises;
         };
         Exercise2Ctrl.$inject = ['$scope', '$location', '$route', 'exercise2Data', 'texts', '$rootScope'];
         return Exercise2Ctrl;
-    })(NavigationBase);
+    }(NavigationBase));
     exercises.Exercise2Ctrl = Exercise2Ctrl;
     var Exercise3Ctrl = (function (_super) {
         __extends(Exercise3Ctrl, _super);
@@ -483,8 +500,75 @@ var exercises;
         };
         Exercise3Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'exercise3Data', 'texts'];
         return Exercise3Ctrl;
-    })(NavigationBase);
+    }(NavigationBase));
     exercises.Exercise3Ctrl = Exercise3Ctrl;
+    var Exercise4Ctrl = (function (_super) {
+        __extends(Exercise4Ctrl, _super);
+        function Exercise4Ctrl($scope, $location, $route, $rootScope, exercise4Data, texts) {
+            var _this = this;
+            _super.call(this, $scope, $location, $route, exercise4Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.exercise4Data = exercise4Data;
+            this.texts = texts;
+            this.exetype = "N1d";
+            this.progressBarType = "exe4";
+            this.progressBarClass = "progress-color-exe4";
+            this.titleText = texts.exe4TitleText;
+            for (var i = 0; i < exercise4Data.subexerciseListDTO.length; i++) {
+                var exeItem = new exercises.Exercise4Item(exercise4Data.subexerciseListDTO[i].startFrom, exercise4Data.subexerciseListDTO[i].missingNumbers, exercise4Data.subexerciseListDTO[i].blockedNumbers);
+                exercise4Data.subexerciseListDTO[i] = exeItem;
+            }
+            this.positions = [
+                { top: '36px', left: '21px' },
+                { top: '135px', left: '32px', transform: 'rotate(347deg)' },
+                { top: '231px', left: '72px', transform: 'rotate(328deg)' },
+                { top: '309px', left: '143px', transform: 'rotate(38deg)' },
+                { top: '355px', left: '241px', transform: 'rotate(13deg)' },
+                { top: '355px', left: '350px', transform: 'rotate(256deg)' },
+                { top: '289px', left: '427px', transform: 'rotate(320deg)' },
+                { top: '214px', left: '496px', transform: 'rotate(303deg)' },
+                { top: '126px', left: '544px', transform: 'rotate(285deg)' },
+                { top: '36px', left: '568px' }];
+            this.smallPositions = [
+                { top: '74px', left: '8px' },
+                { top: '60px', left: '37px' },
+                { top: '65px', left: '68px' },
+                { top: '43px', left: '93px' },
+                { top: '25px', left: '123px' },
+                { top: '3px', left: '98px' },
+                { top: '17px', left: '66px' },
+                { top: '3px', left: '37px' },
+                { top: '21px', left: '11px' },
+            ];
+            this.startingPosition = { top: '364px', left: '561px' };
+            $rootScope.$on('ball.dropped', function (event, args) {
+                var droppedBall = parseInt(args.dropped);
+                if (_this.exercise4Data.subexerciseListDTO[_this.currentPage - 1].listOfDroppedNumbers.indexOf(droppedBall, 0) == -1) {
+                    _this.exercise4Data.subexerciseListDTO[_this.currentPage - 1].listOfDroppedNumbers.push(droppedBall);
+                }
+                if (args.dropped == args.destination) {
+                    _this.exercise4Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.push(droppedBall);
+                }
+                else if (_this.exercise4Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.indexOf(droppedBall, 0) > -1) {
+                    _this.exercise4Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.splice(_this.exercise4Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.indexOf(droppedBall, 0), 1);
+                }
+            });
+            $rootScope.$on('ball.removed', function (event, args) {
+            });
+        }
+        Exercise4Ctrl.prototype.isNumberMissing = function (parentIndex, index) {
+            return this.exercise4Data.subexerciseListDTO[parentIndex].missingNumbers.indexOf(index, 0) > -1;
+        };
+        Exercise4Ctrl.prototype.isVisible = function (parentIndex, number) {
+            return this.exercise4Data.subexerciseListDTO[parentIndex].listOfVisibleNumbers.indexOf(number, 0) > -1;
+        };
+        Exercise4Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'exercise4Data', 'texts'];
+        return Exercise4Ctrl;
+    }(NavigationBase));
+    exercises.Exercise4Ctrl = Exercise4Ctrl;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -700,6 +784,7 @@ var exercises;
     mathApp.controller('exercise1Ctrl', exercises.Exercise1Ctrl);
     mathApp.controller('exercise2Ctrl', exercises.Exercise2Ctrl);
     mathApp.controller('exercise3Ctrl', exercises.Exercise3Ctrl);
+    mathApp.controller('exercise4Ctrl', exercises.Exercise4Ctrl);
     mathApp.service('exerciseServices', exercises.ExerciseServices);
     mathApp.directive('animateRubber', exercises.animateRubber);
     mathApp.directive('animateButton', exercises.animateButton);
@@ -749,6 +834,17 @@ var exercises;
                 resolve: {
                     'exercise3Data': function (exerciseServices) {
                         return exerciseServices.getExercise3Data();
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            }).when('/N1d', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'exercise4Ctrl',
+                resolve: {
+                    'exercise4Data': function (exerciseServices) {
+                        return exerciseServices.getExercise4Data();
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();

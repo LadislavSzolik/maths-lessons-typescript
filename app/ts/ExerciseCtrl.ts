@@ -229,6 +229,11 @@ module exercises {
   }
 
 
+  /***********************************************
+  *
+  * Exercise 3 controller
+  *
+  ***********************************************/
   export class Exercise3Ctrl extends NavigationBase {
     public exetype: String = "N1c";
     public progressBarType:string = "exe3";
@@ -362,6 +367,99 @@ module exercises {
         this.exercise3Data.subexerciseListDTO.unshift(new Exercise3Item(99,[]));
         this.totalItems = this.exercise3Data.subexerciseListDTO.length;
       }
+    }
+  }
+
+  /***********************************************
+  *
+  * Exercise 4 controller
+  *
+  ***********************************************/
+  export class Exercise4Ctrl extends NavigationBase {
+    public exetype: String = "N1d";
+    public progressBarType:string = "exe4";
+    public progressBarClass:string = "progress-color-exe4";
+    public static $inject = ['$scope', '$location', '$route', '$rootScope', 'exercise4Data', 'texts'];
+    public positions:any;
+    public startingPosition:Object;
+    public smallPositions:Object;
+    public titleText:string;
+
+
+    constructor(
+      protected $scope: any,
+      protected $location: ng.ILocationService,
+      protected $route: any,
+      public $rootScope: any,
+      public exercise4Data: IExercise4,
+      public texts:any
+      ) {
+
+      super($scope, $location, $route, exercise4Data.subexerciseListDTO.length);
+      this.titleText = texts.exe4TitleText;
+      for (var i: number = 0; i < exercise4Data.subexerciseListDTO.length; i++) {
+        var exeItem: Exercise4Item = new Exercise4Item(exercise4Data.subexerciseListDTO[i].startFrom, exercise4Data.subexerciseListDTO[i].missingNumbers, exercise4Data.subexerciseListDTO[i].blockedNumbers);
+        exercise4Data.subexerciseListDTO[i] = exeItem;
+      }
+
+      this.positions = [
+        {top:'36px', left: '21px'},  //1
+        {top:'135px', left: '32px', transform: 'rotate(347deg)'}, //2
+        {top:'231px', left: '72px', transform: 'rotate(328deg)'}, //3
+        {top:'309px', left: '143px', transform: 'rotate(38deg)'}, //4
+        {top:'355px', left: '241px', transform: 'rotate(13deg)'}, //5
+        {top:'355px', left: '350px', transform: 'rotate(256deg)'},  //6
+        {top:'289px', left: '427px', transform: 'rotate(320deg)'},  //7
+        {top:'214px', left: '496px', transform: 'rotate(303deg)'},  //8
+        {top:'126px', left: '544px', transform: 'rotate(285deg)'},  //9
+        {top:'36px', left: '568px'}]; //10
+
+      this.smallPositions = [
+        {top:'74px', left:'8px'},
+        {top:'60px', left:'37px'},
+        {top:'65px', left:'68px'},
+        {top:'43px', left:'93px'},
+        {top:'25px', left:'123px'},
+        {top:'3px', left:'98px'},
+        {top:'17px', left:'66px'},
+        {top:'3px', left:'37px'},
+        {top:'21px', left:'11px'},
+        ];
+
+      this.startingPosition = {top:'364px', left: '561px'};
+
+
+
+      $rootScope.$on('ball.dropped', (event:any, args:any) => {
+        var droppedBall:number = parseInt(args.dropped);
+
+        // check listOfDroppedNumbers
+        if(this.exercise4Data.subexerciseListDTO[this.currentPage-1].listOfDroppedNumbers.indexOf(droppedBall,0) == -1){
+          this.exercise4Data.subexerciseListDTO[this.currentPage-1].listOfDroppedNumbers.push(droppedBall);
+        }
+        // check listOfCorrectNumbers
+        if(args.dropped ==  args.destination) {
+          this.exercise4Data.subexerciseListDTO[this.currentPage-1].listOfCorrectNumbers.push(droppedBall);
+        } else if(this.exercise4Data.subexerciseListDTO[this.currentPage-1].listOfCorrectNumbers.indexOf(droppedBall,0) > -1) {
+          this.exercise4Data.subexerciseListDTO[this.currentPage-1].listOfCorrectNumbers.splice(this.exercise4Data.subexerciseListDTO[this.currentPage-1].listOfCorrectNumbers.indexOf(droppedBall,0),1);
+        }
+        // try to add the next
+        //this.addNextVisible();
+
+      });
+
+      $rootScope.$on('ball.removed',(event:any, args:any) => {
+        //this.removeBall(args.removedBall);
+      });
+
+    }
+
+    isNumberMissing(parentIndex:number, index:number) {
+      return this.exercise4Data.subexerciseListDTO[parentIndex].missingNumbers.indexOf(index,0) > -1;
+    }
+
+    isVisible(parentIndex:number, number:number) {
+      return this.exercise4Data.subexerciseListDTO[parentIndex].listOfVisibleNumbers.indexOf(number,0) > -1;
     }
   }
 

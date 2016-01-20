@@ -1,0 +1,77 @@
+{
+    "id": 1,
+    "version": 1,
+    "exerciseContentDTO": {
+        "id": 1,
+        "version": 1,
+        "title": "Title N1d",
+        "content": "N1c"
+    },
+    "categoryDTO": {
+        "id": 1,
+        "version": 1,
+        "type": "NUMBER_OR_DIGITS"
+    },
+    "subexerciseListDTO": [
+        {
+            "startFrom": 0,
+            "missingNumbers" : [2, 4, 6, 7],
+            "blockedNumbers" : [1, 5]
+},
+        {
+          "startFrom": 4,
+          "missingNumbers" : [5, 7, 9, 10],
+          "blockedNumbers" : [6,11]
+},
+        {
+          "startFrom": 5,
+          "missingNumbers" : [5, 7, 9, 10],
+          "blockedNumbers" : [8, 12]
+},
+        {
+          "startFrom": 2,
+          "missingNumbers" : [5, 7, 9, 10],
+          "blockedNumbers" : [6, 8]
+},
+        {
+          "startFrom": 7,
+          "missingNumbers" : [9, 10, 14, 15],
+          "blockedNumbers" : [11, 13]
+},
+        {
+          "startFrom": 6,
+          "missingNumbers" : [8, 10, 12, 14],
+          "blockedNumbers" : [7, 13]
+},
+        {
+          "startFrom": 1,
+          "missingNumbers" : [2, 4, 6, 8],
+          "blockedNumbers" : [5, 7]
+},
+        {
+          "startFrom": 6,
+          "missingNumbers" : [7, 9, 11, 13],
+          "blockedNumbers" : [10, 12]
+},
+        {
+          "startFrom": 8,
+          "missingNumbers" : [8, 10, 12, 14],
+          "blockedNumbers" : [11, 15]
+},
+        {
+          "startFrom": 3,
+          "missingNumbers" : [5, 7, 9, 10],
+          "blockedNumbers" : [4, 8]
+},
+        {
+          "startFrom": 9,
+          "missingNumbers" : [11, 13, 15, 17],
+          "blockedNumbers" : [10, 16]
+},
+        {
+          "startFrom": 5,
+          "missingNumbers" : [6, 9, 11, 13],
+          "blockedNumbers" : [7,12]
+}
+]
+}

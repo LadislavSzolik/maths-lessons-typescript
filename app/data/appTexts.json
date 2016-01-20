@@ -2,5 +2,6 @@
     "mainMenuTitleText": "Welcome",
     "exe1TitleText": "How many objects do you see?",
     "exe2TitleText": "Select a number of objects",
-    "exe3TitleText": "Fill the gaps with the correct number"  
+    "exe3TitleText": "Fill the gaps with the correct number",
+    "exe4TitleText": "Fill the gaps with the correct number" 
 }

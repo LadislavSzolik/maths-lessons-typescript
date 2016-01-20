@@ -18,6 +18,10 @@ module exercises {
     subexerciseListDTO:Exercise3Item[];
   }
 
+  export interface IExercise4 {
+    subexerciseListDTO:Exercise4Item[];
+  }
+
 
   export class Exercise1Item {
     public givenNumber: number;
@@ -88,19 +92,30 @@ module exercises {
     public listOfVisibleNumbers:number[];
     public listOfCorrectNumbers:number[];
     public listOfDroppedNumbers:number[];
-
+    public maxNumber:number = 9;
     constructor(public startFrom: number, public missingNumbers:number[]) {
       this.itemId = Exercise3Item.id++;
       this.listOfGivenNumbers = [];
       this.listOfVisibleNumbers = [];
       this.listOfCorrectNumbers = [];
       this.listOfDroppedNumbers = [];
-      
-      for(var i:number=startFrom; i<startFrom+9;i++) {
+
+      for(var i:number=startFrom; i<startFrom+this.maxNumber;i++) {
         this.listOfGivenNumbers.push(i);
       }
 
       this.listOfVisibleNumbers.push(missingNumbers[0]);
+    }
+
+  }
+
+  export class Exercise4Item extends Exercise3Item {
+    public static id: number = 0;
+    public itemId:number;
+
+    constructor(public startFrom: number, public missingNumbers:number[], public blockedNumbers:number[])  {
+      super(startFrom,missingNumbers);
+      this.itemId = Exercise4Item.id++;
     }
 
   }
