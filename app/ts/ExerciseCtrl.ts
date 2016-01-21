@@ -381,6 +381,7 @@ module exercises {
     public progressBarClass:string = "progress-color-exe4";
     public static $inject = ['$scope', '$location', '$route', '$rootScope', 'exercise4Data', 'texts'];
     public positions:any;
+    public positionCorrections:any;
     public startingPosition:Object;
     public smallPositions:Object;
     public titleText:string;
@@ -413,6 +414,18 @@ module exercises {
         {top:'227px', left: '521px', transform: 'rotate(-328deg)'},  //8
         {top:'130px', left: '559px', transform: 'rotate(-347deg)'},  //9
         {top:'32px', left: '568px'}]; //10
+
+      this.positionCorrections = [
+        {},  //1
+        {transform: 'rotate(-347deg)'}, //2
+        {transform: 'rotate(-328deg)'}, //3
+        {transform: 'rotate(-308deg)'}, //4
+        {transform: 'rotate(-283deg)'}, //5
+        { transform: 'rotate(283deg)'},  //6
+        {transform: 'rotate(308deg)'},  //7
+        {transform: 'rotate(328deg)'},  //8
+        {transform: 'rotate(347deg)'},  //9
+        {}]; //10
 
       this.smallPositions = [
         {top:'74px', left:'8px'},

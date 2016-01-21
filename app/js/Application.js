@@ -539,6 +539,17 @@ var exercises;
                 { top: '227px', left: '521px', transform: 'rotate(-328deg)' },
                 { top: '130px', left: '559px', transform: 'rotate(-347deg)' },
                 { top: '32px', left: '568px' }];
+            this.positionCorrections = [
+                {},
+                { transform: 'rotate(-347deg)' },
+                { transform: 'rotate(-328deg)' },
+                { transform: 'rotate(-308deg)' },
+                { transform: 'rotate(-283deg)' },
+                { transform: 'rotate(283deg)' },
+                { transform: 'rotate(308deg)' },
+                { transform: 'rotate(328deg)' },
+                { transform: 'rotate(347deg)' },
+                {}];
             this.smallPositions = [
                 { top: '74px', left: '8px' },
                 { top: '60px', left: '37px' },

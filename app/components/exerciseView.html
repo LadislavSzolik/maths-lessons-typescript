@@ -174,7 +174,9 @@
                   <a href ng-click="vm.selectPage($index+1,$event)">
                     <div class="exe3-summary-background">
                       <div class="ball-with-number-small" ng-hide="vm.isNumberMissing($parent.$index, ball)" ng-repeat="ball in summary.listOfGivenNumbers" ng-style="vm.smallPositions[$index]">
-                        {{ball}}
+                        <div ng-style="">
+                          {{ball}}
+                        </div>
                       </div>
                       <div class="ball-without-number-small" ng-class="{'invalid-result':true}" ng-repeat="ball in summary.listOfGivenNumbers" ng-show="!vm.isDropped($parent.$index, ball) && vm.isNumberMissing($parent.$index, ball)" ng-style="vm.smallPositions[$index]"></div>
                       <div class="ball-with-number-small" ng-class="{'valid-result':vm.isCorrect($parent.$index, ball), 'invalid-result':!vm.isCorrect($parent.$index, ball)}" ng-repeat="ball in summary.listOfGivenNumbers" ng-show="vm.isNumberMissing($parent.$index, ball) && vm.isDropped($parent.$index, ball)" ng-style="vm.smallPositions[$index]">
@@ -189,8 +191,10 @@
             <div ng-if="!vm.isSummaryActive() || $index !== 0">
               <div ball-value="-99" class="cube-container" droppable-ball-container></div>
               <!-- base numbers -->
-              <div class="cube-with-number" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-style="vm.positions[$index]">                
+              <div class="cube-with-number" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-style="vm.positions[$index]">
+                <div ng-style="vm.positionCorrections[$index]">
                   {{ball}}
+                </div>
               </div>
               <!-- draggable and droppable numbers -->
               <div ball-value="{{ball}}" class="ball-without-number" droppable-ball ng-repeat="ball in subExercise.listOfGivenNumbers" ng-show="vm.isNumberMissing($parent.$index, ball) && !vm.isSummaryActive()" ng-style="vm.positions[$index]"></div>
