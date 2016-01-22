@@ -191,16 +191,25 @@
             <div ng-if="!vm.isSummaryActive() || $index !== 0">
               <div ball-value="-99" class="cube-container" droppable-ball-container></div>
               <!-- base numbers -->
-              <div class="cube-with-number" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-style="vm.positions[$index]">
+              <div class="cube-with-number" ng-hide="vm.isNumberMissing($parent.$index, ball) || vm.isNumberBlocked($parent.$index, ball)" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-style="vm.positions[$index]">
                 <div ng-style="vm.positionCorrections[$index]">
                   {{ball}}
                 </div>
               </div>
-              <!-- draggable and droppable numbers -->
-              <div ball-value="{{ball}}" class="ball-without-number" droppable-ball ng-repeat="ball in subExercise.listOfGivenNumbers" ng-show="vm.isNumberMissing($parent.$index, ball) && !vm.isSummaryActive()" ng-style="vm.positions[$index]"></div>
-              <div ball-value="{{ball}}" class="ball-with-number" draggable-ball ng-repeat="ball in subExercise.missingNumbers" ng-show="vm.isVisible($parent.$index, ball) && !vm.isSummaryActive()" ng-style="!vm.isDropped($parent.$index, ball) && vm.startingPosition || vm.isDropped($parent.$index, ball) && vm.positions[ball] ">
-                {{ball}}
+
+              <!-- blocked numbers -->
+              <div class="blocked-cube" ng-show="vm.isNumberBlocked($parent.$index, ball)" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-style="vm.positions[$index]">
               </div>
+
+              <!-- draggable and droppable numbers -->
+              <div ball-value="{{ball}}" class="cube-without-number" droppable-ball ng-repeat="ball in subExercise.listOfGivenNumbers" ng-show="vm.isNumberMissing($parent.$index, ball) && !vm.isSummaryActive()" ng-style="vm.positions[$index]"></div>
+              <div ball-value="{{ball}}" class="cube-with-number" draggable-ball ng-repeat="ball in subExercise.missingNumbers" ng-show="vm.isVisible($parent.$index, ball) && !vm.isSummaryActive()" ng-style="!vm.isDropped($parent.$index, ball) && vm.startingPosition || vm.isDropped($parent.$index, ball) && vm.positions[ball] ">
+                <div>
+                    {{ball}}
+                </div>
+
+              </div>
+
               <!-- summary numbers -->
               <div class="ball-without-number" ng-class="{'invalid-result':true}" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-show="vm.isSummaryActive() && !vm.isDropped($parent.$index, ball) && vm.isNumberMissing($parent.$index, ball)" ng-style="vm.positions[$index]"></div>
               <div class="ball-with-number" ng-class="{'valid-result':vm.isCorrect($parent.$index, ball), 'invalid-result':!vm.isCorrect($parent.$index, ball)}" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-show="vm.isNumberMissing($parent.$index, ball) && vm.isDropped($parent.$index, ball) && vm.isSummaryActive()" ng-style="vm.positions[$index]">

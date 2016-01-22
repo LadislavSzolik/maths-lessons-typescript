@@ -561,7 +561,7 @@ var exercises;
                 { top: '3px', left: '37px' },
                 { top: '21px', left: '11px' },
             ];
-            this.startingPosition = { top: '364px', left: '561px' };
+            this.startingPosition = { top: '95px', left: '295px' };
             $rootScope.$on('ball.dropped', function (event, args) {
                 var droppedBall = parseInt(args.dropped);
                 if (_this.exercise4Data.subexerciseListDTO[_this.currentPage - 1].listOfDroppedNumbers.indexOf(droppedBall, 0) == -1) {
@@ -579,6 +579,9 @@ var exercises;
         }
         Exercise4Ctrl.prototype.isNumberMissing = function (parentIndex, index) {
             return this.exercise4Data.subexerciseListDTO[parentIndex].missingNumbers.indexOf(index, 0) > -1;
+        };
+        Exercise4Ctrl.prototype.isNumberBlocked = function (parentIndex, index) {
+            return this.exercise4Data.subexerciseListDTO[parentIndex].blockedNumbers.indexOf(index, 0) > -1;
         };
         Exercise4Ctrl.prototype.isVisible = function (parentIndex, number) {
             return this.exercise4Data.subexerciseListDTO[parentIndex].listOfVisibleNumbers.indexOf(number, 0) > -1;

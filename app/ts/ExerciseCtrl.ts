@@ -439,7 +439,7 @@ module exercises {
         {top:'21px', left:'11px'},
         ];
 
-      this.startingPosition = {top:'364px', left: '561px'};
+      this.startingPosition = {top:'95px', left: '295px'};
 
 
 
@@ -469,6 +469,10 @@ module exercises {
 
     isNumberMissing(parentIndex:number, index:number) {
       return this.exercise4Data.subexerciseListDTO[parentIndex].missingNumbers.indexOf(index,0) > -1;
+    }
+
+    isNumberBlocked(parentIndex:number, index:number) {
+      return this.exercise4Data.subexerciseListDTO[parentIndex].blockedNumbers.indexOf(index,0) > -1;
     }
 
     isVisible(parentIndex:number, number:number) {
