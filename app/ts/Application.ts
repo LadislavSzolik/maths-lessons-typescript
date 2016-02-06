@@ -2,7 +2,7 @@
 
 module exercises {
 
-var mathApp = angular.module('maths', ['ngMdIcons', 'ngTouch','ui.bootstrap', 'ngRoute']);
+var mathApp = angular.module('maths', ['ngMdIcons', 'ngTouch','ui.bootstrap', 'ngRoute', 'ng-sortable']);
 
 mathApp.controller('homeCtrl',HomeCtrl);
 mathApp.controller('exercise1Ctrl',Exercise1Ctrl);

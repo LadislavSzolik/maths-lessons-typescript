@@ -151,7 +151,7 @@ module exercises {
               }
             }
             if (ui.helper.data('iAmDroppedHere') != undefined && ui.helper.data('iAmDroppedHere').attr('ball-value') != '-99') {
-              $(element).css({ boxShadow: "0px 0px 0px 0px rgba(0,0,0,0)" });              
+              $(element).css({ boxShadow: "0px 0px 0px 0px rgba(0,0,0,0)" });
             }
           }
         });
@@ -174,10 +174,12 @@ module exercises {
           drop: function(event, ui) {
             $(element).data('droppedBall', $(ui.draggable).attr('ball-value'));
             ui.draggable.data('iAmDroppedHere', $(element));
-            ui.draggable.css({ top: $(element).position().top + "px", left: $(element).position().left + "px" });
+            ui.draggable.css({top: $(element).position().top + "px", left: $(element).position().left + "px"});
+
             $rootScope.$emit('ball.dropped', {
               dropped: $(ui.draggable).attr('ball-value'),
-              destination: attributes.ballValue
+              destination: attributes.ballValue,
+              draggable: ui.draggable
             })
           }
         });
@@ -201,7 +203,7 @@ module exercises {
           },
           drop: (event: any, ui: any) => {
             ui.draggable.data('iAmDroppedHere', $(element));
-            console.log('shadows added in container');
+
             ui.draggable.css({ boxShadow: "0px 3px 4px 1px rgba(0,0,0,0.50)" });
             $rootScope.$emit('ball.removed', {
               removedBall: $(ui.draggable).attr('ball-value')
@@ -212,4 +214,22 @@ module exercises {
     };
   }
   droppableBallContainer.$inject = ['$rootScope'];
+
+
+
+  export function getRotationDegrees(obj :any) {
+      var matrix = obj.css("-webkit-transform") ||
+      obj.css("-moz-transform")    ||
+      obj.css("-ms-transform")     ||
+      obj.css("-o-transform")      ||
+      obj.css("transform");
+      if(matrix !== 'none') {
+          var values = matrix.split('(')[1].split(')')[0].split(',');
+          var a = values[0];
+          var b = values[1];
+          var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+      } else { var angle = 0; }
+      return (angle < 0) ? angle + 360 : angle;
+  }
+
 }

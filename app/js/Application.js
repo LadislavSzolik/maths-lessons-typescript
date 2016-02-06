@@ -81,20 +81,68 @@ var exercises;
             this.missingNumbers = missingNumbers;
             this.blockedNumbers = blockedNumbers;
             this.maxNumber = 10;
+            this.positionInit = [
+                { top: '64px', left: '288px' },
+                { top: '163px', left: '228px' },
+                { top: '163px', left: '347px' },
+                { top: '262px', left: '171px' },
+                { top: '262px', left: '296px' },
+                { top: '262px', left: '420px' },
+                { top: '358px', left: '112px' },
+                { top: '358px', left: '235px' },
+                { top: '358px', left: '358px' },
+                { top: '358px', left: '481px' }];
+            this.smallPositionInit = [
+                { top: '6px', left: '64px' },
+                { top: '31px', left: '49px' },
+                { top: '31px', left: '78px' },
+                { top: '55px', left: '35px' },
+                { top: '55px', left: '66px' },
+                { top: '55px', left: '97px' },
+                { top: '79px', left: '20px' },
+                { top: '79px', left: '50px' },
+                { top: '79px', left: '81px' },
+                { top: '79px', left: '112px' }];
             this.itemId = Exercise4Item.id++;
             this.listOfGivenNumbers = [];
-            this.listOfVisibleNumbers = [];
-            this.listOfCorrectNumbers = [];
-            this.listOfDroppedNumbers = [];
+            this.listOfMissingNumbers = [];
+            this.numberOnStart = new NumberCube(0);
+            this.listOfBlockedNumbers = [];
+            this.positionForNumber = {};
+            this.smallPositionForNumber = {};
             for (var i = startFrom; i < startFrom + this.maxNumber; i++) {
-                this.listOfGivenNumbers.push(i);
+                if (missingNumbers.indexOf(i) == -1 && blockedNumbers.indexOf(i) == -1) {
+                    this.listOfGivenNumbers.push(new NumberCube(i));
+                }
+                this.positionForNumber[i] = this.positionInit.shift();
+                this.smallPositionForNumber[i] = this.smallPositionInit.shift();
             }
-            this.listOfVisibleNumbers.push(missingNumbers[0]);
+            for (var i = 0; i < missingNumbers.length; i++) {
+                this.listOfMissingNumbers.push(new NumberCube(missingNumbers[i]));
+                this.numberOnStart.listOfDroppedNumbers.push(new NumberCube(missingNumbers[i]));
+            }
+            for (var i = 0; i < blockedNumbers.length; i++) {
+                this.listOfBlockedNumbers.push(new NumberCube(blockedNumbers[i]));
+            }
         }
         Exercise4Item.id = 0;
         return Exercise4Item;
     }());
     exercises.Exercise4Item = Exercise4Item;
+    var NumberCube = (function () {
+        function NumberCube(value) {
+            this.value = value;
+            this.listOfDroppedNumbers = [];
+        }
+        NumberCube.prototype.isCorrect = function () {
+            if (this.listOfDroppedNumbers.length == 0) {
+                return false;
+            }
+            return this.listOfDroppedNumbers[this.listOfDroppedNumbers.length - 1].value == this.value;
+        };
+        return NumberCube;
+    }());
+    exercises.NumberCube = NumberCube;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -512,7 +560,6 @@ var exercises;
     var Exercise4Ctrl = (function (_super) {
         __extends(Exercise4Ctrl, _super);
         function Exercise4Ctrl($scope, $location, $route, $rootScope, exercise4Data, texts) {
-            var _this = this;
             _super.call(this, $scope, $location, $route, exercise4Data.subexerciseListDTO.length);
             this.$scope = $scope;
             this.$location = $location;
@@ -528,63 +575,14 @@ var exercises;
                 var exeItem = new exercises.Exercise4Item(exercise4Data.subexerciseListDTO[i].startFrom, exercise4Data.subexerciseListDTO[i].missingNumbers, exercise4Data.subexerciseListDTO[i].blockedNumbers);
                 exercise4Data.subexerciseListDTO[i] = exeItem;
             }
-            this.positions = [
-                { top: '36px', left: '21px' },
-                { top: '135px', left: '32px', transform: 'rotate(347deg)' },
-                { top: '231px', left: '72px', transform: 'rotate(328deg)' },
-                { top: '309px', left: '143px', transform: 'rotate(308deg)' },
-                { top: '355px', left: '241px', transform: 'rotate(283deg)' },
-                { top: '355px', left: '353px', transform: 'rotate(-283deg)' },
-                { top: '307px', left: '450px', transform: 'rotate(-308deg)' },
-                { top: '227px', left: '521px', transform: 'rotate(-328deg)' },
-                { top: '130px', left: '559px', transform: 'rotate(-347deg)' },
-                { top: '32px', left: '568px' }];
-            this.positionCorrections = [
-                {},
-                { transform: 'rotate(-347deg)' },
-                { transform: 'rotate(-328deg)' },
-                { transform: 'rotate(-308deg)' },
-                { transform: 'rotate(-283deg)' },
-                { transform: 'rotate(283deg)' },
-                { transform: 'rotate(308deg)' },
-                { transform: 'rotate(328deg)' },
-                { transform: 'rotate(347deg)' },
-                {}];
-            this.smallPositions = [
-                { top: '74px', left: '8px' },
-                { top: '60px', left: '37px' },
-                { top: '65px', left: '68px' },
-                { top: '43px', left: '93px' },
-                { top: '25px', left: '123px' },
-                { top: '3px', left: '98px' },
-                { top: '17px', left: '66px' },
-                { top: '3px', left: '37px' },
-                { top: '21px', left: '11px' },
-            ];
-            this.startingPosition = { top: '95px', left: '295px' };
-            $rootScope.$on('ball.dropped', function (event, args) {
-                var droppedBall = parseInt(args.dropped);
-                if (_this.exercise4Data.subexerciseListDTO[_this.currentPage - 1].listOfDroppedNumbers.indexOf(droppedBall, 0) == -1) {
-                    _this.exercise4Data.subexerciseListDTO[_this.currentPage - 1].listOfDroppedNumbers.push(droppedBall);
-                }
-                if (args.dropped == args.destination) {
-                    _this.exercise4Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.push(droppedBall);
-                }
-                else if (_this.exercise4Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.indexOf(droppedBall, 0) > -1) {
-                    _this.exercise4Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.splice(_this.exercise4Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.indexOf(droppedBall, 0), 1);
-                }
-            });
-            $rootScope.$on('ball.removed', function (event, args) {
-            });
+            this.sortableConfig = { group: 'home' };
         }
-        Exercise4Ctrl.prototype.isNumberMissing = function (parentIndex, index) {
-            return this.exercise4Data.subexerciseListDTO[parentIndex].missingNumbers.indexOf(index, 0) > -1;
-        };
-        Exercise4Ctrl.prototype.isNumberBlocked = function (parentIndex, index) {
-            return this.exercise4Data.subexerciseListDTO[parentIndex].blockedNumbers.indexOf(index, 0) > -1;
-        };
-        Exercise4Ctrl.prototype.isVisible = function (parentIndex, number) {
-            return this.exercise4Data.subexerciseListDTO[parentIndex].listOfVisibleNumbers.indexOf(number, 0) > -1;
+        Exercise4Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+                this.exercise4Data.subexerciseListDTO.unshift(new exercises.Exercise4Item(0, [], []));
+                this.totalItems = this.exercise4Data.subexerciseListDTO.length;
+            }
         };
         Exercise4Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'exercise4Data', 'texts'];
         return Exercise4Ctrl;
@@ -761,7 +759,8 @@ var exercises;
                         ui.draggable.css({ top: $(element).position().top + "px", left: $(element).position().left + "px" });
                         $rootScope.$emit('ball.dropped', {
                             dropped: $(ui.draggable).attr('ball-value'),
-                            destination: attributes.ballValue
+                            destination: attributes.ballValue,
+                            draggable: ui.draggable
                         });
                     }
                 });
@@ -785,7 +784,6 @@ var exercises;
                     },
                     drop: function (event, ui) {
                         ui.draggable.data('iAmDroppedHere', $(element));
-                        console.log('shadows added in container');
                         ui.draggable.css({ boxShadow: "0px 3px 4px 1px rgba(0,0,0,0.50)" });
                         $rootScope.$emit('ball.removed', {
                             removedBall: $(ui.draggable).attr('ball-value')
@@ -797,10 +795,28 @@ var exercises;
     }
     exercises.droppableBallContainer = droppableBallContainer;
     droppableBallContainer.$inject = ['$rootScope'];
+    function getRotationDegrees(obj) {
+        var matrix = obj.css("-webkit-transform") ||
+            obj.css("-moz-transform") ||
+            obj.css("-ms-transform") ||
+            obj.css("-o-transform") ||
+            obj.css("transform");
+        if (matrix !== 'none') {
+            var values = matrix.split('(')[1].split(')')[0].split(',');
+            var a = values[0];
+            var b = values[1];
+            var angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+        }
+        else {
+            var angle = 0;
+        }
+        return (angle < 0) ? angle + 360 : angle;
+    }
+    exercises.getRotationDegrees = getRotationDegrees;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
-    var mathApp = angular.module('maths', ['ngMdIcons', 'ngTouch', 'ui.bootstrap', 'ngRoute']);
+    var mathApp = angular.module('maths', ['ngMdIcons', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ng-sortable']);
     mathApp.controller('homeCtrl', exercises.HomeCtrl);
     mathApp.controller('exercise1Ctrl', exercises.Exercise1Ctrl);
     mathApp.controller('exercise2Ctrl', exercises.Exercise2Ctrl);

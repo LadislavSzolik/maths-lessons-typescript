@@ -91,7 +91,7 @@
             <div ng-if="!vm.isSummaryActive() || $index !== 0">
               <input class="form-control exe2-number-box" disabled type="text" value="{{subExercise.number}}"/>
               <div class="exe2-object-holder-box disabling-layer" ng-show="vm.isSummaryActive() || vm.isLastElement"></div>
-              <div class="exe2-object-holder-box" droppable-origin >
+              <div class="exe2-object-holder-box" droppable-origin>
                 <div class="counted-object" style="top:80px; left:125px;">
                   <img height="66px" src="./app/img/pink-flower.png"/>
                 </div>
@@ -129,7 +129,7 @@
                       <div class="ball-with-number-small" ng-hide="vm.isNumberMissing($parent.$index, ball)" ng-repeat="ball in summary.listOfGivenNumbers" ng-style="vm.smallPositions[$index]">
                         {{ball}}
                       </div>
-                      <div class="ball-without-number-small" ng-class="{'invalid-result':true}" ng-repeat="ball in summary.listOfGivenNumbers" ng-show="!vm.isDropped($parent.$index, ball) && vm.isNumberMissing($parent.$index, ball)" ng-style="vm.smallPositions[$index]"></div>
+                      <div class="ball-without-number-small" ng-class="{'invalid-result':true}" ng-repeat="ball in summary.listOfGivenNumbers" ng-show="!vm.isDropped($parent.$index, ball) && vm.isNumberMissing($parent.$index, ball)" ng-style="vm.d[$index]"></div>
                       <div class="ball-with-number-small" ng-class="{'valid-result':vm.isCorrect($parent.$index, ball), 'invalid-result':!vm.isCorrect($parent.$index, ball)}" ng-repeat="ball in summary.listOfGivenNumbers" ng-show="vm.isNumberMissing($parent.$index, ball) && vm.isDropped($parent.$index, ball)" ng-style="vm.smallPositions[$index]">
                         {{ball}}
                       </div>
@@ -172,16 +172,22 @@
               <ul>
                 <li ng-if="$index!==0" ng-repeat="summary in vm.exercise4Data.subexerciseListDTO">
                   <a href ng-click="vm.selectPage($index+1,$event)">
-                    <div class="exe3-summary-background">
-                      <div class="ball-with-number-small" ng-hide="vm.isNumberMissing($parent.$index, ball)" ng-repeat="ball in summary.listOfGivenNumbers" ng-style="vm.smallPositions[$index]">
-                        <div ng-style="">
-                          {{ball}}
-                        </div>
+                    <div class="exe4-summary-background">
+
+                      <!-- base numbers -->
+                      <div class="cube-round-container cube-with-number" ng-repeat="cube in summary.listOfGivenNumbers" ng-style="summary.smallPositionForNumber[cube.value]">
+                        {{cube.value}}
                       </div>
-                      <div class="ball-without-number-small" ng-class="{'invalid-result':true}" ng-repeat="ball in summary.listOfGivenNumbers" ng-show="!vm.isDropped($parent.$index, ball) && vm.isNumberMissing($parent.$index, ball)" ng-style="vm.smallPositions[$index]"></div>
-                      <div class="ball-with-number-small" ng-class="{'valid-result':vm.isCorrect($parent.$index, ball), 'invalid-result':!vm.isCorrect($parent.$index, ball)}" ng-repeat="ball in summary.listOfGivenNumbers" ng-show="vm.isNumberMissing($parent.$index, ball) && vm.isDropped($parent.$index, ball)" ng-style="vm.smallPositions[$index]">
-                        {{ball}}
-                      </div>
+
+                      <!-- blocked numbers -->
+                      <div class="blocked-cube" ng-repeat="blocked in summary.listOfBlockedNumbers" ng-style="summary.smallPositionForNumber[blocked.value]"></div>
+
+                      <!-- place to drop the numbers -->
+                      <ul ng-sortable="vm.sortableConfig" ng-repeat="missingNumber in summary.listOfMissingNumbers" ng-style="summary.smallPositionForNumber[missingNumber.value]" class="cube-ul cube-without-number" ng-sortable="{group: 'home'}" ng-class="{'valid-result': missingNumber.isCorrect() && vm.isSummaryActive(), 'invalid-result':!missingNumber.isCorrect() && vm.isSummaryActive()}">
+                        <li class="cube-with-number" ng-repeat="droppedNumber in missingNumber.listOfDroppedNumbers" ng-class="{'valid-result': missingNumber.isCorrect() && vm.isSummaryActive(), 'invalid-result':!missingNumber.isCorrect() && vm.isSummaryActive()}">
+                          {{droppedNumber.value}}
+                        </li>
+                      </ul>
                     </div>
                   </a>
                 </li>
@@ -189,34 +195,29 @@
             </div>
 
             <div ng-if="!vm.isSummaryActive() || $index !== 0">
-              <div ball-value="-99" class="cube-container" droppable-ball-container></div>
+              <div ball-value="-99" class="cube-container" ng-hide="vm.isSummaryActive()">
+                <ul class="cube-init-container" ng-sortable="{group: 'home'}">
+                  <li ng-repeat="missingNumber in subExercise.numberOnStart.listOfDroppedNumbers" class="cube-with-number" ng-class="{'valid-result': missingNumber.isCorrect() && vm.isSummaryActive(), 'invalid-result':!missingNumber.isCorrect() && vm.isSummaryActive()}">
+                    {{missingNumber.value}}
+                  </li>
+                </ul>
+              </div>
+
               <!-- base numbers -->
-              <div class="cube-with-number" ng-hide="vm.isNumberMissing($parent.$index, ball) || vm.isNumberBlocked($parent.$index, ball)" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-style="vm.positions[$index]">
-                <div ng-style="vm.positionCorrections[$index]">
-                  {{ball}}
-                </div>
+              <div class="cube-round-container cube-with-number" ng-repeat="cube in subExercise.listOfGivenNumbers" ng-style="subExercise.positionForNumber[cube.value]">
+                {{cube.value}}
               </div>
 
               <!-- blocked numbers -->
-              <div class="blocked-cube" ng-show="vm.isNumberBlocked($parent.$index, ball)" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-style="vm.positions[$index]">
-              </div>
+              <div class="blocked-cube" ng-repeat="blocked in subExercise.listOfBlockedNumbers" ng-style="subExercise.positionForNumber[blocked.value]"></div>
 
-              <!-- draggable and droppable numbers -->
-              <div ball-value="{{ball}}" class="cube-without-number" droppable-ball ng-repeat="ball in subExercise.listOfGivenNumbers" ng-show="vm.isNumberMissing($parent.$index, ball) && !vm.isSummaryActive()" ng-style="vm.positions[$index]"></div>
-              <div ball-value="{{ball}}" class="cube-with-number" draggable-ball ng-repeat="ball in subExercise.missingNumbers" ng-show="vm.isVisible($parent.$index, ball) && !vm.isSummaryActive()" ng-style="!vm.isDropped($parent.$index, ball) && vm.startingPosition || vm.isDropped($parent.$index, ball) && vm.positions[ball] ">
-                <div>
-                    {{ball}}
-                </div>
-
-              </div>
-
-              <!-- summary numbers -->
-              <div class="ball-without-number" ng-class="{'invalid-result':true}" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-show="vm.isSummaryActive() && !vm.isDropped($parent.$index, ball) && vm.isNumberMissing($parent.$index, ball)" ng-style="vm.positions[$index]"></div>
-              <div class="ball-with-number" ng-class="{'valid-result':vm.isCorrect($parent.$index, ball), 'invalid-result':!vm.isCorrect($parent.$index, ball)}" ng-repeat="ball in subExercise.listOfGivenNumbers" ng-show="vm.isNumberMissing($parent.$index, ball) && vm.isDropped($parent.$index, ball) && vm.isSummaryActive()" ng-style="vm.positions[$index]">
-                {{ball}}
-              </div>
+              <!-- place to drop the numbers -->
+              <ul ng-sortable="vm.sortableConfig" ng-repeat="missingNumber in subExercise.listOfMissingNumbers" ng-style="subExercise.positionForNumber[missingNumber.value]" class="cube-ul cube-without-number" ng-sortable="{group: 'home'}" ng-class="{'valid-result': missingNumber.isCorrect() && vm.isSummaryActive(), 'invalid-result':!missingNumber.isCorrect() && vm.isSummaryActive()}">
+                <li class="cube-with-number" ng-repeat="droppedNumber in missingNumber.listOfDroppedNumbers" ng-class="{'valid-result': missingNumber.isCorrect() && vm.isSummaryActive(), 'invalid-result':!missingNumber.isCorrect() && vm.isSummaryActive()}">
+                  {{droppedNumber.value}}
+                </li>
+              </ul>
             </div>
-
           </li>
         </ul>
       </div>

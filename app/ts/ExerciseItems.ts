@@ -15,11 +15,11 @@ module exercises {
   }
 
   export interface IExercise3 {
-    subexerciseListDTO:Exercise3Item[];
+    subexerciseListDTO: Exercise3Item[];
   }
 
   export interface IExercise4 {
-    subexerciseListDTO:Exercise4Item[];
+    subexerciseListDTO: Exercise4Item[];
   }
 
 
@@ -87,20 +87,20 @@ module exercises {
 
   export class Exercise3Item {
     public static id: number = 0;
-    public itemId:number;
-    public listOfGivenNumbers:number[] ;
-    public listOfVisibleNumbers:number[];
-    public listOfCorrectNumbers:number[];
-    public listOfDroppedNumbers:number[];
-    public maxNumber:number = 9;
-    constructor(public startFrom: number, public missingNumbers:number[]) {
+    public itemId: number;
+    public listOfGivenNumbers: number[];
+    public listOfVisibleNumbers: number[];
+    public listOfCorrectNumbers: number[];
+    public listOfDroppedNumbers: number[];
+    public maxNumber: number = 9;
+    constructor(public startFrom: number, public missingNumbers: number[]) {
       this.itemId = Exercise3Item.id++;
       this.listOfGivenNumbers = [];
       this.listOfVisibleNumbers = [];
       this.listOfCorrectNumbers = [];
       this.listOfDroppedNumbers = [];
 
-      for(var i:number=startFrom; i<startFrom+this.maxNumber;i++) {
+      for (var i: number = startFrom; i < startFrom + this.maxNumber; i++) {
         this.listOfGivenNumbers.push(i);
       }
 
@@ -109,35 +109,100 @@ module exercises {
 
   }
 
-  export class Exercise4Item  {
+  export class Exercise4Item {
     public static id: number = 0;
-    public itemId:number;
-    public listOfGivenNumbers:number[] ;
-    public listOfVisibleNumbers:number[];
-    public listOfCorrectNumbers:number[];
-    public listOfDroppedNumbers:number[];
-    public maxNumber:number = 10;
-    constructor(public startFrom: number, public missingNumbers:number[], public blockedNumbers:number[])  {
+    public itemId: number;
+
+
+    public maxNumber: number = 10;
+
+    public listOfGivenNumbers: NumberCube[];
+    public listOfMissingNumbers: NumberCube[];
+    public numberOnStart: NumberCube;
+    public listOfBlockedNumbers: NumberCube[];
+
+    public positionInit: Object[] = [
+      { top: '64px', left: '288px' },  //1
+      { top: '163px', left: '228px' }, //2
+      { top: '163px', left: '347px' }, //3
+      { top: '262px', left: '171px' }, //4
+      { top: '262px', left: '296px' }, //5
+      { top: '262px', left: '420px' },  //6
+      { top: '358px', left: '112px' },  //7
+      { top: '358px', left: '235px' },  //8
+      { top: '358px', left: '358px' },  //9
+      { top: '358px', left: '481px' }]; //10
+
+
+    public positionForNumber: Object;
+
+    public smallPositionInit: Object[] = [
+      { top: '6px', left: '64px' },  //1
+      { top: '31px', left: '49px' }, //2
+      { top: '31px', left: '78px' }, //3
+      { top: '55px', left: '35px' }, //4
+      { top: '55px', left: '66px' }, //5
+      { top: '55px', left: '97px' },  //6
+      { top: '79px', left: '20px' },  //7
+      { top: '79px', left: '50px' },  //8
+      { top: '79px', left: '81px' },  //9
+      { top: '79px', left: '112px' }]; //10
+
+    public smallPositionForNumber: Object;
+
+
+    constructor(public startFrom: number, public missingNumbers: number[], public blockedNumbers: number[]) {
 
       this.itemId = Exercise4Item.id++;
       this.listOfGivenNumbers = [];
-      this.listOfVisibleNumbers = [];
-      this.listOfCorrectNumbers = [];
-      this.listOfDroppedNumbers = [];
+      this.listOfMissingNumbers = [];
+      this.numberOnStart = new NumberCube(0);
+      this.listOfBlockedNumbers = [];
+      this.positionForNumber = {};
+      this.smallPositionForNumber = {};
 
-      for(var i:number=startFrom; i<startFrom+this.maxNumber;i++) {
-        this.listOfGivenNumbers.push(i);
+      for (var i: number = startFrom; i < startFrom + this.maxNumber; i++) {
+        if (missingNumbers.indexOf(i) == -1 && blockedNumbers.indexOf(i) == -1) {
+          this.listOfGivenNumbers.push(new NumberCube(i));
+        }
+        this.positionForNumber[i] = this.positionInit.shift();
+        this.smallPositionForNumber[i] = this.smallPositionInit.shift();
       }
 
-      this.listOfVisibleNumbers.push(missingNumbers[0]);
+      for (var i: number = 0; i < missingNumbers.length; i++) {
+        this.listOfMissingNumbers.push(new NumberCube(missingNumbers[i]));
+        this.numberOnStart.listOfDroppedNumbers.push(new NumberCube(missingNumbers[i]));
+      }
+
+      for (var i: number = 0; i < blockedNumbers.length; i++) {
+        this.listOfBlockedNumbers.push(new NumberCube(blockedNumbers[i]));
+      }
+
     }
 
+  }
+
+  export class NumberCube {
+    public listOfDroppedNumbers: NumberCube[];
+    public position: Object;
+
+    constructor(public value: number) {
+      this.listOfDroppedNumbers = [];
+
+    }
+
+    isCorrect() {
+      if (this.listOfDroppedNumbers.length == 0) {
+        return false;
+      }
+      return this.listOfDroppedNumbers[this.listOfDroppedNumbers.length - 1].value == this.value;
+    }
   }
 
   export class ObjectPosition {
     public isDisplayed: boolean;
     public isDropped: boolean;
-    public isDisabled:boolean;
+    public isDisabled: boolean;
     public objectId: number;
     public parentId: number;
     public static id: number = 0;
@@ -173,18 +238,18 @@ module exercises {
       return { top: this.largePositionTop + 'px', left: this.largePositionLeft + 'px' };
     }
 
-    setLargePosition(top:number, left:number) {
+    setLargePosition(top: number, left: number) {
       this.largePositionTop = top;
-      this.largePositionLeft = left ;
+      this.largePositionLeft = left;
     }
 
     getSmallPosition(): Object {
       return { top: this.smallPositionTop + 'px', left: this.smallPositionLeft + 'px' };
     }
 
-    setSmallPosition(top:number, left:number) {
+    setSmallPosition(top: number, left: number) {
       this.smallPositionTop = top;
-      this.smallPositionLeft = left ;
+      this.smallPositionLeft = left;
     }
 
   }
