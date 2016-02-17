@@ -229,6 +229,25 @@ header, section {
   border: 2px solid #717CC2;
 }
 
+.progess-container .progress-bar-exe5 {
+  background-color: #D9CAB3;
+}
+
+.progess-container .progress-bar-exe5 b {
+  color: #5E0B15;
+  font-size: 26px;
+  position: absolute;
+  text-align: center;
+  top: 4px;
+  width: 100%;
+  z-index: 2;
+  left: 0px;
+}
+
+.progess-container .progress-color-exe5 {
+  border: 2px solid #5E0B15;
+}
+
 /* container with objects and result */
 .main-content .subexe-container-box {
   width: 680px;
@@ -458,6 +477,204 @@ header, section {
 .exe4-background .exe4-summary-background .blocked-cube {
   height: 21px;
   width: 21px;
+}
+
+.exe5-background {
+  background-image: url(../img/exe5_bcg.png);
+}
+
+.exe5-background .square-container {
+  width: 513px;
+  height: 125px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  margin: 25px auto 0px auto;
+  padding-left: 25px;
+  padding-top: 15px;
+  position: relative;
+}
+
+.exe5-background .square {
+  height: 95px;
+  width: 75px;
+  background-color: #5E0B15;
+  color: white;
+  border-radius: 10px;
+  font-size: 50px;
+  display: inline-block;
+  margin-right: 20px;
+  position: relative;
+}
+
+.exe5-background .square p {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.exe5-background .square-dropped {
+  left: 10px;
+  height: 90%;
+  width: 80px;
+  background-color: #5E0B15;
+  color: white;
+  border-radius: 10px;
+  font-size: 50px;
+  display: inline-block;
+  margin-top: 8%;
+  position: absolute;
+}
+
+.exe5-background .square-dropped p {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.exe5-background .column-container {
+  display: inline-block;
+}
+
+.exe5-background .column-one {
+  width: 100px;
+  height: 130px;
+  border-radius: 10px;
+  background-color: #8C7A6B;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 20px;
+  left: 35px;
+}
+
+.exe5-background .column-two {
+  width: 100px;
+  height: 160px;
+  border-radius: 10px;
+  background-color: #8C7A6B;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 20px;
+  left: 160px;
+}
+
+.exe5-background .column-three {
+  width: 100px;
+  height: 190px;
+  border-radius: 10px;
+  background-color: #8C7A6B;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 20px;
+  left: 290px;
+}
+
+.exe5-background .column-four {
+  width: 100px;
+  height: 220px;
+  border-radius: 10px;
+  background-color: #8C7A6B;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 20px;
+  left: 420px;
+}
+
+.exe5-background .column-five {
+  width: 100px;
+  height: 250px;
+  border-radius: 10px;
+  background-color: #8C7A6B;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 20px;
+  left: 550px;
+}
+
+.exe5-background .exe5-summary-background {
+  width: 210px;
+  height: 110px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5%;
+  display: inline-block;
+  margin-right: 5px;
+  margin-left: 0px;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.exe5-background .exe5-summary-background .square-dropped {
+  left: 3px;
+  height: 90%;
+  width: 25px;
+  background-color: #5E0B15;
+  color: white;
+  border-radius: 5%;
+  font-size: 21px;
+  display: inline-block;
+  margin-top: 8%;
+  position: absolute;
+}
+
+.exe5-background .exe5-summary-background .square-dropped p {
+  position: absolute;
+  bottom: 5px;
+  margin: 0px;
+}
+
+.exe5-background .exe5-summary-background .column-one {
+  width: 30px;
+  height: 40px;
+  border-radius: 5%;
+  background-color: #8C7A6B;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 10px;
+  left: 8px;
+}
+
+.exe5-background .exe5-summary-background .column-two {
+  width: 30px;
+  height: 50px;
+  border-radius: 5%;
+  background-color: #8C7A6B;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 10px;
+  left: 47px;
+}
+
+.exe5-background .exe5-summary-background .column-three {
+  width: 30px;
+  height: 60px;
+  border-radius: 5%;
+  background-color: #8C7A6B;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 10px;
+  left: 89px;
+}
+
+.exe5-background .exe5-summary-background .column-four {
+  width: 30px;
+  height: 75px;
+  border-radius: 5%;
+  background-color: #8C7A6B;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 10px;
+  left: 130px;
+}
+
+.exe5-background .exe5-summary-background .column-five {
+  width: 30px;
+  height: 86px;
+  border-radius: 5%;
+  background-color: #8C7A6B;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 10px;
+  left: 170px;
 }
 
 .container-field-exe2-summary {

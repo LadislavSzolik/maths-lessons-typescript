@@ -22,6 +22,10 @@ module exercises {
     subexerciseListDTO: Exercise4Item[];
   }
 
+  export interface IExercise5 {
+    subexerciseListDTO: Exercise5Item[];
+  }
+
 
   export class Exercise1Item {
     public givenNumber: number;
@@ -108,6 +112,23 @@ module exercises {
     }
 
   }
+// --------------------------------------------------------EXE 4-----------------------------------------------------------------------
+export class NumberCube {
+  public listOfDroppedNumbers: NumberCube[];
+  public position: Object;
+
+  constructor(public value: number) {
+    this.listOfDroppedNumbers = [];
+
+  }
+
+  isCorrect() {
+    if (this.listOfDroppedNumbers.length == 0) {
+      return false;
+    }
+    return this.listOfDroppedNumbers[this.listOfDroppedNumbers.length - 1].value == this.value;
+  }
+}
 
   export class Exercise4Item {
     public static id: number = 0;
@@ -182,22 +203,52 @@ module exercises {
 
   }
 
-  export class NumberCube {
-    public listOfDroppedNumbers: NumberCube[];
-    public position: Object;
-
-    constructor(public value: number) {
-      this.listOfDroppedNumbers = [];
-
-    }
-
-    isCorrect() {
-      if (this.listOfDroppedNumbers.length == 0) {
-        return false;
-      }
-      return this.listOfDroppedNumbers[this.listOfDroppedNumbers.length - 1].value == this.value;
+// --------------------------------------------------------EXE 5-----------------------------------------------------------------------
+  export class SquareObject {
+    constructor(public value:number) {
     }
   }
+
+  export class Column {
+    public listOfDropped:SquareObject[];
+    public styles:any = ['column-one', 'column-two', 'column-three','column-four','column-five'];
+    constructor(public expectedNumber:number){
+      this.listOfDropped = [];
+    }
+
+    isCorrect(){
+      if (this.listOfDropped.length == 0) {
+        return false;
+      }
+      return this.listOfDropped[this.listOfDropped.length - 1].value == this.expectedNumber;
+      }
+
+  }
+  export class Exercise5Item {
+    public static id: number = 0;
+    public itemId: number;
+    public listOfUnarrangedNumbers:SquareObject[];
+    public columns:Column[];
+
+    constructor(public unarrangedNumbers:number[], public arrangedNumbers: number[]) {
+      this.listOfUnarrangedNumbers = [];
+      this.columns = [];
+
+      for(var i:number = 0; i< unarrangedNumbers.length; i++){
+        this.listOfUnarrangedNumbers.push(new SquareObject(unarrangedNumbers[i]));
+      }
+
+      for(var i:number = 0; i< arrangedNumbers.length; i++){
+        this.columns.push(new Column(arrangedNumbers[i]));
+      }
+    }
+
+  }
+
+// --------------------------------------------------------EXE ?-----------------------------------------------------------------------
+
+
+
 
   export class ObjectPosition {
     public isDisplayed: boolean;

@@ -75,6 +75,20 @@ var exercises;
         return Exercise3Item;
     }());
     exercises.Exercise3Item = Exercise3Item;
+    var NumberCube = (function () {
+        function NumberCube(value) {
+            this.value = value;
+            this.listOfDroppedNumbers = [];
+        }
+        NumberCube.prototype.isCorrect = function () {
+            if (this.listOfDroppedNumbers.length == 0) {
+                return false;
+            }
+            return this.listOfDroppedNumbers[this.listOfDroppedNumbers.length - 1].value == this.value;
+        };
+        return NumberCube;
+    }());
+    exercises.NumberCube = NumberCube;
     var Exercise4Item = (function () {
         function Exercise4Item(startFrom, missingNumbers, blockedNumbers) {
             this.startFrom = startFrom;
@@ -129,20 +143,45 @@ var exercises;
         return Exercise4Item;
     }());
     exercises.Exercise4Item = Exercise4Item;
-    var NumberCube = (function () {
-        function NumberCube(value) {
+    var SquareObject = (function () {
+        function SquareObject(value) {
             this.value = value;
-            this.listOfDroppedNumbers = [];
         }
-        NumberCube.prototype.isCorrect = function () {
-            if (this.listOfDroppedNumbers.length == 0) {
+        return SquareObject;
+    }());
+    exercises.SquareObject = SquareObject;
+    var Column = (function () {
+        function Column(expectedNumber) {
+            this.expectedNumber = expectedNumber;
+            this.styles = ['column-one', 'column-two', 'column-three', 'column-four', 'column-five'];
+            this.listOfDropped = [];
+        }
+        Column.prototype.isCorrect = function () {
+            if (this.listOfDropped.length == 0) {
                 return false;
             }
-            return this.listOfDroppedNumbers[this.listOfDroppedNumbers.length - 1].value == this.value;
+            return this.listOfDropped[this.listOfDropped.length - 1].value == this.expectedNumber;
         };
-        return NumberCube;
+        return Column;
     }());
-    exercises.NumberCube = NumberCube;
+    exercises.Column = Column;
+    var Exercise5Item = (function () {
+        function Exercise5Item(unarrangedNumbers, arrangedNumbers) {
+            this.unarrangedNumbers = unarrangedNumbers;
+            this.arrangedNumbers = arrangedNumbers;
+            this.listOfUnarrangedNumbers = [];
+            this.columns = [];
+            for (var i = 0; i < unarrangedNumbers.length; i++) {
+                this.listOfUnarrangedNumbers.push(new SquareObject(unarrangedNumbers[i]));
+            }
+            for (var i = 0; i < arrangedNumbers.length; i++) {
+                this.columns.push(new Column(arrangedNumbers[i]));
+            }
+        }
+        Exercise5Item.id = 0;
+        return Exercise5Item;
+    }());
+    exercises.Exercise5Item = Exercise5Item;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -232,6 +271,9 @@ var exercises;
         };
         ExerciseServices.prototype.getExercise4Data = function () {
             return this.$http.get('app/data/exe4Data.json').then(function (result) { return result.data; });
+        };
+        ExerciseServices.prototype.getExercise5Data = function () {
+            return this.$http.get('app/data/exe5Data.json').then(function (result) { return result.data; });
         };
         ExerciseServices.prototype.getTexts = function () {
             return this.$http.get('app/data/appTexts.json').then(function (result) { return result.data; });
@@ -588,6 +630,36 @@ var exercises;
         return Exercise4Ctrl;
     }(NavigationBase));
     exercises.Exercise4Ctrl = Exercise4Ctrl;
+    var Exercise5Ctrl = (function (_super) {
+        __extends(Exercise5Ctrl, _super);
+        function Exercise5Ctrl($scope, $location, $route, $rootScope, exercise5Data, texts) {
+            _super.call(this, $scope, $location, $route, exercise5Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.exercise5Data = exercise5Data;
+            this.texts = texts;
+            this.exetype = "N2a";
+            this.progressBarType = "exe5";
+            this.progressBarClass = "progress-color-exe5";
+            this.titleText = texts.exe5TitleText;
+            for (var i = 0; i < exercise5Data.subexerciseListDTO.length; i++) {
+                var exeItem = new exercises.Exercise5Item(exercise5Data.subexerciseListDTO[i].unarrangedNumbers, exercise5Data.subexerciseListDTO[i].arrangedNumbers);
+                exercise5Data.subexerciseListDTO[i] = exeItem;
+            }
+        }
+        Exercise5Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+                this.exercise5Data.subexerciseListDTO.unshift(new exercises.Exercise5Item([], []));
+                this.totalItems = this.exercise5Data.subexerciseListDTO.length;
+            }
+        };
+        Exercise5Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'exercise5Data', 'texts'];
+        return Exercise5Ctrl;
+    }(NavigationBase));
+    exercises.Exercise5Ctrl = Exercise5Ctrl;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -822,6 +894,7 @@ var exercises;
     mathApp.controller('exercise2Ctrl', exercises.Exercise2Ctrl);
     mathApp.controller('exercise3Ctrl', exercises.Exercise3Ctrl);
     mathApp.controller('exercise4Ctrl', exercises.Exercise4Ctrl);
+    mathApp.controller('exercise5Ctrl', exercises.Exercise5Ctrl);
     mathApp.service('exerciseServices', exercises.ExerciseServices);
     mathApp.directive('animateRubber', exercises.animateRubber);
     mathApp.directive('animateButton', exercises.animateButton);
@@ -882,6 +955,17 @@ var exercises;
                 resolve: {
                     'exercise4Data': function (exerciseServices) {
                         return exerciseServices.getExercise4Data();
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            }).when('/N2a', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'exercise5Ctrl',
+                resolve: {
+                    'exercise5Data': function (exerciseServices) {
+                        return exerciseServices.getExercise5Data();
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
