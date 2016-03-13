@@ -26,6 +26,10 @@ module exercises {
     subexerciseListDTO: Exercise5Item[];
   }
 
+  export interface IExercise6 {
+    subexerciseListDTO: Exercise6Item[];
+  }
+
 
   export class Exercise1Item {
     public givenNumber: number;
@@ -245,10 +249,14 @@ export class NumberCube {
 
   }
 
+// --------------------------------------------------------EXE 6-----------------------------------------------------------------------
+
+
+  export class Exercise6Item {
+
+  }
+
 // --------------------------------------------------------EXE ?-----------------------------------------------------------------------
-
-
-
 
   export class ObjectPosition {
     public isDisplayed: boolean;

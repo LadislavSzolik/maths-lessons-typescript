@@ -1,0 +1,64 @@
+{
+  "id": 1,
+  "version": 1,
+  "exerciseContentDTO": {
+    "id": 1,
+    "version": 1,
+    "title": "Title N2b",
+    "content": "N2b"
+  },
+  "categoryDTO": {
+    "id": 1,
+    "version": 1,
+    "type": "NUMBER_OR_DIGITS"
+  },
+  "subexerciseListDTO": [{
+    "numberOne": 3,
+    "numberTwo": 5,
+    "resultSign": "<"
+  }, {
+    "numberOne": 12,
+    "numberTwo": 5,
+    "resultSign": ">"
+  }, {
+    "numberOne": 6,
+    "numberTwo": 6,
+    "resultSign": "="
+  }, {
+    "numberOne": 12,
+    "numberTwo": 5,
+    "resultSign": ">"
+  }, {
+    "numberOne": 12,
+    "numberTwo": 5,
+    "resultSign": ">"
+  }, {
+    "numberOne": 6,
+    "numberTwo": 6,
+    "resultSign": "="
+  }, {
+    "numberOne": 6,
+    "numberTwo": 6,
+    "resultSign": "="
+  }, {
+    "numberOne": 12,
+    "numberTwo": 5,
+    "resultSign": ">"
+  }, {
+    "numberOne": 8,
+    "numberTwo": 5,
+    "resultSign": ">"
+  }, {
+    "numberOne": 8,
+    "numberTwo": 5,
+    "resultSign": ">"
+  }, {
+    "numberOne": 8,
+    "numberTwo": 5,
+    "resultSign": ">"
+  }, {
+    "numberOne": 8,
+    "numberTwo": 5,
+    "resultSign": ">"
+  }]
+}

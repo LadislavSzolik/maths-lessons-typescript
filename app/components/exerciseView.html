@@ -10,22 +10,25 @@
   </header>
 
   <section class="progess-container">
-    <uib-progressbar class="progress-box" ng-class="vm.progressBarClass" type="{{vm.progressBarType}}" value="vm.currentPage * vm.onePercentage">
-      <b>{{vm.currentPage}}/{{vm.totalItems}}</b>
-    </uib-progressbar>
 
-    <a animate-button class="nav-btn-reload" href ng-click="vm.reload()">
+    <section ng-hide="vm.isExerciseSinglePager()" >
+      <uib-progressbar class="progress-box" ng-class="vm.progressBarClass" type="{{vm.progressBarType}}" value="vm.currentPage * vm.onePercentage">
+        <b>{{vm.currentPage}}/{{vm.totalItems}}</b>
+      </uib-progressbar>
+    </section>
+
+    <a animate-button ng-class="{'nav-btn-reload':!vm.isExerciseSinglePager(), 'nav-btn-reload-center': vm.isExerciseSinglePager()}" href ng-click="vm.reload()">
       <ng-md-icon icon="refresh" size="36" style="fill:white"/>
     </a>
   </section>
 
   <section class="main-content">
     <!-- ng-swipe-left="selectPage(currentPage-1,$event)" ng-swipe-right="selectPage(currentPage+1,$event)" -->
-    <a animate-button class="nav-btn-top-left" href ng-class="{disabled:vm.noPrevious()}" ng-click="vm.selectPage(vm.currentPage-1,$event)">
+    <a animate-button ng-hide='vm.isExerciseSinglePager()' class="nav-btn-top-left" href ng-class="{disabled:vm.noPrevious()}" ng-click="vm.selectPage(vm.currentPage-1,$event)">
       <ng-md-icon icon="navigate_before" size="48" style="fill:white"/>
     </a>
 
-    <a animate-button class="nav-btn-bottom-left hide" href ng-class="{show:vm.isSummaryActive()}" ng-click="vm.currentPage = 1">
+    <a animate-button  class="nav-btn-bottom-left hide" href ng-class="{show:vm.isSummaryActive()}" ng-click="vm.currentPage = 1">
       <ng-md-icon icon="apps" size="48" style="fill:white"/>
     </a>
 
@@ -268,7 +271,7 @@
               <!-- place to drop the numbers -->
               <ul>
                 <li class="column-container" ng-repeat="column in subExercise.columns" >
-                  <ul ng-sortable="{group: 'home'}" class="{{column.styles[$index]}}" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}" >
+                  <ul ng-sortable="{group: 'home', disabled: column.isCorrect()  }" class="{{column.styles[$index]}}" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}" >
                     <li  class="square-dropped" ng-repeat="dropped in column.listOfDropped" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}">
                       <p>
                         {{dropped.value}}
@@ -284,9 +287,71 @@
       </div>
       <!-- end of exercise 5 view  -->
 
+
+      <!-- exercise 6 view -->
+      <div class="subexe-container-box exe6-background" ng-switch-when="N2b">
+        <ul>
+          <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.exercise5Data.subexerciseListDTO">
+
+
+            <!-- SUMMARY -->
+            <div ng-if="vm.isSummaryActive() && $index == 0">
+              <ul>
+                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise5Data.subexerciseListDTO" style="display: inline-block">
+                  <a href ng-click="vm.selectPage($index+1,$event)">
+                    <div class="exe5-summary-background">
+                      <!-- place to drop the numbers -->
+                      <ul>
+                        <li class="column-container"  ng-repeat="column in summary.columns" >
+                          <ul ng-sortable="{group: 'home'}" class="{{column.styles[$index]}}" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}" >
+                            <li  class="square-dropped" ng-repeat="dropped in column.listOfDropped" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}">
+                              <p>
+                                {{dropped.value}}
+                              </p>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- EXE -->
+            <div ng-if="!vm.isSummaryActive() || $index !== 0">
+              <!-- init place -->
+              <div>
+                <ul  class="square-container" ng-sortable="{group: 'home'}">
+                  <li ng-repeat="unarranged in subExercise.listOfUnarrangedNumbers" class="square"   ng-hide="vm.isSummaryActive()">
+                    <p>
+                      {{unarranged.value}}
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <!-- place to drop the numbers -->
+              <ul>
+                <li class="column-container" ng-repeat="column in subExercise.columns" >
+                  <ul ng-sortable="{group: 'home'}" class="{{column.styles[$index]}}" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}" >
+                    <li  class="square-dropped" ng-repeat="dropped in column.listOfDropped" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}">
+                      <p>
+                        {{dropped.value}}
+                      </p>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+          </li>
+        </ul>
+      </div>
+      <!-- end of exercise 6 view  -->
+
     </div>
 
-    <a animate-button class="nav-btn-top-right" href ng-class="{disabled:vm.noNext()}" ng-click="vm.selectPage(vm.currentPage+1,$event)">
+    <a animate-button class="nav-btn-top-right" ng-hide='vm.isExerciseSinglePager()' href ng-class="{disabled:vm.noNext()}" ng-click="vm.selectPage(vm.currentPage+1,$event)">
       <ng-md-icon icon="navigate_next" size="48" style="fill:white"/>
     </a>
     <a animate-button class="nav-btn-bottom-right" href ng-class="{disabled:vm.isSummaryActive()}" ng-click="vm.checkResult()">

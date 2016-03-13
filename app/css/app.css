@@ -50,7 +50,7 @@ header, section {
   transition: all 0.2s linear;
 }
 
-.nav-btn, .nav-btn-close, .nav-btn-help, .nav-btn-reload, .nav-btn-top-left, .nav-btn-top-right, .nav-btn-bottom-left, .nav-btn-bottom-right {
+.nav-btn, .nav-btn-close, .nav-btn-help, .nav-btn-reload, .nav-btn-reload-center, .nav-btn-top-left, .nav-btn-top-right, .nav-btn-bottom-left, .nav-btn-bottom-right {
   float: left;
   padding: 5px 5px;
   border-radius: 35px;
@@ -78,6 +78,10 @@ header, section {
 .nav-btn-reload {
   top: -12px;
   left: 775px;
+}
+
+.nav-btn-reload-center {
+  top: -12px;
 }
 
 .nav-btn-top-left {
@@ -143,6 +147,7 @@ header, section {
 /* customized uib progress bar */
 .progess-container {
   margin-top: 25px;
+  height: 50px;
 }
 
 .progess-container .progress-box {
@@ -675,6 +680,10 @@ header, section {
   position: absolute;
   bottom: 10px;
   left: 170px;
+}
+
+.exe6-background {
+  background-image: url(../img/exe6_bcg.png);
 }
 
 .container-field-exe2-summary {

@@ -53,6 +53,10 @@ module exercises {
       return this.currentPage === this.totalItems;
     }
 
+    isExerciseSinglePager() {
+      return false;
+    }
+
     // Needs to be extended in the parent controller
     checkResult() {
       this.summaryActivated = true;
@@ -460,8 +464,48 @@ module exercises {
         this.totalItems = this.exercise5Data.subexerciseListDTO.length;
       }
     }
+  }
 
+  /***********************************************
+  *
+  * Exercise 6 controller
+  *
+  ***********************************************/
+  export class Exercise6Ctrl extends NavigationBase {
+    public exetype: String = "N2b";
+    public progressBarType: string = "exe6";
+    public progressBarClass: string = "progress-color-exe6";
+    public static $inject = ['$scope', '$location', '$route', '$rootScope', 'exercise6Data', 'texts'];
+    public positions: any;
+    public positionCorrections: any;
+    public startingPosition: Object;
+    public smallPositions: Object;
+    public titleText: string;
 
+    constructor(
+      protected $scope: any,
+      protected $location: ng.ILocationService,
+      protected $route: any,
+      public $rootScope: any,
+      public exercise6Data: IExercise6,
+      public texts: any
+      ) {
+      super($scope, $location, $route, exercise6Data.subexerciseListDTO.length);
+      this.titleText = texts.exe6TitleText;
+      for (var i: number = 0; i < exercise6Data.subexerciseListDTO.length; i++) {
+
+      }
+    }
+
+    isExerciseSinglePager() {
+      return true;
+    }
+
+    checkResult() {
+      if (!this.isSummaryActive()) {
+        super.checkResult();
+      }
+    }
   }
 
 }

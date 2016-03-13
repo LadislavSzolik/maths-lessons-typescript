@@ -182,6 +182,12 @@ var exercises;
         return Exercise5Item;
     }());
     exercises.Exercise5Item = Exercise5Item;
+    var Exercise6Item = (function () {
+        function Exercise6Item() {
+        }
+        return Exercise6Item;
+    }());
+    exercises.Exercise6Item = Exercise6Item;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -275,6 +281,9 @@ var exercises;
         ExerciseServices.prototype.getExercise5Data = function () {
             return this.$http.get('app/data/exe5Data.json').then(function (result) { return result.data; });
         };
+        ExerciseServices.prototype.getExercise6Data = function () {
+            return this.$http.get('app/data/exe6Data.json').then(function (result) { return result.data; });
+        };
         ExerciseServices.prototype.getTexts = function () {
             return this.$http.get('app/data/appTexts.json').then(function (result) { return result.data; });
         };
@@ -345,6 +354,9 @@ var exercises;
         };
         NavigationBase.prototype.noNext = function () {
             return this.currentPage === this.totalItems;
+        };
+        NavigationBase.prototype.isExerciseSinglePager = function () {
+            return false;
         };
         NavigationBase.prototype.checkResult = function () {
             this.summaryActivated = true;
@@ -660,6 +672,35 @@ var exercises;
         return Exercise5Ctrl;
     }(NavigationBase));
     exercises.Exercise5Ctrl = Exercise5Ctrl;
+    var Exercise6Ctrl = (function (_super) {
+        __extends(Exercise6Ctrl, _super);
+        function Exercise6Ctrl($scope, $location, $route, $rootScope, exercise6Data, texts) {
+            _super.call(this, $scope, $location, $route, exercise6Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.exercise6Data = exercise6Data;
+            this.texts = texts;
+            this.exetype = "N2b";
+            this.progressBarType = "exe6";
+            this.progressBarClass = "progress-color-exe6";
+            this.titleText = texts.exe6TitleText;
+            for (var i = 0; i < exercise6Data.subexerciseListDTO.length; i++) {
+            }
+        }
+        Exercise6Ctrl.prototype.isExerciseSinglePager = function () {
+            return true;
+        };
+        Exercise6Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+            }
+        };
+        Exercise6Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'exercise6Data', 'texts'];
+        return Exercise6Ctrl;
+    }(NavigationBase));
+    exercises.Exercise6Ctrl = Exercise6Ctrl;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -895,6 +936,7 @@ var exercises;
     mathApp.controller('exercise3Ctrl', exercises.Exercise3Ctrl);
     mathApp.controller('exercise4Ctrl', exercises.Exercise4Ctrl);
     mathApp.controller('exercise5Ctrl', exercises.Exercise5Ctrl);
+    mathApp.controller('exercise6Ctrl', exercises.Exercise6Ctrl);
     mathApp.service('exerciseServices', exercises.ExerciseServices);
     mathApp.directive('animateRubber', exercises.animateRubber);
     mathApp.directive('animateButton', exercises.animateButton);
@@ -966,6 +1008,18 @@ var exercises;
                 resolve: {
                     'exercise5Data': function (exerciseServices) {
                         return exerciseServices.getExercise5Data();
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            })
+                .when('/N2b', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'exercise6Ctrl',
+                resolve: {
+                    'exercise6Data': function (exerciseServices) {
+                        return exerciseServices.getExercise6Data();
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();

@@ -68,6 +68,26 @@
                     "title": "Title N2b",
                     "content": "N2b"
                 }
+},
+            {
+                "id": 7,
+                "version": 1,
+                "exerciseContentDTO": {
+                    "id": 7,
+                    "version": 1,
+                    "title": "Title N2c",
+                    "content": "N2c"
+                }
+},
+            {
+                "id": 8,
+                "version": 1,
+                "exerciseContentDTO": {
+                    "id": 8,
+                    "version": 1,
+                    "title": "Title N2d",
+                    "content": "N2d"
+                }
 }
 ]
 },
