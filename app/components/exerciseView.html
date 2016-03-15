@@ -290,65 +290,47 @@
 
       <!-- exercise 6 view -->
       <div class="subexe-container-box exe6-background" ng-switch-when="N2b">
-        <ul>
-          <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.exercise5Data.subexerciseListDTO">
-
-
-            <!-- SUMMARY -->
-            <div ng-if="vm.isSummaryActive() && $index == 0">
-              <ul>
-                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise5Data.subexerciseListDTO" style="display: inline-block">
-                  <a href ng-click="vm.selectPage($index+1,$event)">
-                    <div class="exe5-summary-background">
-                      <!-- place to drop the numbers -->
-                      <ul>
-                        <li class="column-container"  ng-repeat="column in summary.columns" >
-                          <ul ng-sortable="{group: 'home'}" class="{{column.styles[$index]}}" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}" >
-                            <li  class="square-dropped" ng-repeat="dropped in column.listOfDropped" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}">
-                              <p>
-                                {{dropped.value}}
-                              </p>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </div>
-                  </a>
-                </li>
-              </ul>
+        <ul class="number-basket">
+          <li ng-repeat="subExercise in vm.exercise6Data.subexerciseListDTO">
+            <div class="first-number">
+              {{subExercise.numberOne}}
             </div>
-
-            <!-- EXE -->
-            <div ng-if="!vm.isSummaryActive() || $index !== 0">
-              <!-- init place -->
-              <div>
-                <ul  class="square-container" ng-sortable="{group: 'home'}">
-                  <li ng-repeat="unarranged in subExercise.listOfUnarrangedNumbers" class="square"   ng-hide="vm.isSummaryActive()">
-                    <p>
-                      {{unarranged.value}}
-                    </p>
-                  </li>
-                </ul>
-              </div>
-              <!-- place to drop the numbers -->
-              <ul>
-                <li class="column-container" ng-repeat="column in subExercise.columns" >
-                  <ul ng-sortable="{group: 'home'}" class="{{column.styles[$index]}}" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}" >
-                    <li  class="square-dropped" ng-repeat="dropped in column.listOfDropped" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}">
-                      <p>
-                        {{dropped.value}}
-                      </p>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
+            <ul class="missing-sign" ng-sortable="{group: 'all'}">
+              <li ng-repeat="missingSign in subExercise.missingSigns">
+                {{missingSign.value}}
+              </li>
+            </ul>
+            <div class="second-number">
+              {{subExercise.numberTwo}}
             </div>
-
           </li>
         </ul>
+        <!-- sign basket -->
+        <div class="sign-basket">
+          <ul class="sign-ul"  ng-sortable="{group: 'all'}">
+            <li class="result-sign" ng-repeat="smallerSign in vm.smallerSigns">
+              <p>
+                {{smallerSign.value}}
+              </p>
+            </li>
+          </ul>
+          <ul class="sign-ul"  ng-sortable="{group: 'equalSign'}">
+            <li class="result-sign" ng-repeat="equalSign in vm.equalSigns">
+              <p>
+                {{equalSign.value}}
+              </p>
+            </li>
+          </ul>
+          <ul class="sign-ul"  ng-sortable="{group: 'biggerSign'}">
+            <li class="result-sign" ng-repeat="biggerSign in vm.biggerSigns">
+              <p>
+                {{biggerSign.value}}
+              </p>
+            </li>
+          </ul>
+        </div>
       </div>
       <!-- end of exercise 6 view  -->
-
     </div>
 
     <a animate-button class="nav-btn-top-right" ng-hide='vm.isExerciseSinglePager()' href ng-class="{disabled:vm.noNext()}" ng-click="vm.selectPage(vm.currentPage+1,$event)">

@@ -686,6 +686,92 @@ header, section {
   background-image: url(../img/exe6_bcg.png);
 }
 
+.exe6-background .number-basket {
+  height: 300px;
+  width: 100%;
+}
+
+.exe6-background .number-basket > li {
+  margin: 10px 10px 10px 5px;
+  display: inline-block;
+}
+
+.exe6-background .first-number, .exe6-background .second-number {
+  height: 70px;
+  width: 60px;
+  background-color: #9448BC;
+  color: white;
+  border-radius: 10px;
+  font-size: 43px;
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+}
+
+.exe6-background .number-basket > li:nth-child(2) .first-number,
+.exe6-background .number-basket > li:nth-child(2) .second-number,
+.exe6-background .number-basket > li:nth-child(5) .first-number,
+.exe6-background .number-basket > li:nth-child(5) .second-number,
+.exe6-background .number-basket > li:nth-child(8) .first-number,
+.exe6-background .number-basket > li:nth-child(8) .second-number,
+.exe6-background .number-basket > li:nth-child(11) .first-number,
+.exe6-background .number-basket > li:nth-child(11) .second-number {
+  background-color: #450357;
+}
+
+.exe6-background .missing-sign {
+  height: 60px;
+  width: 50px;
+  font-size: 40px;
+  display: inline-block;
+  background-color: #7699D4;
+  border-radius: 10px;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  border: 3px solid #1850AE;
+  color: white;
+}
+
+.exe6-background .sign-basket {
+  height: 90px;
+  width: 320px;
+  display: inline-block;
+  margin-top: 50px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  border: 3px solid #1850AE;
+}
+
+.exe6-background .result-sign {
+  position: absolute;
+  height: 70px;
+  width: 60px;
+  background-color: #7699D4;
+  border-radius: 10px;
+  border: 3px solid #1850AE;
+  color: white;
+  font-size: 40px;
+}
+
+.exe6-background .sign-ul:nth-child(1) {
+  left: -120px;
+}
+
+.exe6-background .sign-ul:nth-child(2) {
+  left: -35px;
+}
+
+.exe6-background .sign-ul:nth-child(3) {
+  left: 50px;
+}
+
+.exe6-background .sign-ul {
+  display: inline-block;
+  position: relative;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+}
+
 .container-field-exe2-summary {
   position: relative;
   float: left;

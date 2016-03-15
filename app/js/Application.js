@@ -183,11 +183,23 @@ var exercises;
     }());
     exercises.Exercise5Item = Exercise5Item;
     var Exercise6Item = (function () {
-        function Exercise6Item() {
+        function Exercise6Item(numberOne, numberTwo, resultSign) {
+            this.numberOne = numberOne;
+            this.numberTwo = numberTwo;
+            this.resultSign = resultSign;
+            this.missingSigns = [];
+            this.missingSigns.push(new ComparatorSign("?"));
         }
         return Exercise6Item;
     }());
     exercises.Exercise6Item = Exercise6Item;
+    var ComparatorSign = (function () {
+        function ComparatorSign(value) {
+            this.value = value;
+        }
+        return ComparatorSign;
+    }());
+    exercises.ComparatorSign = ComparatorSign;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -685,8 +697,18 @@ var exercises;
             this.exetype = "N2b";
             this.progressBarType = "exe6";
             this.progressBarClass = "progress-color-exe6";
+            this.smallerSigns = [];
+            this.equalSigns = [];
+            this.biggerSigns = [];
             this.titleText = texts.exe6TitleText;
             for (var i = 0; i < exercise6Data.subexerciseListDTO.length; i++) {
+                var exeItem = new exercises.Exercise6Item(exercise6Data.subexerciseListDTO[i].numberOne, exercise6Data.subexerciseListDTO[i].numberTwo, exercise6Data.subexerciseListDTO[i].resultSign);
+                exercise6Data.subexerciseListDTO[i] = exeItem;
+            }
+            for (var i = 0; i < 15; i++) {
+                this.smallerSigns.push(new exercises.ComparatorSign("<"));
+                this.equalSigns.push(new exercises.ComparatorSign("="));
+                this.biggerSigns.push(new exercises.ComparatorSign(">"));
             }
         }
         Exercise6Ctrl.prototype.isExerciseSinglePager = function () {

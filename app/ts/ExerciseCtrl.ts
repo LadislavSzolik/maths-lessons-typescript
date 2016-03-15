@@ -482,6 +482,10 @@ module exercises {
     public smallPositions: Object;
     public titleText: string;
 
+    public smallerSigns:ComparatorSign[] = [];
+    public equalSigns:ComparatorSign[] = [];
+    public biggerSigns:ComparatorSign[] = [];
+
     constructor(
       protected $scope: any,
       protected $location: ng.ILocationService,
@@ -493,8 +497,16 @@ module exercises {
       super($scope, $location, $route, exercise6Data.subexerciseListDTO.length);
       this.titleText = texts.exe6TitleText;
       for (var i: number = 0; i < exercise6Data.subexerciseListDTO.length; i++) {
-
+        var exeItem: Exercise6Item = new Exercise6Item(exercise6Data.subexerciseListDTO[i].numberOne, exercise6Data.subexerciseListDTO[i].numberTwo, exercise6Data.subexerciseListDTO[i].resultSign);
+        exercise6Data.subexerciseListDTO[i] = exeItem;
       }
+
+      for(var i=0; i<15;i++){
+        this.smallerSigns.push(new ComparatorSign("<"));
+        this.equalSigns.push(new ComparatorSign("="));
+        this.biggerSigns.push(new ComparatorSign(">"));
+      }
+
     }
 
     isExerciseSinglePager() {

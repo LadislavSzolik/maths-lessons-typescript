@@ -85,7 +85,7 @@ header, section
 
   &-reload-center
     @extend .nav-btn
-    top: -12px    
+    top: -12px
 
   &-top-left
     @extend .nav-btn
@@ -628,6 +628,82 @@ header, section
 
 .exe6-background
   background-image: url(../img/exe6_bcg.png)
+  .number-basket
+    height: 300px
+    width: 100%
+
+  .number-basket>li
+    margin: 10px 10px 10px 5px
+    display: inline-block
+
+  .first-number, .second-number
+    height: 70px
+    width: 60px
+    background-color: #9448BC
+    color: white
+    border-radius: 10px
+    font-size: 43px
+    display: inline-block
+    margin-left: 5px
+    margin-right: 5px
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+
+  .number-basket>li:nth-child(2) .first-number,
+  .number-basket>li:nth-child(2) .second-number,
+  .number-basket>li:nth-child(5) .first-number,
+  .number-basket>li:nth-child(5) .second-number,
+  .number-basket>li:nth-child(8) .first-number,
+  .number-basket>li:nth-child(8) .second-number,
+  .number-basket>li:nth-child(11) .first-number,
+  .number-basket>li:nth-child(11) .second-number
+    background-color: #450357
+
+
+  .missing-sign
+    height: 60px
+    width: 50px
+    font-size: 40px
+    display: inline-block
+    background-color: #7699D4
+    border-radius: 10px
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    border: 3px solid #1850AE
+    color: white
+
+  .sign-basket
+    height: 90px
+    width: 320px
+    display: inline-block
+    margin-top: 50px
+    background-color: rgba(255,255,255,0.50)
+    border-radius: 10px
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    border: 3px solid #1850AE
+
+  .result-sign
+    position: absolute
+    height: 70px
+    width: 60px
+    background-color: #7699D4
+    border-radius: 10px
+
+    border: 3px solid #1850AE
+    color: white
+    font-size: 40px
+
+  .sign-ul:nth-child(1)
+    left: -120px
+
+  .sign-ul:nth-child(2)
+    left: -35px
+
+  .sign-ul:nth-child(3)
+    left: 50px
+
+  .sign-ul
+    display: inline-block
+    position: relative
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
 
 .container-field-exe2-summary
   position: relative
