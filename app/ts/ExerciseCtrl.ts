@@ -482,9 +482,9 @@ module exercises {
     public smallPositions: Object;
     public titleText: string;
 
-    public smallerSigns:ComparatorSign[] = [];
-    public equalSigns:ComparatorSign[] = [];
-    public biggerSigns:ComparatorSign[] = [];
+
+    public allSigns:ComparatorSign[] = [];
+    public missingSigns:any[] = [];
 
     constructor(
       protected $scope: any,
@@ -501,10 +501,36 @@ module exercises {
         exercise6Data.subexerciseListDTO[i] = exeItem;
       }
 
-      for(var i=0; i<15;i++){
-        this.smallerSigns.push(new ComparatorSign("<"));
-        this.equalSigns.push(new ComparatorSign("="));
-        this.biggerSigns.push(new ComparatorSign(">"));
+      for(var i=0; i<12;i++){
+        this.allSigns.push(new ComparatorSign("<"));
+        this.allSigns.push(new ComparatorSign("="));
+        this.allSigns.push(new ComparatorSign(">"));
+        this.missingSigns.push({});
+      }
+
+    }
+
+    isSignOnRight(index: number){
+      if(this.allSigns[index].value == ">") {
+        return true
+      } else {
+        return false
+      }
+    }
+
+    isSignOnLeft(index: number){
+      if(this.allSigns[index].value == "<") {
+        return true
+      } else {
+        return false
+      }
+    }
+
+    isCorrect(index:number) {
+      if(this.missingSigns[index].value == this.exercise6Data.subexerciseListDTO[index].resultSign ) {
+        return true;
+      } else {
+        return false;
       }
 
     }

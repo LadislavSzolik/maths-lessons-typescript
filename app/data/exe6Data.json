@@ -25,40 +25,40 @@
     "numberTwo": 6,
     "resultSign": "="
   }, {
-    "numberOne": 12,
-    "numberTwo": 5,
+    "numberOne": 11,
+    "numberTwo": 2,
     "resultSign": ">"
   }, {
-    "numberOne": 12,
-    "numberTwo": 5,
+    "numberOne": 20,
+    "numberTwo": 1,
     "resultSign": ">"
   }, {
-    "numberOne": 6,
-    "numberTwo": 6,
+    "numberOne": 3,
+    "numberTwo": 3,
     "resultSign": "="
   }, {
-    "numberOne": 6,
-    "numberTwo": 6,
+    "numberOne": 8,
+    "numberTwo": 8,
     "resultSign": "="
   }, {
-    "numberOne": 12,
-    "numberTwo": 5,
+    "numberOne": 15,
+    "numberTwo": 14,
     "resultSign": ">"
   }, {
-    "numberOne": 8,
-    "numberTwo": 5,
+    "numberOne": 7,
+    "numberTwo": 6,
     "resultSign": ">"
   }, {
-    "numberOne": 8,
-    "numberTwo": 5,
+    "numberOne": 18,
+    "numberTwo": 10,
     "resultSign": ">"
   }, {
-    "numberOne": 8,
-    "numberTwo": 5,
-    "resultSign": ">"
+    "numberOne": 17,
+    "numberTwo": 17,
+    "resultSign": "="
   }, {
-    "numberOne": 8,
-    "numberTwo": 5,
+    "numberOne": 3,
+    "numberTwo": 2,
     "resultSign": ">"
   }]
 }

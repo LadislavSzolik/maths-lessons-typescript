@@ -188,7 +188,6 @@ var exercises;
             this.numberTwo = numberTwo;
             this.resultSign = resultSign;
             this.missingSigns = [];
-            this.missingSigns.push(new ComparatorSign("?"));
         }
         return Exercise6Item;
     }());
@@ -697,20 +696,44 @@ var exercises;
             this.exetype = "N2b";
             this.progressBarType = "exe6";
             this.progressBarClass = "progress-color-exe6";
-            this.smallerSigns = [];
-            this.equalSigns = [];
-            this.biggerSigns = [];
+            this.allSigns = [];
+            this.missingSigns = [];
             this.titleText = texts.exe6TitleText;
             for (var i = 0; i < exercise6Data.subexerciseListDTO.length; i++) {
                 var exeItem = new exercises.Exercise6Item(exercise6Data.subexerciseListDTO[i].numberOne, exercise6Data.subexerciseListDTO[i].numberTwo, exercise6Data.subexerciseListDTO[i].resultSign);
                 exercise6Data.subexerciseListDTO[i] = exeItem;
             }
-            for (var i = 0; i < 15; i++) {
-                this.smallerSigns.push(new exercises.ComparatorSign("<"));
-                this.equalSigns.push(new exercises.ComparatorSign("="));
-                this.biggerSigns.push(new exercises.ComparatorSign(">"));
+            for (var i = 0; i < 12; i++) {
+                this.allSigns.push(new exercises.ComparatorSign("<"));
+                this.allSigns.push(new exercises.ComparatorSign("="));
+                this.allSigns.push(new exercises.ComparatorSign(">"));
+                this.missingSigns.push({});
             }
         }
+        Exercise6Ctrl.prototype.isSignOnRight = function (index) {
+            if (this.allSigns[index].value == ">") {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
+        Exercise6Ctrl.prototype.isSignOnLeft = function (index) {
+            if (this.allSigns[index].value == "<") {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
+        Exercise6Ctrl.prototype.isCorrect = function (index) {
+            if (this.missingSigns[index].value == this.exercise6Data.subexerciseListDTO[index].resultSign) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
         Exercise6Ctrl.prototype.isExerciseSinglePager = function () {
             return true;
         };
@@ -951,7 +974,7 @@ var exercises;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
-    var mathApp = angular.module('maths', ['ngMdIcons', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ng-sortable']);
+    var mathApp = angular.module('maths', ['ngMdIcons', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ng-sortable', 'ngDragDrop']);
     mathApp.controller('homeCtrl', exercises.HomeCtrl);
     mathApp.controller('exercise1Ctrl', exercises.Exercise1Ctrl);
     mathApp.controller('exercise2Ctrl', exercises.Exercise2Ctrl);

@@ -11,7 +11,7 @@
 
   <section class="progess-container">
 
-    <section ng-hide="vm.isExerciseSinglePager()" >
+    <section ng-hide="vm.isExerciseSinglePager()">
       <uib-progressbar class="progress-box" ng-class="vm.progressBarClass" type="{{vm.progressBarType}}" value="vm.currentPage * vm.onePercentage">
         <b>{{vm.currentPage}}/{{vm.totalItems}}</b>
       </uib-progressbar>
@@ -28,7 +28,7 @@
       <ng-md-icon icon="navigate_before" size="48" style="fill:white"/>
     </a>
 
-    <a animate-button  class="nav-btn-bottom-left hide" href ng-class="{show:vm.isSummaryActive()}" ng-click="vm.currentPage = 1">
+    <a animate-button ng-hide='vm.isExerciseSinglePager()' class="nav-btn-bottom-left hide" href ng-class="{show:vm.isSummaryActive()}" ng-click="vm.currentPage = 1">
       <ng-md-icon icon="apps" size="48" style="fill:white"/>
     </a>
 
@@ -231,7 +231,6 @@
         <ul>
           <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.exercise5Data.subexerciseListDTO">
 
-
             <!-- SUMMARY -->
             <div ng-if="vm.isSummaryActive() && $index == 0">
               <ul>
@@ -240,9 +239,9 @@
                     <div class="exe5-summary-background">
                       <!-- place to drop the numbers -->
                       <ul>
-                        <li class="column-container"  ng-repeat="column in summary.columns" >
-                          <ul ng-sortable="{group: 'home'}" class="{{column.styles[$index]}}" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}" >
-                            <li  class="square-dropped" ng-repeat="dropped in column.listOfDropped" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}">
+                        <li class="column-container" ng-repeat="column in summary.columns">
+                          <ul ng-sortable="{group: 'home'}" class="{{column.styles[$index]}}" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}">
+                            <li class="square-dropped" ng-repeat="dropped in column.listOfDropped" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}">
                               <p>
                                 {{dropped.value}}
                               </p>
@@ -260,8 +259,8 @@
             <div ng-if="!vm.isSummaryActive() || $index !== 0">
               <!-- init place -->
               <div>
-                <ul  class="square-container" ng-sortable="{group: 'home'}">
-                  <li ng-repeat="unarranged in subExercise.listOfUnarrangedNumbers" class="square"   ng-hide="vm.isSummaryActive()">
+                <ul class="square-container" ng-sortable="{group: 'home'}">
+                  <li ng-repeat="unarranged in subExercise.listOfUnarrangedNumbers" class="square" ng-hide="vm.isSummaryActive()">
                     <p>
                       {{unarranged.value}}
                     </p>
@@ -270,9 +269,9 @@
               </div>
               <!-- place to drop the numbers -->
               <ul>
-                <li class="column-container" ng-repeat="column in subExercise.columns" >
-                  <ul ng-sortable="{group: 'home', disabled: column.isCorrect()  }" class="{{column.styles[$index]}}" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}" >
-                    <li  class="square-dropped" ng-repeat="dropped in column.listOfDropped" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}">
+                <li class="column-container" ng-repeat="column in subExercise.columns">
+                  <ul ng-sortable="{group: 'home', disabled: column.isCorrect()  }" class="{{column.styles[$index]}}" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}">
+                    <li class="square-dropped" ng-repeat="dropped in column.listOfDropped" ng-class="{'valid-result': column.isCorrect() && vm.isSummaryActive(), 'invalid-result':!column.isCorrect() && vm.isSummaryActive()}">
                       <p>
                         {{dropped.value}}
                       </p>
@@ -287,19 +286,23 @@
       </div>
       <!-- end of exercise 5 view  -->
 
-
       <!-- exercise 6 view -->
       <div class="subexe-container-box exe6-background" ng-switch-when="N2b">
+
         <ul class="number-basket">
           <li ng-repeat="subExercise in vm.exercise6Data.subexerciseListDTO">
             <div class="first-number">
               {{subExercise.numberOne}}
             </div>
-            <ul class="missing-sign" ng-sortable="{group: 'all'}">
-              <li ng-repeat="missingSign in subExercise.missingSigns">
-                {{missingSign.value}}
-              </li>
-            </ul>
+            <div class="missing-sign-basket" ng-model="vm.missingSigns" data-drop="true" jqyoui-droppable="{index: {{$index}}}">
+              <div class="missing-sign-empty" ng-class="{'invalid-result':vm.isSummaryActive() && !vm.missingSigns[$index].value}">
+                <span>?</span>
+              </div>
+              <div class="missing-sign" ng-model="vm.missingSigns" ng-hide="!vm.missingSigns[$index].value" ng-class="{'valid-result':vm.isSummaryActive() && vm.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !vm.isCorrect($index)}" data-drag="!vm.isSummaryActive()" data-jqyoui-options="{revert: 'invalid'}"  jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}">
+                <span>{{vm.missingSigns[$index].value}}</span>
+              </div>
+            </div>
+
             <div class="second-number">
               {{subExercise.numberTwo}}
             </div>
@@ -307,24 +310,10 @@
         </ul>
         <!-- sign basket -->
         <div class="sign-basket">
-          <ul class="sign-ul"  ng-sortable="{group: 'all'}">
-            <li class="result-sign" ng-repeat="smallerSign in vm.smallerSigns">
+          <ul class="sign-ul" data-drop="true" ng-model="vm.allSigns" jqyoui-droppable="{index: 1}">
+            <li class="result-sign" data-drag="!vm.isSummaryActive()" ng-show="allSign.value" ng-class="{'sign-right':vm.isSignOnRight($index), 'sign-left': vm.isSignOnLeft($index)}" ng-model="vm.allSigns" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}" data-jqyoui-options="{revert: 'invalid'}" ng-repeat="allSign in vm.allSigns">
               <p>
-                {{smallerSign.value}}
-              </p>
-            </li>
-          </ul>
-          <ul class="sign-ul"  ng-sortable="{group: 'equalSign'}">
-            <li class="result-sign" ng-repeat="equalSign in vm.equalSigns">
-              <p>
-                {{equalSign.value}}
-              </p>
-            </li>
-          </ul>
-          <ul class="sign-ul"  ng-sortable="{group: 'biggerSign'}">
-            <li class="result-sign" ng-repeat="biggerSign in vm.biggerSigns">
-              <p>
-                {{biggerSign.value}}
+                {{allSign.value}}
               </p>
             </li>
           </ul>

@@ -253,14 +253,14 @@ export class NumberCube {
 
 
   export class Exercise6Item {
-    public missingSigns:ComparatorSign[];
+    public missingSigns:ComparatorSign[] = [];
     constructor(public numberOne:number, public numberTwo:number, public resultSign:string ) {
-      this.missingSigns = [];
-      this.missingSigns.push(new ComparatorSign("?"));
+      
     }
   }
 
   export class ComparatorSign {
+
     constructor(public value:string) {
 
     }

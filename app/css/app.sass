@@ -85,7 +85,9 @@ header, section
 
   &-reload-center
     @extend .nav-btn
+    transition: all 0.1s linear
     top: -12px
+    left: 470px
 
   &-top-left
     @extend .nav-btn
@@ -632,9 +634,11 @@ header, section
     height: 300px
     width: 100%
 
+
   .number-basket>li
     margin: 10px 10px 10px 5px
     display: inline-block
+
 
   .first-number, .second-number
     height: 70px
@@ -643,10 +647,11 @@ header, section
     color: white
     border-radius: 10px
     font-size: 43px
-    display: inline-block
+    float: left
     margin-left: 5px
     margin-right: 5px
     box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+
 
   .number-basket>li:nth-child(2) .first-number,
   .number-basket>li:nth-child(2) .second-number,
@@ -658,17 +663,30 @@ header, section
   .number-basket>li:nth-child(11) .second-number
     background-color: #450357
 
+  .missing-sign-basket
+    position: relative
+    top: 5px
+    width: 50px
+    height: 60px
+    display: block
+    float: left
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    border-radius: 10px
 
-  .missing-sign
+  .missing-sign, .missing-sign-empty
     height: 60px
     width: 50px
     font-size: 40px
-    display: inline-block
+    line-height: normal
     background-color: #7699D4
     border-radius: 10px
-    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
     border: 3px solid #1850AE
     color: white
+
+
+  .missing-sign-empty
+    position: absolute
+    background-color: #B6CBF0
 
   .sign-basket
     height: 90px
@@ -677,33 +695,33 @@ header, section
     margin-top: 50px
     background-color: rgba(255,255,255,0.50)
     border-radius: 10px
-    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
     border: 3px solid #1850AE
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
 
   .result-sign
     position: absolute
     height: 70px
     width: 60px
     background-color: #7699D4
-    border-radius: 10px
-
+    border-radius: 13px
     border: 3px solid #1850AE
     color: white
     font-size: 40px
 
-  .sign-ul:nth-child(1)
-    left: -120px
+  .sign-left
+    left: -100px
 
-  .sign-ul:nth-child(2)
-    left: -35px
-
-  .sign-ul:nth-child(3)
-    left: 50px
+  .sign-right
+    left: 100px
 
   .sign-ul
     display: inline-block
     position: relative
-    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    top: 5px
+    height: 70px
+    width: 60px
+    border-radius: 10px
+
 
 .container-field-exe2-summary
   position: relative
