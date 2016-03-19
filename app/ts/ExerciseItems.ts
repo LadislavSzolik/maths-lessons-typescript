@@ -166,96 +166,82 @@ module exercises {
       }else {
         return false;
       }
-
     }
   }
 // --------------------------------------------------------EXE 4-----------------------------------------------------------------------
-export class NumberCube {
-  public listOfDroppedNumbers: NumberCube[];
-  public position: Object;
+export class NumberSquare {
+  public isMissing:boolean = false;
+  public positionIndex:number=0;
+  public isBlocked:boolean = false;
+  public positions: Object[] = [
+    { top: '295px', left: '26px' },  //1
+    { top: '295px', left: '137px' }, //2
+    { top: '186px', left: '137px' }, //3
+    { top: '76px', left: '137px' }, //4
+    { top: '76px', left: '242px' }, //5
+    { top: '76px', left: '346px' },  //6
+    { top: '76px', left: '450px' },  //7
+    { top: '186px', left: '450px' },  //8
+    { top: '295px', left: '450px' },  //9
+    { top: '295px', left: '560px' }]; //10
+
+  public smallPositions: Object[] = [
+    { top: '67px', left: '8px' },  //1
+    { top: '67px', left: '32px' }, //2
+    { top: '43px', left: '32px' }, //3
+    { top: '19px', left: '32px' }, //4
+    { top: '19px', left: '55px' }, //5
+    { top: '19px', left: '78px' },  //6
+    { top: '19px', left: '101px' },  //7
+    { top: '43px', left: '101px' },  //8
+    { top: '67px', left: '101px' },  //9
+    { top: '67px', left: '126px' }]; //10
 
   constructor(public value: number) {
-    this.listOfDroppedNumbers = [];
-
   }
-
-  isCorrect() {
-    if (this.listOfDroppedNumbers.length == 0) {
-      return false;
-    }
-    return this.listOfDroppedNumbers[this.listOfDroppedNumbers.length - 1].value == this.value;
+  getPosition() {
+    return this.positions[this.positionIndex];
+  }
+  getSmallPosition() {
+    return this.smallPositions[this.positionIndex];
   }
 }
 
   export class Exercise4Item {
     public static id: number = 0;
     public itemId: number;
-
-
     public maxNumber: number = 10;
-
-    public listOfGivenNumbers: NumberCube[];
-    public listOfMissingNumbers: NumberCube[];
-    public numberOnStart: NumberCube;
-    public listOfBlockedNumbers: NumberCube[];
-
-    public positionInit: Object[] = [
-      { top: '64px', left: '288px' },  //1
-      { top: '163px', left: '228px' }, //2
-      { top: '163px', left: '347px' }, //3
-      { top: '262px', left: '171px' }, //4
-      { top: '262px', left: '296px' }, //5
-      { top: '262px', left: '420px' },  //6
-      { top: '358px', left: '112px' },  //7
-      { top: '358px', left: '235px' },  //8
-      { top: '358px', left: '358px' },  //9
-      { top: '358px', left: '481px' }]; //10
-
-
-    public positionForNumber: Object;
-
-    public smallPositionInit: Object[] = [
-      { top: '6px', left: '64px' },  //1
-      { top: '31px', left: '49px' }, //2
-      { top: '31px', left: '78px' }, //3
-      { top: '55px', left: '35px' }, //4
-      { top: '55px', left: '66px' }, //5
-      { top: '55px', left: '97px' },  //6
-      { top: '79px', left: '20px' },  //7
-      { top: '79px', left: '50px' },  //8
-      { top: '79px', left: '81px' },  //9
-      { top: '79px', left: '112px' }]; //10
-
-    public smallPositionForNumber: Object;
-
+    public listOfGiven: Bubble[] = [];
+    public listOfEmpty: any[] = [];
+    public listOfMissing:NumberSquare[] = [];
 
     constructor(public startFrom: number, public missingNumbers: number[], public blockedNumbers: number[]) {
-
       this.itemId = Exercise4Item.id++;
-      this.listOfGivenNumbers = [];
-      this.listOfMissingNumbers = [];
-      this.numberOnStart = new NumberCube(0);
-      this.listOfBlockedNumbers = [];
-      this.positionForNumber = {};
-      this.smallPositionForNumber = {};
-
+      var positionIndex:number = 0;
       for (var i: number = startFrom; i < startFrom + this.maxNumber; i++) {
-        if (missingNumbers.indexOf(i) == -1 && blockedNumbers.indexOf(i) == -1) {
-          this.listOfGivenNumbers.push(new NumberCube(i));
+        var square = new NumberSquare(i);
+        if(this.missingNumbers.indexOf(square.value, 0) > -1) {
+          square.isMissing = true;
         }
-        this.positionForNumber[i] = this.positionInit.shift();
-        this.smallPositionForNumber[i] = this.smallPositionInit.shift();
+        if(this.blockedNumbers.indexOf(square.value, 0) > -1) {
+          square.isBlocked = true;
+        }
+        square.positionIndex = positionIndex;
+        this.listOfGiven.push(square);
+        this.listOfEmpty.push({});
+        positionIndex++
       }
 
-      for (var i: number = 0; i < missingNumbers.length; i++) {
-        this.listOfMissingNumbers.push(new NumberCube(missingNumbers[i]));
-        this.numberOnStart.listOfDroppedNumbers.push(new NumberCube(missingNumbers[i]));
+      for(var i =0; i<this.missingNumbers.length;i++){
+        this.listOfMissing.push(new NumberSquare(missingNumbers[i]));
       }
-
-      for (var i: number = 0; i < blockedNumbers.length; i++) {
-        this.listOfBlockedNumbers.push(new NumberCube(blockedNumbers[i]));
+    }
+    isCorrect(index:number) {
+      if(this.listOfEmpty[index].value == this.listOfGiven[index].value ) {
+        return true;
+      }else {
+        return false;
       }
-
     }
 
   }

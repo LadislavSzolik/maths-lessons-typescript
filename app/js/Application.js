@@ -117,7 +117,6 @@ var exercises;
             }
         }
         Exercise3Item.prototype.isCorrect = function (index) {
-            console.log(this.listOfEmpty[index].value);
             if (this.listOfEmpty[index].value == this.listOfGiven[index].value) {
                 return true;
             }
@@ -129,70 +128,80 @@ var exercises;
         return Exercise3Item;
     }());
     exercises.Exercise3Item = Exercise3Item;
-    var NumberCube = (function () {
-        function NumberCube(value) {
+    var NumberSquare = (function () {
+        function NumberSquare(value) {
             this.value = value;
-            this.listOfDroppedNumbers = [];
+            this.isMissing = false;
+            this.positionIndex = 0;
+            this.isBlocked = false;
+            this.positions = [
+                { top: '295px', left: '26px' },
+                { top: '295px', left: '137px' },
+                { top: '186px', left: '137px' },
+                { top: '76px', left: '137px' },
+                { top: '76px', left: '242px' },
+                { top: '76px', left: '346px' },
+                { top: '76px', left: '450px' },
+                { top: '186px', left: '450px' },
+                { top: '295px', left: '450px' },
+                { top: '295px', left: '560px' }];
+            this.smallPositions = [
+                { top: '67px', left: '8px' },
+                { top: '67px', left: '32px' },
+                { top: '43px', left: '32px' },
+                { top: '19px', left: '32px' },
+                { top: '19px', left: '55px' },
+                { top: '19px', left: '78px' },
+                { top: '19px', left: '101px' },
+                { top: '43px', left: '101px' },
+                { top: '67px', left: '101px' },
+                { top: '67px', left: '126px' }];
         }
-        NumberCube.prototype.isCorrect = function () {
-            if (this.listOfDroppedNumbers.length == 0) {
-                return false;
-            }
-            return this.listOfDroppedNumbers[this.listOfDroppedNumbers.length - 1].value == this.value;
+        NumberSquare.prototype.getPosition = function () {
+            return this.positions[this.positionIndex];
         };
-        return NumberCube;
+        NumberSquare.prototype.getSmallPosition = function () {
+            return this.smallPositions[this.positionIndex];
+        };
+        return NumberSquare;
     }());
-    exercises.NumberCube = NumberCube;
+    exercises.NumberSquare = NumberSquare;
     var Exercise4Item = (function () {
         function Exercise4Item(startFrom, missingNumbers, blockedNumbers) {
             this.startFrom = startFrom;
             this.missingNumbers = missingNumbers;
             this.blockedNumbers = blockedNumbers;
             this.maxNumber = 10;
-            this.positionInit = [
-                { top: '64px', left: '288px' },
-                { top: '163px', left: '228px' },
-                { top: '163px', left: '347px' },
-                { top: '262px', left: '171px' },
-                { top: '262px', left: '296px' },
-                { top: '262px', left: '420px' },
-                { top: '358px', left: '112px' },
-                { top: '358px', left: '235px' },
-                { top: '358px', left: '358px' },
-                { top: '358px', left: '481px' }];
-            this.smallPositionInit = [
-                { top: '6px', left: '64px' },
-                { top: '31px', left: '49px' },
-                { top: '31px', left: '78px' },
-                { top: '55px', left: '35px' },
-                { top: '55px', left: '66px' },
-                { top: '55px', left: '97px' },
-                { top: '79px', left: '20px' },
-                { top: '79px', left: '50px' },
-                { top: '79px', left: '81px' },
-                { top: '79px', left: '112px' }];
+            this.listOfGiven = [];
+            this.listOfEmpty = [];
+            this.listOfMissing = [];
             this.itemId = Exercise4Item.id++;
-            this.listOfGivenNumbers = [];
-            this.listOfMissingNumbers = [];
-            this.numberOnStart = new NumberCube(0);
-            this.listOfBlockedNumbers = [];
-            this.positionForNumber = {};
-            this.smallPositionForNumber = {};
+            var positionIndex = 0;
             for (var i = startFrom; i < startFrom + this.maxNumber; i++) {
-                if (missingNumbers.indexOf(i) == -1 && blockedNumbers.indexOf(i) == -1) {
-                    this.listOfGivenNumbers.push(new NumberCube(i));
+                var square = new NumberSquare(i);
+                if (this.missingNumbers.indexOf(square.value, 0) > -1) {
+                    square.isMissing = true;
                 }
-                this.positionForNumber[i] = this.positionInit.shift();
-                this.smallPositionForNumber[i] = this.smallPositionInit.shift();
+                if (this.blockedNumbers.indexOf(square.value, 0) > -1) {
+                    square.isBlocked = true;
+                }
+                square.positionIndex = positionIndex;
+                this.listOfGiven.push(square);
+                this.listOfEmpty.push({});
+                positionIndex++;
             }
-            for (var i = 0; i < missingNumbers.length; i++) {
-                this.listOfMissingNumbers.push(new NumberCube(missingNumbers[i]));
-                this.numberOnStart.listOfDroppedNumbers.push(new NumberCube(missingNumbers[i]));
-            }
-            for (var i = 0; i < blockedNumbers.length; i++) {
-                this.listOfBlockedNumbers.push(new NumberCube(blockedNumbers[i]));
+            for (var i = 0; i < this.missingNumbers.length; i++) {
+                this.listOfMissing.push(new NumberSquare(missingNumbers[i]));
             }
         }
+        Exercise4Item.prototype.isCorrect = function (index) {
+            if (this.listOfEmpty[index].value == this.listOfGiven[index].value) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
         Exercise4Item.id = 0;
         return Exercise4Item;
     }());
@@ -632,7 +641,6 @@ var exercises;
                 var exeItem = new exercises.Exercise4Item(exercise4Data.subexerciseListDTO[i].startFrom, exercise4Data.subexerciseListDTO[i].missingNumbers, exercise4Data.subexerciseListDTO[i].blockedNumbers);
                 exercise4Data.subexerciseListDTO[i] = exeItem;
             }
-            this.sortableConfig = { group: 'home' };
         }
         Exercise4Ctrl.prototype.checkResult = function () {
             if (!this.isSummaryActive()) {

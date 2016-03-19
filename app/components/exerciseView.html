@@ -145,21 +145,20 @@
             <div ng-if="!vm.isSummaryActive() || $index !== 0">
               <div class="exe3-bcg-adds"></div>
 
-              <div  class="ball-with-number" ng-repeat="bubble in subExercise.listOfGiven" ng-style="bubble.getPosition()" ng-hide="bubble.isMissing">
+              <div class="ball-with-number" ng-repeat="bubble in subExercise.listOfGiven" ng-style="bubble.getPosition()" ng-hide="bubble.isMissing">
                 {{bubble.value}}
               </div>
-              <div  class="ball-without-number" ng-repeat="bubble in subExercise.listOfGiven" ng-style="bubble.getPosition()" ng-show="bubble.isMissing" ng-model="subExercise.listOfEmpty"  jqyoui-droppable="{index: {{$index}}}" data-drop="true">
-                <div class="ball-with-number" ng-model="subExercise.listOfEmpty" ng-hide="!subExercise.listOfEmpty[$index].value"  data-drag="!vm.isSummaryActive()" data-jqyoui-options="{revert: 'invalid'}"  jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}" ng-class="{'valid-result':vm.isSummaryActive() && subExercise.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !subExercise.isCorrect($index)}">
-                    {{subExercise.listOfEmpty[$index].value}}
+              <div class="ball-without-number" ng-repeat="bubble in subExercise.listOfGiven" ng-style="bubble.getPosition()" ng-show="bubble.isMissing" ng-model="subExercise.listOfEmpty" jqyoui-droppable="{index: {{$index}}}" data-drop="true" ng-class="{'invalid-result':vm.isSummaryActive() && !subExercise.listOfEmpty[$index].value}" >
+                <div class="ball-with-number" ng-model="subExercise.listOfEmpty" ng-hide="!subExercise.listOfEmpty[$index].value" data-drag="!vm.isSummaryActive()" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}" ng-class="{'valid-result':vm.isSummaryActive() && subExercise.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !subExercise.isCorrect($index)}">
+                  {{subExercise.listOfEmpty[$index].value}}
                 </div>
               </div>
 
-              <div  class="ball-container"   data-drop="true" jqyoui-droppable="{index: 1}" ng-model="subExercise.listOfMissing" >
-                <div class="ball-with-number ball-init-place" ng-show="bubble.value && !vm.isSummaryActive()"   ng-repeat="bubble in subExercise.listOfMissing" data-drag="!vm.isSummaryActive()"  ng-model="subExercise.listOfMissing" data-jqyoui-options="{revert: 'invalid'}"  jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}">
-                   {{bubble.value}}
+              <div class="ball-container" data-drop="true" jqyoui-droppable="{index: 1}" ng-model="subExercise.listOfMissing">
+                <div class="ball-with-number ball-init-place" ng-show="bubble.value && !vm.isSummaryActive()" ng-repeat="bubble in subExercise.listOfMissing" data-drag="!vm.isSummaryActive()" ng-model="subExercise.listOfMissing" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}">
+                  {{bubble.value}}
                 </div>
               </div>
-
 
             </div>
 
@@ -177,21 +176,14 @@
                 <li ng-if="$index!==0" ng-repeat="summary in vm.exercise4Data.subexerciseListDTO">
                   <a href ng-click="vm.selectPage($index+1,$event)">
                     <div class="exe4-summary-background">
-
                       <!-- base numbers -->
-                      <div class="cube-round-container cube-with-number" ng-repeat="cube in summary.listOfGivenNumbers" ng-style="summary.smallPositionForNumber[cube.value]">
-                        {{cube.value}}
+                      <div class="cube-round-container cube-with-number"  ng-class="{'blocked-cube':square.isBlocked}" ng-hide="square.isMissing" ng-repeat="square in summary.listOfGiven" ng-style="square.getSmallPosition()">
+                        <span ng-if="!square.isBlocked">{{square.value}}</span>
                       </div>
-
-                      <!-- blocked numbers -->
-                      <div class="blocked-cube" ng-repeat="blocked in summary.listOfBlockedNumbers" ng-style="summary.smallPositionForNumber[blocked.value]"></div>
-
-                      <!-- place to drop the numbers -->
-                      <ul ng-sortable="vm.sortableConfig" ng-repeat="missingNumber in summary.listOfMissingNumbers" ng-style="summary.smallPositionForNumber[missingNumber.value]" class="cube-ul cube-without-number" ng-sortable="{group: 'home'}" ng-class="{'valid-result': missingNumber.isCorrect() && vm.isSummaryActive(), 'invalid-result':!missingNumber.isCorrect() && vm.isSummaryActive()}">
-                        <li class="cube-with-number" ng-repeat="droppedNumber in missingNumber.listOfDroppedNumbers" ng-class="{'valid-result': missingNumber.isCorrect() && vm.isSummaryActive(), 'invalid-result':!missingNumber.isCorrect() && vm.isSummaryActive()}">
-                          {{droppedNumber.value}}
-                        </li>
-                      </ul>
+                      <!-- entered -->
+                      <div class="cube-round-container cube-with-number"  ng-repeat="square in summary.listOfGiven" ng-show="square.isMissing" ng-class="{'valid-result':vm.isSummaryActive() && summary.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !summary.isCorrect($index)}" ng-style="square.getSmallPosition()">
+                          <span>{{summary.listOfEmpty[$index].value}}</span>
+                      </div>
                     </div>
                   </a>
                 </li>
@@ -199,28 +191,23 @@
             </div>
 
             <div ng-if="!vm.isSummaryActive() || $index !== 0">
-              <div ball-value="-99" class="cube-container" ng-hide="vm.isSummaryActive()">
-                <ul class="cube-init-container" ng-sortable="{group: 'home'}">
-                  <li ng-repeat="missingNumber in subExercise.numberOnStart.listOfDroppedNumbers" class="cube-with-number" ng-class="{'valid-result': missingNumber.isCorrect() && vm.isSummaryActive(), 'invalid-result':!missingNumber.isCorrect() && vm.isSummaryActive()}">
-                    {{missingNumber.value}}
-                  </li>
-                </ul>
+              <div class="exe4-bcg-adds"></div>
+              <!-- starting point -->
+              <div class="cube-container" data-drop="true" jqyoui-droppable="{index: 1}" ng-model="subExercise.listOfMissing" ng-hide="vm.isSummaryActive()">
+                <div class="cube-with-number cube-init-container" ng-show="square.value && !vm.isSummaryActive()" ng-repeat="square in subExercise.listOfMissing" data-drag="!vm.isSummaryActive()" ng-model="subExercise.listOfMissing" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}" >
+                  {{square.value}}
+                </div>
               </div>
-
               <!-- base numbers -->
-              <div class="cube-round-container cube-with-number" ng-repeat="cube in subExercise.listOfGivenNumbers" ng-style="subExercise.positionForNumber[cube.value]">
-                {{cube.value}}
+              <div class="cube-round-container cube-with-number" ng-class="{'blocked-cube':square.isBlocked}" ng-repeat="square in subExercise.listOfGiven" ng-style="square.getPosition()" ng-hide="square.isMissing" >
+                <span ng-if="!square.isBlocked">{{square.value}}</span>
               </div>
-
-              <!-- blocked numbers -->
-              <div class="blocked-cube" ng-repeat="blocked in subExercise.listOfBlockedNumbers" ng-style="subExercise.positionForNumber[blocked.value]"></div>
-
-              <!-- place to drop the numbers -->
-              <ul ng-sortable="vm.sortableConfig" ng-repeat="missingNumber in subExercise.listOfMissingNumbers" ng-style="subExercise.positionForNumber[missingNumber.value]" class="cube-ul cube-without-number" ng-sortable="{group: 'home'}" ng-class="{'valid-result': missingNumber.isCorrect() && vm.isSummaryActive(), 'invalid-result':!missingNumber.isCorrect() && vm.isSummaryActive()}">
-                <li class="cube-with-number" ng-repeat="droppedNumber in missingNumber.listOfDroppedNumbers" ng-class="{'valid-result': missingNumber.isCorrect() && vm.isSummaryActive(), 'invalid-result':!missingNumber.isCorrect() && vm.isSummaryActive()}">
-                  {{droppedNumber.value}}
-                </li>
-              </ul>
+              <!-- empty places -->
+              <div class="cube-ul cube-without-number" ng-repeat="square in subExercise.listOfGiven" ng-style="square.getPosition()" ng-show="square.isMissing" ng-model="subExercise.listOfEmpty" jqyoui-droppable="{index: {{$index}}}" data-drop="true"  ng-class="{'invalid-result':vm.isSummaryActive() && !subExercise.listOfEmpty[$index].value}" >
+                <div class="cube-with-number" ng-model="subExercise.listOfEmpty" ng-hide="!subExercise.listOfEmpty[$index].value" data-drag="!vm.isSummaryActive()" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}" ng-class="{'valid-result':vm.isSummaryActive() && subExercise.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !subExercise.isCorrect($index)}">
+                  {{subExercise.listOfEmpty[$index].value}}
+                </div>
+              </div>
             </div>
           </li>
         </ul>
@@ -258,8 +245,8 @@
             <div ng-if="!vm.isSummaryActive() || $index !== 0">
               <!-- init place -->
               <div>
-                <ul class="square-container" data-drop="true" jqyoui-droppable ng-model="subExercise.listOfUnarrangedNumbers" >
-                  <li ng-repeat="unarranged in subExercise.listOfUnarrangedNumbers" data-drag="true" data-jqyoui-options="{revert: 'invalid'}"  jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}" ng-model="subExercise.listOfUnarrangedNumbers" class="square" ng-hide="vm.isSummaryActive() || !unarranged.value">
+                <ul class="square-container" data-drop="true" jqyoui-droppable ng-model="subExercise.listOfUnarrangedNumbers">
+                  <li ng-repeat="unarranged in subExercise.listOfUnarrangedNumbers" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}" ng-model="subExercise.listOfUnarrangedNumbers" class="square" ng-hide="vm.isSummaryActive() || !unarranged.value">
                     <p>
                       {{unarranged.value}}
                     </p>
@@ -268,9 +255,9 @@
               </div>
               <!-- place to drop the numbers -->
               <ul>
-                <li class="column-container" >
+                <li class="column-container">
                   <div class="{{vm.styles[$index]}}" ng-repeat="arranged in subExercise.listOfArrangedNumbers" data-drop="true" jqyoui-droppable="{index: {{$index}}}" ng-model="subExercise.listOfArrangedNumbers" ng-class="{'valid-result': subExercise.isCorrect($index) && vm.isSummaryActive(), 'invalid-result':!subExercise.isCorrect($index) && vm.isSummaryActive()}">
-                    <div class="square-dropped" ng-hide="!arranged.value" ng-model="subExercise.listOfArrangedNumbers" data-drag="!vm.isSummaryActive()" data-jqyoui-options="{revert: 'invalid'}"  jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}" ng-class="{'valid-result': subExercise.isCorrect($index) && vm.isSummaryActive(), 'invalid-result':!subExercise.isCorrect($index) && vm.isSummaryActive()}">
+                    <div class="square-dropped" ng-hide="!arranged.value" ng-model="subExercise.listOfArrangedNumbers" data-drag="!vm.isSummaryActive()" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}" ng-class="{'valid-result': subExercise.isCorrect($index) && vm.isSummaryActive(), 'invalid-result':!subExercise.isCorrect($index) && vm.isSummaryActive()}">
                       <p>
                         {{arranged.value}}
                       </p>
@@ -297,7 +284,7 @@
               <div class="missing-sign-empty" ng-class="{'invalid-result':vm.isSummaryActive() && !vm.missingSigns[$index].value}">
                 <span>?</span>
               </div>
-              <div class="missing-sign" ng-model="vm.missingSigns" ng-hide="!vm.missingSigns[$index].value" ng-class="{'valid-result':vm.isSummaryActive() && vm.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !vm.isCorrect($index)}" data-drag="!vm.isSummaryActive()" data-jqyoui-options="{revert: 'invalid'}"  jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}">
+              <div class="missing-sign" ng-model="vm.missingSigns" ng-hide="!vm.missingSigns[$index].value" ng-class="{'valid-result':vm.isSummaryActive() && vm.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !vm.isCorrect($index)}" data-drag="!vm.isSummaryActive()" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}">
                 <span>{{vm.missingSigns[$index].value}}</span>
               </div>
             </div>

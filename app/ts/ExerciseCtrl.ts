@@ -281,16 +281,8 @@ module exercises {
     public progressBarType: string = "exe4";
     public progressBarClass: string = "progress-color-exe4";
     public static $inject = ['$scope', '$location', '$route', '$rootScope', 'exercise4Data', 'texts'];
-    public positions: any;
-    public positionCorrections: any;
-    public startingPosition: Object;
-    public smallPositions: Object;
     public titleText: string;
 
-    public testArray1: any;
-    public testArray2: any;
-
-    public sortableConfig: any;
 
     constructor(
       protected $scope: any,
@@ -307,9 +299,6 @@ module exercises {
         var exeItem: Exercise4Item = new Exercise4Item(exercise4Data.subexerciseListDTO[i].startFrom, exercise4Data.subexerciseListDTO[i].missingNumbers, exercise4Data.subexerciseListDTO[i].blockedNumbers);
         exercise4Data.subexerciseListDTO[i] = exeItem;
       }
-
-      this.sortableConfig = { group: 'home' };
-
     }
 
     checkResult() {
