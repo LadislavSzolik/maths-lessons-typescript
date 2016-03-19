@@ -92,29 +92,82 @@ module exercises {
       }
     }
   }
+// --------------------------------------------------------EXE 4-----------------------------------------------------------------------
+
+
+  export class Bubble {
+    public isMissing:boolean = false;
+    public positionIndex:number=0;
+
+    public positions:any = [
+      { top: '359px', left: '39px' },  //1
+      { top: '301px', left: '179px' }, //2
+      { top: '300px', left: '322px' }, //3
+      { top: '207px', left: '438px' }, //4
+      { top: '122px', left: '581px' }, //5
+      { top: '18px', left: '468px' },  //6
+      { top: '84px', left: '312px' },  //7
+      { top: '15px', left: '176px' },  //8
+      { top: '105px', left: '51px' }];//9
+
+    public smallPositions:any = [
+      { top: '74px', left: '8px' },
+      { top: '60px', left: '37px' },
+      { top: '65px', left: '68px' },
+      { top: '43px', left: '93px' },
+      { top: '25px', left: '123px' },
+      { top: '3px', left: '98px' },
+      { top: '17px', left: '66px' },
+      { top: '3px', left: '37px' },
+      { top: '21px', left: '11px' },
+    ];
+    constructor(public value:number) {
+    }
+
+    getPosition() {
+      return this.positions[this.positionIndex];
+    }
+
+    getSmallPosition() {
+      return this.smallPositions[this.positionIndex];
+    }
+
+  }
 
   export class Exercise3Item {
     public static id: number = 0;
     public itemId: number;
-    public listOfGivenNumbers: number[];
-    public listOfVisibleNumbers: number[];
-    public listOfCorrectNumbers: number[];
-    public listOfDroppedNumbers: number[];
+    public listOfGiven: Bubble[] = [];
+    public listOfEmpty: any[] = [];
+    public listOfMissing: Bubble[] = [];
     public maxNumber: number = 9;
+
     constructor(public startFrom: number, public missingNumbers: number[]) {
       this.itemId = Exercise3Item.id++;
-      this.listOfGivenNumbers = [];
-      this.listOfVisibleNumbers = [];
-      this.listOfCorrectNumbers = [];
-      this.listOfDroppedNumbers = [];
-
+      var positionIndex:number = 0;
       for (var i: number = startFrom; i < startFrom + this.maxNumber; i++) {
-        this.listOfGivenNumbers.push(i);
+        var bubble = new Bubble(i);
+        if(this.missingNumbers.indexOf(bubble.value, 0) > -1) {
+          bubble.isMissing = true;
+        }
+        bubble.positionIndex = positionIndex;
+        this.listOfGiven.push(bubble);
+        this.listOfEmpty.push({});
+        positionIndex++
       }
 
-      this.listOfVisibleNumbers.push(missingNumbers[0]);
+      for(var i=0;i<this.missingNumbers.length;i++){
+        this.listOfMissing.push(new Bubble(this.missingNumbers[i]));
+      }
     }
+    isCorrect(index:number) {
+      if(this.listOfEmpty[index].value == this.listOfGiven[index].value ) {
+        return true;
+      }else {
+        return false;
+      }
 
+    }
   }
 // --------------------------------------------------------EXE 4-----------------------------------------------------------------------
 export class NumberCube {
@@ -216,8 +269,10 @@ export class NumberCube {
   export class Column {
     public listOfDropped:SquareObject[];
     public styles:any = ['column-one', 'column-two', 'column-three','column-four','column-five'];
+
     constructor(public expectedNumber:number){
       this.listOfDropped = [];
+
     }
 
     isCorrect(){
@@ -232,18 +287,33 @@ export class NumberCube {
     public static id: number = 0;
     public itemId: number;
     public listOfUnarrangedNumbers:SquareObject[];
-    public columns:Column[];
+    public listOfArrangedNumbers:any[];
+    public correctAnswers:SquareObject[];
 
     constructor(public unarrangedNumbers:number[], public arrangedNumbers: number[]) {
       this.listOfUnarrangedNumbers = [];
-      this.columns = [];
+      this.listOfArrangedNumbers = [];
+      this.correctAnswers = [];
 
       for(var i:number = 0; i< unarrangedNumbers.length; i++){
         this.listOfUnarrangedNumbers.push(new SquareObject(unarrangedNumbers[i]));
       }
 
       for(var i:number = 0; i< arrangedNumbers.length; i++){
-        this.columns.push(new Column(arrangedNumbers[i]));
+        this.listOfArrangedNumbers.push({});
+      }
+
+      for(var i:number = 0; i< arrangedNumbers.length; i++){
+        this.correctAnswers.push(new SquareObject(arrangedNumbers[i]));
+      }
+
+    }
+
+    isCorrect(index: number){
+      if(this.correctAnswers[index].value == this.listOfArrangedNumbers[index].value) {
+        return true;
+      } else {
+        return false;
       }
     }
 
@@ -251,18 +321,13 @@ export class NumberCube {
 
 // --------------------------------------------------------EXE 6-----------------------------------------------------------------------
 
-
   export class Exercise6Item {
-    public missingSigns:ComparatorSign[] = [];
     constructor(public numberOne:number, public numberTwo:number, public resultSign:string ) {
-      
     }
   }
 
   export class ComparatorSign {
-
     constructor(public value:string) {
-
     }
   }
 

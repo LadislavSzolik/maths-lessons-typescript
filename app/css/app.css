@@ -341,6 +341,11 @@ header, section {
   box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.5);
 }
 
+.main-content .exe3-background .ball-init-place {
+  top: 40px;
+  left: 40px;
+}
+
 .main-content .exe3-background .ball-container {
   position: absolute;
   border-radius: 100px;

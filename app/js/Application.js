@@ -56,21 +56,75 @@ var exercises;
         return Exercise2Item;
     }(Exercise1Item));
     exercises.Exercise2Item = Exercise2Item;
+    var Bubble = (function () {
+        function Bubble(value) {
+            this.value = value;
+            this.isMissing = false;
+            this.positionIndex = 0;
+            this.positions = [
+                { top: '359px', left: '39px' },
+                { top: '301px', left: '179px' },
+                { top: '300px', left: '322px' },
+                { top: '207px', left: '438px' },
+                { top: '122px', left: '581px' },
+                { top: '18px', left: '468px' },
+                { top: '84px', left: '312px' },
+                { top: '15px', left: '176px' },
+                { top: '105px', left: '51px' }];
+            this.smallPositions = [
+                { top: '74px', left: '8px' },
+                { top: '60px', left: '37px' },
+                { top: '65px', left: '68px' },
+                { top: '43px', left: '93px' },
+                { top: '25px', left: '123px' },
+                { top: '3px', left: '98px' },
+                { top: '17px', left: '66px' },
+                { top: '3px', left: '37px' },
+                { top: '21px', left: '11px' },
+            ];
+        }
+        Bubble.prototype.getPosition = function () {
+            return this.positions[this.positionIndex];
+        };
+        Bubble.prototype.getSmallPosition = function () {
+            return this.smallPositions[this.positionIndex];
+        };
+        return Bubble;
+    }());
+    exercises.Bubble = Bubble;
     var Exercise3Item = (function () {
         function Exercise3Item(startFrom, missingNumbers) {
             this.startFrom = startFrom;
             this.missingNumbers = missingNumbers;
+            this.listOfGiven = [];
+            this.listOfEmpty = [];
+            this.listOfMissing = [];
             this.maxNumber = 9;
             this.itemId = Exercise3Item.id++;
-            this.listOfGivenNumbers = [];
-            this.listOfVisibleNumbers = [];
-            this.listOfCorrectNumbers = [];
-            this.listOfDroppedNumbers = [];
+            var positionIndex = 0;
             for (var i = startFrom; i < startFrom + this.maxNumber; i++) {
-                this.listOfGivenNumbers.push(i);
+                var bubble = new Bubble(i);
+                if (this.missingNumbers.indexOf(bubble.value, 0) > -1) {
+                    bubble.isMissing = true;
+                }
+                bubble.positionIndex = positionIndex;
+                this.listOfGiven.push(bubble);
+                this.listOfEmpty.push({});
+                positionIndex++;
             }
-            this.listOfVisibleNumbers.push(missingNumbers[0]);
+            for (var i = 0; i < this.missingNumbers.length; i++) {
+                this.listOfMissing.push(new Bubble(this.missingNumbers[i]));
+            }
         }
+        Exercise3Item.prototype.isCorrect = function (index) {
+            console.log(this.listOfEmpty[index].value);
+            if (this.listOfEmpty[index].value == this.listOfGiven[index].value) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
         Exercise3Item.id = 0;
         return Exercise3Item;
     }());
@@ -170,14 +224,26 @@ var exercises;
             this.unarrangedNumbers = unarrangedNumbers;
             this.arrangedNumbers = arrangedNumbers;
             this.listOfUnarrangedNumbers = [];
-            this.columns = [];
+            this.listOfArrangedNumbers = [];
+            this.correctAnswers = [];
             for (var i = 0; i < unarrangedNumbers.length; i++) {
                 this.listOfUnarrangedNumbers.push(new SquareObject(unarrangedNumbers[i]));
             }
             for (var i = 0; i < arrangedNumbers.length; i++) {
-                this.columns.push(new Column(arrangedNumbers[i]));
+                this.listOfArrangedNumbers.push({});
+            }
+            for (var i = 0; i < arrangedNumbers.length; i++) {
+                this.correctAnswers.push(new SquareObject(arrangedNumbers[i]));
             }
         }
+        Exercise5Item.prototype.isCorrect = function (index) {
+            if (this.correctAnswers[index].value == this.listOfArrangedNumbers[index].value) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
         Exercise5Item.id = 0;
         return Exercise5Item;
     }());
@@ -187,7 +253,6 @@ var exercises;
             this.numberOne = numberOne;
             this.numberTwo = numberTwo;
             this.resultSign = resultSign;
-            this.missingSigns = [];
         }
         return Exercise6Item;
     }());
@@ -522,7 +587,6 @@ var exercises;
     var Exercise3Ctrl = (function (_super) {
         __extends(Exercise3Ctrl, _super);
         function Exercise3Ctrl($scope, $location, $route, $rootScope, exercise3Data, texts) {
-            var _this = this;
             _super.call(this, $scope, $location, $route, exercise3Data.subexerciseListDTO.length);
             this.$scope = $scope;
             this.$location = $location;
@@ -538,79 +602,7 @@ var exercises;
                 var exeItem = new exercises.Exercise3Item(exercise3Data.subexerciseListDTO[i].startFrom, exercise3Data.subexerciseListDTO[i].missingNumbers);
                 exercise3Data.subexerciseListDTO[i] = exeItem;
             }
-            this.positions = [
-                { top: '359px', left: '39px' },
-                { top: '301px', left: '179px' },
-                { top: '300px', left: '322px' },
-                { top: '207px', left: '438px' },
-                { top: '122px', left: '581px' },
-                { top: '18px', left: '468px' },
-                { top: '84px', left: '312px' },
-                { top: '15px', left: '176px' },
-                { top: '105px', left: '51px' }];
-            this.smallPositions = [
-                { top: '74px', left: '8px' },
-                { top: '60px', left: '37px' },
-                { top: '65px', left: '68px' },
-                { top: '43px', left: '93px' },
-                { top: '25px', left: '123px' },
-                { top: '3px', left: '98px' },
-                { top: '17px', left: '66px' },
-                { top: '3px', left: '37px' },
-                { top: '21px', left: '11px' },
-            ];
-            this.startingPosition = { top: '364px', left: '561px' };
-            $rootScope.$on('ball.dropped', function (event, args) {
-                var droppedBall = parseInt(args.dropped);
-                if (_this.exercise3Data.subexerciseListDTO[_this.currentPage - 1].listOfDroppedNumbers.indexOf(droppedBall, 0) == -1) {
-                    _this.exercise3Data.subexerciseListDTO[_this.currentPage - 1].listOfDroppedNumbers.push(droppedBall);
-                }
-                if (args.dropped == args.destination) {
-                    _this.exercise3Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.push(droppedBall);
-                }
-                else if (_this.exercise3Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.indexOf(droppedBall, 0) > -1) {
-                    _this.exercise3Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.splice(_this.exercise3Data.subexerciseListDTO[_this.currentPage - 1].listOfCorrectNumbers.indexOf(droppedBall, 0), 1);
-                }
-                _this.addNextVisible();
-            });
-            $rootScope.$on('ball.removed', function (event, args) {
-                _this.removeBall(args.removedBall);
-            });
         }
-        Exercise3Ctrl.prototype.addNextVisible = function () {
-            if (this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfDroppedNumbers.length == this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.length) {
-                for (var i = 0; i < this.exercise3Data.subexerciseListDTO[this.currentPage - 1].missingNumbers.length; i++) {
-                    var missingNumber = this.exercise3Data.subexerciseListDTO[this.currentPage - 1].missingNumbers[i];
-                    if (this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.indexOf(missingNumber, 0) == -1) {
-                        this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.push(missingNumber);
-                        this.$rootScope.$apply();
-                        return;
-                    }
-                }
-            }
-        };
-        Exercise3Ctrl.prototype.removeBall = function (ballNumberString) {
-            var ballNumber = parseInt(ballNumberString);
-            this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.splice(this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfVisibleNumbers.indexOf(ballNumber, 0), 1);
-            this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfDroppedNumbers.splice(this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfDroppedNumbers.indexOf(ballNumber, 0), 1);
-            if (this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfCorrectNumbers.indexOf(ballNumber, 0) > -1) {
-                this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfCorrectNumbers.splice(this.exercise3Data.subexerciseListDTO[this.currentPage - 1].listOfCorrectNumbers.indexOf(ballNumber, 0), 1);
-            }
-            this.$rootScope.$apply();
-            this.addNextVisible();
-        };
-        Exercise3Ctrl.prototype.isNumberMissing = function (parentIndex, index) {
-            return this.exercise3Data.subexerciseListDTO[parentIndex].missingNumbers.indexOf(index, 0) > -1;
-        };
-        Exercise3Ctrl.prototype.isVisible = function (parentIndex, number) {
-            return this.exercise3Data.subexerciseListDTO[parentIndex].listOfVisibleNumbers.indexOf(number, 0) > -1;
-        };
-        Exercise3Ctrl.prototype.isDropped = function (parentIndex, number) {
-            return this.exercise3Data.subexerciseListDTO[parentIndex].listOfDroppedNumbers.indexOf(number, 0) > -1;
-        };
-        Exercise3Ctrl.prototype.isCorrect = function (parentIndex, number) {
-            return this.exercise3Data.subexerciseListDTO[parentIndex].listOfCorrectNumbers.indexOf(number, 0) > -1;
-        };
         Exercise3Ctrl.prototype.checkResult = function () {
             if (!this.isSummaryActive()) {
                 _super.prototype.checkResult.call(this);
@@ -666,10 +658,15 @@ var exercises;
             this.exetype = "N2a";
             this.progressBarType = "exe5";
             this.progressBarClass = "progress-color-exe5";
+            this.unarranged = [];
+            this.styles = ['column-one', 'column-two', 'column-three', 'column-four', 'column-five'];
             this.titleText = texts.exe5TitleText;
             for (var i = 0; i < exercise5Data.subexerciseListDTO.length; i++) {
                 var exeItem = new exercises.Exercise5Item(exercise5Data.subexerciseListDTO[i].unarrangedNumbers, exercise5Data.subexerciseListDTO[i].arrangedNumbers);
                 exercise5Data.subexerciseListDTO[i] = exeItem;
+            }
+            for (var i = 0; i < 4; i++) {
+                this.unarranged.push({});
             }
         }
         Exercise5Ctrl.prototype.checkResult = function () {
