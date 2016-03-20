@@ -8,6 +8,7 @@ export interface IExerciseServices {
   getExercise4Data():any;
   getExercise5Data():any;
   getExercise6Data():any;
+  getExercise7Data():any;
   getTexts():any;
 }
 
@@ -43,6 +44,10 @@ export interface IExerciseServices {
 
     getExercise6Data() {
       return this.$http.get('app/data/exe6Data.json').then((result) => {return result.data});
+    }
+
+    getExercise7Data() {
+      return this.$http.get('app/data/exe7Data.json').then((result) => {return result.data});
     }
 
     getTexts() {

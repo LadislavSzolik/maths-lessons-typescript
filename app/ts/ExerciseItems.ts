@@ -30,6 +30,10 @@ module exercises {
     subexerciseListDTO: Exercise6Item[];
   }
 
+  export interface IExercise7 {
+    subexerciseListDTO: Exercise7Item[];
+  }
+
 
   export class Exercise1Item {
     public givenNumber: number;
@@ -92,9 +96,7 @@ module exercises {
       }
     }
   }
-// --------------------------------------------------------EXE 4-----------------------------------------------------------------------
-
-
+// --------------------------------------------------------EXE 3-----------------------------------------------------------------------
   export class Bubble {
     public isMissing:boolean = false;
     public positionIndex:number=0;
@@ -317,7 +319,32 @@ export class NumberSquare {
     }
   }
 
-// --------------------------------------------------------EXE ?-----------------------------------------------------------------------
+// --------------------------------------------------------EXE 7-----------------------------------------------------------------------
+export class Exercise7Item {
+  public givenNumbers:DoubleObject[] = [];
+  constructor(public numbersToDouble:number[]) {
+    for(var i = 0; i<this.numbersToDouble.length; i++) {
+        this.givenNumbers.push(new DoubleObject(this.numbersToDouble[i]));
+    }
+  }
+}
+
+export class DoubleObject {
+  public enteredDouble:number;
+  public correctDouble:number;
+  constructor(public toBeDoubled:number) {
+    this.correctDouble = toBeDoubled + toBeDoubled;
+  }
+  isCorrect() {
+    if(this.enteredDouble == this.correctDouble) {
+      return true;
+    }else {
+      return false;
+    }    
+  }
+}
+
+// --------------------------------------------------------EXE 7-----------------------------------------------------------------------
 
   export class ObjectPosition {
     public isDisplayed: boolean;

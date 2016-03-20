@@ -273,6 +273,33 @@ var exercises;
         return ComparatorSign;
     }());
     exercises.ComparatorSign = ComparatorSign;
+    var Exercise7Item = (function () {
+        function Exercise7Item(numbersToDouble) {
+            this.numbersToDouble = numbersToDouble;
+            this.givenNumbers = [];
+            for (var i = 0; i < this.numbersToDouble.length; i++) {
+                this.givenNumbers.push(new DoubleObject(this.numbersToDouble[i]));
+            }
+        }
+        return Exercise7Item;
+    }());
+    exercises.Exercise7Item = Exercise7Item;
+    var DoubleObject = (function () {
+        function DoubleObject(toBeDoubled) {
+            this.toBeDoubled = toBeDoubled;
+            this.correctDouble = toBeDoubled + toBeDoubled;
+        }
+        DoubleObject.prototype.isCorrect = function () {
+            if (this.enteredDouble == this.correctDouble) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
+        return DoubleObject;
+    }());
+    exercises.DoubleObject = DoubleObject;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -368,6 +395,9 @@ var exercises;
         };
         ExerciseServices.prototype.getExercise6Data = function () {
             return this.$http.get('app/data/exe6Data.json').then(function (result) { return result.data; });
+        };
+        ExerciseServices.prototype.getExercise7Data = function () {
+            return this.$http.get('app/data/exe7Data.json').then(function (result) { return result.data; });
         };
         ExerciseServices.prototype.getTexts = function () {
             return this.$http.get('app/data/appTexts.json').then(function (result) { return result.data; });
@@ -751,6 +781,77 @@ var exercises;
         return Exercise6Ctrl;
     }(NavigationBase));
     exercises.Exercise6Ctrl = Exercise6Ctrl;
+    var Exercise7Ctrl = (function (_super) {
+        __extends(Exercise7Ctrl, _super);
+        function Exercise7Ctrl($scope, $location, $route, $rootScope, exercise7Data, texts) {
+            _super.call(this, $scope, $location, $route, exercise7Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.exercise7Data = exercise7Data;
+            this.texts = texts;
+            this.exetype = "N2c";
+            this.progressBarType = "exe7";
+            this.progressBarClass = "progress-color-exe7";
+            this.selectedInput = 0;
+            this.highlightPositions = [{ top: '13px', left: '20px' },
+                { top: '13px', left: '234px' },
+                { top: '13px', left: '446px' },
+                { top: '98px', left: '20px' },
+                { top: '98px', left: '234px' },
+                { top: '98px', left: '446px' },
+                { top: '182px', left: '20px' },
+                { top: '182px', left: '234px' },
+                { top: '182px', left: '446px' },
+                { top: '269px', left: '20px' },
+                { top: '269px', left: '234px' },
+                { top: '269px', left: '446px' }];
+            this.titleText = texts.exe7TitleText;
+            for (var i = 0; i < exercise7Data.subexerciseListDTO.length; i++) {
+                var exeItem = new exercises.Exercise7Item(exercise7Data.subexerciseListDTO[i].numbersToDouble);
+                exercise7Data.subexerciseListDTO[i] = exeItem;
+            }
+        }
+        Exercise7Ctrl.prototype.selectSubExercise = function (index) {
+            this.selectedInput = index;
+        };
+        Exercise7Ctrl.prototype.changeSelectedInput = function (value) {
+            if (angular.isUndefined(this.selectedInput)) {
+                return;
+            }
+            var givenNumber = this.exercise7Data.subexerciseListDTO[0].givenNumbers[this.selectedInput].enteredDouble;
+            if (angular.isUndefined(givenNumber) || givenNumber == null) {
+                givenNumber = value;
+            }
+            else if (givenNumber.toString().length < 2) {
+                givenNumber = parseInt(String(givenNumber) + String(value));
+            }
+            this.exercise7Data.subexerciseListDTO[0].givenNumbers[this.selectedInput].enteredDouble = givenNumber;
+        };
+        Exercise7Ctrl.prototype.isSubExerciseSelected = function (index) {
+            if (this.selectedInput == index) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
+        Exercise7Ctrl.prototype.getHighlightPosition = function () {
+            return this.highlightPositions[this.selectedInput];
+        };
+        Exercise7Ctrl.prototype.isExerciseSinglePager = function () {
+            return true;
+        };
+        Exercise7Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+            }
+        };
+        Exercise7Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'exercise7Data', 'texts'];
+        return Exercise7Ctrl;
+    }(NavigationBase));
+    exercises.Exercise7Ctrl = Exercise7Ctrl;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -979,7 +1080,7 @@ var exercises;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
-    var mathApp = angular.module('maths', ['ngMdIcons', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ng-sortable', 'ngDragDrop']);
+    var mathApp = angular.module('maths', ['ngMdIcons', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ng-sortable', 'ngDragDrop', 'focus-if']);
     mathApp.controller('homeCtrl', exercises.HomeCtrl);
     mathApp.controller('exercise1Ctrl', exercises.Exercise1Ctrl);
     mathApp.controller('exercise2Ctrl', exercises.Exercise2Ctrl);
@@ -987,6 +1088,7 @@ var exercises;
     mathApp.controller('exercise4Ctrl', exercises.Exercise4Ctrl);
     mathApp.controller('exercise5Ctrl', exercises.Exercise5Ctrl);
     mathApp.controller('exercise6Ctrl', exercises.Exercise6Ctrl);
+    mathApp.controller('exercise7Ctrl', exercises.Exercise7Ctrl);
     mathApp.service('exerciseServices', exercises.ExerciseServices);
     mathApp.directive('animateRubber', exercises.animateRubber);
     mathApp.directive('animateButton', exercises.animateButton);
@@ -1070,6 +1172,17 @@ var exercises;
                 resolve: {
                     'exercise6Data': function (exerciseServices) {
                         return exerciseServices.getExercise6Data();
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            }).when('/N2c', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'exercise7Ctrl',
+                resolve: {
+                    'exercise7Data': function (exerciseServices) {
+                        return exerciseServices.getExercise7Data();
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();

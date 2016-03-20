@@ -326,8 +326,8 @@ module exercises {
     public startingPosition: Object;
     public smallPositions: Object;
     public titleText: string;
-    public unarranged:any[] = [];
-    public styles:any = ['column-one', 'column-two', 'column-three','column-four','column-five'];
+    public unarranged: any[] = [];
+    public styles: any = ['column-one', 'column-two', 'column-three', 'column-four', 'column-five'];
     constructor(
       protected $scope: any,
       protected $location: ng.ILocationService,
@@ -343,7 +343,7 @@ module exercises {
         exercise5Data.subexerciseListDTO[i] = exeItem;
       }
 
-      for(var i=0; i<4;i++){
+      for (var i = 0; i < 4; i++) {
         this.unarranged.push({});
       }
     }
@@ -351,7 +351,7 @@ module exercises {
     checkResult() {
       if (!this.isSummaryActive()) {
         super.checkResult();
-        this.exercise5Data.subexerciseListDTO.unshift(new Exercise5Item( [], []));
+        this.exercise5Data.subexerciseListDTO.unshift(new Exercise5Item([], []));
         this.totalItems = this.exercise5Data.subexerciseListDTO.length;
       }
     }
@@ -374,8 +374,8 @@ module exercises {
     public titleText: string;
 
 
-    public allSigns:ComparatorSign[] = [];
-    public missingSigns:any[] = [];
+    public allSigns: ComparatorSign[] = [];
+    public missingSigns: any[] = [];
 
     constructor(
       protected $scope: any,
@@ -392,7 +392,7 @@ module exercises {
         exercise6Data.subexerciseListDTO[i] = exeItem;
       }
 
-      for(var i=0; i<12;i++){
+      for (var i = 0; i < 12; i++) {
         this.allSigns.push(new ComparatorSign("<"));
         this.allSigns.push(new ComparatorSign("="));
         this.allSigns.push(new ComparatorSign(">"));
@@ -401,24 +401,24 @@ module exercises {
 
     }
 
-    isSignOnRight(index: number){
-      if(this.allSigns[index].value == ">") {
+    isSignOnRight(index: number) {
+      if (this.allSigns[index].value == ">") {
         return true
       } else {
         return false
       }
     }
 
-    isSignOnLeft(index: number){
-      if(this.allSigns[index].value == "<") {
+    isSignOnLeft(index: number) {
+      if (this.allSigns[index].value == "<") {
         return true
       } else {
         return false
       }
     }
 
-    isCorrect(index:number) {
-      if(this.missingSigns[index].value == this.exercise6Data.subexerciseListDTO[index].resultSign ) {
+    isCorrect(index: number) {
+      if (this.missingSigns[index].value == this.exercise6Data.subexerciseListDTO[index].resultSign) {
         return true;
       } else {
         return false;
@@ -430,6 +430,88 @@ module exercises {
       return true;
     }
 
+    checkResult() {
+      if (!this.isSummaryActive()) {
+        super.checkResult();
+      }
+    }
+  }
+
+  /***********************************************
+  *
+  * Exercise 7 controller
+  *
+  ***********************************************/
+  export class Exercise7Ctrl extends NavigationBase {
+    public exetype: String = "N2c";
+    public progressBarType: string = "exe7";
+    public progressBarClass: string = "progress-color-exe7";
+    public static $inject = ['$scope', '$location', '$route', '$rootScope', 'exercise7Data', 'texts'];
+    public titleText: string;
+    public selectedInput: number = 0;
+    public highlightPositions: any[] = [{ top: '13px', left: '20px' },
+      { top: '13px', left: '234px' },
+      { top: '13px', left: '446px' },
+      { top: '98px', left: '20px' },
+      { top: '98px', left: '234px' },
+      { top: '98px', left: '446px' },
+      { top: '182px', left: '20px' },
+      { top: '182px', left: '234px' },
+      { top: '182px', left: '446px' },
+      { top: '269px', left: '20px' },
+      { top: '269px', left: '234px' },
+      { top: '269px', left: '446px' }];
+    constructor(
+      protected $scope: any,
+      protected $location: ng.ILocationService,
+      protected $route: any,
+      public $rootScope: any,
+      public exercise7Data: IExercise7,
+      public texts: any
+      ) {
+      super($scope, $location, $route, exercise7Data.subexerciseListDTO.length);
+      this.titleText = texts.exe7TitleText;
+      for (var i: number = 0; i < exercise7Data.subexerciseListDTO.length; i++) {
+        var exeItem: Exercise7Item = new Exercise7Item(exercise7Data.subexerciseListDTO[i].numbersToDouble);
+        exercise7Data.subexerciseListDTO[i] = exeItem;
+      }
+    }
+    selectSubExercise(index: number) {
+      this.selectedInput = index;
+    }
+
+    changeSelectedInput(value: number) {
+
+      if (angular.isUndefined(this.selectedInput)) {
+        return;
+      }
+
+      var givenNumber: number = this.exercise7Data.subexerciseListDTO[0].givenNumbers[this.selectedInput].enteredDouble;
+
+      if (angular.isUndefined(givenNumber) || givenNumber == null) {
+        givenNumber = value;
+      }
+      else if (givenNumber.toString().length < 2) {
+        givenNumber = parseInt(String(givenNumber) + String(value));
+      }
+      this.exercise7Data.subexerciseListDTO[0].givenNumbers[this.selectedInput].enteredDouble = givenNumber;
+    }
+
+    isSubExerciseSelected(index: number) {
+      if (this.selectedInput == index) {
+        return true;
+      } else {
+        return false
+      }
+    }
+
+    getHighlightPosition() {
+      return this.highlightPositions[this.selectedInput];      
+    }
+
+    isExerciseSinglePager() {
+      return true;
+    }
     checkResult() {
       if (!this.isSummaryActive()) {
         super.checkResult();

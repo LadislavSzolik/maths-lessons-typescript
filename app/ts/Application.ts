@@ -2,7 +2,7 @@
 
 module exercises {
 
-var mathApp = angular.module('maths', ['ngMdIcons', 'ngTouch','ui.bootstrap', 'ngRoute', 'ng-sortable', 'ngDragDrop']);
+var mathApp = angular.module('maths', ['ngMdIcons', 'ngTouch','ui.bootstrap', 'ngRoute', 'ng-sortable', 'ngDragDrop', 'focus-if']);
 
 mathApp.controller('homeCtrl',HomeCtrl);
 mathApp.controller('exercise1Ctrl',Exercise1Ctrl);
@@ -11,6 +11,7 @@ mathApp.controller('exercise3Ctrl', Exercise3Ctrl);
 mathApp.controller('exercise4Ctrl', Exercise4Ctrl);
 mathApp.controller('exercise5Ctrl', Exercise5Ctrl);
 mathApp.controller('exercise6Ctrl', Exercise6Ctrl);
+mathApp.controller('exercise7Ctrl', Exercise7Ctrl);
 
 
 mathApp.service('exerciseServices', ExerciseServices);
@@ -103,6 +104,17 @@ mathApp.config(['$routeProvider', function($routeProvider:any ) {
         resolve: {
           'exercise6Data': (exerciseServices:IExerciseServices) => {
             return exerciseServices.getExercise6Data();
+          },
+          'texts': (exerciseServices:IExerciseServices) => {
+            return exerciseServices.getTexts();
+          }
+        }
+      }).when('/N2c', {
+        templateUrl: 'app/components/exerciseView.html',
+        controller: 'exercise7Ctrl',
+        resolve: {
+          'exercise7Data': (exerciseServices:IExerciseServices) => {
+            return exerciseServices.getExercise7Data();
           },
           'texts': (exerciseServices:IExerciseServices) => {
             return exerciseServices.getTexts();

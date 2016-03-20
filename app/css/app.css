@@ -802,6 +802,151 @@ header, section {
   border-radius: 10px;
 }
 
+.exe7-background {
+  background-image: url(../img/exe7_bcg.png);
+}
+
+.exe7-background .subexe-ul {
+  height: 350px;
+  width: 640px;
+  z-index: 1;
+  position: relative;
+}
+
+.exe7-background .subexe-ul > li {
+  display: inline-block;
+  margin-right: 15px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.exe7-background .double-input {
+  float: left;
+  font-size: 32px;
+  width: 183px;
+  height: 38px;
+  text-align: center;
+  line-height: 1;
+  padding: 0px;
+  font-weight: bold;
+  color: #3493BC;
+  background-color: #C3E3F0;
+  border: 2px solid #3493BC;
+  margin: 5px 0px 3px 0px;
+}
+
+.exe7-background .subexe-ul > li:nth-child(2) .double-input,
+.exe7-background .subexe-ul > li:nth-child(5) .double-input,
+.exe7-background .subexe-ul > li:nth-child(8) .double-input,
+.exe7-background .subexe-ul > li:nth-child(11) .double-input {
+  color: #95386D;
+  background-color: #FAC6E4;
+  border: 2px solid #95386D;
+}
+
+.exe7-background .subexe-ul > li:nth-child(3) .double-input,
+.exe7-background .subexe-ul > li:nth-child(6) .double-input,
+.exe7-background .subexe-ul > li:nth-child(9) .double-input,
+.exe7-background .subexe-ul > li:nth-child(12) .double-input {
+  color: #046CA6;
+  background-color: #94C5E1;
+  border: 2px solid #046CA6;
+}
+
+.exe7-background .single-left, .exe7-background .single-right {
+  border-radius: 3px;
+  float: left;
+  font-size: 34px;
+  font-weight: bold;
+  width: 72px;
+  height: 38px;
+  text-align: center;
+  line-height: 1;
+  padding: 0px;
+  color: white;
+  background-color: #9CAFB7;
+  border: 2px solid #3493BC;
+}
+
+.exe7-background .subexe-ul > li:nth-child(2) .single-left,
+.exe7-background .subexe-ul > li:nth-child(2) .single-right,
+.exe7-background .subexe-ul > li:nth-child(5) .single-left,
+.exe7-background .subexe-ul > li:nth-child(5) .single-right,
+.exe7-background .subexe-ul > li:nth-child(8) .single-left,
+.exe7-background .subexe-ul > li:nth-child(8) .single-right,
+.exe7-background .subexe-ul > li:nth-child(11) .single-left,
+.exe7-background .subexe-ul > li:nth-child(11) .single-right {
+  background-color: #FC8ACB;
+  border: 2px solid #95386D;
+}
+
+.exe7-background .subexe-ul > li:nth-child(3) .single-left,
+.exe7-background .subexe-ul > li:nth-child(3) .single-right,
+.exe7-background .subexe-ul > li:nth-child(6) .single-left,
+.exe7-background .subexe-ul > li:nth-child(6) .single-right,
+.exe7-background .subexe-ul > li:nth-child(9) .single-left,
+.exe7-background .subexe-ul > li:nth-child(9) .single-right,
+.exe7-background .subexe-ul > li:nth-child(12) .single-left,
+.exe7-background .subexe-ul > li:nth-child(12) .single-right {
+  background-color: #51809B;
+  border: 2px solid #046CA6;
+}
+
+.exe7-background .plus-sign {
+  float: left;
+  font-size: 64px;
+  font-weight: bold;
+  line-height: 0.4;
+  color: #046CA6;
+}
+
+.exe7-background .subexe-ul > li:nth-child(2) .plus-sign,
+.exe7-background .subexe-ul > li:nth-child(5) .plus-sign,
+.exe7-background .subexe-ul > li:nth-child(8) .plus-sign,
+.exe7-background .subexe-ul > li:nth-child(11) .plus-sign {
+  color: #95386D;
+}
+
+.exe7-background .subexe-ul > li:nth-child(3) .plus-sign,
+.exe7-background .subexe-ul > li:nth-child(6) .plus-sign,
+.exe7-background .subexe-ul > li:nth-child(9) .plus-sign,
+.exe7-background .subexe-ul > li:nth-child(12) .plus-sign {
+  color: #046CA6;
+}
+
+.exe7-background .highlight-tool {
+  position: absolute;
+  border-radius: 3px;
+  width: 203px;
+  height: 90px;
+  background-color: rgba(255, 255, 0, 0.6);
+  z-index: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.exe7-background .valid-result, .exe7-background .invalid-result {
+  color: white;
+}
+
+.exe7-background .subexe-ul > li:nth-child(2) .valid-result,
+.exe7-background .subexe-ul > li:nth-child(5) .valid-result,
+.exe7-background .subexe-ul > li:nth-child(8) .valid-result,
+.exe7-background .subexe-ul > li:nth-child(11) .valid-result,
+.exe7-background .subexe-ul > li:nth-child(2) .invalid-result,
+.exe7-background .subexe-ul > li:nth-child(5) .invalid-result,
+.exe7-background .subexe-ul > li:nth-child(8) .invalid-result,
+.exe7-background .subexe-ul > li:nth-child(11) .invalid-result,
+.exe7-background .subexe-ul > li:nth-child(3) .valid-result,
+.exe7-background .subexe-ul > li:nth-child(6) .valid-result,
+.exe7-background .subexe-ul > li:nth-child(9) .valid-result,
+.exe7-background .subexe-ul > li:nth-child(12) .valid-result,
+.exe7-background .subexe-ul > li:nth-child(3) .invalid-result,
+.exe7-background .subexe-ul > li:nth-child(6) .invalid-result,
+.exe7-background .subexe-ul > li:nth-child(9) .invalid-result,
+.exe7-background .subexe-ul > li:nth-child(12) .invalid-result {
+  color: white;
+}
+
 .container-field-exe2-summary {
   position: relative;
   float: left;

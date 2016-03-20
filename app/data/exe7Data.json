@@ -1,0 +1,19 @@
+{
+  "id": 1,
+  "version": 1,
+  "exerciseContentDTO": {
+    "id": 1,
+    "version": 1,
+    "title": "Title N2b",
+    "content": "N2b"
+  },
+  "categoryDTO": {
+    "id": 1,
+    "version": 1,
+    "type": "NUMBER_OR_DIGITS"
+  },
+  "subexerciseListDTO": [{
+    "numbersToDouble": [3,10,1,4,7,2,5,9,8,10,4,7]
+  }
+]
+}

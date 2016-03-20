@@ -259,8 +259,8 @@
                 "exerciseContentDTO": {
                     "id": 7,
                     "version": 1,
-                    "title": "Title N2c",
-                    "content": "N2c"
+                    "title": "Title M2c",
+                    "content": "M2c"
                 }
 },
             {
@@ -269,8 +269,8 @@
                 "exerciseContentDTO": {
                     "id": 8,
                     "version": 1,
-                    "title": "Title N2d",
-                    "content": "N2d"
+                    "title": "Title M2d",
+                    "content": "M2d"
                 }
 }
 ]
