@@ -1059,6 +1059,30 @@ var exercises;
     }
     exercises.droppableBallContainer = droppableBallContainer;
     droppableBallContainer.$inject = ['$rootScope'];
+    function focusIf($timeout) {
+        function link($scope, $element, $attrs) {
+            var dom = $element[0];
+            if ($attrs.focusIf) {
+                $scope.$watch($attrs.focusIf, focus);
+            }
+            else {
+                focus(true);
+            }
+            function focus(condition) {
+                if (condition) {
+                    $timeout(function () {
+                        dom.focus();
+                    }, $scope.$eval($attrs.focusDelay) || 0);
+                }
+            }
+        }
+        return {
+            restrict: 'A',
+            link: link
+        };
+    }
+    exercises.focusIf = focusIf;
+    focusIf.$inject = ['$timeout'];
     function getRotationDegrees(obj) {
         var matrix = obj.css("-webkit-transform") ||
             obj.css("-moz-transform") ||
@@ -1080,7 +1104,7 @@ var exercises;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
-    var mathApp = angular.module('maths', ['ngMdIcons', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ng-sortable', 'ngDragDrop', 'focus-if']);
+    var mathApp = angular.module('maths', ['ngMdIcons', 'ngTouch', 'ui.bootstrap', 'ngRoute', 'ng-sortable', 'ngDragDrop']);
     mathApp.controller('homeCtrl', exercises.HomeCtrl);
     mathApp.controller('exercise1Ctrl', exercises.Exercise1Ctrl);
     mathApp.controller('exercise2Ctrl', exercises.Exercise2Ctrl);
