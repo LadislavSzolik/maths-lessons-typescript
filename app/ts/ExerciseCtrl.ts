@@ -506,7 +506,83 @@ module exercises {
     }
 
     getHighlightPosition() {
-      return this.highlightPositions[this.selectedInput];      
+      return this.highlightPositions[this.selectedInput];
+    }
+
+    isExerciseSinglePager() {
+      return true;
+    }
+    checkResult() {
+      if (!this.isSummaryActive()) {
+        super.checkResult();
+      }
+    }
+  }
+  /***********************************************
+  *
+  * Exercise 8 controller
+  *
+  ***********************************************/
+  export class Exercise8Ctrl extends NavigationBase {
+    public exetype: String = "N2d";
+    public static $inject = ['$scope', '$location', '$route', '$rootScope', 'exercise8Data', 'texts'];
+    public titleText: string;
+    public selectedInput: number = 0;
+    public selectedSide: number = 0;
+    constructor(
+      protected $scope: any,
+      protected $location: ng.ILocationService,
+      protected $route: any,
+      public $rootScope: any,
+      public exercise8Data: IExercise8,
+      public texts: any
+      ) {
+      super($scope, $location, $route, exercise8Data.subexerciseListDTO.length);
+      this.titleText = texts.exe7TitleText;
+      for (var i: number = 0; i < exercise8Data.subexerciseListDTO.length; i++) {
+        var exeItem: Exercise8Item = new Exercise8Item(exercise8Data.subexerciseListDTO[i].numbersToSplit);
+        exercise8Data.subexerciseListDTO[i] = exeItem;
+      }
+    }
+    selectSubExercise(index: number, oneOfTheSides:number) {
+      this.selectedInput = index;
+      this.selectedSide = oneOfTheSides;
+    }
+
+    changeSelectedInput(value: number) {
+      if (angular.isUndefined(this.selectedInput) || angular.isUndefined(this.selectedSide)  ) {
+        return;
+      }
+
+      var givenNumber: number = null;
+
+      if(this.selectedSide == 0) {
+        givenNumber = this.exercise8Data.subexerciseListDTO[0].givenNumbers[this.selectedInput].enteredFirstSplit;
+      } else {
+        givenNumber = this.exercise8Data.subexerciseListDTO[0].givenNumbers[this.selectedInput].enteredSecondSplit;
+      }
+
+
+      if ( givenNumber == null) {
+        givenNumber = value;
+      }
+      else if (givenNumber.toString().length < 2) {
+        givenNumber = parseInt(String(givenNumber) + String(value));
+      }
+
+      if(this.selectedSide == 0) {
+        this.exercise8Data.subexerciseListDTO[0].givenNumbers[this.selectedInput].enteredFirstSplit = givenNumber;
+      } else {
+        this.exercise8Data.subexerciseListDTO[0].givenNumbers[this.selectedInput].enteredSecondSplit = givenNumber;
+      }
+    }
+
+    isSubExerciseSelected(index: number) {
+      if (this.selectedInput == index) {
+        return true;
+      } else {
+        return false
+      }
     }
 
     isExerciseSinglePager() {

@@ -12,6 +12,7 @@ mathApp.controller('exercise4Ctrl', Exercise4Ctrl);
 mathApp.controller('exercise5Ctrl', Exercise5Ctrl);
 mathApp.controller('exercise6Ctrl', Exercise6Ctrl);
 mathApp.controller('exercise7Ctrl', Exercise7Ctrl);
+mathApp.controller('exercise8Ctrl', Exercise8Ctrl);
 
 
 mathApp.service('exerciseServices', ExerciseServices);
@@ -115,6 +116,17 @@ mathApp.config(['$routeProvider', function($routeProvider:any ) {
         resolve: {
           'exercise7Data': (exerciseServices:IExerciseServices) => {
             return exerciseServices.getExercise7Data();
+          },
+          'texts': (exerciseServices:IExerciseServices) => {
+            return exerciseServices.getTexts();
+          }
+        }
+      }).when('/N2d', {
+        templateUrl: 'app/components/exerciseView.html',
+        controller: 'exercise8Ctrl',
+        resolve: {
+          'exercise8Data': (exerciseServices:IExerciseServices) => {
+            return exerciseServices.getExercise8Data();
           },
           'texts': (exerciseServices:IExerciseServices) => {
             return exerciseServices.getTexts();

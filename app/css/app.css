@@ -947,6 +947,116 @@ header, section {
   color: white;
 }
 
+.exe8-background {
+  background-image: url(../img/exe8_bcg.png);
+}
+
+.exe8-background .subexe-ul {
+  height: 350px;
+  width: 640px;
+  z-index: 1;
+  position: relative;
+  margin-top: -5px;
+  margin-bottom: 25px;
+}
+
+.exe8-background .subexe-ul > li {
+  display: inline-block;
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-top: 5px;
+}
+
+.exe8-background .split-input, .exe8-background .given-split {
+  float: left;
+  font-size: 32px;
+  width: 72px;
+  height: 38px;
+  text-align: center;
+  line-height: 1;
+  padding: 0px;
+  font-weight: bold;
+  color: #64A506;
+  background-color: #F4F1BB;
+  border: 2px solid #64A506;
+}
+
+.exe8-background .given-split {
+  width: 183px;
+  margin: 5px 0px 3px 0px;
+}
+
+.exe8-background .subexe-ul > li:nth-child(2) .split-input,
+.exe8-background .subexe-ul > li:nth-child(5) .split-input,
+.exe8-background .subexe-ul > li:nth-child(8) .split-input,
+.exe8-background .subexe-ul > li:nth-child(11) .split-input,
+.exe8-background .subexe-ul > li:nth-child(2) .given-split,
+.exe8-background .subexe-ul > li:nth-child(5) .given-split,
+.exe8-background .subexe-ul > li:nth-child(8) .given-split,
+.exe8-background .subexe-ul > li:nth-child(11) .given-split {
+  color: #C343AE;
+  background-color: #F5BED2;
+  border: 2px solid #C343AE;
+}
+
+.exe8-background .subexe-ul > li:nth-child(3) .split-input,
+.exe8-background .subexe-ul > li:nth-child(6) .split-input,
+.exe8-background .subexe-ul > li:nth-child(9) .split-input,
+.exe8-background .subexe-ul > li:nth-child(12) .split-input,
+.exe8-background .subexe-ul > li:nth-child(3) .given-split,
+.exe8-background .subexe-ul > li:nth-child(6) .given-split,
+.exe8-background .subexe-ul > li:nth-child(9) .given-split,
+.exe8-background .subexe-ul > li:nth-child(12) .given-split {
+  color: #04A0AB;
+  background-color: #7AD3D9;
+  border: 2px solid #04A0AB;
+}
+
+.exe8-background .plus-sign {
+  float: left;
+  font-size: 64px;
+  font-weight: bold;
+  line-height: 0.4;
+  color: #64A506;
+}
+
+.exe8-background .subexe-ul > li:nth-child(2) .plus-sign,
+.exe8-background .subexe-ul > li:nth-child(5) .plus-sign,
+.exe8-background .subexe-ul > li:nth-child(8) .plus-sign,
+.exe8-background .subexe-ul > li:nth-child(11) .plus-sign {
+  color: #C343AE;
+}
+
+.exe8-background .subexe-ul > li:nth-child(3) .plus-sign,
+.exe8-background .subexe-ul > li:nth-child(6) .plus-sign,
+.exe8-background .subexe-ul > li:nth-child(9) .plus-sign,
+.exe8-background .subexe-ul > li:nth-child(12) .plus-sign {
+  color: #04A0AB;
+}
+
+.exe8-background .valid-result, .exe8-background .invalid-result {
+  color: white;
+}
+
+.exe8-background .subexe-ul > li:nth-child(2) .valid-result,
+.exe8-background .subexe-ul > li:nth-child(5) .valid-result,
+.exe8-background .subexe-ul > li:nth-child(8) .valid-result,
+.exe8-background .subexe-ul > li:nth-child(11) .valid-result,
+.exe8-background .subexe-ul > li:nth-child(2) .invalid-result,
+.exe8-background .subexe-ul > li:nth-child(5) .invalid-result,
+.exe8-background .subexe-ul > li:nth-child(8) .invalid-result,
+.exe8-background .subexe-ul > li:nth-child(11) .invalid-result,
+.exe8-background .subexe-ul > li:nth-child(3) .valid-result,
+.exe8-background .subexe-ul > li:nth-child(6) .valid-result,
+.exe8-background .subexe-ul > li:nth-child(9) .valid-result,
+.exe8-background .subexe-ul > li:nth-child(12) .valid-result,
+.exe8-background .subexe-ul > li:nth-child(3) .invalid-result,
+.exe8-background .subexe-ul > li:nth-child(6) .invalid-result,
+.exe8-background .subexe-ul > li:nth-child(9) .invalid-result,
+.exe8-background .subexe-ul > li:nth-child(12) .invalid-result {
+  color: white;
+}
+
 .container-field-exe2-summary {
   position: relative;
   float: left;

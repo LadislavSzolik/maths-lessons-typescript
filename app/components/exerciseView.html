@@ -331,11 +331,30 @@
             <input animate-button class="input-number-row" ng-click="vm.changeSelectedInput(key)" ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
           </li>
         </ul>
-
-
-
       </div>
       <!-- end of exercise 7 view  -->
+
+      <!-- exercise 8 view -->
+      <div class="subexe-container-box exe8-background" ng-switch-when="N2d">
+        <ul class="subexe-ul">
+          <li  ng-repeat="subExercise in vm.exercise8Data.subexerciseListDTO[0].givenNumbers" >
+            <div class="clearfix given-split">
+              <span>{{subExercise.toBeSplit}}</span>
+            </div>
+            <div class="clearfix">
+                <input class="split-input form-control" ng-focus="vm.selectSubExercise($index, 0)" maxlength="2" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.enteredFirstSplit" placeholder="?" required="" type="text"/>
+                <span class="plus-sign">+</span>
+                <input class="split-input form-control" ng-focus="vm.selectSubExercise($index, 1)" maxlength="2" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.enteredSecondSplit" placeholder="?" required="" type="text"/>
+            </div>
+          </li>
+        </ul>
+        <ul class="number-row-container">
+          <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
+            <input animate-button class="input-number-row" ng-click="vm.changeSelectedInput(key)" ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
+          </li>
+        </ul>
+      </div>
+      <!-- end of exercise 8 view  -->
     </div>
 
     <a animate-button class="nav-btn-top-right" ng-hide='vm.isExerciseSinglePager()' href ng-class="{disabled:vm.noNext()}" ng-click="vm.selectPage(vm.currentPage+1,$event)">

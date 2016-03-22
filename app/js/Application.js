@@ -300,6 +300,33 @@ var exercises;
         return DoubleObject;
     }());
     exercises.DoubleObject = DoubleObject;
+    var Exercise8Item = (function () {
+        function Exercise8Item(numbersToSplit) {
+            this.numbersToSplit = numbersToSplit;
+            this.givenNumbers = [];
+            for (var i = 0; i < this.numbersToSplit.length; i++) {
+                this.givenNumbers.push(new SplitObject(this.numbersToSplit[i]));
+            }
+        }
+        return Exercise8Item;
+    }());
+    exercises.Exercise8Item = Exercise8Item;
+    var SplitObject = (function () {
+        function SplitObject(toBeSplit) {
+            this.toBeSplit = toBeSplit;
+            this.expectedSplit = this.toBeSplit / 2;
+        }
+        SplitObject.prototype.isCorrect = function () {
+            if (this.enteredFirstSplit == this.expectedSplit && this.enteredSecondSplit == this.expectedSplit) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
+        return SplitObject;
+    }());
+    exercises.SplitObject = SplitObject;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -398,6 +425,9 @@ var exercises;
         };
         ExerciseServices.prototype.getExercise7Data = function () {
             return this.$http.get('app/data/exe7Data.json').then(function (result) { return result.data; });
+        };
+        ExerciseServices.prototype.getExercise8Data = function () {
+            return this.$http.get('app/data/exe8Data.json').then(function (result) { return result.data; });
         };
         ExerciseServices.prototype.getTexts = function () {
             return this.$http.get('app/data/appTexts.json').then(function (result) { return result.data; });
@@ -852,6 +882,73 @@ var exercises;
         return Exercise7Ctrl;
     }(NavigationBase));
     exercises.Exercise7Ctrl = Exercise7Ctrl;
+    var Exercise8Ctrl = (function (_super) {
+        __extends(Exercise8Ctrl, _super);
+        function Exercise8Ctrl($scope, $location, $route, $rootScope, exercise8Data, texts) {
+            _super.call(this, $scope, $location, $route, exercise8Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.exercise8Data = exercise8Data;
+            this.texts = texts;
+            this.exetype = "N2d";
+            this.selectedInput = 0;
+            this.selectedSide = 0;
+            this.titleText = texts.exe7TitleText;
+            for (var i = 0; i < exercise8Data.subexerciseListDTO.length; i++) {
+                var exeItem = new exercises.Exercise8Item(exercise8Data.subexerciseListDTO[i].numbersToSplit);
+                exercise8Data.subexerciseListDTO[i] = exeItem;
+            }
+        }
+        Exercise8Ctrl.prototype.selectSubExercise = function (index, oneOfTheSides) {
+            this.selectedInput = index;
+            this.selectedSide = oneOfTheSides;
+        };
+        Exercise8Ctrl.prototype.changeSelectedInput = function (value) {
+            if (angular.isUndefined(this.selectedInput) || angular.isUndefined(this.selectedSide)) {
+                return;
+            }
+            var givenNumber = null;
+            if (this.selectedSide == 0) {
+                givenNumber = this.exercise8Data.subexerciseListDTO[0].givenNumbers[this.selectedInput].enteredFirstSplit;
+            }
+            else {
+                givenNumber = this.exercise8Data.subexerciseListDTO[0].givenNumbers[this.selectedInput].enteredSecondSplit;
+            }
+            if (givenNumber == null) {
+                givenNumber = value;
+            }
+            else if (givenNumber.toString().length < 2) {
+                givenNumber = parseInt(String(givenNumber) + String(value));
+            }
+            if (this.selectedSide == 0) {
+                this.exercise8Data.subexerciseListDTO[0].givenNumbers[this.selectedInput].enteredFirstSplit = givenNumber;
+            }
+            else {
+                this.exercise8Data.subexerciseListDTO[0].givenNumbers[this.selectedInput].enteredSecondSplit = givenNumber;
+            }
+        };
+        Exercise8Ctrl.prototype.isSubExerciseSelected = function (index) {
+            if (this.selectedInput == index) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
+        Exercise8Ctrl.prototype.isExerciseSinglePager = function () {
+            return true;
+        };
+        Exercise8Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+            }
+        };
+        Exercise8Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'exercise8Data', 'texts'];
+        return Exercise8Ctrl;
+    }(NavigationBase));
+    exercises.Exercise8Ctrl = Exercise8Ctrl;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -1113,6 +1210,7 @@ var exercises;
     mathApp.controller('exercise5Ctrl', exercises.Exercise5Ctrl);
     mathApp.controller('exercise6Ctrl', exercises.Exercise6Ctrl);
     mathApp.controller('exercise7Ctrl', exercises.Exercise7Ctrl);
+    mathApp.controller('exercise8Ctrl', exercises.Exercise8Ctrl);
     mathApp.service('exerciseServices', exercises.ExerciseServices);
     mathApp.directive('animateRubber', exercises.animateRubber);
     mathApp.directive('animateButton', exercises.animateButton);
@@ -1207,6 +1305,17 @@ var exercises;
                 resolve: {
                     'exercise7Data': function (exerciseServices) {
                         return exerciseServices.getExercise7Data();
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            }).when('/N2d', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'exercise8Ctrl',
+                resolve: {
+                    'exercise8Data': function (exerciseServices) {
+                        return exerciseServices.getExercise8Data();
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();

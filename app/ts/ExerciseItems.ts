@@ -34,6 +34,10 @@ module exercises {
     subexerciseListDTO: Exercise7Item[];
   }
 
+  export interface IExercise8 {
+    subexerciseListDTO: Exercise8Item[];
+  }
+
 
   export class Exercise1Item {
     public givenNumber: number;
@@ -340,11 +344,39 @@ export class DoubleObject {
       return true;
     }else {
       return false;
-    }    
+    }
   }
 }
 
-// --------------------------------------------------------EXE 7-----------------------------------------------------------------------
+// --------------------------------------------------------EXE 8-----------------------------------------------------------------------
+
+export class Exercise8Item {
+  public givenNumbers:SplitObject[] = [];
+  constructor(public numbersToSplit:number[]) {
+    for(var i = 0; i<this.numbersToSplit.length; i++) {
+        this.givenNumbers.push(new SplitObject(this.numbersToSplit[i]));
+    }
+  }
+}
+
+export class SplitObject {
+  public enteredFirstSplit:number;
+  public enteredSecondSplit:number;
+  public expectedSplit:number;
+  constructor(public toBeSplit:number){
+    this.expectedSplit = this.toBeSplit/2;
+  }
+
+  isCorrect(){
+    if(this.enteredFirstSplit == this.expectedSplit && this.enteredSecondSplit == this.expectedSplit) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+// --------------------------------------------------------EXE ?-----------------------------------------------------------------------
 
   export class ObjectPosition {
     public isDisplayed: boolean;
