@@ -538,7 +538,7 @@ module exercises {
       public texts: any
       ) {
       super($scope, $location, $route, exercise8Data.subexerciseListDTO.length);
-      this.titleText = texts.exe7TitleText;
+      this.titleText = texts.exe8TitleText;
       for (var i: number = 0; i < exercise8Data.subexerciseListDTO.length; i++) {
         var exeItem: Exercise8Item = new Exercise8Item(exercise8Data.subexerciseListDTO[i].numbersToSplit);
         exercise8Data.subexerciseListDTO[i] = exeItem;
@@ -591,6 +591,49 @@ module exercises {
     checkResult() {
       if (!this.isSummaryActive()) {
         super.checkResult();
+      }
+    }
+  }
+
+  /***********************************************
+   *
+   * PlusMinusExercise 1 controller
+   *
+   ***********************************************/
+  export class PlusMinusExercise1Ctrl extends NavigationBase {
+    public exetype: String = "P1a";
+    public progressBarType: string = "pm-exe1";
+    public progressBarClass: string = "progress-color-pm-exe1";
+    public static $inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe1Data', 'texts'];
+    public titleText: string;
+
+    
+    constructor(
+        protected $scope: any,
+        protected $location: ng.ILocationService,
+        protected $route: any,
+        public $rootScope: any,
+        public plusMinusExe1Data: IPlusMinusExercise1,
+        public texts: any
+    ) {
+      super($scope, $location, $route, plusMinusExe1Data.subexerciseListDTO.length);
+      this.titleText = texts.plusMinusExe1TitleText;
+
+      for (var i: number = 0; i < plusMinusExe1Data.subexerciseListDTO.length; i++) {
+        var firstNumberToSumFromFile = plusMinusExe1Data.subexerciseListDTO[i].firstNumberToSum;
+        var secondNumberToSumFromFile = plusMinusExe1Data.subexerciseListDTO[i].secondNumberToSum;
+        var exeItem: PlusMinusExercise1Item = new PlusMinusExercise1Item(firstNumberToSumFromFile, secondNumberToSumFromFile);
+        plusMinusExe1Data.subexerciseListDTO[i] = exeItem;
+      }
+
+  
+    }
+    
+    checkResult() {
+      if (!this.isSummaryActive()) {
+        super.checkResult();
+        this.plusMinusExe1Data.subexerciseListDTO.unshift(new PlusMinusExercise1Item(0,0));
+        this.totalItems = this.plusMinusExe1Data.subexerciseListDTO.length;
       }
     }
   }

@@ -317,16 +317,101 @@ var exercises;
             this.expectedSplit = this.toBeSplit / 2;
         }
         SplitObject.prototype.isCorrect = function () {
-            if (this.enteredFirstSplit == this.expectedSplit && this.enteredSecondSplit == this.expectedSplit) {
+            if (this.enteredFirstSplit == this.expectedSplit && this.enteredSecondSplit == this.expectedSplit)
                 return true;
-            }
-            else {
-                return false;
-            }
+            return false;
         };
         return SplitObject;
     }());
     exercises.SplitObject = SplitObject;
+    var PlusMinusExercise1Item = (function () {
+        function PlusMinusExercise1Item(firstNumberToSum, secondNumberToSum) {
+            this.firstNumberToSum = firstNumberToSum;
+            this.secondNumberToSum = secondNumberToSum;
+            this.numberOnePoints = [{ top: '72.5px', left: '72.5px' }];
+            this.numberTwoPoints = [{ top: '19px', left: '19px' }, { top: '126px', left: '126px' }];
+            this.numberThreePoints = [{ top: '19px', left: '19px' }, { top: '72.5px', left: '72.5px' }, {
+                    top: '126px',
+                    left: '126px'
+                }];
+            this.numberFourPoints = [{ top: '19px', left: '19px' }, { top: '126px', left: '19px' }, {
+                    top: '126px',
+                    left: '126px'
+                }, { top: '19px', left: '126px' }];
+            this.numberFivePoints = [{ top: '19px', left: '19px' }, { top: '126px', left: '19px' }, {
+                    top: '126px',
+                    left: '126px'
+                }, { top: '19px', left: '126px' }, { top: '72.5px', left: '72.5px' }];
+            this.numberSixPoints = [{ top: '19px', left: '19px' }, { top: '126px', left: '19px' }, {
+                    top: '126px',
+                    left: '126px'
+                }, { top: '19px', left: '126px' }, { top: '72.5px', left: '19px' }, { top: '72.5px', left: '126px' }];
+            this.numberPointsForAllNumber = [this.numberOnePoints, this.numberTwoPoints, this.numberThreePoints, this.numberFourPoints, this.numberFivePoints, this.numberSixPoints];
+            this.numberOneSmallPoints = [{ top: '25.5px', left: '25.5px' }];
+            this.numberTwoSmallPoints = [{ top: '6.7px', left: '6.7px' }, { top: '44.3px', left: '44.3px' }];
+            this.numberThreeSmallPoints = [{ top: '6.7px', left: '6.7px' }, { top: '25.5px', left: '25.5px' }, {
+                    top: '44.3px',
+                    left: '44.3px'
+                }];
+            this.numberFourSmallPoints = [{ top: '6.7px', left: '6.7px' }, { top: '44.3px', left: '6.7px' }, {
+                    top: '44.3px',
+                    left: '44.3px'
+                }, { top: '6.7px', left: '44.3px' }];
+            this.numberFiveSmallPoints = [{ top: '6.7px', left: '6.7px' }, { top: '44.3px', left: '6.7px' }, {
+                    top: '44.3px',
+                    left: '44.3px'
+                }, { top: '6.7px', left: '44.3px' }, { top: '25.5px', left: '25.5px' }];
+            this.numberSixSmallPoints = [{ top: '6.7px', left: '6.7px' }, { top: '44.3px', left: '6.7px' }, {
+                    top: '44.3px',
+                    left: '44.3px'
+                }, { top: '6.7px', left: '44.3px' }, { top: '25.5px', left: '6.7px' }, { top: '25.5px', left: '44.3px' }];
+            this.numberSmallPointsForAllNumber = [this.numberOneSmallPoints, this.numberTwoSmallPoints, this.numberThreeSmallPoints, this.numberFourSmallPoints, this.numberFiveSmallPoints, this.numberSixSmallPoints];
+            this.enteredFormula = "";
+            this.sumOfTwoNumbers = this.firstNumberToSum + this.secondNumberToSum;
+        }
+        PlusMinusExercise1Item.prototype.getPointsForSquare = function (squeryIdentifier) {
+            if (squeryIdentifier == 1) {
+                return this.numberPointsForAllNumber[this.firstNumberToSum - 1];
+            }
+            else if (squeryIdentifier == 2) {
+                return this.numberPointsForAllNumber[this.secondNumberToSum - 1];
+            }
+        };
+        PlusMinusExercise1Item.prototype.getSmallPointsForSquare = function (squeryIdentifier) {
+            if (squeryIdentifier == 1) {
+                return this.numberSmallPointsForAllNumber[this.firstNumberToSum - 1];
+            }
+            else if (squeryIdentifier == 2) {
+                return this.numberSmallPointsForAllNumber[this.secondNumberToSum - 1];
+            }
+        };
+        PlusMinusExercise1Item.prototype.isCorrect = function () {
+            if (angular.isUndefined(this.enteredFormula))
+                return false;
+            var formulaTrimmed = this.enteredFormula.replace(/\s/g, "");
+            if (formulaTrimmed == this.firstNumberToSum + "+" + this.secondNumberToSum + "=" + this.sumOfTwoNumbers)
+                return true;
+            return false;
+        };
+        PlusMinusExercise1Item.prototype.changeEnteredFormula = function (incomingFormula) {
+            var givenEnteredFormula = this.enteredFormula;
+            if (angular.isUndefined(givenEnteredFormula) || givenEnteredFormula == null) {
+                givenEnteredFormula = incomingFormula;
+            }
+            else if (incomingFormula == "=" || incomingFormula == "+") {
+                givenEnteredFormula = givenEnteredFormula + " " + incomingFormula + " ";
+            }
+            else if (incomingFormula == "del") {
+                givenEnteredFormula = "";
+            }
+            else {
+                givenEnteredFormula = givenEnteredFormula + incomingFormula;
+            }
+            this.enteredFormula = givenEnteredFormula;
+        };
+        return PlusMinusExercise1Item;
+    }());
+    exercises.PlusMinusExercise1Item = PlusMinusExercise1Item;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -428,6 +513,9 @@ var exercises;
         };
         ExerciseServices.prototype.getExercise8Data = function () {
             return this.$http.get('app/data/exe8Data.json').then(function (result) { return result.data; });
+        };
+        ExerciseServices.prototype.getExerciseFromJson = function (jsonFileName) {
+            return this.$http.get("app/data/" + jsonFileName + ".json").then(function (result) { return result.data; });
         };
         ExerciseServices.prototype.getTexts = function () {
             return this.$http.get('app/data/appTexts.json').then(function (result) { return result.data; });
@@ -895,7 +983,7 @@ var exercises;
             this.exetype = "N2d";
             this.selectedInput = 0;
             this.selectedSide = 0;
-            this.titleText = texts.exe7TitleText;
+            this.titleText = texts.exe8TitleText;
             for (var i = 0; i < exercise8Data.subexerciseListDTO.length; i++) {
                 var exeItem = new exercises.Exercise8Item(exercise8Data.subexerciseListDTO[i].numbersToSplit);
                 exercise8Data.subexerciseListDTO[i] = exeItem;
@@ -949,6 +1037,38 @@ var exercises;
         return Exercise8Ctrl;
     }(NavigationBase));
     exercises.Exercise8Ctrl = Exercise8Ctrl;
+    var PlusMinusExercise1Ctrl = (function (_super) {
+        __extends(PlusMinusExercise1Ctrl, _super);
+        function PlusMinusExercise1Ctrl($scope, $location, $route, $rootScope, plusMinusExe1Data, texts) {
+            _super.call(this, $scope, $location, $route, plusMinusExe1Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.plusMinusExe1Data = plusMinusExe1Data;
+            this.texts = texts;
+            this.exetype = "P1a";
+            this.progressBarType = "pm-exe1";
+            this.progressBarClass = "progress-color-pm-exe1";
+            this.titleText = texts.plusMinusExe1TitleText;
+            for (var i = 0; i < plusMinusExe1Data.subexerciseListDTO.length; i++) {
+                var firstNumberToSumFromFile = plusMinusExe1Data.subexerciseListDTO[i].firstNumberToSum;
+                var secondNumberToSumFromFile = plusMinusExe1Data.subexerciseListDTO[i].secondNumberToSum;
+                var exeItem = new exercises.PlusMinusExercise1Item(firstNumberToSumFromFile, secondNumberToSumFromFile);
+                plusMinusExe1Data.subexerciseListDTO[i] = exeItem;
+            }
+        }
+        PlusMinusExercise1Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+                this.plusMinusExe1Data.subexerciseListDTO.unshift(new exercises.PlusMinusExercise1Item(0, 0));
+                this.totalItems = this.plusMinusExe1Data.subexerciseListDTO.length;
+            }
+        };
+        PlusMinusExercise1Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe1Data', 'texts'];
+        return PlusMinusExercise1Ctrl;
+    }(NavigationBase));
+    exercises.PlusMinusExercise1Ctrl = PlusMinusExercise1Ctrl;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -965,6 +1085,20 @@ var exercises;
         };
     }
     exercises.animateRubber = animateRubber;
+    ;
+    function animateRubberWithPosition() {
+        return {
+            link: function ($scope, element, attributes) {
+                $(element).on("click", function () {
+                    $(this).addClass('remove-btn-pm-animate').delay(200).queue(function (next) {
+                        $(this).removeClass('remove-btn-pm-animate');
+                        next();
+                    });
+                });
+            }
+        };
+    }
+    exercises.animateRubberWithPosition = animateRubberWithPosition;
     ;
     function animateButton() {
         return {
@@ -1117,7 +1251,10 @@ var exercises;
                     drop: function (event, ui) {
                         $(element).data('droppedBall', $(ui.draggable).attr('ball-value'));
                         ui.draggable.data('iAmDroppedHere', $(element));
-                        ui.draggable.css({ top: $(element).position().top + "px", left: $(element).position().left + "px" });
+                        ui.draggable.css({
+                            top: $(element).position().top + "px",
+                            left: $(element).position().left + "px"
+                        });
                         $rootScope.$emit('ball.dropped', {
                             dropped: $(ui.draggable).attr('ball-value'),
                             destination: attributes.ballValue,
@@ -1211,8 +1348,10 @@ var exercises;
     mathApp.controller('exercise6Ctrl', exercises.Exercise6Ctrl);
     mathApp.controller('exercise7Ctrl', exercises.Exercise7Ctrl);
     mathApp.controller('exercise8Ctrl', exercises.Exercise8Ctrl);
+    mathApp.controller('plusMinusExercise1Ctrl', exercises.PlusMinusExercise1Ctrl);
     mathApp.service('exerciseServices', exercises.ExerciseServices);
     mathApp.directive('animateRubber', exercises.animateRubber);
+    mathApp.directive('animateRubberWithPosition', exercises.animateRubberWithPosition);
     mathApp.directive('animateButton', exercises.animateButton);
     mathApp.directive('draggableObject', exercises.draggableObject);
     mathApp.directive('droppableObject', exercises.droppableObject);
@@ -1316,6 +1455,18 @@ var exercises;
                 resolve: {
                     'exercise8Data': function (exerciseServices) {
                         return exerciseServices.getExercise8Data();
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            })
+                .when('/P1a', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'plusMinusExercise1Ctrl',
+                resolve: {
+                    'plusMinusExe1Data': function (exerciseServices) {
+                        return exerciseServices.getExerciseFromJson("plusMinusExe1Data");
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();

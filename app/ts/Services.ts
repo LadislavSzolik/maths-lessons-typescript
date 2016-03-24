@@ -10,6 +10,9 @@ export interface IExerciseServices {
   getExercise6Data():any;
   getExercise7Data():any;
   getExercise8Data():any;
+
+    getExerciseFromJson(jsonFileName:string):any;
+
   getTexts():any;
 }
 
@@ -53,6 +56,10 @@ export interface IExerciseServices {
 
     getExercise8Data() {
       return this.$http.get('app/data/exe8Data.json').then((result) => {return result.data});
+    }
+
+    getExerciseFromJson(jsonFileName:string) {
+      return this.$http.get(`app/data/${jsonFileName}.json`).then((result) => {return result.data});
     }
 
     getTexts() {

@@ -1,367 +1,570 @@
 <div class="exercise-container">
-  <header class="exe-header">
-    <a animate-button class="nav-btn-help" href>
-      ?
-    </a>
-    <a animate-button class="nav-btn-close" href ng-click="vm.exit()">
-      <ng-md-icon icon="close" size="36" style="fill:white"/>
-    </a>
-    <h1>{{vm.titleText}}</h1>
-  </header>
+    <header class="exe-header">
+        <a animate-button class="nav-btn-help" href>
+            ?
+        </a>
+        <a animate-button class="nav-btn-close" href ng-click="vm.exit()">
+            <ng-md-icon icon="close" size="36" style="fill:white"/>
+        </a>
+        <h1>{{vm.titleText}}</h1>
+    </header>
 
-  <section class="progess-container">
+    <section class="progess-container">
 
-    <section ng-hide="vm.isExerciseSinglePager()">
-      <uib-progressbar class="progress-box" ng-class="vm.progressBarClass" type="{{vm.progressBarType}}" value="vm.currentPage * vm.onePercentage">
-        <b>{{vm.currentPage}}/{{vm.totalItems}}</b>
-      </uib-progressbar>
+        <section ng-hide="vm.isExerciseSinglePager()">
+            <uib-progressbar class="progress-box" ng-class="vm.progressBarClass" type="{{vm.progressBarType}}"
+                             value="vm.currentPage * vm.onePercentage">
+                <b>{{vm.currentPage}}/{{vm.totalItems}}</b>
+            </uib-progressbar>
+        </section>
+
+        <a animate-button
+           ng-class="{'nav-btn-reload':!vm.isExerciseSinglePager(), 'nav-btn-reload-center': vm.isExerciseSinglePager()}"
+           href ng-click="vm.reload()">
+            <ng-md-icon icon="refresh" size="36" style="fill:white"/>
+        </a>
     </section>
 
-    <a animate-button ng-class="{'nav-btn-reload':!vm.isExerciseSinglePager(), 'nav-btn-reload-center': vm.isExerciseSinglePager()}" href ng-click="vm.reload()">
-      <ng-md-icon icon="refresh" size="36" style="fill:white"/>
-    </a>
-  </section>
+    <section class="main-content">
+        <!-- ng-swipe-left="selectPage(currentPage-1,$event)" ng-swipe-right="selectPage(currentPage+1,$event)" -->
+        <a animate-button ng-hide='vm.isExerciseSinglePager()' class="nav-btn-top-left" href
+           ng-class="{disabled:vm.noPrevious()}" ng-click="vm.selectPage(vm.currentPage-1,$event)">
+            <ng-md-icon icon="navigate_before" size="48" style="fill:white"/>
+        </a>
 
-  <section class="main-content">
-    <!-- ng-swipe-left="selectPage(currentPage-1,$event)" ng-swipe-right="selectPage(currentPage+1,$event)" -->
-    <a animate-button ng-hide='vm.isExerciseSinglePager()' class="nav-btn-top-left" href ng-class="{disabled:vm.noPrevious()}" ng-click="vm.selectPage(vm.currentPage-1,$event)">
-      <ng-md-icon icon="navigate_before" size="48" style="fill:white"/>
-    </a>
+        <a animate-button ng-hide='vm.isExerciseSinglePager()' class="nav-btn-bottom-left hide" href
+           ng-class="{show:vm.isSummaryActive()}" ng-click="vm.currentPage = 1">
+            <ng-md-icon icon="apps" size="48" style="fill:white"/>
+        </a>
 
-    <a animate-button ng-hide='vm.isExerciseSinglePager()' class="nav-btn-bottom-left hide" href ng-class="{show:vm.isSummaryActive()}" ng-click="vm.currentPage = 1">
-      <ng-md-icon icon="apps" size="48" style="fill:white"/>
-    </a>
+        <div ng-switch on="vm.exetype">
+            <div class="subexe-container-box exe1-background" ng-switch-when="N1a">
+                <ul>
+                    <li ng-if="vm.isCurrentExercise($index)"
+                        ng-repeat="subExercise in vm.exercise1Data.subexerciseListDTO">
+                        <section ng-if="vm.isSummaryActive() && $index==0">
+                            <ul>
+                                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise1Data.subexerciseListDTO">
+                                    <a href ng-click="vm.selectPage($index+1,$event)">
+                                        <div class="object-arena arena-small">
+                                            <img class="counted-object" height="{{summary.smallElementSize}}"
+                                                 ng-repeat="pos in summary.listOfPositions"
+                                                 ng-style="{{pos.getSmallPosition()}}" src="./app/img/pink-flower.png"/>
+                                        </div>
+                                        <div class="user-result-summary-container">
+                                            <input class="form-control user-result-summary" disabled
+                                                   ng-class="{'valid-result':vm.isCorrect($index), 'invalid-result':!vm.isCorrect($index)}"
+                                                   type="text" value="{{summary.givenNumber}}"/>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </section>
 
-    <div ng-switch on="vm.exetype">
-      <div class="subexe-container-box exe1-background" ng-switch-when="N1a">
-        <ul>
-          <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.exercise1Data.subexerciseListDTO">
-            <section ng-if="vm.isSummaryActive() && $index==0">
-              <ul>
-                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise1Data.subexerciseListDTO">
-                  <a href ng-click="vm.selectPage($index+1,$event)">
-                    <div class="object-arena arena-small">
-                      <img class="counted-object" height="{{summary.smallElementSize}}" ng-repeat="pos in summary.listOfPositions" ng-style="{{pos.getSmallPosition()}}" src="./app/img/pink-flower.png"/>
-                    </div>
-                    <div class="user-result-summary-container">
-                      <input class="form-control user-result-summary" disabled ng-class="{'valid-result':vm.isCorrect($index), 'invalid-result':!vm.isCorrect($index)}" type="text" value="{{summary.givenNumber}}"/>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </section>
-
-            <section ng-if="!vm.isSummaryActive() || $index !== 0">
-              <div class="clearfix">
-                <div class="object-arena">
-                  <img class="counted-object" height="{{subExercise.largeElementSize}}" ng-repeat="pos in subExercise.listOfPositions" ng-style="{{pos.getLargePosition()}}" src="./app/img/pink-flower.png"/>
-                </div>
-                <input class="form-control user-result" maxlength="2" ng-class="{'valid-result':vm.isCorrect($index) && vm.isSummaryActive() , 'invalid-result':!vm.isCorrect($index) && vm.isSummaryActive()}" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.givenNumber" placeholder="?" required="" type="text"/>
-                <a animate-rubber class="remove-btn" href ng-class="{hide:vm.isSummaryActive()}" ng-click="vm.backspace($index)">
-                  <img src="./app/img/rubber.png"/>
-                </a>
-              </div>
-              <ul class="number-row-container">
-                <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
-                  <input animate-button class="input-number-row" ng-click="vm.setUserInput($parent.$index, $index)" ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
-                </li>
-              </ul>
-            </section>
-          </li>
-        </ul>
-      </div>
-
-      <!-- exercise 2 view -->
-      <div class="subexe-container-box exe2-background" ng-switch-when="N1b">
-        <ul>
-          <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.exercise2Data.subexerciseListDTO">
-
-            <div ng-if="vm.isSummaryActive() && $index==0">
-              <ul>
-                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise2Data.subexerciseListDTO">
-                  <a href ng-click="vm.selectPage($index+1,$event)">
-                    <div style="float:left; margin:0% 1% 0% 1%">
-                      <input class="form-control exe2-number-box-small" disabled type="text" value="{{summary.number}}"/>
-                    </div>
-                    <div class="container-field-exe2-summary" ng-class="{'valid-result':vm.isCorrect($index) && vm.isSummaryActive() , 'invalid-result':!vm.isCorrect($index) && vm.isSummaryActive()}">
-                      <img class="counted-object" height="{{summary.smallElementSize}}" ng-hide="!object.isDropped && vm.isSummaryActive()" ng-repeat="object in summary.listOfPositions" ng-show="object.isDisplayed" ng-style="{{object.getSmallPosition()}}" src="./app/img/pink-flower.png" style="cursor:pointer;"/>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div ng-if="!vm.isSummaryActive() || $index !== 0">
-              <input class="form-control exe2-number-box" disabled type="text" value="{{subExercise.number}}"/>
-              <div class="exe2-object-holder-box disabling-layer" ng-show="vm.isSummaryActive() || vm.isLastElement"></div>
-              <div class="exe2-object-holder-box" droppable-origin>
-                <div class="counted-object" style="top:80px; left:125px;">
-                  <img height="66px" src="./app/img/pink-flower.png"/>
-                </div>
-                <div class="counted-object" style="top: 80px; left:10px;">
-                  <img height="66px" src="./app/img/pink-flower.png"/>
-                </div>
-                <div class="counted-object" ng-show="vm.isSummaryActive() || vm.isLastElement" style="top: 35px; left:40px;">
-                  <img height="120px" src="./app/img/pink-flower.png"/>
-                </div>
-              </div>
-
-              <div class="object-arena exe2-position" droppable-object ng-class="{'valid-result':vm.isCorrect($index) && vm.isSummaryActive() , 'invalid-result':!vm.isCorrect($index) && vm.isSummaryActive()}">
-                <img class="counted-object" draggable-object height="{{subExercise.largeElementSize}}" id="{{object.objectId}}" ng-hide="!object.isDropped && vm.isSummaryActive()" ng-repeat="object in subExercise.listOfPositions" ng-show="object.isDisplayed" ng-style="{{object.getInitPlace()}}" original-height="{{subExercise.largeElementSize}}" src="./app/img/pink-flower.png" style="cursor:pointer;"/>
-
-              </div>
-              <a animate-rubber class="remove-btn remove-btn-exe2-postion" href ng-class="{hide:vm.isSummaryActive()}" ng-click="vm.removeOne($index)">
-                <img src="./app/img/rubber.png"/>
-              </a>
-            </div>
-
-          </li>
-        </ul>
-      </div>
-      <!-- end of exercise 2 view -->
-
-      <!-- exercise 3 view -->
-      <div class="subexe-container-box exe3-background" ng-switch-when="N1c">
-        <ul>
-          <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.exercise3Data.subexerciseListDTO">
-            <div ng-if="vm.isSummaryActive() && $index == 0">
-              <ul>
-                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise3Data.subexerciseListDTO">
-
-                  <a href ng-click="vm.selectPage($index+1,$event)">
-                    <div class="exe3-summary-background">
-                      <div class="ball-with-number-small" ng-hide="bubble.isMissing" ng-repeat="bubble in summary.listOfGiven" ng-style="bubble.getSmallPosition()">
-                        {{bubble.value}}
-                      </div>
-                      <div class="ball-with-number-small" ng-repeat="bubble in summary.listOfGiven" ng-show="bubble.isMissing" ng-class="{'valid-result':vm.isSummaryActive() && summary.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !summary.isCorrect($index)}" ng-style="bubble.getSmallPosition()">
-                        {{summary.listOfEmpty[$index].value}}
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div ng-if="!vm.isSummaryActive() || $index !== 0">
-              <div class="exe3-bcg-adds"></div>
-
-              <div class="ball-with-number" ng-repeat="bubble in subExercise.listOfGiven" ng-style="bubble.getPosition()" ng-hide="bubble.isMissing">
-                {{bubble.value}}
-              </div>
-              <div class="ball-without-number" ng-repeat="bubble in subExercise.listOfGiven" ng-style="bubble.getPosition()" ng-show="bubble.isMissing" ng-model="subExercise.listOfEmpty" jqyoui-droppable="{index: {{$index}}}" data-drop="true" ng-class="{'invalid-result':vm.isSummaryActive() && !subExercise.listOfEmpty[$index].value}">
-                <div class="ball-with-number" ng-model="subExercise.listOfEmpty" ng-hide="!subExercise.listOfEmpty[$index].value" data-drag="!vm.isSummaryActive()" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}" ng-class="{'valid-result':vm.isSummaryActive() && subExercise.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !subExercise.isCorrect($index)}">
-                  {{subExercise.listOfEmpty[$index].value}}
-                </div>
-              </div>
-
-              <div class="ball-container" data-drop="true" jqyoui-droppable="{index: 1}" ng-model="subExercise.listOfMissing">
-                <div class="ball-with-number ball-init-place" ng-show="bubble.value && !vm.isSummaryActive()" ng-repeat="bubble in subExercise.listOfMissing" data-drag="!vm.isSummaryActive()" ng-model="subExercise.listOfMissing" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}">
-                  {{bubble.value}}
-                </div>
-              </div>
-
-            </div>
-
-          </li>
-        </ul>
-      </div>
-      <!-- end of exercise 3 view -->
-
-      <!-- exercise 4 view -->
-      <div class="subexe-container-box exe4-background" ng-switch-when="N1d">
-        <ul>
-          <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.exercise4Data.subexerciseListDTO">
-            <div ng-if="vm.isSummaryActive() && $index == 0">
-              <ul>
-                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise4Data.subexerciseListDTO">
-                  <a href ng-click="vm.selectPage($index+1,$event)">
-                    <div class="exe4-summary-background">
-                      <!-- base numbers -->
-                      <div class="cube-round-container cube-with-number" ng-class="{'blocked-cube':square.isBlocked}" ng-hide="square.isMissing" ng-repeat="square in summary.listOfGiven" ng-style="square.getSmallPosition()">
-                        <span ng-if="!square.isBlocked">{{square.value}}</span>
-                      </div>
-                      <!-- entered -->
-                      <div class="cube-round-container cube-with-number" ng-repeat="square in summary.listOfGiven" ng-show="square.isMissing" ng-class="{'valid-result':vm.isSummaryActive() && summary.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !summary.isCorrect($index)}" ng-style="square.getSmallPosition()">
-                        <span>{{summary.listOfEmpty[$index].value}}</span>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div ng-if="!vm.isSummaryActive() || $index !== 0">
-              <div class="exe4-bcg-adds"></div>
-              <!-- starting point -->
-              <div class="cube-container" data-drop="true" jqyoui-droppable="{index: 1}" ng-model="subExercise.listOfMissing" ng-hide="vm.isSummaryActive()">
-                <div class="cube-with-number cube-init-container" ng-show="square.value && !vm.isSummaryActive()" ng-repeat="square in subExercise.listOfMissing" data-drag="!vm.isSummaryActive()" ng-model="subExercise.listOfMissing" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}">
-                  {{square.value}}
-                </div>
-              </div>
-              <!-- base numbers -->
-              <div class="cube-round-container cube-with-number" ng-class="{'blocked-cube':square.isBlocked}" ng-repeat="square in subExercise.listOfGiven" ng-style="square.getPosition()" ng-hide="square.isMissing">
-                <span ng-if="!square.isBlocked">{{square.value}}</span>
-              </div>
-              <!-- empty places -->
-              <div class="cube-ul cube-without-number" ng-repeat="square in subExercise.listOfGiven" ng-style="square.getPosition()" ng-show="square.isMissing" ng-model="subExercise.listOfEmpty" jqyoui-droppable="{index: {{$index}}}" data-drop="true" ng-class="{'invalid-result':vm.isSummaryActive() && !subExercise.listOfEmpty[$index].value}">
-                <div class="cube-with-number" ng-model="subExercise.listOfEmpty" ng-hide="!subExercise.listOfEmpty[$index].value" data-drag="!vm.isSummaryActive()" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}" ng-class="{'valid-result':vm.isSummaryActive() && subExercise.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !subExercise.isCorrect($index)}">
-                  {{subExercise.listOfEmpty[$index].value}}
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <!-- end of exercise 4 view  -->
-
-      <!-- exercise 5 view -->
-      <div class="subexe-container-box exe5-background" ng-switch-when="N2a">
-        <ul>
-          <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.exercise5Data.subexerciseListDTO">
-
-            <!-- SUMMARY -->
-            <div ng-if="vm.isSummaryActive() && $index == 0">
-              <ul>
-                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise5Data.subexerciseListDTO" style="display: inline-block">
-                  <a href ng-click="vm.selectPage($index+1,$event)">
-                    <div class="exe5-summary-background">
-                      <ul>
-                        <li class="column-container" ng-repeat="arranged in summary.listOfArrangedNumbers">
-                          <div class="{{vm.styles[$index]}}" ng-class="{'valid-result': summary.isCorrect($index) && vm.isSummaryActive(), 'invalid-result':!summary.isCorrect($index) && vm.isSummaryActive()}">
-                            <div class="square-dropped" ng-class="{'valid-result': summary.isCorrect($index) && vm.isSummaryActive(), 'invalid-result':!summary.isCorrect($index) && vm.isSummaryActive()}">
-                              <p>
-                                {{arranged.value}}
-                              </p>
+                        <section ng-if="!vm.isSummaryActive() || $index !== 0">
+                            <div class="clearfix">
+                                <div class="object-arena">
+                                    <img class="counted-object" height="{{subExercise.largeElementSize}}"
+                                         ng-repeat="pos in subExercise.listOfPositions"
+                                         ng-style="{{pos.getLargePosition()}}" src="./app/img/pink-flower.png"/>
+                                </div>
+                                <input class="form-control user-result" maxlength="2"
+                                       ng-class="{'valid-result':vm.isCorrect($index) && vm.isSummaryActive() , 'invalid-result':!vm.isCorrect($index) && vm.isSummaryActive()}"
+                                       ng-disabled="vm.isSummaryActive()" ng-model="subExercise.givenNumber"
+                                       placeholder="?" required="" type="text"/>
+                                <a animate-rubber class="remove-btn" href ng-class="{hide:vm.isSummaryActive()}"
+                                   ng-click="vm.backspace($index)">
+                                    <img src="./app/img/rubber.png"/>
+                                </a>
                             </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div ng-if="!vm.isSummaryActive() || $index !== 0">
-              <!-- init place -->
-              <div>
-                <ul class="square-container" data-drop="true" jqyoui-droppable ng-model="subExercise.listOfUnarrangedNumbers">
-                  <li ng-repeat="unarranged in subExercise.listOfUnarrangedNumbers" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}" ng-model="subExercise.listOfUnarrangedNumbers" class="square" ng-hide="vm.isSummaryActive() || !unarranged.value">
-                    <p>
-                      {{unarranged.value}}
-                    </p>
-                  </li>
+                            <ul class="number-row-container">
+                                <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
+                                    <input animate-button class="input-number-row"
+                                           ng-click="vm.setUserInput($parent.$index, $index)"
+                                           ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
+                                </li>
+                            </ul>
+                        </section>
+                    </li>
                 </ul>
-              </div>
-              <!-- place to drop the numbers -->
-              <ul>
-                <li class="column-container">
-                  <div class="{{vm.styles[$index]}}" ng-repeat="arranged in subExercise.listOfArrangedNumbers" data-drop="true" jqyoui-droppable="{index: {{$index}}}" ng-model="subExercise.listOfArrangedNumbers" ng-class="{'valid-result': subExercise.isCorrect($index) && vm.isSummaryActive(), 'invalid-result':!subExercise.isCorrect($index) && vm.isSummaryActive()}">
-                    <div class="square-dropped" ng-hide="!arranged.value" ng-model="subExercise.listOfArrangedNumbers" data-drag="!vm.isSummaryActive()" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}" ng-class="{'valid-result': subExercise.isCorrect($index) && vm.isSummaryActive(), 'invalid-result':!subExercise.isCorrect($index) && vm.isSummaryActive()}">
-                      <p>
-                        {{arranged.value}}
-                      </p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
             </div>
 
-          </li>
-        </ul>
-      </div>
-      <!-- end of exercise 5 view  -->
+            <!-- exercise 2 view -->
+            <div class="subexe-container-box exe2-background" ng-switch-when="N1b">
+                <ul>
+                    <li ng-if="vm.isCurrentExercise($index)"
+                        ng-repeat="subExercise in vm.exercise2Data.subexerciseListDTO">
 
-      <!-- exercise 6 view -->
-      <div class="subexe-container-box exe6-background" ng-switch-when="N2b">
+                        <div ng-if="vm.isSummaryActive() && $index==0">
+                            <ul>
+                                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise2Data.subexerciseListDTO">
+                                    <a href ng-click="vm.selectPage($index+1,$event)">
+                                        <div style="float:left; margin:0% 1% 0% 1%">
+                                            <input class="form-control exe2-number-box-small" disabled type="text"
+                                                   value="{{summary.number}}"/>
+                                        </div>
+                                        <div class="container-field-exe2-summary"
+                                             ng-class="{'valid-result':vm.isCorrect($index) && vm.isSummaryActive() , 'invalid-result':!vm.isCorrect($index) && vm.isSummaryActive()}">
+                                            <img class="counted-object" height="{{summary.smallElementSize}}"
+                                                 ng-hide="!object.isDropped && vm.isSummaryActive()"
+                                                 ng-repeat="object in summary.listOfPositions"
+                                                 ng-show="object.isDisplayed" ng-style="{{object.getSmallPosition()}}"
+                                                 src="./app/img/pink-flower.png" style="cursor:pointer;"/>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
 
-        <ul class="number-basket">
-          <li ng-repeat="subExercise in vm.exercise6Data.subexerciseListDTO">
-            <div class="first-number">
-              {{subExercise.numberOne}}
-            </div>
-            <div class="missing-sign-basket" ng-model="vm.missingSigns" data-drop="true" jqyoui-droppable="{index: {{$index}}}">
-              <div class="missing-sign-empty" ng-class="{'invalid-result':vm.isSummaryActive() && !vm.missingSigns[$index].value}">
-                <span>?</span>
-              </div>
-              <div class="missing-sign" ng-model="vm.missingSigns" ng-hide="!vm.missingSigns[$index].value" ng-class="{'valid-result':vm.isSummaryActive() && vm.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !vm.isCorrect($index)}" data-drag="!vm.isSummaryActive()" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}">
-                <span>{{vm.missingSigns[$index].value}}</span>
-              </div>
-            </div>
+                        <div ng-if="!vm.isSummaryActive() || $index !== 0">
+                            <input class="form-control exe2-number-box" disabled type="text"
+                                   value="{{subExercise.number}}"/>
+                            <div class="exe2-object-holder-box disabling-layer"
+                                 ng-show="vm.isSummaryActive() || vm.isLastElement"></div>
+                            <div class="exe2-object-holder-box" droppable-origin>
+                                <div class="counted-object" style="top:80px; left:125px;">
+                                    <img height="66px" src="./app/img/pink-flower.png"/>
+                                </div>
+                                <div class="counted-object" style="top: 80px; left:10px;">
+                                    <img height="66px" src="./app/img/pink-flower.png"/>
+                                </div>
+                                <div class="counted-object" ng-show="vm.isSummaryActive() || vm.isLastElement"
+                                     style="top: 35px; left:40px;">
+                                    <img height="120px" src="./app/img/pink-flower.png"/>
+                                </div>
+                            </div>
 
-            <div class="second-number">
-              {{subExercise.numberTwo}}
+                            <div class="object-arena exe2-position" droppable-object
+                                 ng-class="{'valid-result':vm.isCorrect($index) && vm.isSummaryActive() , 'invalid-result':!vm.isCorrect($index) && vm.isSummaryActive()}">
+                                <img class="counted-object" draggable-object height="{{subExercise.largeElementSize}}"
+                                     id="{{object.objectId}}" ng-hide="!object.isDropped && vm.isSummaryActive()"
+                                     ng-repeat="object in subExercise.listOfPositions" ng-show="object.isDisplayed"
+                                     ng-style="{{object.getInitPlace()}}"
+                                     original-height="{{subExercise.largeElementSize}}" src="./app/img/pink-flower.png"
+                                     style="cursor:pointer;"/>
+
+                            </div>
+                            <a animate-rubber class="remove-btn remove-btn-exe2-postion" href
+                               ng-class="{hide:vm.isSummaryActive()}" ng-click="vm.removeOne($index)">
+                                <img src="./app/img/rubber.png"/>
+                            </a>
+                        </div>
+
+                    </li>
+                </ul>
             </div>
-          </li>
-        </ul>
-        <!-- sign basket -->
-        <div class="sign-basket">
-          <ul class="sign-ul" data-drop="true" ng-model="vm.allSigns" jqyoui-droppable="{index: 1}">
-            <li class="result-sign" data-drag="!vm.isSummaryActive()" ng-show="allSign.value" ng-class="{'sign-right':vm.isSignOnRight($index), 'sign-left': vm.isSignOnLeft($index)}" ng-model="vm.allSigns" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}" data-jqyoui-options="{revert: 'invalid'}" ng-repeat="allSign in vm.allSigns">
-              <p>
-                {{allSign.value}}
-              </p>
-            </li>
-          </ul>
+            <!-- end of exercise 2 view -->
+
+            <!-- exercise 3 view -->
+            <div class="subexe-container-box exe3-background" ng-switch-when="N1c">
+                <ul>
+                    <li ng-if="vm.isCurrentExercise($index)"
+                        ng-repeat="subExercise in vm.exercise3Data.subexerciseListDTO">
+                        <div ng-if="vm.isSummaryActive() && $index == 0">
+                            <ul>
+                                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise3Data.subexerciseListDTO">
+
+                                    <a href ng-click="vm.selectPage($index+1,$event)">
+                                        <div class="exe3-summary-background">
+                                            <div class="ball-with-number-small" ng-hide="bubble.isMissing"
+                                                 ng-repeat="bubble in summary.listOfGiven"
+                                                 ng-style="bubble.getSmallPosition()">
+                                                {{bubble.value}}
+                                            </div>
+                                            <div class="ball-with-number-small"
+                                                 ng-repeat="bubble in summary.listOfGiven" ng-show="bubble.isMissing"
+                                                 ng-class="{'valid-result':vm.isSummaryActive() && summary.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !summary.isCorrect($index)}"
+                                                 ng-style="bubble.getSmallPosition()">
+                                                {{summary.listOfEmpty[$index].value}}
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div ng-if="!vm.isSummaryActive() || $index !== 0">
+                            <div class="exe3-bcg-adds"></div>
+
+                            <div class="ball-with-number" ng-repeat="bubble in subExercise.listOfGiven"
+                                 ng-style="bubble.getPosition()" ng-hide="bubble.isMissing">
+                                {{bubble.value}}
+                            </div>
+                            <div class="ball-without-number" ng-repeat="bubble in subExercise.listOfGiven"
+                                 ng-style="bubble.getPosition()" ng-show="bubble.isMissing"
+                                 ng-model="subExercise.listOfEmpty" jqyoui-droppable="{index: {{$index}}}"
+                                 data-drop="true"
+                                 ng-class="{'invalid-result':vm.isSummaryActive() && !subExercise.listOfEmpty[$index].value}">
+                                <div class="ball-with-number" ng-model="subExercise.listOfEmpty"
+                                     ng-hide="!subExercise.listOfEmpty[$index].value" data-drag="!vm.isSummaryActive()"
+                                     data-jqyoui-options="{revert: 'invalid'}"
+                                     jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}"
+                                     ng-class="{'valid-result':vm.isSummaryActive() && subExercise.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !subExercise.isCorrect($index)}">
+                                    {{subExercise.listOfEmpty[$index].value}}
+                                </div>
+                            </div>
+
+                            <div class="ball-container" data-drop="true" jqyoui-droppable="{index: 1}"
+                                 ng-model="subExercise.listOfMissing">
+                                <div class="ball-with-number ball-init-place"
+                                     ng-show="bubble.value && !vm.isSummaryActive()"
+                                     ng-repeat="bubble in subExercise.listOfMissing" data-drag="!vm.isSummaryActive()"
+                                     ng-model="subExercise.listOfMissing" data-jqyoui-options="{revert: 'invalid'}"
+                                     jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}">
+                                    {{bubble.value}}
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+            <!-- end of exercise 3 view -->
+
+            <!-- exercise 4 view -->
+            <div class="subexe-container-box exe4-background" ng-switch-when="N1d">
+                <ul>
+                    <li ng-if="vm.isCurrentExercise($index)"
+                        ng-repeat="subExercise in vm.exercise4Data.subexerciseListDTO">
+                        <div ng-if="vm.isSummaryActive() && $index == 0">
+                            <ul>
+                                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise4Data.subexerciseListDTO">
+                                    <a href ng-click="vm.selectPage($index+1,$event)">
+                                        <div class="exe4-summary-background">
+                                            <!-- base numbers -->
+                                            <div class="cube-round-container cube-with-number"
+                                                 ng-class="{'blocked-cube':square.isBlocked}" ng-hide="square.isMissing"
+                                                 ng-repeat="square in summary.listOfGiven"
+                                                 ng-style="square.getSmallPosition()">
+                                                <span ng-if="!square.isBlocked">{{square.value}}</span>
+                                            </div>
+                                            <!-- entered -->
+                                            <div class="cube-round-container cube-with-number"
+                                                 ng-repeat="square in summary.listOfGiven" ng-show="square.isMissing"
+                                                 ng-class="{'valid-result':vm.isSummaryActive() && summary.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !summary.isCorrect($index)}"
+                                                 ng-style="square.getSmallPosition()">
+                                                <span>{{summary.listOfEmpty[$index].value}}</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div ng-if="!vm.isSummaryActive() || $index !== 0">
+                            <div class="exe4-bcg-adds"></div>
+                            <!-- starting point -->
+                            <div class="cube-container" data-drop="true" jqyoui-droppable="{index: 1}"
+                                 ng-model="subExercise.listOfMissing" ng-hide="vm.isSummaryActive()">
+                                <div class="cube-with-number cube-init-container"
+                                     ng-show="square.value && !vm.isSummaryActive()"
+                                     ng-repeat="square in subExercise.listOfMissing" data-drag="!vm.isSummaryActive()"
+                                     ng-model="subExercise.listOfMissing" data-jqyoui-options="{revert: 'invalid'}"
+                                     jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}">
+                                    {{square.value}}
+                                </div>
+                            </div>
+                            <!-- base numbers -->
+                            <div class="cube-round-container cube-with-number"
+                                 ng-class="{'blocked-cube':square.isBlocked}"
+                                 ng-repeat="square in subExercise.listOfGiven" ng-style="square.getPosition()"
+                                 ng-hide="square.isMissing">
+                                <span ng-if="!square.isBlocked">{{square.value}}</span>
+                            </div>
+                            <!-- empty places -->
+                            <div class="cube-ul cube-without-number" ng-repeat="square in subExercise.listOfGiven"
+                                 ng-style="square.getPosition()" ng-show="square.isMissing"
+                                 ng-model="subExercise.listOfEmpty" jqyoui-droppable="{index: {{$index}}}"
+                                 data-drop="true"
+                                 ng-class="{'invalid-result':vm.isSummaryActive() && !subExercise.listOfEmpty[$index].value}">
+                                <div class="cube-with-number" ng-model="subExercise.listOfEmpty"
+                                     ng-hide="!subExercise.listOfEmpty[$index].value" data-drag="!vm.isSummaryActive()"
+                                     data-jqyoui-options="{revert: 'invalid'}"
+                                     jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}"
+                                     ng-class="{'valid-result':vm.isSummaryActive() && subExercise.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !subExercise.isCorrect($index)}">
+                                    {{subExercise.listOfEmpty[$index].value}}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- end of exercise 4 view  -->
+
+            <!-- exercise 5 view -->
+            <div class="subexe-container-box exe5-background" ng-switch-when="N2a">
+                <ul>
+                    <li ng-if="vm.isCurrentExercise($index)"
+                        ng-repeat="subExercise in vm.exercise5Data.subexerciseListDTO">
+
+                        <!-- SUMMARY -->
+                        <div ng-if="vm.isSummaryActive() && $index == 0">
+                            <ul>
+                                <li ng-if="$index!==0" ng-repeat="summary in vm.exercise5Data.subexerciseListDTO"
+                                    style="display: inline-block">
+                                    <a href ng-click="vm.selectPage($index+1,$event)">
+                                        <div class="exe5-summary-background">
+                                            <ul>
+                                                <li class="column-container"
+                                                    ng-repeat="arranged in summary.listOfArrangedNumbers">
+                                                    <div class="{{vm.styles[$index]}}"
+                                                         ng-class="{'valid-result': summary.isCorrect($index) && vm.isSummaryActive(), 'invalid-result':!summary.isCorrect($index) && vm.isSummaryActive()}">
+                                                        <div class="square-dropped"
+                                                             ng-class="{'valid-result': summary.isCorrect($index) && vm.isSummaryActive(), 'invalid-result':!summary.isCorrect($index) && vm.isSummaryActive()}">
+                                                            <p>
+                                                                {{arranged.value}}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div ng-if="!vm.isSummaryActive() || $index !== 0">
+                            <!-- init place -->
+                            <div>
+                                <ul class="square-container" data-drop="true" jqyoui-droppable
+                                    ng-model="subExercise.listOfUnarrangedNumbers">
+                                    <li ng-repeat="unarranged in subExercise.listOfUnarrangedNumbers" data-drag="true"
+                                        data-jqyoui-options="{revert: 'invalid'}"
+                                        jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}"
+                                        ng-model="subExercise.listOfUnarrangedNumbers" class="square"
+                                        ng-hide="vm.isSummaryActive() || !unarranged.value">
+                                        <p>
+                                            {{unarranged.value}}
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- place to drop the numbers -->
+                            <ul>
+                                <li class="column-container">
+                                    <div class="{{vm.styles[$index]}}"
+                                         ng-repeat="arranged in subExercise.listOfArrangedNumbers" data-drop="true"
+                                         jqyoui-droppable="{index: {{$index}}}"
+                                         ng-model="subExercise.listOfArrangedNumbers"
+                                         ng-class="{'valid-result': subExercise.isCorrect($index) && vm.isSummaryActive(), 'invalid-result':!subExercise.isCorrect($index) && vm.isSummaryActive()}">
+                                        <div class="square-dropped" ng-hide="!arranged.value"
+                                             ng-model="subExercise.listOfArrangedNumbers"
+                                             data-drag="!vm.isSummaryActive()" data-jqyoui-options="{revert: 'invalid'}"
+                                             jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}"
+                                             ng-class="{'valid-result': subExercise.isCorrect($index) && vm.isSummaryActive(), 'invalid-result':!subExercise.isCorrect($index) && vm.isSummaryActive()}">
+                                            <p>
+                                                {{arranged.value}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+            <!-- end of exercise 5 view  -->
+
+            <!-- exercise 6 view -->
+            <div class="subexe-container-box exe6-background" ng-switch-when="N2b">
+
+                <ul class="number-basket">
+                    <li ng-repeat="subExercise in vm.exercise6Data.subexerciseListDTO">
+                        <div class="first-number">
+                            {{subExercise.numberOne}}
+                        </div>
+                        <div class="missing-sign-basket" ng-model="vm.missingSigns" data-drop="true"
+                             jqyoui-droppable="{index: {{$index}}}">
+                            <div class="missing-sign-empty"
+                                 ng-class="{'invalid-result':vm.isSummaryActive() && !vm.missingSigns[$index].value}">
+                                <span>?</span>
+                            </div>
+                            <div class="missing-sign" ng-model="vm.missingSigns"
+                                 ng-hide="!vm.missingSigns[$index].value"
+                                 ng-class="{'valid-result':vm.isSummaryActive() && vm.isCorrect($index), 'invalid-result': vm.isSummaryActive() && !vm.isCorrect($index)}"
+                                 data-drag="!vm.isSummaryActive()" data-jqyoui-options="{revert: 'invalid'}"
+                                 jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}">
+                                <span>{{vm.missingSigns[$index].value}}</span>
+                            </div>
+                        </div>
+
+                        <div class="second-number">
+                            {{subExercise.numberTwo}}
+                        </div>
+                    </li>
+                </ul>
+                <!-- sign basket -->
+                <div class="sign-basket">
+                    <ul class="sign-ul" data-drop="true" ng-model="vm.allSigns" jqyoui-droppable="{index: 1}">
+                        <li class="result-sign" data-drag="!vm.isSummaryActive()" ng-show="allSign.value"
+                            ng-class="{'sign-right':vm.isSignOnRight($index), 'sign-left': vm.isSignOnLeft($index)}"
+                            ng-model="vm.allSigns" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:false}"
+                            data-jqyoui-options="{revert: 'invalid'}" ng-repeat="allSign in vm.allSigns">
+                            <p>
+                                {{allSign.value}}
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- end of exercise 6 view  -->
+
+            <!-- exercise 7 view -->
+            <div class="subexe-container-box exe7-background" ng-switch-when="N2c">
+                <div class="highlight-tool" ng-hide="vm.isSummaryActive()" ng-style="vm.getHighlightPosition()"></div>
+                <ul class="subexe-ul">
+                    <li ng-repeat="subExercise in vm.exercise7Data.subexerciseListDTO[0].givenNumbers"
+                        ng-click="vm.selectSubExercise($index)">
+                        <div class="clearfix">
+                            <input class="double-input form-control" focus-if="vm.isSubExerciseSelected($index)"
+                                   ng-focus="vm.selectSubExercise($index)" maxlength="2"
+                                   ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}"
+                                   ng-disabled="vm.isSummaryActive()" ng-model="subExercise.enteredDouble"
+                                   placeholder="?" required="" type="text"/>
+                        </div>
+                        <div class="clearfix">
+                            <div class="single-left">
+                                <span>{{subExercise.toBeDoubled}}</span>
+                            </div>
+                            <span class="plus-sign">+</span>
+                            <div class="single-right">
+                                <span>{{subExercise.toBeDoubled}}</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="number-row-container">
+                    <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
+                        <input animate-button class="input-number-row" ng-click="vm.changeSelectedInput(key)"
+                               ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
+                    </li>
+                </ul>
+            </div>
+            <!-- end of exercise 7 view  -->
+
+            <!-- exercise 8 view -->
+            <div class="subexe-container-box exe8-background" ng-switch-when="N2d">
+                <ul class="subexe-ul">
+                    <li ng-repeat="subExercise in vm.exercise8Data.subexerciseListDTO[0].givenNumbers">
+                        <div class="clearfix given-split">
+                            <span>{{subExercise.toBeSplit}}</span>
+                        </div>
+                        <div class="clearfix">
+                            <input class="split-input form-control" ng-focus="vm.selectSubExercise($index, 0)"
+                                   maxlength="2"
+                                   ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}"
+                                   ng-disabled="vm.isSummaryActive()" ng-model="subExercise.enteredFirstSplit"
+                                   placeholder="?" required="" type="text"/>
+                            <span class="plus-sign">+</span>
+                            <input class="split-input form-control" ng-focus="vm.selectSubExercise($index, 1)"
+                                   maxlength="2"
+                                   ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}"
+                                   ng-disabled="vm.isSummaryActive()" ng-model="subExercise.enteredSecondSplit"
+                                   placeholder="?" required="" type="text"/>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="number-row-container">
+                    <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
+                        <input animate-button class="input-number-row" ng-click="vm.changeSelectedInput(key)"
+                               ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
+                    </li>
+                </ul>
+            </div>
+            <!-- end of exercise 8 view  -->
+
+
+            <!-- plus minus exercise 1 view -->
+            <div class="subexe-container-box pm-exe1-background" ng-switch-when="P1a">
+                <ul>
+                    <li ng-if="vm.isCurrentExercise($index)"
+                        ng-repeat="subExercise in vm.plusMinusExe1Data.subexerciseListDTO">
+                        <div style="margin-top:-15px" ng-if="vm.isSummaryActive() && $index == 0">
+                            <ul>
+                                <li ng-if="$index!==0" ng-repeat="summary in vm.plusMinusExe1Data.subexerciseListDTO"
+                                    style="display: inline-block">
+                                    <a href ng-click="vm.selectPage($index+1,$event)">
+                                        <div class="summary-sub-background">
+                                            <div class="clearfix">
+                                                <div class="cube-first-small">
+                                                    <div class="point-on-square-small"
+                                                         ng-repeat="numberPoint in summary.getSmallPointsForSquare(1)"
+                                                         ng-style="{{numberPoint}}"></div>
+                                                </div>
+
+                                                <div class="cube-second-small">
+                                                    <div class="point-on-square-small"
+                                                         ng-repeat="numberPoint in summary.getSmallPointsForSquare(2)"
+                                                         ng-style="{{numberPoint}}"></div>
+                                                </div>
+                                            </div>
+                                            <input ng-model="summary.enteredFormula"
+                                                   class="form-control user-input-field-small" ng-disabled="true"
+                                                   ng-class="{'valid-result':summary.isCorrect() && vm.isSummaryActive() , 'invalid-result':!summary.isCorrect() && vm.isSummaryActive()}"/>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div ng-if="!vm.isSummaryActive() || $index !== 0">
+                            <div class="clearfix">
+                                <div class="cube-first">
+                                    <div class="point-on-square"
+                                         ng-repeat="numberPoint in subExercise.getPointsForSquare(1)"
+                                         ng-style="{{numberPoint}}"></div>
+                                </div>
+
+                                <div class="cube-second">
+                                    <div class="point-on-square"
+                                         ng-repeat="numberPoint in subExercise.getPointsForSquare(2)"
+                                         ng-style="{{numberPoint}}"></div>
+                                </div>
+                            </div>
+
+                            <a animate-rubber-with-position class="remove-btn-pm" href
+                               ng-class="{hide:vm.isSummaryActive()}"
+                               ng-click="subExercise.changeEnteredFormula('del')">
+                                <img src="./app/img/rubber.png"/>
+                            </a>
+                            <div class="clearfix">
+                                <input animate-button ng-click="subExercise.changeEnteredFormula('+')"
+                                       ng-disabled="vm.isSummaryActive()" type="button" class="input-plus-sign"
+                                       value="+"/>
+                                <input ng-model="subExercise.enteredFormula" maxlength="15"
+                                       class="form-control user-input-field" ng-disabled="vm.isSummaryActive()"
+                                       ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}"/>
+                                <input animate-button ng-click="subExercise.changeEnteredFormula('=')"
+                                       ng-disabled="vm.isSummaryActive()" type="button" class="input-equal-sign"
+                                       value="="/>
+                            </div>
+
+                            <ul class="number-row-container">
+                                <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
+                                    <input animate-button class="input-number-row"
+                                           ng-click="subExercise.changeEnteredFormula(key)"
+                                           ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+
+            </div>
+            <!-- end of plus minus exercise 1 view  -->
+
         </div>
-      </div>
-      <!-- end of exercise 6 view  -->
 
-      <!-- exercise 7 view -->
-      <div class="subexe-container-box exe7-background" ng-switch-when="N2c">
-        <div class="highlight-tool" ng-hide="vm.isSummaryActive()" ng-style="vm.getHighlightPosition()"></div>
-        <ul class="subexe-ul">
-          <li  ng-repeat="subExercise in vm.exercise7Data.subexerciseListDTO[0].givenNumbers" ng-click="vm.selectSubExercise($index)">
-            <div class="clearfix">
-              <input class="double-input form-control" focus-if="vm.isSubExerciseSelected($index)" ng-focus="vm.selectSubExercise($index)" maxlength="2" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.enteredDouble" placeholder="?" required="" type="text"/>
-            </div>
-            <div class="clearfix">
-              <div class="single-left">
-                <span>{{subExercise.toBeDoubled}}</span>
-              </div>
-              <span class="plus-sign">+</span>
-              <div class="single-right">
-                <span>{{subExercise.toBeDoubled}}</span>
-              </div>
-            </div>
-          </li>
-        </ul>
-        <ul class="number-row-container">
-          <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
-            <input animate-button class="input-number-row" ng-click="vm.changeSelectedInput(key)" ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
-          </li>
-        </ul>
-      </div>
-      <!-- end of exercise 7 view  -->
-
-      <!-- exercise 8 view -->
-      <div class="subexe-container-box exe8-background" ng-switch-when="N2d">
-        <ul class="subexe-ul">
-          <li  ng-repeat="subExercise in vm.exercise8Data.subexerciseListDTO[0].givenNumbers" >
-            <div class="clearfix given-split">
-              <span>{{subExercise.toBeSplit}}</span>
-            </div>
-            <div class="clearfix">
-                <input class="split-input form-control" ng-focus="vm.selectSubExercise($index, 0)" maxlength="2" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.enteredFirstSplit" placeholder="?" required="" type="text"/>
-                <span class="plus-sign">+</span>
-                <input class="split-input form-control" ng-focus="vm.selectSubExercise($index, 1)" maxlength="2" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.enteredSecondSplit" placeholder="?" required="" type="text"/>
-            </div>
-          </li>
-        </ul>
-        <ul class="number-row-container">
-          <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
-            <input animate-button class="input-number-row" ng-click="vm.changeSelectedInput(key)" ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
-          </li>
-        </ul>
-      </div>
-      <!-- end of exercise 8 view  -->
-    </div>
-
-    <a animate-button class="nav-btn-top-right" ng-hide='vm.isExerciseSinglePager()' href ng-class="{disabled:vm.noNext()}" ng-click="vm.selectPage(vm.currentPage+1,$event)">
-      <ng-md-icon icon="navigate_next" size="48" style="fill:white"/>
-    </a>
-    <a animate-button class="nav-btn-bottom-right" href ng-class="{disabled:vm.isSummaryActive()}" ng-click="vm.checkResult()">
-      <ng-md-icon icon="done_all" size="48" style="fill:white"/>
-    </a>
-  </section>
+        <a animate-button class="nav-btn-top-right" ng-hide='vm.isExerciseSinglePager()' href
+           ng-class="{disabled:vm.noNext()}" ng-click="vm.selectPage(vm.currentPage+1,$event)">
+            <ng-md-icon icon="navigate_next" size="48" style="fill:white"/>
+        </a>
+        <a animate-button class="nav-btn-bottom-right" href ng-class="{disabled:vm.isSummaryActive()}"
+           ng-click="vm.checkResult()">
+            <ng-md-icon icon="done_all" size="48" style="fill:white"/>
+        </a>
+    </section>
 </div>

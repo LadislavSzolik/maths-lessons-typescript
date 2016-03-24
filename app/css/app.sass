@@ -242,6 +242,21 @@ header, section
   .progress-color-exe5
     border: 2px solid #5E0B15
 
+  .progress-bar-pm-exe1
+    background-color: #FFFBE7
+    b
+      color: #695D46
+      font-size: 26px
+      position: absolute
+      text-align: center
+      top: 4px
+      width: 100%
+      z-index: 2
+      left: 0px
+
+  .progress-color-pm-exe1
+    border: 2px solid #695D46
+
 /* container with objects and result */
 @mixin exe-box-color($color)
   border-radius: 8px
@@ -965,6 +980,104 @@ header, section
   .subexe-ul>li:nth-child(12) .invalid-result
     color: white
 
+.pm-exe1-background
+  background-image: url(../img/pm_exe1_bcg.png)
+
+  .cube-first, .cube-second, .cube-first-small, .cube-second-small
+    width: 180px
+    height: 180px
+    float: left
+    background-color: #A1E8D9
+    border-radius: 15px
+    margin: 45px 60px 45px 0px
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    position: relative
+
+  .cube-first
+    margin-left: 110px
+
+  .point-on-square, .point-on-square-small
+    width: 35px
+    height: 35px
+    border-radius: 50%
+    position: absolute
+    background-color: #FF712C
+
+
+  .user-input-field
+    width: 420px
+    height: 80px
+    border-radius: 5px
+    border: solid 2px #695D46
+    font-size: 40px
+    text-align: center
+    display: inline-block
+
+  .input-plus-sign, .input-equal-sign
+    transition: all 0.1s ease-in-out
+    font-size: 46px
+    line-height: 46px
+    font-weight: bold
+    padding: 0px 13px
+    margin: 0px 4px
+    color: white
+    width: 56px
+    height: 56px
+    vertical-align: baseline
+    font-family: "segoe ui"
+    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50)
+
+
+  .input-plus-sign
+    margin-right: 50px
+    border: 2px solid #016F4D
+    background: #00B47D
+
+  .input-equal-sign
+    margin-left: 50px
+    border: 2px solid #0053CA
+    background: #5788CF
+
+  .remove-btn-pm
+    top: 200px
+    right: 55px
+    position: absolute
+    transition: all 0.1s ease-in-out
+    &-animate
+      top: 210px
+      right: 65px
+
+  .summary-sub-background
+    width: 175px
+    height: 110px
+    background-color: rgba(255, 255, 255, 0.8)
+    margin: 5px 12px 5px 12px
+    border-radius: 5px
+
+
+  .cube-first-small, .cube-second-small
+    width: 63px
+    height: 63px
+    border-radius: 5px
+    margin: 5px 0px 10px 0px
+
+  .cube-first-small
+    margin-left: 16px
+    margin-right: 16px
+
+  .user-input-field-small
+    width: 145px
+    height: 28px
+    border-radius: 2px
+    border: solid 1px #695D46
+    font-size: 20px
+    text-align: center
+    display: inline-block
+
+  .point-on-square-small
+    width: 12px
+    height: 12px
+
 .container-field-exe2-summary
   position: relative
   float: left
@@ -1056,7 +1169,7 @@ header, section
     display: inline-block
 
     .input-number-row
-      transition: all 0.3s ease-in-out
+      transition: all 0.1s ease-in-out
       font-size: 48px
       font-weight: bold
       padding: 0px 13px

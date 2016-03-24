@@ -1,0 +1,65 @@
+{
+  "id": 1,
+  "version": 1,
+  "exerciseContentDTO": {
+    "id": 1,
+    "version": 1,
+    "title": "Title P1a",
+    "content": "P1a"
+  },
+  "categoryDTO": {
+    "id": 1,
+    "version": 1,
+    "type": "PLUS_MINUS"
+  },
+  "subexerciseListDTO": [
+    {
+      "firstNumberToSum": 1,
+      "secondNumberToSum": 4
+    },
+    {
+      "firstNumberToSum": 6,
+      "secondNumberToSum": 6
+    },
+    {
+      "firstNumberToSum": 3,
+      "secondNumberToSum": 4
+    },
+    {
+      "firstNumberToSum": 2,
+      "secondNumberToSum": 6
+    },
+    {
+      "firstNumberToSum": 5,
+      "secondNumberToSum": 1
+    },
+    {
+      "firstNumberToSum": 3,
+      "secondNumberToSum": 3
+    },
+    {
+      "firstNumberToSum": 4,
+      "secondNumberToSum": 6
+    },
+    {
+      "firstNumberToSum": 3,
+      "secondNumberToSum": 6
+    },
+    {
+      "firstNumberToSum": 6,
+      "secondNumberToSum": 1
+    },
+    {
+      "firstNumberToSum": 4,
+      "secondNumberToSum": 4
+    },
+    {
+      "firstNumberToSum": 2,
+      "secondNumberToSum": 2
+    },
+    {
+      "firstNumberToSum": 5,
+      "secondNumberToSum": 6
+    }
+  ]
+}
