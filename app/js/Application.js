@@ -1210,18 +1210,18 @@ var exercises;
             this.texts = texts;
             this.exetype = "P1b";
             this.selectedInput = 0;
-            this.rubberPositions = [{ top: '-20px', left: '250px' },
-                { top: '-20px', left: '530px' },
-                { top: '45px', left: '250px' },
-                { top: '45px', left: '530px' },
-                { top: '105px', left: '250px' },
-                { top: '105px', left: '530px' },
-                { top: '165px', left: '250px' },
-                { top: '165px', left: '530px' },
-                { top: '230px', left: '250px' },
-                { top: '230px', left: '530px' },
-                { top: '290px', left: '250px' },
-                { top: '290px', left: '530px' }];
+            this.rubberPositions = [{ top: '-20px', left: '275px' },
+                { top: '-20px', left: '555px' },
+                { top: '45px', left: '275px' },
+                { top: '45px', left: '555px' },
+                { top: '105px', left: '275px' },
+                { top: '105px', left: '555px' },
+                { top: '165px', left: '275px' },
+                { top: '165px', left: '555px' },
+                { top: '230px', left: '275px' },
+                { top: '230px', left: '555px' },
+                { top: '290px', left: '275px' },
+                { top: '290px', left: '555px' }];
             this.titleText = texts.plusMinusExe2TitleText;
             for (var i = 0; i < plusMinusExe2Data.subexerciseListDTO.length; i++) {
                 var firstNumberToSumFromFile = plusMinusExe2Data.subexerciseListDTO[i].firstNumberToSum;
@@ -1315,18 +1315,18 @@ var exercises;
             this.texts = texts;
             this.exetype = "P1d";
             this.selectedInput = 0;
-            this.rubberPositions = [{ top: '-20px', left: '250px' },
-                { top: '-20px', left: '530px' },
-                { top: '45px', left: '250px' },
-                { top: '45px', left: '530px' },
-                { top: '105px', left: '250px' },
-                { top: '105px', left: '530px' },
-                { top: '165px', left: '250px' },
-                { top: '165px', left: '530px' },
-                { top: '230px', left: '250px' },
-                { top: '230px', left: '530px' },
-                { top: '290px', left: '250px' },
-                { top: '290px', left: '530px' }];
+            this.rubberPositions = [{ top: '-20px', left: '275px' },
+                { top: '-20px', left: '555px' },
+                { top: '45px', left: '275px' },
+                { top: '45px', left: '555px' },
+                { top: '105px', left: '275px' },
+                { top: '105px', left: '555px' },
+                { top: '165px', left: '275px' },
+                { top: '165px', left: '555px' },
+                { top: '230px', left: '275px' },
+                { top: '230px', left: '555px' },
+                { top: '290px', left: '275px' },
+                { top: '290px', left: '555px' }];
             this.titleText = texts.plusMinusExe4TitleText;
             for (var i = 0; i < plusMinusExe4Data.subexerciseListDTO.length; i++) {
                 var minuend = plusMinusExe4Data.subexerciseListDTO[i].minuend;

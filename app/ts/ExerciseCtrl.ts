@@ -648,18 +648,18 @@ module exercises {
     public static $inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe2Data', 'texts'];
     public titleText: string;
     public selectedInput: number = 0;
-    public rubberPositions: any[] = [{ top: '-20px', left: '250px' },
-      { top: '-20px', left: '530px' },
-      { top: '45px', left: '250px' },
-      { top: '45px', left: '530px' },
-      { top: '105px', left: '250px' },
-      { top: '105px', left: '530px' },
-      { top: '165px', left: '250px' },
-      { top: '165px', left: '530px' },
-      { top: '230px', left: '250px' },
-      { top: '230px', left: '530px' },
-      { top: '290px', left: '250px' },
-      { top: '290px', left: '530px' }];
+    public rubberPositions: any[] = [{ top: '-20px', left: '275px' },
+      { top: '-20px', left: '555px' },
+      { top: '45px', left: '275px' },
+      { top: '45px', left: '555px' },
+      { top: '105px', left: '275px' },
+      { top: '105px', left: '555px' },
+      { top: '165px', left: '275px' },
+      { top: '165px', left: '555px' },
+      { top: '230px', left: '275px' },
+      { top: '230px', left: '555px' },
+      { top: '290px', left: '275px' },
+      { top: '290px', left: '555px' }];
 
     constructor(protected $scope: any,
       protected $location: ng.ILocationService,
@@ -769,7 +769,7 @@ module exercises {
 
   /***********************************************
    *
-   * PlusMinusExercise 2 controller
+   * PlusMinusExercise 4 controller
    *
    ***********************************************/
   export class PlusMinusExercise4Ctrl extends NavigationBase {
@@ -777,18 +777,18 @@ module exercises {
     public static $inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe4Data', 'texts'];
     public titleText: string;
     public selectedInput: number = 0;
-    public rubberPositions: any[] = [{ top: '-20px', left: '250px' },
-      { top: '-20px', left: '530px' },
-      { top: '45px', left: '250px' },
-      { top: '45px', left: '530px' },
-      { top: '105px', left: '250px' },
-      { top: '105px', left: '530px' },
-      { top: '165px', left: '250px' },
-      { top: '165px', left: '530px' },
-      { top: '230px', left: '250px' },
-      { top: '230px', left: '530px' },
-      { top: '290px', left: '250px' },
-      { top: '290px', left: '530px' }];
+    public rubberPositions: any[] = [{ top: '-20px', left: '275px' },
+      { top: '-20px', left: '555px' },
+      { top: '45px', left: '275px' },
+      { top: '45px', left: '555px' },
+      { top: '105px', left: '275px' },
+      { top: '105px', left: '555px' },
+      { top: '165px', left: '275px' },
+      { top: '165px', left: '555px' },
+      { top: '230px', left: '275px' },
+      { top: '230px', left: '555px' },
+      { top: '290px', left: '275px' },
+      { top: '290px', left: '555px' }];
 
     constructor(protected $scope: any,
       protected $location: ng.ILocationService,

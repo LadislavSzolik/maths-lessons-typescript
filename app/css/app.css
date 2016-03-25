@@ -1235,6 +1235,9 @@ header, section {
   display: inline-block;
   float: left;
   margin-right: 20px;
+  width: 159px;
+  text-align: right;
+  margin-right: 10px;
 }
 
 .pm-exe2-background .user-input-field {
@@ -1404,8 +1407,9 @@ header, section {
   font-size: 40px;
   display: inline-block;
   float: left;
-  width: 140px;
-  margin-right: 5px;
+  width: 159px;
+  text-align: right;
+  margin-right: 10px;
 }
 
 .pm-exe4-background .user-input-field {
