@@ -242,7 +242,7 @@ module exercises {
             } else {
                 focus(true);
             }
-            function focus(condition:any) {
+            function focus(condition:any) {            
                 if (condition) {
                     $timeout(function () {
                         dom.focus();

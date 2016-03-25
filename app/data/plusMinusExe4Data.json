@@ -1,0 +1,65 @@
+{
+  "id": 1,
+  "version": 1,
+  "exerciseContentDTO": {
+    "id": 1,
+    "version": 1,
+    "title": "Title P1d",
+    "content": "P1d"
+  },
+  "categoryDTO": {
+    "id": 1,
+    "version": 1,
+    "type": "PLUS_MINUS"
+  },
+  "subexerciseListDTO": [
+    {
+      "minuend": 4,
+      "subtrahend": 1
+    },
+    {
+      "minuend": 6,
+      "subtrahend": 6
+    },
+    {
+      "minuend": 12,
+      "subtrahend": 4
+    },
+    {
+      "minuend": 10,
+      "subtrahend": 6
+    },
+    {
+      "minuend": 5,
+      "subtrahend": 1
+    },
+    {
+      "minuend": 6,
+      "subtrahend": 3
+    },
+    {
+      "minuend": 7,
+      "subtrahend": 6
+    },
+    {
+      "minuend": 9,
+      "subtrahend": 6
+    },
+    {
+      "minuend": 11,
+      "subtrahend": 1
+    },
+    {
+      "minuend": 7,
+      "subtrahend": 4
+    },
+    {
+      "minuend": 5,
+      "subtrahend": 2
+    },
+    {
+      "minuend": 5,
+      "subtrahend": 6
+    }
+  ]
+}
