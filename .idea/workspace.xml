@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0b069cb-f3bc-4ff7-ac02-74369d83fe2d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/data/plusMinusExe3Data.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/exerciseView.html" afterPath="$PROJECT_DIR$/app/components/exerciseView.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/homeView.html" afterPath="$PROJECT_DIR$/app/components/homeView.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/css/app.css" afterPath="$PROJECT_DIR$/app/css/app.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/css/app.css.map" afterPath="$PROJECT_DIR$/app/css/app.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/css/app.sass" afterPath="$PROJECT_DIR$/app/css/app.sass" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/data/appTexts.json" afterPath="$PROJECT_DIR$/app/data/appTexts.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/js/Application.js" afterPath="$PROJECT_DIR$/app/js/Application.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/js/Application.js.map" afterPath="$PROJECT_DIR$/app/js/Application.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/ts/Application.ts" afterPath="$PROJECT_DIR$/app/ts/Application.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/ts/ExerciseCtrl.ts" afterPath="$PROJECT_DIR$/app/ts/ExerciseCtrl.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/ts/ExerciseItems.ts" afterPath="$PROJECT_DIR$/app/ts/ExerciseItems.ts" />
-    </list>
+    <list default="true" id="a0b069cb-f3bc-4ff7-ac02-74369d83fe2d" name="Default" comment="" />
     <ignored path="maths-lessons-typescript.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -376,16 +362,16 @@
       <updated>1458718513074</updated>
       <workItem from="1458718516416" duration="154000" />
       <workItem from="1458748431956" duration="19680000" />
-      <workItem from="1458896443029" duration="13604000" />
+      <workItem from="1458896443029" duration="13666000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33438000" />
+    <option name="totallyTimeSpent" value="33500000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1287" height="1360" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21563981" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
