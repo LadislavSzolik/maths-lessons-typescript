@@ -203,6 +203,19 @@ header, section {
       left: 0px; }
   .progess-container .progress-color-pm-exe1 {
     border: 2px solid #695D46; }
+  .progess-container .progress-bar-pm-exe3 {
+    background-color: #CCCFF9; }
+    .progess-container .progress-bar-pm-exe3 b {
+      color: #6D6E91;
+      font-size: 26px;
+      position: absolute;
+      text-align: center;
+      top: 4px;
+      width: 100%;
+      z-index: 2;
+      left: 0px; }
+  .progess-container .progress-color-pm-exe3 {
+    border: 2px solid #6D6E91; }
 
 /* container with objects and result */
 .main-content .subexe-container-box {
@@ -956,6 +969,83 @@ header, section {
       transform: scale(0.5, 0.5); }
   .pm-exe2-background .valid-result, .pm-exe2-background .invalid-result {
     color: white; }
+
+.pm-exe3-background {
+  background-image: url(../img/pm_exe3_bcg.png); }
+  .pm-exe3-background .flower-garden {
+    width: 414px;
+    height: 251px;
+    border-radius: 10px;
+    background: #ECDCA2;
+    border: solid 2px #6D6E91;
+    position: relative;
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 25px; }
+  .pm-exe3-background .flowers {
+    position: absolute; }
+  .pm-exe3-background .wholes {
+    position: absolute; }
+  .pm-exe3-background .user-input-field {
+    width: 420px;
+    height: 80px;
+    border-radius: 5px;
+    border: solid 2px #695D46;
+    font-size: 40px;
+    text-align: center;
+    display: inline-block; }
+  .pm-exe3-background .input-minus-sign, .pm-exe3-background .input-equal-sign {
+    transition: all 0.1s ease-in-out;
+    font-size: 46px;
+    line-height: 46px;
+    font-weight: bold;
+    padding: 0px 13px;
+    margin: 0px 4px;
+    color: white;
+    width: 56px;
+    height: 56px;
+    vertical-align: baseline;
+    font-family: "segoe ui";
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5); }
+  .pm-exe3-background .input-minus-sign {
+    margin-right: 50px;
+    border: 2px solid #016F4D;
+    background: #00B47D; }
+  .pm-exe3-background .input-equal-sign {
+    margin-left: 50px;
+    border: 2px solid #0053CA;
+    background: #5788CF; }
+  .pm-exe3-background .remove-btn-pm {
+    top: 200px;
+    right: 50px;
+    position: absolute;
+    transition: all 0.1s ease-in-out; }
+    .pm-exe3-background .remove-btn-pm-animate {
+      top: 210px;
+      right: 60px; }
+  .pm-exe3-background .summary-sub-background {
+    width: 175px;
+    height: 110px;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin: 5px 12px 5px 12px;
+    border-radius: 5px; }
+  .pm-exe3-background .flower-garden-small {
+    width: 145px;
+    height: 63px;
+    border-radius: 5px;
+    margin: 5px 0px 8px 0px;
+    position: relative;
+    display: inline-block;
+    background: #ECDCA2;
+    border: solid 1px #6D6E91; }
+  .pm-exe3-background .user-input-field-small {
+    width: 145px;
+    height: 28px;
+    border-radius: 2px;
+    border: solid 1px #695D46;
+    font-size: 20px;
+    text-align: center;
+    display: inline-block; }
 
 .container-field-exe2-summary {
   position: relative;

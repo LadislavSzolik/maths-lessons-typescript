@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0b069cb-f3bc-4ff7-ac02-74369d83fe2d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/data/plusMinusExe2Data.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/data/plusMinusExe3Data.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/exerciseView.html" afterPath="$PROJECT_DIR$/app/components/exerciseView.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/homeView.html" afterPath="$PROJECT_DIR$/app/components/homeView.html" />
@@ -15,7 +15,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/ts/Application.ts" afterPath="$PROJECT_DIR$/app/ts/Application.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/ts/ExerciseCtrl.ts" afterPath="$PROJECT_DIR$/app/ts/ExerciseCtrl.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/ts/ExerciseItems.ts" afterPath="$PROJECT_DIR$/app/ts/ExerciseItems.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
     </list>
     <ignored path="maths-lessons-typescript.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,22 +38,15 @@
       <file leaf-file-name="exerciseView.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/components/exerciseView.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="424">
-              <caret line="559" column="38" selection-start-line="559" selection-start-column="38" selection-end-line="559" selection-end-column="38" />
+            <state relative-caret-position="469">
+              <caret line="600" column="86" selection-start-line="600" selection-start-column="70" selection-end-line="600" selection-end-column="86" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#8;n#div#0;n#section#1;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#li#0;n#ul#0;n#div#8;n#div#0;n#section#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#div#9;n#div#0;n#section#1;n#div#0;n#!!top" expanded="false" />
+                <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#10;n#div#0;n#section#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#li#0;n#ul#0;n#div#10;n#div#0;n#section#1;n#div#0;n#!!top" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="homeView.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/components/homeView.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="494" selection-start-line="17" selection-start-column="494" selection-end-line="17" selection-end-column="494" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -62,21 +54,43 @@
       <file leaf-file-name="ExerciseCtrl.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/ts/ExerciseCtrl.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="868">
-              <caret line="715" column="29" selection-start-line="715" selection-start-column="8" selection-end-line="715" selection-end-column="29" />
+            <state relative-caret-position="1288">
+              <caret line="760" column="9" selection-start-line="760" selection-start-column="9" selection-end-line="760" selection-end-column="9" />
               <folding>
-                <marker date="1458902854000" expanded="false" signature="20489:23151" placeholder="{...}" />
-                <marker date="1458902854000" expanded="false" signature="23375:24974" placeholder="{...}" />
+                <element signature="n#PlusMinusExercise2Ctrl#0;n#exercises#0" expanded="false" />
+                <marker date="1458916215000" expanded="false" signature="20489:23151" placeholder="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ExerciseItems.ts" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ExerciseItems.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/ts/ExerciseItems.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6347">
-              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+            <state relative-caret-position="747">
+              <caret line="538" column="94" selection-start-line="538" selection-start-column="84" selection-end-line="538" selection-end-column="94" />
+              <folding>
+                <element signature="n#PlusMinusExercise2Item#0;n#exercises#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Application.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/ts/Application.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="71" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Directives.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/ts/Directives.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2342">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -85,9 +99,11 @@
       <file leaf-file-name="app.sass" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/css/app.sass">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="753">
-              <caret line="1132" column="0" selection-start-line="1132" selection-start-column="0" selection-end-line="1132" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="142">
+              <caret line="1077" column="0" selection-start-line="1077" selection-start-column="0" selection-end-line="1077" selection-end-column="0" />
+              <folding>
+                <element signature="e#23681#24699#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -111,14 +127,15 @@
         <option value="$PROJECT_DIR$/app/ts/Directives.ts" />
         <option value="$PROJECT_DIR$/app/ts/Filters.ts" />
         <option value="$PROJECT_DIR$/app/data/plusMinusExe1Data.json" />
-        <option value="$PROJECT_DIR$/app/data/appTexts.json" />
-        <option value="$PROJECT_DIR$/app/ts/ExerciseItems.ts" />
-        <option value="$PROJECT_DIR$/app/ts/Application.ts" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/app/css/app.sass" />
+        <option value="$PROJECT_DIR$/app/data/appTexts.json" />
+        <option value="$PROJECT_DIR$/app/components/homeView.html" />
+        <option value="$PROJECT_DIR$/app/ts/Application.ts" />
         <option value="$PROJECT_DIR$/app/ts/ExerciseCtrl.ts" />
         <option value="$PROJECT_DIR$/app/components/exerciseView.html" />
-        <option value="$PROJECT_DIR$/app/components/homeView.html" />
+        <option value="$PROJECT_DIR$/app/css/app.sass" />
+        <option value="$PROJECT_DIR$/app/data/plusMinusExe3Data.json" />
+        <option value="$PROJECT_DIR$/app/ts/ExerciseItems.ts" />
       </list>
     </option>
   </component>
@@ -129,7 +146,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="1553" />
+    <option name="width" value="1287" />
     <option name="height" value="1360" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -258,24 +275,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="maths-lessons-typescript" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="maths-lessons-typescript" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="components" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -377,23 +376,24 @@
       <updated>1458718513074</updated>
       <workItem from="1458718516416" duration="154000" />
       <workItem from="1458748431956" duration="19680000" />
-      <workItem from="1458896443029" duration="5922000" />
+      <workItem from="1458896443029" duration="13604000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25756000" />
+    <option name="totallyTimeSpent" value="33438000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1553" height="1360" extended-state="0" />
+    <frame x="0" y="23" width="1287" height="1360" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17819843" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21563981" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.10410095" sideWeight="0.4932362" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09227129" sideWeight="0.51566577" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.07807571" sideWeight="0.52057093" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.4843342" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.47942904" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24990223" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -403,7 +403,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -428,8 +427,8 @@
         <state relative-caret-position="9075">
           <caret line="605" column="61" selection-start-line="605" selection-start-column="61" selection-end-line="605" selection-end-column="61" />
           <folding>
-            <marker date="1458902854000" expanded="false" signature="20489:23151" placeholder="{...}" />
-            <marker date="1458902854000" expanded="false" signature="23375:24974" placeholder="{...}" />
+            <element signature="n#PlusMinusExercise2Ctrl#0;n#exercises#0" expanded="false" />
+            <marker date="1458916215000" expanded="false" signature="20489:23151" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -438,7 +437,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5685">
           <caret line="379" column="46" selection-start-line="379" selection-start-column="46" selection-end-line="379" selection-end-column="46" />
-          <folding />
+          <folding>
+            <element signature="n#PlusMinusExercise2Item#0;n#exercises#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -446,7 +447,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="16125">
           <caret line="1075" column="0" selection-start-line="1075" selection-start-column="0" selection-end-line="1075" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#23681#24699#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -457,6 +460,9 @@
           <folding>
             <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#8;n#div#0;n#section#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#li#0;n#ul#0;n#div#8;n#div#0;n#section#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#div#9;n#div#0;n#section#1;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#10;n#div#0;n#section#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#li#0;n#ul#0;n#div#10;n#div#0;n#section#1;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -474,8 +480,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1458902854000" expanded="false" signature="20489:23151" placeholder="{...}" />
-            <marker date="1458902854000" expanded="false" signature="23375:24974" placeholder="{...}" />
+            <element signature="n#PlusMinusExercise2Ctrl#0;n#exercises#0" expanded="false" />
+            <marker date="1458916215000" expanded="false" signature="20489:23151" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -537,14 +543,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/ts/Filters.ts" />
-    <entry file="file://$PROJECT_DIR$/app/ts/Directives.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/css/app.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="991">
@@ -574,26 +572,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/data/appTexts.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/ts/Services.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="930">
           <caret line="62" column="5" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/ts/Application.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1292">
-          <caret line="17" column="42" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
           <folding />
         </state>
       </provider>
@@ -606,49 +588,103 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/ts/ExerciseItems.ts">
+    <entry file="file://$PROJECT_DIR$/app/data/appTexts.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6347">
-          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        <state relative-caret-position="180">
+          <caret line="12" column="55" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/css/app.sass">
+    <entry file="file://$PROJECT_DIR$/app/img/pm_exe3_bcg.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/components/homeView.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="753">
-          <caret line="1132" column="0" selection-start-line="1132" selection-start-column="0" selection-end-line="1132" selection-end-column="0" />
+        <state relative-caret-position="315">
+          <caret line="21" column="10" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/img/ground-without-flower.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/img/flower-with-ground.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/ts/Directives.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2342">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/ts/Application.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="71" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="71" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/ts/ExerciseCtrl.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="868">
-          <caret line="715" column="29" selection-start-line="715" selection-start-column="8" selection-end-line="715" selection-end-column="29" />
+        <state relative-caret-position="1288">
+          <caret line="760" column="9" selection-start-line="760" selection-start-column="9" selection-end-line="760" selection-end-column="9" />
           <folding>
-            <marker date="1458902854000" expanded="false" signature="20489:23151" placeholder="{...}" />
-            <marker date="1458902854000" expanded="false" signature="23375:24974" placeholder="{...}" />
+            <element signature="n#PlusMinusExercise2Ctrl#0;n#exercises#0" expanded="false" />
+            <marker date="1458916215000" expanded="false" signature="20489:23151" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/components/exerciseView.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="559" column="38" selection-start-line="559" selection-start-column="38" selection-end-line="559" selection-end-column="38" />
+        <state relative-caret-position="469">
+          <caret line="600" column="86" selection-start-line="600" selection-start-column="70" selection-end-line="600" selection-end-column="86" />
           <folding>
             <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#8;n#div#0;n#section#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#li#0;n#ul#0;n#div#8;n#div#0;n#section#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#div#9;n#div#0;n#section#1;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#10;n#div#0;n#section#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#li#0;n#ul#0;n#div#10;n#div#0;n#section#1;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/homeView.html">
+    <entry file="file://$PROJECT_DIR$/app/css/app.sass">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="494" selection-start-line="17" selection-start-column="494" selection-end-line="17" selection-end-column="494" />
+        <state relative-caret-position="142">
+          <caret line="1077" column="0" selection-start-line="1077" selection-start-column="0" selection-end-line="1077" selection-end-column="0" />
+          <folding>
+            <element signature="e#23681#24699#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/data/plusMinusExe3Data.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="19" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/ts/ExerciseItems.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="747">
+          <caret line="538" column="94" selection-start-line="538" selection-start-column="84" selection-end-line="538" selection-end-column="94" />
+          <folding>
+            <element signature="n#PlusMinusExercise2Item#0;n#exercises#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

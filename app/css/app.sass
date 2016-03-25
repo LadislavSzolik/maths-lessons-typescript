@@ -21,7 +21,6 @@ body
   color: black
   background-color: #F2F2F2
 
-
 /* Main menu header */
 .header
   background-color: #FF1654
@@ -29,7 +28,7 @@ body
   display: inline-block
   padding-top: 15px
   padding-bottom: 15px
-  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50)
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.50)
   color: white
   font-size: 15px
   font-weight: bold
@@ -49,7 +48,7 @@ header, section
   margin-bottom: 5px
   padding-top: 15px
   padding-bottom: 15px
-  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50)
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.50)
   background-color: #70C1B3
   font-size: 20px
   transition: all 0.2s linear
@@ -60,7 +59,7 @@ header, section
   border-radius: 35px
   color: white
   background-color: #3E7AD0
-  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50)
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.50)
   position: absolute
   transition: all 0.2s linear
 
@@ -111,14 +110,12 @@ header, section
 
 .nav-btn-animate
   transform-origin: center
-  transform: scale(0.8,0.8)
-
+  transform: scale(0.8, 0.8)
 
 .exe-header
   h1
     font-family: "Helvetica Neue", Arial, sans-serif
     font-size: 40px
-
 
 .disabled
   background-color: $btn-bcg-color-dis !important
@@ -257,6 +254,22 @@ header, section
   .progress-color-pm-exe1
     border: 2px solid #695D46
 
+
+  .progress-bar-pm-exe3
+    background-color: #CCCFF9
+    b
+      color: #6D6E91
+      font-size: 26px
+      position: absolute
+      text-align: center
+      top: 4px
+      width: 100%
+      z-index: 2
+      left: 0px
+
+  .progress-color-pm-exe3
+    border: 2px solid #6D6E91
+
 /* container with objects and result */
 @mixin exe-box-color($color)
   border-radius: 8px
@@ -307,9 +320,6 @@ header, section
         top: 40px
         right: 30px
 
-
-
-
   .exe1-background
     background-image: url(../img/exe1_bcg.png)
 
@@ -329,7 +339,7 @@ header, section
       font-size: 45px
       font-weight: bold
       padding-top: 7px
-      box-shadow: 0px 3px 4px 1px rgba(0,0,0,0.50)
+      box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.50)
 
     .ball-without-number
       position: absolute
@@ -337,7 +347,7 @@ header, section
       width: 82px
       background: #DED9E2
       border-radius: 40px
-      box-shadow: 0px 3px 4px 1px rgba(0,0,0,0.50)
+      box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.50)
 
     .ball-init-place
       top: 40px
@@ -379,7 +389,7 @@ header, section
       font-size: 10px
       font-weight: bold
       padding-top: 2px
-      box-shadow: 0px 2px 2px 1px rgba(0,0,0,0.50)
+      box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.50)
 
     .ball-without-number-small
       position: absolute
@@ -387,7 +397,7 @@ header, section
       width: 17px
       background: #DED9E2
       border-radius: 10px
-      box-shadow: 0px 2px 2px 1px rgba(0,0,0,0.50)
+      box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.50)
 
 .exe4-background
   background-image: url(../img/exe4_bcg.png)
@@ -408,7 +418,7 @@ header, section
     top: 295px
     left: 264px
     background: #C593C7
-    box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.50)
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.50)
 
     .cube-init-container
       position: absolute
@@ -418,10 +428,10 @@ header, section
       left: 35px
 
     .cube-with-number
-      box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.50)
+      box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.50)
 
   .cube-round-container
-    box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.50)
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.50)
 
   .cube-ul
     position: absolute
@@ -438,20 +448,19 @@ header, section
     font-weight: bold
     padding-top: 8px
 
-
   .blocked-cube
     position: absolute
     height: 85px
     width: 85px
     background: #608697
-    box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.50)
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.50)
 
   .cube-without-number
     position: absolute
     height: 85px
     width: 85px
     background: #A9E8F5
-    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
 
   .exe4-summary-background
     width: 153px
@@ -524,7 +533,6 @@ header, section
       left: 50%
       transform: translateX(-50%)
 
-
   .column-container
     display: inline-block
 
@@ -533,7 +541,7 @@ header, section
     height: 130px
     border-radius: 10px
     background-color: #8C7A6B
-    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
     position: absolute
     bottom: 20px
     left: 35px
@@ -543,7 +551,7 @@ header, section
     height: 160px
     border-radius: 10px
     background-color: #8C7A6B
-    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
     position: absolute
     bottom: 20px
     left: 160px
@@ -553,7 +561,7 @@ header, section
     height: 190px
     border-radius: 10px
     background-color: #8C7A6B
-    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
     position: absolute
     bottom: 20px
     left: 290px
@@ -563,7 +571,7 @@ header, section
     height: 220px
     border-radius: 10px
     background-color: #8C7A6B
-    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
     position: absolute
     bottom: 20px
     left: 420px
@@ -573,7 +581,7 @@ header, section
     height: 250px
     border-radius: 10px
     background-color: #8C7A6B
-    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
     position: absolute
     bottom: 20px
     left: 550px
@@ -610,7 +618,7 @@ header, section
       height: 40px
       border-radius: 5%
       background-color: #8C7A6B
-      box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+      box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
       position: absolute
       bottom: 10px
       left: 8px
@@ -620,7 +628,7 @@ header, section
       height: 50px
       border-radius: 5%
       background-color: #8C7A6B
-      box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+      box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
       position: absolute
       bottom: 10px
       left: 47px
@@ -630,7 +638,7 @@ header, section
       height: 60px
       border-radius: 5%
       background-color: #8C7A6B
-      box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+      box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
       position: absolute
       bottom: 10px
       left: 89px
@@ -640,7 +648,7 @@ header, section
       height: 75px
       border-radius: 5%
       background-color: #8C7A6B
-      box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+      box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
       position: absolute
       bottom: 10px
       left: 130px
@@ -650,7 +658,7 @@ header, section
       height: 86px
       border-radius: 5%
       background-color: #8C7A6B
-      box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+      box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
       position: absolute
       bottom: 10px
       left: 170px
@@ -661,11 +669,9 @@ header, section
     height: 300px
     width: 100%
 
-
-  .number-basket>li
+  .number-basket > li
     margin: 10px 10px 10px 5px
     display: inline-block
-
 
   .first-number, .second-number
     height: 70px
@@ -677,17 +683,16 @@ header, section
     float: left
     margin-left: 5px
     margin-right: 5px
-    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
 
-
-  .number-basket>li:nth-child(2) .first-number,
-  .number-basket>li:nth-child(2) .second-number,
-  .number-basket>li:nth-child(5) .first-number,
-  .number-basket>li:nth-child(5) .second-number,
-  .number-basket>li:nth-child(8) .first-number,
-  .number-basket>li:nth-child(8) .second-number,
-  .number-basket>li:nth-child(11) .first-number,
-  .number-basket>li:nth-child(11) .second-number
+  .number-basket > li:nth-child(2) .first-number,
+  .number-basket > li:nth-child(2) .second-number,
+  .number-basket > li:nth-child(5) .first-number,
+  .number-basket > li:nth-child(5) .second-number,
+  .number-basket > li:nth-child(8) .first-number,
+  .number-basket > li:nth-child(8) .second-number,
+  .number-basket > li:nth-child(11) .first-number,
+  .number-basket > li:nth-child(11) .second-number
     background-color: #450357
 
   .missing-sign-basket
@@ -697,7 +702,7 @@ header, section
     height: 60px
     display: block
     float: left
-    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
     border-radius: 10px
 
   .missing-sign, .missing-sign-empty
@@ -710,7 +715,6 @@ header, section
     border: 3px solid #1850AE
     color: white
 
-
   .missing-sign-empty
     position: absolute
     background-color: #B6CBF0
@@ -720,10 +724,10 @@ header, section
     width: 320px
     display: inline-block
     margin-top: 50px
-    background-color: rgba(255,255,255,0.50)
+    background-color: rgba(255, 255, 255, 0.50)
     border-radius: 10px
     border: 3px solid #1850AE
-    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
 
   .result-sign
     position: absolute
@@ -758,7 +762,7 @@ header, section
     z-index: 1
     position: relative
 
-  .subexe-ul>li
+  .subexe-ul > li
     display: inline-block
     margin-right: 15px
     margin-left: 15px
@@ -778,20 +782,18 @@ header, section
     border: 2px solid #3493BC
     margin: 5px 0px 3px 0px
 
-
-
-  .subexe-ul>li:nth-child(2) .double-input,
-  .subexe-ul>li:nth-child(5) .double-input,
-  .subexe-ul>li:nth-child(8) .double-input,
-  .subexe-ul>li:nth-child(11) .double-input
+  .subexe-ul > li:nth-child(2) .double-input,
+  .subexe-ul > li:nth-child(5) .double-input,
+  .subexe-ul > li:nth-child(8) .double-input,
+  .subexe-ul > li:nth-child(11) .double-input
     color: #95386D
     background-color: #FAC6E4
     border: 2px solid #95386D
 
-  .subexe-ul>li:nth-child(3) .double-input,
-  .subexe-ul>li:nth-child(6) .double-input,
-  .subexe-ul>li:nth-child(9) .double-input,
-  .subexe-ul>li:nth-child(12) .double-input
+  .subexe-ul > li:nth-child(3) .double-input,
+  .subexe-ul > li:nth-child(6) .double-input,
+  .subexe-ul > li:nth-child(9) .double-input,
+  .subexe-ul > li:nth-child(12) .double-input
     color: #046CA6
     background-color: #94C5E1
     border: 2px solid #046CA6
@@ -810,25 +812,25 @@ header, section
     background-color: #9CAFB7
     border: 2px solid #3493BC
 
-  .subexe-ul>li:nth-child(2) .single-left,
-  .subexe-ul>li:nth-child(2) .single-right,
-  .subexe-ul>li:nth-child(5) .single-left,
-  .subexe-ul>li:nth-child(5) .single-right,
-  .subexe-ul>li:nth-child(8) .single-left,
-  .subexe-ul>li:nth-child(8) .single-right,
-  .subexe-ul>li:nth-child(11) .single-left,
-  .subexe-ul>li:nth-child(11) .single-right
+  .subexe-ul > li:nth-child(2) .single-left,
+  .subexe-ul > li:nth-child(2) .single-right,
+  .subexe-ul > li:nth-child(5) .single-left,
+  .subexe-ul > li:nth-child(5) .single-right,
+  .subexe-ul > li:nth-child(8) .single-left,
+  .subexe-ul > li:nth-child(8) .single-right,
+  .subexe-ul > li:nth-child(11) .single-left,
+  .subexe-ul > li:nth-child(11) .single-right
     background-color: #FC8ACB
     border: 2px solid #95386D
 
-  .subexe-ul>li:nth-child(3) .single-left,
-  .subexe-ul>li:nth-child(3) .single-right,
-  .subexe-ul>li:nth-child(6) .single-left,
-  .subexe-ul>li:nth-child(6) .single-right,
-  .subexe-ul>li:nth-child(9) .single-left,
-  .subexe-ul>li:nth-child(9) .single-right,
-  .subexe-ul>li:nth-child(12) .single-left,
-  .subexe-ul>li:nth-child(12) .single-right
+  .subexe-ul > li:nth-child(3) .single-left,
+  .subexe-ul > li:nth-child(3) .single-right,
+  .subexe-ul > li:nth-child(6) .single-left,
+  .subexe-ul > li:nth-child(6) .single-right,
+  .subexe-ul > li:nth-child(9) .single-left,
+  .subexe-ul > li:nth-child(9) .single-right,
+  .subexe-ul > li:nth-child(12) .single-left,
+  .subexe-ul > li:nth-child(12) .single-right
     background-color: #51809B
     border: 2px solid #046CA6
 
@@ -839,16 +841,16 @@ header, section
     line-height: 0.4
     color: #046CA6
 
-  .subexe-ul>li:nth-child(2) .plus-sign,
-  .subexe-ul>li:nth-child(5) .plus-sign,
-  .subexe-ul>li:nth-child(8) .plus-sign,
-  .subexe-ul>li:nth-child(11) .plus-sign
+  .subexe-ul > li:nth-child(2) .plus-sign,
+  .subexe-ul > li:nth-child(5) .plus-sign,
+  .subexe-ul > li:nth-child(8) .plus-sign,
+  .subexe-ul > li:nth-child(11) .plus-sign
     color: #95386D
 
-  .subexe-ul>li:nth-child(3) .plus-sign,
-  .subexe-ul>li:nth-child(6) .plus-sign,
-  .subexe-ul>li:nth-child(9) .plus-sign,
-  .subexe-ul>li:nth-child(12) .plus-sign
+  .subexe-ul > li:nth-child(3) .plus-sign,
+  .subexe-ul > li:nth-child(6) .plus-sign,
+  .subexe-ul > li:nth-child(9) .plus-sign,
+  .subexe-ul > li:nth-child(12) .plus-sign
     color: #046CA6
 
   .highlight-tool
@@ -863,22 +865,22 @@ header, section
   .valid-result, .invalid-result
     color: white
 
-  .subexe-ul>li:nth-child(2) .valid-result,
-  .subexe-ul>li:nth-child(5) .valid-result,
-  .subexe-ul>li:nth-child(8) .valid-result,
-  .subexe-ul>li:nth-child(11) .valid-result,
-  .subexe-ul>li:nth-child(2) .invalid-result,
-  .subexe-ul>li:nth-child(5) .invalid-result,
-  .subexe-ul>li:nth-child(8) .invalid-result,
-  .subexe-ul>li:nth-child(11) .invalid-result,
-  .subexe-ul>li:nth-child(3) .valid-result,
-  .subexe-ul>li:nth-child(6) .valid-result,
-  .subexe-ul>li:nth-child(9) .valid-result,
-  .subexe-ul>li:nth-child(12) .valid-result,
-  .subexe-ul>li:nth-child(3) .invalid-result,
-  .subexe-ul>li:nth-child(6) .invalid-result,
-  .subexe-ul>li:nth-child(9) .invalid-result,
-  .subexe-ul>li:nth-child(12) .invalid-result
+  .subexe-ul > li:nth-child(2) .valid-result,
+  .subexe-ul > li:nth-child(5) .valid-result,
+  .subexe-ul > li:nth-child(8) .valid-result,
+  .subexe-ul > li:nth-child(11) .valid-result,
+  .subexe-ul > li:nth-child(2) .invalid-result,
+  .subexe-ul > li:nth-child(5) .invalid-result,
+  .subexe-ul > li:nth-child(8) .invalid-result,
+  .subexe-ul > li:nth-child(11) .invalid-result,
+  .subexe-ul > li:nth-child(3) .valid-result,
+  .subexe-ul > li:nth-child(6) .valid-result,
+  .subexe-ul > li:nth-child(9) .valid-result,
+  .subexe-ul > li:nth-child(12) .valid-result,
+  .subexe-ul > li:nth-child(3) .invalid-result,
+  .subexe-ul > li:nth-child(6) .invalid-result,
+  .subexe-ul > li:nth-child(9) .invalid-result,
+  .subexe-ul > li:nth-child(12) .invalid-result
     color: white
 
 .exe8-background
@@ -892,7 +894,7 @@ header, section
     margin-top: -5px
     margin-bottom: 25px
 
-  .subexe-ul>li
+  .subexe-ul > li
     display: inline-block
     margin-right: 15px
     margin-left: 15px
@@ -911,31 +913,30 @@ header, section
     background-color: #F4F1BB
     border: 2px solid #64A506
 
-
   .given-split
     width: 183px
     margin: 5px 0px 3px 0px
 
-  .subexe-ul>li:nth-child(2) .split-input,
-  .subexe-ul>li:nth-child(5) .split-input,
-  .subexe-ul>li:nth-child(8) .split-input,
-  .subexe-ul>li:nth-child(11) .split-input,
-  .subexe-ul>li:nth-child(2) .given-split,
-  .subexe-ul>li:nth-child(5) .given-split,
-  .subexe-ul>li:nth-child(8) .given-split,
-  .subexe-ul>li:nth-child(11) .given-split
+  .subexe-ul > li:nth-child(2) .split-input,
+  .subexe-ul > li:nth-child(5) .split-input,
+  .subexe-ul > li:nth-child(8) .split-input,
+  .subexe-ul > li:nth-child(11) .split-input,
+  .subexe-ul > li:nth-child(2) .given-split,
+  .subexe-ul > li:nth-child(5) .given-split,
+  .subexe-ul > li:nth-child(8) .given-split,
+  .subexe-ul > li:nth-child(11) .given-split
     color: #C343AE
     background-color: #F5BED2
     border: 2px solid #C343AE
 
-  .subexe-ul>li:nth-child(3) .split-input,
-  .subexe-ul>li:nth-child(6) .split-input,
-  .subexe-ul>li:nth-child(9) .split-input,
-  .subexe-ul>li:nth-child(12) .split-input,
-  .subexe-ul>li:nth-child(3) .given-split,
-  .subexe-ul>li:nth-child(6) .given-split,
-  .subexe-ul>li:nth-child(9) .given-split,
-  .subexe-ul>li:nth-child(12) .given-split
+  .subexe-ul > li:nth-child(3) .split-input,
+  .subexe-ul > li:nth-child(6) .split-input,
+  .subexe-ul > li:nth-child(9) .split-input,
+  .subexe-ul > li:nth-child(12) .split-input,
+  .subexe-ul > li:nth-child(3) .given-split,
+  .subexe-ul > li:nth-child(6) .given-split,
+  .subexe-ul > li:nth-child(9) .given-split,
+  .subexe-ul > li:nth-child(12) .given-split
     color: #04A0AB
     background-color: #7AD3D9
     border: 2px solid #04A0AB
@@ -947,37 +948,37 @@ header, section
     line-height: 0.4
     color: #64A506
 
-  .subexe-ul>li:nth-child(2) .plus-sign,
-  .subexe-ul>li:nth-child(5) .plus-sign,
-  .subexe-ul>li:nth-child(8) .plus-sign,
-  .subexe-ul>li:nth-child(11) .plus-sign
+  .subexe-ul > li:nth-child(2) .plus-sign,
+  .subexe-ul > li:nth-child(5) .plus-sign,
+  .subexe-ul > li:nth-child(8) .plus-sign,
+  .subexe-ul > li:nth-child(11) .plus-sign
     color: #C343AE
 
-  .subexe-ul>li:nth-child(3) .plus-sign,
-  .subexe-ul>li:nth-child(6) .plus-sign,
-  .subexe-ul>li:nth-child(9) .plus-sign,
-  .subexe-ul>li:nth-child(12) .plus-sign
+  .subexe-ul > li:nth-child(3) .plus-sign,
+  .subexe-ul > li:nth-child(6) .plus-sign,
+  .subexe-ul > li:nth-child(9) .plus-sign,
+  .subexe-ul > li:nth-child(12) .plus-sign
     color: #04A0AB
 
   .valid-result, .invalid-result
     color: white
 
-  .subexe-ul>li:nth-child(2) .valid-result,
-  .subexe-ul>li:nth-child(5) .valid-result,
-  .subexe-ul>li:nth-child(8) .valid-result,
-  .subexe-ul>li:nth-child(11) .valid-result,
-  .subexe-ul>li:nth-child(2) .invalid-result,
-  .subexe-ul>li:nth-child(5) .invalid-result,
-  .subexe-ul>li:nth-child(8) .invalid-result,
-  .subexe-ul>li:nth-child(11) .invalid-result,
-  .subexe-ul>li:nth-child(3) .valid-result,
-  .subexe-ul>li:nth-child(6) .valid-result,
-  .subexe-ul>li:nth-child(9) .valid-result,
-  .subexe-ul>li:nth-child(12) .valid-result,
-  .subexe-ul>li:nth-child(3) .invalid-result,
-  .subexe-ul>li:nth-child(6) .invalid-result,
-  .subexe-ul>li:nth-child(9) .invalid-result,
-  .subexe-ul>li:nth-child(12) .invalid-result
+  .subexe-ul > li:nth-child(2) .valid-result,
+  .subexe-ul > li:nth-child(5) .valid-result,
+  .subexe-ul > li:nth-child(8) .valid-result,
+  .subexe-ul > li:nth-child(11) .valid-result,
+  .subexe-ul > li:nth-child(2) .invalid-result,
+  .subexe-ul > li:nth-child(5) .invalid-result,
+  .subexe-ul > li:nth-child(8) .invalid-result,
+  .subexe-ul > li:nth-child(11) .invalid-result,
+  .subexe-ul > li:nth-child(3) .valid-result,
+  .subexe-ul > li:nth-child(6) .valid-result,
+  .subexe-ul > li:nth-child(9) .valid-result,
+  .subexe-ul > li:nth-child(12) .valid-result,
+  .subexe-ul > li:nth-child(3) .invalid-result,
+  .subexe-ul > li:nth-child(6) .invalid-result,
+  .subexe-ul > li:nth-child(9) .invalid-result,
+  .subexe-ul > li:nth-child(12) .invalid-result
     color: white
 
 .pm-exe1-background
@@ -990,7 +991,7 @@ header, section
     background-color: #A1E8D9
     border-radius: 15px
     margin: 45px 60px 45px 0px
-    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.50)
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
     position: relative
 
   .cube-first
@@ -1002,7 +1003,6 @@ header, section
     border-radius: 50%
     position: absolute
     background-color: #FF712C
-
 
   .user-input-field
     width: 420px
@@ -1025,8 +1025,7 @@ header, section
     height: 56px
     vertical-align: baseline
     font-family: "segoe ui"
-    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50)
-
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.50)
 
   .input-plus-sign
     margin-right: 50px
@@ -1054,7 +1053,6 @@ header, section
     margin: 5px 12px 5px 12px
     border-radius: 5px
 
-
   .cube-first-small, .cube-second-small
     width: 63px
     height: 63px
@@ -1078,7 +1076,6 @@ header, section
     width: 12px
     height: 12px
 
-
 .pm-exe2-background
   background-image: url(../img/pm_exe2_bcg.png)
 
@@ -1093,13 +1090,12 @@ header, section
     font-family: "Helvetica"
     font-weight: bold
 
-  .subexe-ul>li
+  .subexe-ul > li
     display: inline-block
     width: 250px
     margin-right: 15px
     margin-left: 15px
     margin-top: 5px
-
 
   .equation-sum
     font-size: 40px
@@ -1125,16 +1121,103 @@ header, section
   .remove-btn-pm
     position: absolute
     z-index: 99
-    transform: scale(0.6,0.6)
+    transform: scale(0.6, 0.6)
     transition: all 0.1s ease-in-out
     &-animate
       transform-origin: center
-      transform: scale(0.5,0.5)
+      transform: scale(0.5, 0.5)
 
   .valid-result, .invalid-result
     color: white
 
+.pm-exe3-background
+  background-image: url(../img/pm_exe3_bcg.png)
 
+  .flower-garden
+    width: 414px
+    height: 251px
+    border-radius: 10px
+    background: #ECDCA2
+    border: solid 2px #6D6E91
+    position: relative
+    display: inline-block
+    margin-top: 5px
+    margin-bottom: 25px
+
+  .flowers
+    position: absolute
+
+  .wholes
+    position: absolute
+
+  .user-input-field
+    width: 420px
+    height: 80px
+    border-radius: 5px
+    border: solid 2px #695D46
+    font-size: 40px
+    text-align: center
+    display: inline-block
+
+  .input-minus-sign, .input-equal-sign
+    transition: all 0.1s ease-in-out
+    font-size: 46px
+    line-height: 46px
+    font-weight: bold
+    padding: 0px 13px
+    margin: 0px 4px
+    color: white
+    width: 56px
+    height: 56px
+    vertical-align: baseline
+    font-family: "segoe ui"
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.50)
+
+  .input-minus-sign
+    margin-right: 50px
+    border: 2px solid #016F4D
+    background: #00B47D
+
+  .input-equal-sign
+    margin-left: 50px
+    border: 2px solid #0053CA
+    background: #5788CF
+
+  .remove-btn-pm
+    top: 200px
+    right: 50px
+    position: absolute
+    transition: all 0.1s ease-in-out
+    &-animate
+      top: 210px
+      right: 60px
+
+  .summary-sub-background
+    width: 175px
+    height: 110px
+    background-color: rgba(255, 255, 255, 0.8)
+    margin: 5px 12px 5px 12px
+    border-radius: 5px
+
+  .flower-garden-small
+    width: 145px
+    height: 63px
+    border-radius: 5px
+    margin: 5px 0px 8px 0px
+    position: relative
+    display: inline-block
+    background: #ECDCA2
+    border: solid 1px #6D6E91
+
+
+  .user-input-field-small
+    width: 145px
+    height: 28px
+    border-radius: 2px
+    border: solid 1px #695D46
+    font-size: 20px
+    text-align: center
+    display: inline-block
 
 .container-field-exe2-summary
   position: relative
@@ -1143,7 +1226,6 @@ header, section
   width: $exe1-field-sum
   margin: 5px 25px 5px 5px
   @include exe-box-color(#E24CFF)
-
 
 @mixin user-result-common($color)
   height: 100%
@@ -1164,14 +1246,12 @@ header, section
   width: $exec-result-width
   @include user-result-common(#FF9D23)
 
-
 .user-result-summary
   font-size: 36px
   margin-top: $exe1-field-sum/6
   width: 70px
   @include user-result-common(#FF9D23)
   cursor: pointer
-
 
 /* EXE 2 style */
 
@@ -1233,7 +1313,7 @@ header, section
       padding: 0px 13px
       margin: 0px 4px
       color: white
-      box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50)
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.50)
 
     &:nth-child(1), &:nth-child(5), &:nth-child(9)
       .input-number-row

@@ -428,6 +428,103 @@ var exercises;
         return PlusMinusExercise2Item;
     }());
     exercises.PlusMinusExercise2Item = PlusMinusExercise2Item;
+    var PlusMinusExercise3Item = (function () {
+        function PlusMinusExercise3Item(minuend, subtrahend) {
+            this.minuend = minuend;
+            this.subtrahend = subtrahend;
+            this.enteredFormula = "";
+            this.flowers = [];
+            this.wholes = [];
+            this.randomNumberGenerator = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+            this.difference = this.minuend - this.subtrahend;
+            this.generateFlowerPositionKeys();
+            this.generateWholesPositionKeys();
+        }
+        PlusMinusExercise3Item.prototype.generateFlowerPositionKeys = function () {
+            for (var i = 0; i < this.difference; i++) {
+                var randomIndex = (this.randomNumberGenerator.splice(Math.floor(Math.random() * this.randomNumberGenerator.length), 1))[0];
+                this.flowers.push(new Flower(randomIndex));
+            }
+        };
+        PlusMinusExercise3Item.prototype.generateWholesPositionKeys = function () {
+            for (var i = 0; i < this.subtrahend; i++) {
+                var randomIndex = (this.randomNumberGenerator.splice(Math.floor(Math.random() * this.randomNumberGenerator.length), 1))[0];
+                this.wholes.push(new Whole(randomIndex));
+            }
+        };
+        PlusMinusExercise3Item.prototype.isCorrect = function () {
+            if (angular.isUndefined(this.enteredFormula))
+                return false;
+            var formulaTrimmed = this.enteredFormula.replace(/\s/g, "");
+            if (formulaTrimmed == this.minuend + "-" + this.subtrahend + "=" + this.difference)
+                return true;
+            return false;
+        };
+        PlusMinusExercise3Item.prototype.changeEnteredFormula = function (incomingFormula) {
+            var givenEnteredFormula = this.enteredFormula;
+            if (angular.isUndefined(givenEnteredFormula) || givenEnteredFormula == null) {
+                givenEnteredFormula = incomingFormula;
+            }
+            else if (incomingFormula == "=" || incomingFormula == "-") {
+                givenEnteredFormula = givenEnteredFormula + " " + incomingFormula + " ";
+            }
+            else if (incomingFormula == "del") {
+                givenEnteredFormula = "";
+            }
+            else {
+                givenEnteredFormula = givenEnteredFormula + incomingFormula;
+            }
+            this.enteredFormula = givenEnteredFormula;
+        };
+        return PlusMinusExercise3Item;
+    }());
+    exercises.PlusMinusExercise3Item = PlusMinusExercise3Item;
+    var Flower = (function () {
+        function Flower(keyToPosition) {
+            this.keyToPosition = keyToPosition;
+            this.largePositions = [
+                { top: '7px', left: '14px' }, { top: '90px', left: '14px' }, { top: '173px', left: '14px' },
+                { top: '7px', left: '121px' }, { top: '90px', left: '121px' }, { top: '173px', left: '121px' },
+                { top: '7px', left: '229px' }, { top: '90px', left: '229px' }, { top: '173px', left: '229px' },
+                { top: '7px', left: '336px' }, { top: '90px', left: '336px' }, { top: '173px', left: '336px' }];
+            this.smallPositions = [
+                { top: '2px', left: '9px' }, { top: '22px', left: '9px' }, { top: '43px', left: '9px' },
+                { top: '2px', left: '35px' }, { top: '22px', left: '35px' }, { top: '43px', left: '35px' },
+                { top: '2px', left: '62px' }, { top: '22px', left: '62px' }, { top: '43px', left: '62px' },
+                { top: '2px', left: '88px' }, { top: '22px', left: '88px' }, { top: '43px', left: '88px' }];
+        }
+        Flower.prototype.getLargePosition = function () {
+            return this.largePositions[this.keyToPosition];
+        };
+        Flower.prototype.getSmallPosition = function () {
+            return this.smallPositions[this.keyToPosition];
+        };
+        return Flower;
+    }());
+    exercises.Flower = Flower;
+    var Whole = (function () {
+        function Whole(keyToPosition) {
+            this.keyToPosition = keyToPosition;
+            this.largePositions = [
+                { top: '58px', left: '19px' }, { top: '141px', left: '19px' }, { top: '219px', left: '19px' },
+                { top: '58px', left: '121px' }, { top: '141px', left: '121px' }, { top: '219px', left: '121px' },
+                { top: '58px', left: '229px' }, { top: '141px', left: '229px' }, { top: '219px', left: '229px' },
+                { top: '58px', left: '336px' }, { top: '141px', left: '336px' }, { top: '219px', left: '336px' }];
+            this.smallPositions = [
+                { top: '13px', left: '10px' }, { top: '35px', left: '10px' }, { top: '55px', left: '10px' },
+                { top: '13px', left: '35px' }, { top: '35px', left: '35px' }, { top: '55px', left: '35px' },
+                { top: '13px', left: '62px' }, { top: '35px', left: '62px' }, { top: '55px', left: '62px' },
+                { top: '13px', left: '88px' }, { top: '35px', left: '88px' }, { top: '55px', left: '88px' }];
+        }
+        Whole.prototype.getLargePosition = function () {
+            return this.largePositions[this.keyToPosition];
+        };
+        Whole.prototype.getSmallPosition = function () {
+            return this.smallPositions[this.keyToPosition];
+        };
+        return Whole;
+    }());
+    exercises.Whole = Whole;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -1161,6 +1258,38 @@ var exercises;
         return PlusMinusExercise2Ctrl;
     }(NavigationBase));
     exercises.PlusMinusExercise2Ctrl = PlusMinusExercise2Ctrl;
+    var PlusMinusExercise3Ctrl = (function (_super) {
+        __extends(PlusMinusExercise3Ctrl, _super);
+        function PlusMinusExercise3Ctrl($scope, $location, $route, $rootScope, plusMinusExe3Data, texts) {
+            _super.call(this, $scope, $location, $route, plusMinusExe3Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.plusMinusExe3Data = plusMinusExe3Data;
+            this.texts = texts;
+            this.exetype = "P1c";
+            this.progressBarType = "pm-exe3";
+            this.progressBarClass = "progress-color-pm-exe3";
+            this.titleText = texts.plusMinusExe3TitleText;
+            for (var i = 0; i < plusMinusExe3Data.subexerciseListDTO.length; i++) {
+                var minuend = plusMinusExe3Data.subexerciseListDTO[i].minuend;
+                var subtrahend = plusMinusExe3Data.subexerciseListDTO[i].subtrahend;
+                var exeItem = new exercises.PlusMinusExercise3Item(minuend, subtrahend);
+                plusMinusExe3Data.subexerciseListDTO[i] = exeItem;
+            }
+        }
+        PlusMinusExercise3Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+                this.plusMinusExe3Data.subexerciseListDTO.unshift(new exercises.PlusMinusExercise3Item(0, 0));
+                this.totalItems = this.plusMinusExe3Data.subexerciseListDTO.length;
+            }
+        };
+        PlusMinusExercise3Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe3Data', 'texts'];
+        return PlusMinusExercise3Ctrl;
+    }(NavigationBase));
+    exercises.PlusMinusExercise3Ctrl = PlusMinusExercise3Ctrl;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -1442,6 +1571,7 @@ var exercises;
     mathApp.controller('exercise8Ctrl', exercises.Exercise8Ctrl);
     mathApp.controller('plusMinusExercise1Ctrl', exercises.PlusMinusExercise1Ctrl);
     mathApp.controller('plusMinusExercise2Ctrl', exercises.PlusMinusExercise2Ctrl);
+    mathApp.controller('plusMinusExercise3Ctrl', exercises.PlusMinusExercise3Ctrl);
     mathApp.service('exerciseServices', exercises.ExerciseServices);
     mathApp.directive('animateRubber', exercises.animateRubber);
     mathApp.directive('animateRubberWithPosition', exercises.animateRubberWithPosition);
@@ -1571,6 +1701,17 @@ var exercises;
                 resolve: {
                     'plusMinusExe2Data': function (exerciseServices) {
                         return exerciseServices.getExerciseFromJson("plusMinusExe2Data");
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            }).when('/P1c', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'plusMinusExercise3Ctrl',
+                resolve: {
+                    'plusMinusExe3Data': function (exerciseServices) {
+                        return exerciseServices.getExerciseFromJson("plusMinusExe3Data");
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();

@@ -41,9 +41,13 @@ module exercises {
     export interface IPlusMinusExercise1 {
         subexerciseListDTO:PlusMinusExercise1Item[];
     }
-    
+
     export interface IPlusMinusExercise2 {
         subexerciseListDTO:PlusMinusExercise2Item[];
+    }
+
+    export interface IPlusMinusExercise3 {
+        subexerciseListDTO:PlusMinusExercise3Item[];
     }
 
 
@@ -413,7 +417,7 @@ module exercises {
         }, {top: '19px', left: '126px'}, {top: '72.5px', left: '19px'}, {top: '72.5px', left: '126px'}];
 
         public numberPointsForAllNumber:any[] = [this.numberOnePoints, this.numberTwoPoints, this.numberThreePoints, this.numberFourPoints, this.numberFivePoints, this.numberSixPoints];
-        
+
         public numberOneSmallPoints:any[] = [{top: '25.5px', left: '25.5px'}];
         public numberTwoSmallPoints:any[] = [{top: '6.7px', left: '6.7px'}, {top: '44.3px', left: '44.3px'}];
         public numberThreeSmallPoints:any[] = [{top: '6.7px', left: '6.7px'}, {top: '25.5px', left: '25.5px'}, {
@@ -431,7 +435,7 @@ module exercises {
         public numberSixSmallPoints:any[] = [{top: '6.7px', left: '6.7px'}, {top: '44.3px', left: '6.7px'}, {
             top: '44.3px',
             left: '44.3px'
-        }, {top: '6.7px', left: '44.3px'},{top: '25.5px', left: '6.7px'}, {top: '25.5px', left: '44.3px'}];
+        }, {top: '6.7px', left: '44.3px'}, {top: '25.5px', left: '6.7px'}, {top: '25.5px', left: '44.3px'}];
 
         public numberSmallPointsForAllNumber:any[] = [this.numberOneSmallPoints, this.numberTwoSmallPoints, this.numberThreeSmallPoints, this.numberFourSmallPoints, this.numberFiveSmallPoints, this.numberSixSmallPoints];
 
@@ -486,15 +490,116 @@ module exercises {
         public equationForSum:string;
         public enteredNumber:number;
         public sumOfTwoNumbers:number;
+
         constructor(public firstNumberToSum:number, public secondNumberToSum:number) {
-            this.equationForSum = this.firstNumberToSum +" + "+this.secondNumberToSum+" = ";
+            this.equationForSum = this.firstNumberToSum + " + " + this.secondNumberToSum + " = ";
             this.sumOfTwoNumbers = this.firstNumberToSum + this.secondNumberToSum;
         }
+
         isCorrect() {
-            if(angular.isDefined(this.enteredNumber) && this.enteredNumber == (this.sumOfTwoNumbers)) {
+            if (angular.isDefined(this.enteredNumber) && this.enteredNumber == (this.sumOfTwoNumbers)) {
                 return true;
             }
             return false;
+        }
+    }
+// --------------------------------------------------------PM_EXE_3-----------------------------------------------------------------------
+    export class PlusMinusExercise3Item {
+        public enteredFormula:string = "";
+        public difference:number;
+        public flowers:Flower[] = [];
+        public wholes:Whole[] = [];
+        public randomNumberGenerator:number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+        constructor(public minuend:number, public subtrahend:number) {
+            this.difference = this.minuend - this.subtrahend;
+            this.generateFlowerPositionKeys();
+            this.generateWholesPositionKeys();
+
+        }
+
+        generateFlowerPositionKeys() {
+            for(var i = 0; i< this.difference; i ++) {
+                var randomIndex:number = (this.randomNumberGenerator.splice(Math.floor(Math.random() * this.randomNumberGenerator.length), 1))[0]
+                this.flowers.push(new Flower(randomIndex));
+            }
+        }
+
+        generateWholesPositionKeys(){
+            for(var i = 0; i< this.subtrahend; i ++) {
+                var randomIndex:number = (this.randomNumberGenerator.splice(Math.floor(Math.random() * this.randomNumberGenerator.length), 1))[0]
+                this.wholes.push(new Whole(randomIndex));
+            }
+        }
+
+        isCorrect() {
+            if (angular.isUndefined(this.enteredFormula)) return false;
+
+            var formulaTrimmed:string = this.enteredFormula.replace(/\s/g, "");
+            if (formulaTrimmed == this.minuend + "-" + this.subtrahend + "=" + this.difference) return true;
+            return false
+        }
+
+        changeEnteredFormula(incomingFormula:string) {
+            var givenEnteredFormula:string = this.enteredFormula;
+            if (angular.isUndefined(givenEnteredFormula) || givenEnteredFormula == null) {
+                givenEnteredFormula = incomingFormula;
+            } else if (incomingFormula == "=" || incomingFormula == "-") {
+                givenEnteredFormula = givenEnteredFormula + " " + incomingFormula + " ";
+            } else if (incomingFormula == "del") {
+                givenEnteredFormula = "";
+            } else {
+                givenEnteredFormula = givenEnteredFormula + incomingFormula;
+            }
+
+            this.enteredFormula = givenEnteredFormula;
+        }
+    }
+    export class Flower {
+        public largePositions:any[] = [
+            {top: '7px', left: '14px'}, {top: '90px', left: '14px'}, {top: '173px', left: '14px'},
+            {top: '7px', left: '121px'}, {top: '90px', left: '121px'}, {top: '173px', left: '121px'},
+            {top: '7px', left: '229px'}, {top: '90px', left: '229px'}, {top: '173px', left: '229px'},
+            {top: '7px', left: '336px'}, {top: '90px', left: '336px'}, {top: '173px', left: '336px'}];
+
+        public smallPositions:any[] = [
+            {top: '2px', left: '9px'}, {top: '22px', left: '9px'}, {top: '43px', left: '9px'},
+            {top: '2px', left: '35px'}, {top: '22px', left: '35px'}, {top: '43px', left: '35px'},
+            {top: '2px', left: '62px'}, {top: '22px', left: '62px'}, {top: '43px', left: '62px'},
+            {top: '2px', left: '88px'}, {top: '22px', left: '88px'}, {top: '43px', left: '88px'}];
+
+        constructor(public keyToPosition:number) {
+        }
+
+        getLargePosition() {
+            return this.largePositions[this.keyToPosition];
+        }
+
+        getSmallPosition() {
+            return this.smallPositions[this.keyToPosition];
+        }
+    }
+    export class Whole {
+        public largePositions:any[] = [
+            {top: '58px', left: '19px'}, {top: '141px', left: '19px'}, {top: '219px', left: '19px'},
+            {top: '58px', left: '121px'}, {top: '141px', left: '121px'}, {top: '219px', left: '121px'},
+            {top: '58px', left: '229px'}, {top: '141px', left: '229px'}, {top: '219px', left: '229px'},
+            {top: '58px', left: '336px'}, {top: '141px', left: '336px'}, {top: '219px', left: '336px'}];
+
+        public smallPositions:any[] = [
+            {top: '13px', left: '10px'}, {top: '35px', left: '10px'}, {top: '55px', left: '10px'},
+            {top: '13px', left: '35px'}, {top: '35px', left: '35px'}, {top: '55px', left: '35px'},
+            {top: '13px', left: '62px'}, {top: '35px', left: '62px'}, {top: '55px', left: '62px'},
+            {top: '13px', left: '88px'}, {top: '35px', left: '88px'}, {top: '55px', left: '88px'}];
+
+        constructor(public keyToPosition:number) {
+        }
+
+        getLargePosition() {
+            return this.largePositions[this.keyToPosition];
+        }
+        getSmallPosition() {
+            return this.smallPositions[this.keyToPosition];
         }
     }
 

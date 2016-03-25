@@ -16,6 +16,7 @@ module exercises {
 
     mathApp.controller('plusMinusExercise1Ctrl', PlusMinusExercise1Ctrl);
     mathApp.controller('plusMinusExercise2Ctrl', PlusMinusExercise2Ctrl);
+    mathApp.controller('plusMinusExercise3Ctrl', PlusMinusExercise3Ctrl);
 
 
     mathApp.service('exerciseServices', ExerciseServices);
@@ -156,6 +157,17 @@ module exercises {
                 resolve: {
                     'plusMinusExe2Data': (exerciseServices:IExerciseServices) => {
                         return exerciseServices.getExerciseFromJson("plusMinusExe2Data");
+                    },
+                    'texts': (exerciseServices:IExerciseServices) => {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            }).when('/P1c', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'plusMinusExercise3Ctrl',
+                resolve: {
+                    'plusMinusExe3Data': (exerciseServices:IExerciseServices) => {
+                        return exerciseServices.getExerciseFromJson("plusMinusExe3Data");
                     },
                     'texts': (exerciseServices:IExerciseServices) => {
                         return exerciseServices.getTexts();

@@ -727,4 +727,45 @@ module exercises {
             }
         }
     }
+
+    /***********************************************
+     *
+     * PlusMinusExercise 3 controller
+     *
+     ***********************************************/
+    export class PlusMinusExercise3Ctrl extends NavigationBase {
+        public exetype:String = "P1c";
+        public progressBarType:string = "pm-exe3";
+        public progressBarClass:string = "progress-color-pm-exe3";
+        public static $inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe3Data', 'texts'];
+        public titleText:string;
+
+
+        constructor(protected $scope:any,
+                    protected $location:ng.ILocationService,
+                    protected $route:any,
+                    public $rootScope:any,
+                    public plusMinusExe3Data:IPlusMinusExercise3,
+                    public texts:any) {
+            super($scope, $location, $route, plusMinusExe3Data.subexerciseListDTO.length);
+            this.titleText = texts.plusMinusExe3TitleText;
+
+            for (var i:number = 0; i < plusMinusExe3Data.subexerciseListDTO.length; i++) {
+                var minuend = plusMinusExe3Data.subexerciseListDTO[i].minuend;
+                var subtrahend = plusMinusExe3Data.subexerciseListDTO[i].subtrahend;
+                var exeItem:PlusMinusExercise3Item = new PlusMinusExercise3Item(minuend, subtrahend);
+                plusMinusExe3Data.subexerciseListDTO[i] = exeItem;
+            }
+
+
+        }
+
+        checkResult() {
+            if (!this.isSummaryActive()) {
+                super.checkResult();
+                this.plusMinusExe3Data.subexerciseListDTO.unshift(new PlusMinusExercise3Item(0, 0));
+                this.totalItems = this.plusMinusExe3Data.subexerciseListDTO.length;
+            }
+        }
+    }
 }

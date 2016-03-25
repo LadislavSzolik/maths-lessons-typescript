@@ -559,10 +559,10 @@
             <div class="subexe-container-box pm-exe2-background" ng-switch-when="P1b">
                 <ul class="subexe-ul">
                     <li ng-style="vm.getLiTagColor($index)"
-                            ng-repeat="subExercise in vm.plusMinusExe2Data.subexerciseListDTO">
+                        ng-repeat="subExercise in vm.plusMinusExe2Data.subexerciseListDTO">
 
                         <span class="equation-sum">{{subExercise.equationForSum}}</span>
-                        <input ng-model="subExercise.enteredNumber"  maxlength="2"
+                        <input ng-model="subExercise.enteredNumber" maxlength="2"
                                ng-focus="vm.selectSubExercise($index)"
                                class="user-input-field" ng-disabled="vm.isSummaryActive()"
                                ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}"/>
@@ -583,6 +583,78 @@
 
             </div>
             <!-- end of plus minus exercise 2 view  -->
+
+            <!-- plus minus exercise 3 view -->
+            <div class="subexe-container-box pm-exe3-background" ng-switch-when="P1c">
+                <ul>
+                    <li ng-if="vm.isCurrentExercise($index)"
+                        ng-repeat="subExercise in vm.plusMinusExe3Data.subexerciseListDTO">
+                        <div style="margin-top:-15px" ng-if="vm.isSummaryActive() && $index == 0">
+                            <ul>
+                                <li ng-if="$index!==0" ng-repeat="summary in vm.plusMinusExe3Data.subexerciseListDTO"
+                                    style="display: inline-block">
+                                    <a href ng-click="vm.selectPage($index+1,$event)">
+                                        <div class="summary-sub-background">
+                                            <div class="flower-garden-small">
+                                                <img class="flowers" height="16px"
+                                                     ng-repeat="flower in summary.flowers"
+                                                     ng-style="flower.getSmallPosition()" src="./app/img/flower-with-ground.png"/>
+                                                <img class="wholes" height="3.75px"
+                                                     ng-repeat="whole in summary.wholes"
+                                                     ng-style="whole.getSmallPosition()" src="./app/img/ground-without-flower.png"/>
+                                            </div>
+                                            <input ng-model="summary.enteredFormula"
+                                                   class="form-control user-input-field-small" ng-disabled="true"
+                                                   ng-class="{'valid-result':summary.isCorrect() && vm.isSummaryActive() , 'invalid-result':!summary.isCorrect() && vm.isSummaryActive()}"/>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div ng-if="!vm.isSummaryActive() || $index !== 0">
+                            <div class="clearfix">
+                                <div class="flower-garden">
+                                    <img class="flowers"
+                                         ng-repeat="flower in subExercise.flowers"
+                                         ng-style="flower.getLargePosition()" src="./app/img/flower-with-ground.png"/>
+                                    <img class="wholes"
+                                         ng-repeat="whole in subExercise.wholes"
+                                         ng-style="whole.getLargePosition()" src="./app/img/ground-without-flower.png"/>
+
+                                </div>
+                            </div>
+
+                            <a animate-rubber-with-position class="remove-btn-pm" href
+                               ng-class="{hide:vm.isSummaryActive()}"
+                               ng-click="subExercise.changeEnteredFormula('del')">
+                                <img src="./app/img/rubber.png"/>
+                            </a>
+                            <div class="clearfix">
+                                <input animate-button ng-click="subExercise.changeEnteredFormula('-')"
+                                       ng-disabled="vm.isSummaryActive()" type="button" class="input-minus-sign"
+                                       value="-"/>
+                                <input ng-model="subExercise.enteredFormula" maxlength="15"
+                                       class="form-control user-input-field" ng-disabled="vm.isSummaryActive()"
+                                       ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}"/>
+                                <input animate-button ng-click="subExercise.changeEnteredFormula('=')"
+                                       ng-disabled="vm.isSummaryActive()" type="button" class="input-equal-sign"
+                                       value="="/>
+                            </div>
+
+                            <ul class="number-row-container">
+                                <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
+                                    <input animate-button class="input-number-row"
+                                           ng-click="subExercise.changeEnteredFormula(key)"
+                                           ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+
+            </div>
+            <!-- end of plus minus exercise 3 view  -->
 
         </div>
 
