@@ -1,12 +1,13 @@
 {
-    "mainMenuTitleText": "Welcome",
-    "exe1TitleText": "How many objects do you see?",
-    "exe2TitleText": "Select a number of objects",
-    "exe3TitleText": "Fill the gaps with the correct number",
-    "exe4TitleText": "Fill the gaps with the correct number",
-    "exe5TitleText": "Arrange the numbers in ascending order!",
-    "exe6TitleText": "Assign the correct sign (<, =, >)!",
-    "exe7TitleText": "Double the number!",
-    "exe8TitleText": "Split the number!",
-    "plusMinusExe1TitleText": "Write the correct formula!"
+  "mainMenuTitleText": "Welcome",
+  "exe1TitleText": "How many objects do you see?",
+  "exe2TitleText": "Select a number of objects",
+  "exe3TitleText": "Fill the gaps with the correct number",
+  "exe4TitleText": "Fill the gaps with the correct number",
+  "exe5TitleText": "Arrange the numbers in ascending order!",
+  "exe6TitleText": "Assign the correct sign (<, =, >)!",
+  "exe7TitleText": "Double the number!",
+  "exe8TitleText": "Split the number!",
+  "plusMinusExe1TitleText": "Write the correct formula!",
+  "plusMinusExe2TitleText": "Calculate the following calculations:"
 }

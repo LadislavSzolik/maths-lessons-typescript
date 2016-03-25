@@ -481,10 +481,10 @@
             <div class="subexe-container-box pm-exe1-background" ng-switch-when="P1a">
                 <ul>
                     <li ng-if="vm.isCurrentExercise($index)"
-                        ng-repeat="subExercise in vm.plusMinusExe1Data.subexerciseListDTO">
+                        ng-repeat="subExercise in vm.plusMinusExe2Data.subexerciseListDTO">
                         <div style="margin-top:-15px" ng-if="vm.isSummaryActive() && $index == 0">
                             <ul>
-                                <li ng-if="$index!==0" ng-repeat="summary in vm.plusMinusExe1Data.subexerciseListDTO"
+                                <li ng-if="$index!==0" ng-repeat="summary in vm.plusMinusExe2Data.subexerciseListDTO"
                                     style="display: inline-block">
                                     <a href ng-click="vm.selectPage($index+1,$event)">
                                         <div class="summary-sub-background">
@@ -555,6 +555,34 @@
 
             </div>
             <!-- end of plus minus exercise 1 view  -->
+            <!-- plus minus exercise 2 view -->
+            <div class="subexe-container-box pm-exe2-background" ng-switch-when="P1b">
+                <ul class="subexe-ul">
+                    <li ng-style="vm.getLiTagColor($index)"
+                            ng-repeat="subExercise in vm.plusMinusExe2Data.subexerciseListDTO">
+
+                        <span class="equation-sum">{{subExercise.equationForSum}}</span>
+                        <input ng-model="subExercise.enteredNumber"  maxlength="2"
+                               ng-focus="vm.selectSubExercise($index)"
+                               class="user-input-field" ng-disabled="vm.isSummaryActive()"
+                               ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}"/>
+                    </li>
+                </ul>
+                <a animate-rubber-with-position class="remove-btn-pm" href
+                   ng-class="{hide:vm.isSummaryActive()}" ng-style="vm.getRubberPosition()"
+                   ng-click="vm.deleteEnteredInput()">
+                    <img src="./app/img/rubber.png"/>
+                </a>
+                <ul class="number-row-container">
+                    <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
+                        <input animate-button class="input-number-row"
+                               ng-click="vm.changeEnteredInput(key)"
+                               ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- end of plus minus exercise 2 view  -->
 
         </div>
 

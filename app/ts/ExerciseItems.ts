@@ -41,6 +41,10 @@ module exercises {
     export interface IPlusMinusExercise1 {
         subexerciseListDTO:PlusMinusExercise1Item[];
     }
+    
+    export interface IPlusMinusExercise2 {
+        subexerciseListDTO:PlusMinusExercise2Item[];
+    }
 
 
     export class Exercise1Item {
@@ -477,6 +481,22 @@ module exercises {
         }
     }
 
+// --------------------------------------------------------PM_EXE_2-----------------------------------------------------------------------
+    export class PlusMinusExercise2Item {
+        public equationForSum:string;
+        public enteredNumber:number;
+        public sumOfTwoNumbers:number;
+        constructor(public firstNumberToSum:number, public secondNumberToSum:number) {
+            this.equationForSum = this.firstNumberToSum +" + "+this.secondNumberToSum+" = ";
+            this.sumOfTwoNumbers = this.firstNumberToSum + this.secondNumberToSum;
+        }
+        isCorrect() {
+            if(angular.isDefined(this.enteredNumber) && this.enteredNumber == (this.sumOfTwoNumbers)) {
+                return true;
+            }
+            return false;
+        }
+    }
 
 // --------------------------------------------------------EXE ?-----------------------------------------------------------------------
 

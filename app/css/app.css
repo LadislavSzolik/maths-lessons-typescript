@@ -910,6 +910,53 @@ header, section {
     width: 12px;
     height: 12px; }
 
+.pm-exe2-background {
+  background-image: url(../img/pm_exe2_bcg.png); }
+  .pm-exe2-background .subexe-ul {
+    height: 350px;
+    width: 640px;
+    z-index: 1;
+    position: relative;
+    margin-top: -5px;
+    margin-bottom: 30px;
+    color: #3E7AD0;
+    font-family: "Helvetica";
+    font-weight: bold; }
+  .pm-exe2-background .subexe-ul > li {
+    display: inline-block;
+    width: 250px;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-top: 5px; }
+  .pm-exe2-background .equation-sum {
+    font-size: 40px;
+    display: inline-block;
+    float: left;
+    margin-right: 20px; }
+  .pm-exe2-background .user-input-field {
+    font-size: 30px;
+    width: 55px;
+    height: 55px;
+    background: #87F2CC;
+    border: solid 2px #2F6460;
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+    float: left;
+    border-radius: 5px; }
+  .pm-exe2-background .user-input-field:focus {
+    background: #ffffff !important; }
+  .pm-exe2-background .remove-btn-pm {
+    position: absolute;
+    z-index: 99;
+    transform: scale(0.6, 0.6);
+    transition: all 0.1s ease-in-out; }
+    .pm-exe2-background .remove-btn-pm-animate {
+      transform-origin: center;
+      transform: scale(0.5, 0.5); }
+  .pm-exe2-background .valid-result, .pm-exe2-background .invalid-result {
+    color: white; }
+
 .container-field-exe2-summary {
   position: relative;
   float: left;

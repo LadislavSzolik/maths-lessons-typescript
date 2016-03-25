@@ -1,5 +1,5 @@
 <div class="exercise-container menu-padding">
-    <header >
+    <header>
         <h1>{{vm.texts.mainMenuTitleText}}</h1>
     </header>
 
@@ -14,7 +14,9 @@
     <div class="clearfix">
         <div class="col-menu" ng-repeat="level in vm.menuData">
             <div class="clearfix" ng-style="{{exercise.bcgColor}}" ng-repeat="exercise in level.exerciseListDTO">
-                    <a animate-button   class="menu-item" ng-class="{'disabled': !(exercise.exerciseContentDTO.content=='N1a' || exercise.exerciseContentDTO.content=='N1b' || exercise.exerciseContentDTO.content=='N1c'|| exercise.exerciseContentDTO.content=='N1d'|| exercise.exerciseContentDTO.content=='N2a' || exercise.exerciseContentDTO.content=='N2b'|| exercise.exerciseContentDTO.content=='N2c'|| exercise.exerciseContentDTO.content=='N2d' || exercise.exerciseContentDTO.content=='P1a')}"  ng-href="#/{{exercise.exerciseContentDTO.content}}">{{exercise.exerciseContentDTO.content}}</a>
+                <a animate-button class="menu-item"
+                   ng-class="{'disabled': !(exercise.exerciseContentDTO.content=='N1a' || exercise.exerciseContentDTO.content=='N1b' || exercise.exerciseContentDTO.content=='N1c'|| exercise.exerciseContentDTO.content=='N1d'|| exercise.exerciseContentDTO.content=='N2a' || exercise.exerciseContentDTO.content=='N2b'|| exercise.exerciseContentDTO.content=='N2c'|| exercise.exerciseContentDTO.content=='N2d' || exercise.exerciseContentDTO.content=='P1a'|| exercise.exerciseContentDTO.content=='P1b')}"
+                   ng-href="#/{{exercise.exerciseContentDTO.content}}">{{exercise.exerciseContentDTO.content}}</a>
             </div>
         </div>
     </div>

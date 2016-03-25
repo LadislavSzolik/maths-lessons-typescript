@@ -412,6 +412,22 @@ var exercises;
         return PlusMinusExercise1Item;
     }());
     exercises.PlusMinusExercise1Item = PlusMinusExercise1Item;
+    var PlusMinusExercise2Item = (function () {
+        function PlusMinusExercise2Item(firstNumberToSum, secondNumberToSum) {
+            this.firstNumberToSum = firstNumberToSum;
+            this.secondNumberToSum = secondNumberToSum;
+            this.equationForSum = this.firstNumberToSum + " + " + this.secondNumberToSum + " = ";
+            this.sumOfTwoNumbers = this.firstNumberToSum + this.secondNumberToSum;
+        }
+        PlusMinusExercise2Item.prototype.isCorrect = function () {
+            if (angular.isDefined(this.enteredNumber) && this.enteredNumber == (this.sumOfTwoNumbers)) {
+                return true;
+            }
+            return false;
+        };
+        return PlusMinusExercise2Item;
+    }());
+    exercises.PlusMinusExercise2Item = PlusMinusExercise2Item;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -1065,10 +1081,86 @@ var exercises;
                 this.totalItems = this.plusMinusExe1Data.subexerciseListDTO.length;
             }
         };
-        PlusMinusExercise1Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe1Data', 'texts'];
+        PlusMinusExercise1Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe2Data', 'texts'];
         return PlusMinusExercise1Ctrl;
     }(NavigationBase));
     exercises.PlusMinusExercise1Ctrl = PlusMinusExercise1Ctrl;
+    var PlusMinusExercise2Ctrl = (function (_super) {
+        __extends(PlusMinusExercise2Ctrl, _super);
+        function PlusMinusExercise2Ctrl($scope, $location, $route, $rootScope, plusMinusExe2Data, texts) {
+            _super.call(this, $scope, $location, $route, plusMinusExe2Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.plusMinusExe2Data = plusMinusExe2Data;
+            this.texts = texts;
+            this.exetype = "P1b";
+            this.selectedInput = 0;
+            this.rubberPositions = [{ top: '-20px', left: '250px' },
+                { top: '-20px', left: '530px' },
+                { top: '45px', left: '250px' },
+                { top: '45px', left: '530px' },
+                { top: '105px', left: '250px' },
+                { top: '105px', left: '530px' },
+                { top: '165px', left: '250px' },
+                { top: '165px', left: '530px' },
+                { top: '230px', left: '250px' },
+                { top: '230px', left: '530px' },
+                { top: '290px', left: '250px' },
+                { top: '290px', left: '530px' }];
+            this.titleText = texts.plusMinusExe2TitleText;
+            for (var i = 0; i < plusMinusExe2Data.subexerciseListDTO.length; i++) {
+                var firstNumberToSumFromFile = plusMinusExe2Data.subexerciseListDTO[i].firstNumberToSum;
+                var secondNumberToSumFromFile = plusMinusExe2Data.subexerciseListDTO[i].secondNumberToSum;
+                var exeItem = new exercises.PlusMinusExercise2Item(firstNumberToSumFromFile, secondNumberToSumFromFile);
+                plusMinusExe2Data.subexerciseListDTO[i] = exeItem;
+            }
+        }
+        PlusMinusExercise2Ctrl.prototype.isExerciseSinglePager = function () {
+            return true;
+        };
+        PlusMinusExercise2Ctrl.prototype.selectSubExercise = function (index) {
+            this.selectedInput = index;
+        };
+        PlusMinusExercise2Ctrl.prototype.getRubberPosition = function () {
+            return this.rubberPositions[this.selectedInput];
+        };
+        PlusMinusExercise2Ctrl.prototype.changeEnteredInput = function (incomingInput) {
+            var givenNumber = this.plusMinusExe2Data.subexerciseListDTO[this.selectedInput].enteredNumber;
+            if (angular.isUndefined(givenNumber) || givenNumber == null) {
+                givenNumber = incomingInput;
+            }
+            else if (givenNumber.toString().length < 2) {
+                givenNumber = parseInt(String(givenNumber) + String(incomingInput));
+            }
+            this.plusMinusExe2Data.subexerciseListDTO[this.selectedInput].enteredNumber = givenNumber;
+        };
+        PlusMinusExercise2Ctrl.prototype.deleteEnteredInput = function () {
+            this.plusMinusExe2Data.subexerciseListDTO[this.selectedInput].enteredNumber = null;
+        };
+        PlusMinusExercise2Ctrl.prototype.getLiTagColor = function (index) {
+            if (index % 2 == 0) {
+                return { color: '#FF3D7F' };
+            }
+        };
+        PlusMinusExercise2Ctrl.prototype.isSubExerciseSelected = function (index) {
+            if (this.selectedInput == index) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
+        PlusMinusExercise2Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+            }
+        };
+        PlusMinusExercise2Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe2Data', 'texts'];
+        return PlusMinusExercise2Ctrl;
+    }(NavigationBase));
+    exercises.PlusMinusExercise2Ctrl = PlusMinusExercise2Ctrl;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -1349,6 +1441,7 @@ var exercises;
     mathApp.controller('exercise7Ctrl', exercises.Exercise7Ctrl);
     mathApp.controller('exercise8Ctrl', exercises.Exercise8Ctrl);
     mathApp.controller('plusMinusExercise1Ctrl', exercises.PlusMinusExercise1Ctrl);
+    mathApp.controller('plusMinusExercise2Ctrl', exercises.PlusMinusExercise2Ctrl);
     mathApp.service('exerciseServices', exercises.ExerciseServices);
     mathApp.directive('animateRubber', exercises.animateRubber);
     mathApp.directive('animateRubberWithPosition', exercises.animateRubberWithPosition);
@@ -1467,6 +1560,17 @@ var exercises;
                 resolve: {
                     'plusMinusExe1Data': function (exerciseServices) {
                         return exerciseServices.getExerciseFromJson("plusMinusExe1Data");
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            }).when('/P1b', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'plusMinusExercise2Ctrl',
+                resolve: {
+                    'plusMinusExe2Data': function (exerciseServices) {
+                        return exerciseServices.getExerciseFromJson("plusMinusExe2Data");
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
