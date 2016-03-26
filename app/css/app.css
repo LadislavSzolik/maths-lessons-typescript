@@ -293,6 +293,25 @@ header, section {
   border: 2px solid #6D6E91;
 }
 
+.progess-container .progress-bar-pm-exe5 {
+  background-color: #FFE9E0;
+}
+
+.progess-container .progress-bar-pm-exe5 b {
+  color: #78335D;
+  font-size: 26px;
+  position: absolute;
+  text-align: center;
+  top: 4px;
+  width: 100%;
+  z-index: 2;
+  left: 0px;
+}
+
+.progess-container .progress-color-pm-exe5 {
+  border: 2px solid #78335D;
+}
+
 /* container with objects and result */
 .main-content .subexe-container-box {
   width: 680px;
@@ -1095,6 +1114,7 @@ header, section {
   color: white;
 }
 
+/*-------------------PM EXE 1 style -------------------*/
 .pm-exe1-background {
   background-image: url(../img/pm_exe1_bcg.png);
 }
@@ -1206,6 +1226,7 @@ header, section {
   height: 12px;
 }
 
+/*-------------------PM EXE 2 style -------------------*/
 .pm-exe2-background {
   background-image: url(../img/pm_exe2_bcg.png);
 }
@@ -1273,6 +1294,7 @@ header, section {
   color: white;
 }
 
+/*-------------------PM EXE 3 style -------------------*/
 .pm-exe3-background {
   background-image: url(../img/pm_exe3_bcg.png);
 }
@@ -1442,7 +1464,136 @@ header, section {
 }
 
 .pm-exe4-background .valid-result, .pm-exe4-background .invalid-result {
-  color: white;
+  color: #ffffff;
+}
+
+/*-------------------PM EXE 5 style -------------------*/
+.pm-exe5-background {
+  background-image: url(../img/pm_exe5_bcg.png);
+}
+
+.pm-exe5-background .cube {
+  width: 270px;
+  height: 270px;
+  float: left;
+  background-color: #A0417B;
+  border-radius: 15px;
+  margin: 5px 5px 15px 5px;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.pm-exe5-background .point-on-square, .pm-exe5-background .point-on-square-small {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: #C9C527;
+}
+
+.pm-exe5-background .minus-sign, .pm-exe5-background .equal-top, .pm-exe5-background .equal-bottom {
+  float: left;
+  background: #FBB236;
+  width: 44px;
+  height: 11px;
+  margin: 15px;
+  margin-top: 130px;
+  border-radius: 2px;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+}
+
+.pm-exe5-background .equal-top, .pm-exe5-background .equal-bottom {
+  position: absolute;
+  margin: 0px;
+  left: 200px;
+}
+
+.pm-exe5-background .equal-top {
+  top: 320px;
+}
+
+.pm-exe5-background .equal-bottom {
+  top: 340px;
+}
+
+.pm-exe5-background .user-input-field {
+  width: 131px;
+  height: 70px;
+  border-radius: 5px;
+  border: solid 2px #695D46;
+  font-size: 40px;
+  text-align: center;
+  display: inline-block;
+}
+
+.pm-exe5-background .remove-btn-pm {
+  top: 280px;
+  left: 400px;
+  position: absolute;
+  transition: all 0.1s ease-in-out;
+  transform: scale(0.8);
+}
+
+.pm-exe5-background .remove-btn-pm-animate {
+  top: 285px;
+  left: 395px;
+}
+
+.pm-exe5-background .summary-li {
+  display: inline-block;
+  margin: 2px 20px 0px 20px;
+  position: relative;
+}
+
+.pm-exe5-background .cube-small {
+  float: left;
+  width: 58px;
+  height: 58px;
+  border-radius: 5px;
+  background-color: #A0417B;
+  margin: 5px 0px 10px 0px;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+}
+
+.pm-exe5-background .minus-sign-small, .pm-exe5-background .equal-top-small, .pm-exe5-background .equal-bottom-small {
+  width: 20px;
+  height: 3px;
+  float: left;
+  background: #FBB236;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+}
+
+.pm-exe5-background .minus-sign-small {
+  margin: 13px;
+  margin-top: 31px;
+}
+
+.pm-exe5-background .equal-top-small, .pm-exe5-background .equal-bottom-small {
+  position: absolute;
+  left: 172px;
+  top: 26px;
+}
+
+.pm-exe5-background .equal-bottom-small {
+  top: 35px;
+}
+
+.pm-exe5-background .user-input-field-small {
+  float: left;
+  width: 46px;
+  height: 46px;
+  border-radius: 2px;
+  border: solid 1px #695D46;
+  font-size: 31px;
+  text-align: center;
+  margin-left: 40px;
+  margin-top: 9px;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+}
+
+.pm-exe5-background .point-on-square-small {
+  width: 5.5px;
+  height: 5.5px;
 }
 
 /*------------------- EXE 2 style -------------------*/

@@ -541,6 +541,104 @@ var exercises;
         return PlusMinusExercise4Item;
     }());
     exercises.PlusMinusExercise4Item = PlusMinusExercise4Item;
+    var PlusMinusExercise5Item = (function () {
+        function PlusMinusExercise5Item(minuend, subtrahend) {
+            this.minuend = minuend;
+            this.subtrahend = subtrahend;
+            this.maxNumberInRow = 5;
+            this.randomNumbersForMinuend = [];
+            this.randomNumbersForSubtrahend = [];
+            this.largeMinuendCssPositions = [];
+            this.largeSubtrahendCssPositions = [];
+            this.difference = this.minuend - this.subtrahend;
+            this.generateRandomPostionsForMinuend();
+            this.createLargeMinuendCSSPositions();
+            this.generateRandomPostionsForSubtrahend();
+            this.createLargeSubtrahendCSSPositions();
+        }
+        PlusMinusExercise5Item.prototype.generateRandomPostionsForMinuend = function () {
+            var numberSeq = this.getNumberSequences();
+            for (var j = 0; j < this.minuend; j++) {
+                var randomIndex = (numberSeq.splice(Math.floor(Math.random() * numberSeq.length), 1))[0];
+                this.randomNumbersForMinuend.push(randomIndex);
+            }
+        };
+        PlusMinusExercise5Item.prototype.generateRandomPostionsForSubtrahend = function () {
+            var numberSeq = this.getNumberSequences();
+            for (var j = 0; j < this.subtrahend; j++) {
+                var randomIndex = (numberSeq.splice(Math.floor(Math.random() * numberSeq.length), 1))[0];
+                this.randomNumbersForSubtrahend.push(randomIndex);
+            }
+        };
+        PlusMinusExercise5Item.prototype.getNumberSequences = function () {
+            var numberSeq = [];
+            for (var i = 0; i < 25; i++) {
+                numberSeq.push(i);
+            }
+            return numberSeq;
+        };
+        PlusMinusExercise5Item.prototype.createLargeMinuendCSSPositions = function () {
+            for (var i = 0; i < this.randomNumbersForMinuend.length; i++) {
+                var randomPoint = this.randomNumbersForMinuend[i];
+                var rowNumber = this.getRowNumber(randomPoint);
+                var topPixels = this.calculateTopPxForRow(rowNumber);
+                var columnNumber = this.getColumnNumber(randomPoint);
+                var leftPixels = this.calculateLeftPxForColumn(columnNumber);
+                var styleObject = { top: topPixels + 'px', left: leftPixels + 'px' };
+                this.largeMinuendCssPositions.push(styleObject);
+            }
+        };
+        PlusMinusExercise5Item.prototype.createLargeSubtrahendCSSPositions = function () {
+            for (var i = 0; i < this.randomNumbersForSubtrahend.length; i++) {
+                var randomPoint = this.randomNumbersForSubtrahend[i];
+                var rowNumber = this.getRowNumber(randomPoint);
+                var topPixels = this.calculateTopPxForRow(rowNumber);
+                var columnNumber = this.getColumnNumber(randomPoint);
+                var leftPixels = this.calculateLeftPxForColumn(columnNumber);
+                var styleObject = { top: topPixels + 'px', left: leftPixels + 'px' };
+                this.largeSubtrahendCssPositions.push(styleObject);
+            }
+        };
+        PlusMinusExercise5Item.prototype.calculateTopPxForRow = function (rowNumber) {
+            return (rowNumber * 25) + (rowNumber * 27) + 17;
+        };
+        PlusMinusExercise5Item.prototype.calculateLeftPxForColumn = function (columnNumber) {
+            return (columnNumber * 25) + (columnNumber * 24) + 18;
+        };
+        PlusMinusExercise5Item.prototype.getRowNumber = function (inputNumber) {
+            var result = inputNumber / this.maxNumberInRow;
+            return parseInt(result);
+        };
+        PlusMinusExercise5Item.prototype.getColumnNumber = function (inputNumber) {
+            var mod = inputNumber % this.maxNumberInRow;
+            if (mod == 0) {
+                return 4;
+            }
+            return mod - 1;
+        };
+        PlusMinusExercise5Item.prototype.changeEnteredNumber = function (incomingNumber) {
+            var currentNumber = this.enteredNumber;
+            if (angular.isUndefined(currentNumber) || currentNumber == null) {
+                currentNumber = incomingNumber;
+            }
+            else if (currentNumber.toString().length < 2) {
+                currentNumber = parseInt(String(currentNumber) + String(incomingNumber));
+            }
+            this.enteredNumber = currentNumber;
+        };
+        PlusMinusExercise5Item.prototype.deleteEnteredNumber = function () {
+            this.enteredNumber = null;
+        };
+        PlusMinusExercise5Item.prototype.isCorrect = function () {
+            if (angular.isUndefined(this.enteredNumber))
+                return false;
+            if (this.enteredNumber == this.difference)
+                return true;
+            return false;
+        };
+        return PlusMinusExercise5Item;
+    }());
+    exercises.PlusMinusExercise5Item = PlusMinusExercise5Item;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -1194,7 +1292,7 @@ var exercises;
                 this.totalItems = this.plusMinusExe1Data.subexerciseListDTO.length;
             }
         };
-        PlusMinusExercise1Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe2Data', 'texts'];
+        PlusMinusExercise1Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe1Data', 'texts'];
         return PlusMinusExercise1Ctrl;
     }(NavigationBase));
     exercises.PlusMinusExercise1Ctrl = PlusMinusExercise1Ctrl;
@@ -1376,6 +1474,38 @@ var exercises;
         return PlusMinusExercise4Ctrl;
     }(NavigationBase));
     exercises.PlusMinusExercise4Ctrl = PlusMinusExercise4Ctrl;
+    var PlusMinusExercise5Ctrl = (function (_super) {
+        __extends(PlusMinusExercise5Ctrl, _super);
+        function PlusMinusExercise5Ctrl($scope, $location, $route, $rootScope, plusMinusExe5Data, texts) {
+            _super.call(this, $scope, $location, $route, plusMinusExe5Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.plusMinusExe5Data = plusMinusExe5Data;
+            this.texts = texts;
+            this.exetype = "P2a";
+            this.progressBarType = "pm-exe5";
+            this.progressBarClass = "progress-color-pm-exe5";
+            this.titleText = texts.plusMinusExe5TitleText;
+            for (var i = 0; i < plusMinusExe5Data.subexerciseListDTO.length; i++) {
+                var minuend = plusMinusExe5Data.subexerciseListDTO[i].minuend;
+                var subtrahend = plusMinusExe5Data.subexerciseListDTO[i].subtrahend;
+                var exeItem = new exercises.PlusMinusExercise5Item(minuend, subtrahend);
+                plusMinusExe5Data.subexerciseListDTO[i] = exeItem;
+            }
+        }
+        PlusMinusExercise5Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+                this.plusMinusExe5Data.subexerciseListDTO.unshift(new exercises.PlusMinusExercise5Item(0, 0));
+                this.totalItems = this.plusMinusExe5Data.subexerciseListDTO.length;
+            }
+        };
+        PlusMinusExercise5Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe5Data', 'texts'];
+        return PlusMinusExercise5Ctrl;
+    }(NavigationBase));
+    exercises.PlusMinusExercise5Ctrl = PlusMinusExercise5Ctrl;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -1659,6 +1789,7 @@ var exercises;
     mathApp.controller('plusMinusExercise2Ctrl', exercises.PlusMinusExercise2Ctrl);
     mathApp.controller('plusMinusExercise3Ctrl', exercises.PlusMinusExercise3Ctrl);
     mathApp.controller('plusMinusExercise4Ctrl', exercises.PlusMinusExercise4Ctrl);
+    mathApp.controller('plusMinusExercise5Ctrl', exercises.PlusMinusExercise5Ctrl);
     mathApp.service('exerciseServices', exercises.ExerciseServices);
     mathApp.directive('animateRubber', exercises.animateRubber);
     mathApp.directive('animateRubberWithPosition', exercises.animateRubberWithPosition);
@@ -1811,6 +1942,18 @@ var exercises;
                 resolve: {
                     'plusMinusExe4Data': function (exerciseServices) {
                         return exerciseServices.getExerciseFromJson("plusMinusExe4Data");
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            })
+                .when('/P2a', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'plusMinusExercise5Ctrl',
+                resolve: {
+                    'plusMinusExe5Data': function (exerciseServices) {
+                        return exerciseServices.getExerciseFromJson("plusMinusExe5Data");
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();

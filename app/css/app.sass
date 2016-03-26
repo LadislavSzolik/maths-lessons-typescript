@@ -270,6 +270,22 @@ header, section
   .progress-color-pm-exe3
     border: 2px solid #6D6E91
 
+
+  .progress-bar-pm-exe5
+    background-color: #FFE9E0
+    b
+      color: #78335D
+      font-size: 26px
+      position: absolute
+      text-align: center
+      top: 4px
+      width: 100%
+      z-index: 2
+      left: 0px
+
+  .progress-color-pm-exe5
+    border: 2px solid #78335D
+
 /* container with objects and result */
 @mixin exe-box-color($color)
   border-radius: 8px
@@ -981,6 +997,7 @@ header, section
   .subexe-ul > li:nth-child(12) .invalid-result
     color: white
 
+/*-------------------PM EXE 1 style -------------------*/
 .pm-exe1-background
   background-image: url(../img/pm_exe1_bcg.png)
 
@@ -1076,6 +1093,7 @@ header, section
     width: 12px
     height: 12px
 
+/*-------------------PM EXE 2 style -------------------*/
 .pm-exe2-background
   background-image: url(../img/pm_exe2_bcg.png)
 
@@ -1133,6 +1151,7 @@ header, section
   .valid-result, .invalid-result
     color: white
 
+/*-------------------PM EXE 3 style -------------------*/
 .pm-exe3-background
   background-image: url(../img/pm_exe3_bcg.png)
 
@@ -1280,7 +1299,120 @@ header, section
       transform: scale(0.5, 0.5)
 
   .valid-result, .invalid-result
-    color: white
+    color: #ffffff
+
+/*-------------------PM EXE 5 style -------------------*/
+.pm-exe5-background
+  background-image: url(../img/pm_exe5_bcg.png)
+
+  .cube
+    width: 270px
+    height: 270px
+    float: left
+    background-color: #A0417B
+    border-radius: 15px
+    margin: 5px 5px 15px 5px
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
+    position: relative
+
+
+  .point-on-square, .point-on-square-small
+    width: 25px
+    height: 25px
+    border-radius: 50%
+    position: absolute
+    background-color: #C9C527
+
+  .minus-sign, .equal-top, .equal-bottom
+    float: left
+    background: #FBB236
+    width: 44px
+    height: 11px
+    margin: 15px
+    margin-top: 130px
+    border-radius: 2px
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
+
+
+  .equal-top, .equal-bottom
+    position: absolute
+    margin: 0px
+    left: 200px
+
+  .equal-top
+    top: 320px
+  .equal-bottom
+    top: 340px
+
+  .user-input-field
+    width: 131px
+    height: 70px
+    border-radius: 5px
+    border: solid 2px #695D46
+    font-size: 40px
+    text-align: center
+    display: inline-block
+
+
+  .remove-btn-pm
+    top: 280px
+    left: 400px
+    position: absolute
+    transition: all 0.1s ease-in-out
+    transform: scale(0.8)
+    &-animate
+      top: 285px
+      left: 395px
+
+  .summary-li
+    display: inline-block
+    margin: 2px 20px 0px 20px
+    position: relative
+
+  .cube-small
+    float: left
+    width: 58px
+    height: 58px
+    border-radius: 5px
+    background-color: #A0417B
+    margin: 5px 0px 10px 0px
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
+
+  .minus-sign-small, .equal-top-small, .equal-bottom-small
+    width: 20px
+    height: 3px
+    float: left
+    background: #FBB236
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
+
+  .minus-sign-small
+    margin: 13px
+    margin-top: 31px
+
+  .equal-top-small, .equal-bottom-small
+    position: absolute
+    left: 172px
+    top: 26px
+
+  .equal-bottom-small
+    top: 35px
+
+  .user-input-field-small
+    float: left
+    width: 46px
+    height: 46px
+    border-radius: 2px
+    border: solid 1px #695D46
+    font-size: 31px
+    text-align: center
+    margin-left: 40px
+    margin-top: 9px
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
+
+
+  .point-on-square-small
+    width: 5.5px
+    height: 5.5px
 
 /*------------------- EXE 2 style -------------------*/
 

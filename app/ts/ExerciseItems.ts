@@ -53,7 +53,9 @@ module exercises {
   export interface IPlusMinusExercise4 {
     subexerciseListDTO: PlusMinusExercise4Item[];
   }
-
+  export interface IPlusMinusExercise5 {
+    subexerciseListDTO: PlusMinusExercise5Item[];
+  }
 
   export class Exercise1Item {
     public givenNumber: number;
@@ -623,6 +625,120 @@ module exercises {
       }
       return false;
     }
+  }
+
+// --------------------------------------------------------PM_EXE_5-----------------------------------------------------------------------
+  export class PlusMinusExercise5Item {
+    public difference: number;
+    public enteredNumber: number;
+    public maxNumberInRow:number = 5;
+
+    public randomNumbersForMinuend:number[] = [];
+    public randomNumbersForSubtrahend:number[] = [];
+
+    public largeMinuendCssPositions:any[] = [];
+    public largeSubtrahendCssPositions:any[] = [];
+
+    constructor(public minuend: number, public subtrahend: number) {
+      this.difference = this.minuend - this.subtrahend;
+      this.generateRandomPostionsForMinuend();
+      this.createLargeMinuendCSSPositions();
+
+      this.generateRandomPostionsForSubtrahend();
+      this.createLargeSubtrahendCSSPositions();
+    }
+
+    generateRandomPostionsForMinuend(){
+      var numberSeq = this.getNumberSequences();
+      for(var j=0; j<this.minuend; j++ ){
+          var randomIndex: number = (numberSeq.splice(Math.floor(Math.random() * numberSeq.length), 1))[0]
+          this.randomNumbersForMinuend.push(randomIndex);
+      }
+    }
+
+    generateRandomPostionsForSubtrahend(){
+      var numberSeq = this.getNumberSequences();
+      for(var j=0; j<this.subtrahend; j++ ){
+          var randomIndex: number = (numberSeq.splice(Math.floor(Math.random() * numberSeq.length), 1))[0]
+          this.randomNumbersForSubtrahend.push(randomIndex);
+      }
+    }
+
+    getNumberSequences() {
+      var numberSeq:number[] = [];
+      for(var i=0;i<25;i++) {
+        numberSeq.push(i);
+      }
+      return numberSeq;
+    }
+
+    createLargeMinuendCSSPositions() {
+      for(var i=0; i<this.randomNumbersForMinuend.length;i++){
+        var randomPoint = this.randomNumbersForMinuend[i];
+        var rowNumber:number = this.getRowNumber(randomPoint);
+        var topPixels: number = this.calculateTopPxForRow(rowNumber);
+        var columnNumber: number = this.getColumnNumber(randomPoint);
+        var leftPixels:number = this.calculateLeftPxForColumn(columnNumber);
+        var styleObject:any = {top:topPixels+'px',left:leftPixels+'px'}
+        this.largeMinuendCssPositions.push(styleObject);
+      }
+    }
+
+    createLargeSubtrahendCSSPositions() {
+      for(var i=0; i<this.randomNumbersForSubtrahend.length;i++){
+        var randomPoint = this.randomNumbersForSubtrahend[i];
+        var rowNumber:number = this.getRowNumber(randomPoint);
+        var topPixels: number = this.calculateTopPxForRow(rowNumber);
+        var columnNumber: number = this.getColumnNumber(randomPoint);
+        var leftPixels:number = this.calculateLeftPxForColumn(columnNumber);
+        var styleObject:any = {top:topPixels+'px',left:leftPixels+'px'}
+        this.largeSubtrahendCssPositions.push(styleObject);
+      }
+    }
+
+    calculateTopPxForRow(rowNumber:number){
+      return (rowNumber*25) + (rowNumber*27) + 17;
+    }
+
+    calculateLeftPxForColumn(columnNumber:number){
+      return (columnNumber*25) + (columnNumber*24) + 18;
+    }
+
+    getRowNumber(inputNumber:number) {
+      var result:any = inputNumber/this.maxNumberInRow;
+      return parseInt(result);
+    }
+
+    getColumnNumber(inputNumber:number) {
+      var mod = inputNumber%this.maxNumberInRow;
+      if(mod == 0) {
+        return 4;
+      }
+      return mod -1;
+
+    }
+
+    changeEnteredNumber(incomingNumber: number) {
+      var currentNumber: number = this.enteredNumber;
+      if (angular.isUndefined(currentNumber) || currentNumber == null) {
+        currentNumber = incomingNumber;
+      } else if (currentNumber.toString().length < 2) {
+        currentNumber = parseInt(String(currentNumber) + String(incomingNumber));
+      }
+      this.enteredNumber = currentNumber;
+    }
+
+    deleteEnteredNumber(){
+      this.enteredNumber = null;
+    }
+
+    isCorrect() {
+      if (angular.isUndefined(this.enteredNumber)) return false;
+
+      if (this.enteredNumber == this.difference) return true;
+      return false
+    }
+
   }
   // --------------------------------------------------------EXE ?-----------------------------------------------------------------------
 
