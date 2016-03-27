@@ -665,6 +665,35 @@ var exercises;
         return PlusMinusExercise5Item;
     }());
     exercises.PlusMinusExercise5Item = PlusMinusExercise5Item;
+    var PlusMinusExercise6Item = (function () {
+        function PlusMinusExercise6Item(minuend, subtrahend) {
+            this.minuend = minuend;
+            this.subtrahend = subtrahend;
+            this.difference = this.minuend - this.subtrahend;
+        }
+        PlusMinusExercise6Item.prototype.changeEnteredNumber = function (incomingNumber) {
+            var currentNumber = this.enteredNumber;
+            if (angular.isUndefined(currentNumber) || currentNumber == null) {
+                currentNumber = incomingNumber;
+            }
+            else if (currentNumber.toString().length < 2) {
+                currentNumber = parseInt(String(currentNumber) + String(incomingNumber));
+            }
+            this.enteredNumber = currentNumber;
+        };
+        PlusMinusExercise6Item.prototype.deleteEnteredNumber = function () {
+            this.enteredNumber = null;
+        };
+        PlusMinusExercise6Item.prototype.isCorrect = function () {
+            if (angular.isUndefined(this.enteredNumber))
+                return false;
+            if (this.enteredNumber == this.difference)
+                return true;
+            return false;
+        };
+        return PlusMinusExercise6Item;
+    }());
+    exercises.PlusMinusExercise6Item = PlusMinusExercise6Item;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -1532,6 +1561,38 @@ var exercises;
         return PlusMinusExercise5Ctrl;
     }(NavigationBase));
     exercises.PlusMinusExercise5Ctrl = PlusMinusExercise5Ctrl;
+    var PlusMinusExercise6Ctrl = (function (_super) {
+        __extends(PlusMinusExercise6Ctrl, _super);
+        function PlusMinusExercise6Ctrl($scope, $location, $route, $rootScope, plusMinusExe6Data, texts) {
+            _super.call(this, $scope, $location, $route, plusMinusExe6Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.plusMinusExe6Data = plusMinusExe6Data;
+            this.texts = texts;
+            this.exetype = "P2b";
+            this.progressBarType = "pm-exe6";
+            this.progressBarClass = "progress-color-pm-exe6";
+            this.titleText = texts.plusMinusExe5TitleText;
+            for (var i = 0; i < plusMinusExe6Data.subexerciseListDTO.length; i++) {
+                var minuend = plusMinusExe6Data.subexerciseListDTO[i].minuend;
+                var subtrahend = plusMinusExe6Data.subexerciseListDTO[i].subtrahend;
+                var exeItem = new exercises.PlusMinusExercise6Item(minuend, subtrahend);
+                plusMinusExe6Data.subexerciseListDTO[i] = exeItem;
+            }
+        }
+        PlusMinusExercise6Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+                this.plusMinusExe6Data.subexerciseListDTO.unshift(new exercises.PlusMinusExercise6Item(0, 0));
+                this.totalItems = this.plusMinusExe6Data.subexerciseListDTO.length;
+            }
+        };
+        PlusMinusExercise6Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe6Data', 'texts'];
+        return PlusMinusExercise6Ctrl;
+    }(NavigationBase));
+    exercises.PlusMinusExercise6Ctrl = PlusMinusExercise6Ctrl;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -1816,6 +1877,7 @@ var exercises;
     mathApp.controller('plusMinusExercise3Ctrl', exercises.PlusMinusExercise3Ctrl);
     mathApp.controller('plusMinusExercise4Ctrl', exercises.PlusMinusExercise4Ctrl);
     mathApp.controller('plusMinusExercise5Ctrl', exercises.PlusMinusExercise5Ctrl);
+    mathApp.controller('plusMinusExercise6Ctrl', exercises.PlusMinusExercise6Ctrl);
     mathApp.service('exerciseServices', exercises.ExerciseServices);
     mathApp.directive('animateRubber', exercises.animateRubber);
     mathApp.directive('animateRubberWithPosition', exercises.animateRubberWithPosition);
@@ -1980,6 +2042,18 @@ var exercises;
                 resolve: {
                     'plusMinusExe5Data': function (exerciseServices) {
                         return exerciseServices.getExerciseFromJson("plusMinusExe5Data");
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            })
+                .when('/P2b', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'plusMinusExercise6Ctrl',
+                resolve: {
+                    'plusMinusExe6Data': function (exerciseServices) {
+                        return exerciseServices.getExerciseFromJson("plusMinusExe6Data");
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();

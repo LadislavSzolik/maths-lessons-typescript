@@ -56,6 +56,9 @@ module exercises {
   export interface IPlusMinusExercise5 {
     subexerciseListDTO: PlusMinusExercise5Item[];
   }
+  export interface IPlusMinusExercise6 {
+    subexerciseListDTO: PlusMinusExercise6Item[];
+  }
 
   export class Exercise1Item {
     public givenNumber: number;
@@ -748,6 +751,38 @@ module exercises {
         return 4;
       }
       return mod -1;
+    }
+
+    changeEnteredNumber(incomingNumber: number) {
+      var currentNumber: number = this.enteredNumber;
+      if (angular.isUndefined(currentNumber) || currentNumber == null) {
+        currentNumber = incomingNumber;
+      } else if (currentNumber.toString().length < 2) {
+        currentNumber = parseInt(String(currentNumber) + String(incomingNumber));
+      }
+      this.enteredNumber = currentNumber;
+    }
+
+    deleteEnteredNumber(){
+      this.enteredNumber = null;
+    }
+
+    isCorrect() {
+      if (angular.isUndefined(this.enteredNumber)) return false;
+
+      if (this.enteredNumber == this.difference) return true;
+      return false
+    }
+
+  }
+  // --------------------------------------------------------PM_EXE_5-----------------------------------------------------------------------
+  export class PlusMinusExercise6Item {
+    public difference: number;
+    public enteredNumber: number;
+
+    constructor(public minuend: number, public subtrahend: number) {
+      this.difference = this.minuend - this.subtrahend;
+
     }
 
     changeEnteredNumber(incomingNumber: number) {

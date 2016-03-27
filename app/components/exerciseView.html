@@ -562,6 +562,67 @@
       </div>
       <!-- end of plus minus exercise 5 view  -->
 
+      <!-- plus minus exercise 6 view -->
+      <div class="subexe-container-box pm-exe6-background" ng-switch-when="P2b">
+        <ul>
+          <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.plusMinusExe6Data.subexerciseListDTO">
+            <div  ng-if="vm.isSummaryActive() && $index == 0">
+              <ul>
+                <li ng-if="$index!==0" ng-repeat="summary in vm.plusMinusExe6Data.subexerciseListDTO" class="summary-li">
+                  <a href ng-click="vm.selectPage($index+1,$event)">
+                      <div class="clearfix">
+                        <div class="cube-small">
+                          {{summary.minuend}}
+                        </div>
+                        <div class="minus-sign-small">
+                        </div>
+                        <div class="cube-small">
+                          {{summary.subtrahend}}
+                        </div>
+                        <div class="equal-top-small">
+                        </div>
+                        <div class="equal-bottom-small">
+                        </div>
+                        <input ng-model="summary.enteredNumber" class="form-control user-input-field-small" ng-disabled="true" ng-class="{'valid-result':summary.isCorrect() && vm.isSummaryActive() , 'invalid-result':!summary.isCorrect() && vm.isSummaryActive()}"/>
+                      </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div ng-if="!vm.isSummaryActive() || $index !== 0">
+              <div class="clearfix" style="display:inline-block">
+                <div class="cube">
+                  {{subExercise.minuend}}
+                </div>
+                <div class="minus-sign"></div>
+                <div class="cube">
+                  {{subExercise.subtrahend}}
+                </div>
+              </div>
+
+              <a animate-rubber-with-position class="remove-btn-pm" href ng-class="{hide:vm.isSummaryActive()}" ng-click="subExercise.deleteEnteredNumber()">
+                <img src="./app/img/rubber.png"/>
+              </a>
+              <div class="clearfix">
+
+                  <div class="equal-top"></div>
+                  <div class="equal-bottom"></div>
+
+                <input ng-model="subExercise.enteredNumber" maxlength="2" class="form-control user-input-field" ng-disabled="vm.isSummaryActive()" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}"/>
+              </div>
+
+              <ul class="number-row-container">
+                <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
+                  <input animate-button class="input-number-row" ng-click="subExercise.changeEnteredNumber(key)" ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+      <!-- end of plus minus exercise 6 view  -->
+
     </div>
 
     <a animate-button class="nav-btn-top-right" ng-hide='vm.isExerciseSinglePager()' href ng-class="{disabled:vm.noNext()}" ng-click="vm.selectPage(vm.currentPage+1,$event)">

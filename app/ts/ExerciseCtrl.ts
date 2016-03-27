@@ -845,9 +845,6 @@ module exercises {
         return { color: '#C580DA' }
       }
     }
-
-
-
     checkResult() {
       if (!this.isSummaryActive()) {
         super.checkResult();
@@ -890,6 +887,45 @@ module exercises {
         super.checkResult();
         this.plusMinusExe5Data.subexerciseListDTO.unshift(new PlusMinusExercise5Item(0, 0));
         this.totalItems = this.plusMinusExe5Data.subexerciseListDTO.length;
+      }
+    }
+  }
+
+  /***********************************************
+   *
+   * PlusMinusExercise 6 controller
+   *
+   ***********************************************/
+  export class PlusMinusExercise6Ctrl extends NavigationBase {
+    public exetype: String = "P2b";
+    public progressBarType: string = "pm-exe6";
+    public progressBarClass: string = "progress-color-pm-exe6";
+    public static $inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe6Data', 'texts'];
+    public titleText: string;
+
+
+    constructor(protected $scope: any,
+      protected $location: ng.ILocationService,
+      protected $route: any,
+      public $rootScope: any,
+      public plusMinusExe6Data: IPlusMinusExercise6,
+      public texts: any) {
+      super($scope, $location, $route, plusMinusExe6Data.subexerciseListDTO.length);
+      this.titleText = texts.plusMinusExe5TitleText;
+
+      for (var i: number = 0; i < plusMinusExe6Data.subexerciseListDTO.length; i++) {
+        var minuend = plusMinusExe6Data.subexerciseListDTO[i].minuend;
+        var subtrahend = plusMinusExe6Data.subexerciseListDTO[i].subtrahend;
+        var exeItem: PlusMinusExercise6Item = new PlusMinusExercise6Item(minuend, subtrahend);
+        plusMinusExe6Data.subexerciseListDTO[i] = exeItem;
+      }
+    }
+
+    checkResult() {
+      if (!this.isSummaryActive()) {
+        super.checkResult();
+        this.plusMinusExe6Data.subexerciseListDTO.unshift(new PlusMinusExercise6Item(0, 0));
+        this.totalItems = this.plusMinusExe6Data.subexerciseListDTO.length;
       }
     }
   }
