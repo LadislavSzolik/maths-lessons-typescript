@@ -550,11 +550,18 @@ var exercises;
             this.randomNumbersForSubtrahend = [];
             this.largeMinuendCssPositions = [];
             this.largeSubtrahendCssPositions = [];
+            this.smallMinuendCssPositions = [];
+            this.smallSubtrahendCssPositions = [];
+            this.smallInitPosition = 4;
+            this.smallSpaceBetweenPoints = 5;
+            this.smallPointSize = 5.5;
             this.difference = this.minuend - this.subtrahend;
             this.generateRandomPostionsForMinuend();
             this.createLargeMinuendCSSPositions();
+            this.createSmallMinuendCSSPositions();
             this.generateRandomPostionsForSubtrahend();
             this.createLargeSubtrahendCSSPositions();
+            this.createSmallSubtrahendCSSPositions();
         }
         PlusMinusExercise5Item.prototype.generateRandomPostionsForMinuend = function () {
             var numberSeq = this.getNumberSequences();
@@ -579,31 +586,50 @@ var exercises;
         };
         PlusMinusExercise5Item.prototype.createLargeMinuendCSSPositions = function () {
             for (var i = 0; i < this.randomNumbersForMinuend.length; i++) {
-                var randomPoint = this.randomNumbersForMinuend[i];
-                var rowNumber = this.getRowNumber(randomPoint);
-                var topPixels = this.calculateTopPxForRow(rowNumber);
-                var columnNumber = this.getColumnNumber(randomPoint);
-                var leftPixels = this.calculateLeftPxForColumn(columnNumber);
-                var styleObject = { top: topPixels + 'px', left: leftPixels + 'px' };
+                var styleObject = this.getLargeCSSStyleForRandomPoint(this.randomNumbersForMinuend[i]);
                 this.largeMinuendCssPositions.push(styleObject);
             }
         };
         PlusMinusExercise5Item.prototype.createLargeSubtrahendCSSPositions = function () {
             for (var i = 0; i < this.randomNumbersForSubtrahend.length; i++) {
-                var randomPoint = this.randomNumbersForSubtrahend[i];
-                var rowNumber = this.getRowNumber(randomPoint);
-                var topPixels = this.calculateTopPxForRow(rowNumber);
-                var columnNumber = this.getColumnNumber(randomPoint);
-                var leftPixels = this.calculateLeftPxForColumn(columnNumber);
-                var styleObject = { top: topPixels + 'px', left: leftPixels + 'px' };
+                var styleObject = this.getLargeCSSStyleForRandomPoint(this.randomNumbersForSubtrahend[i]);
                 this.largeSubtrahendCssPositions.push(styleObject);
             }
         };
-        PlusMinusExercise5Item.prototype.calculateTopPxForRow = function (rowNumber) {
+        PlusMinusExercise5Item.prototype.getLargeCSSStyleForRandomPoint = function (randomPoint) {
+            var rowNumber = this.getRowNumber(randomPoint);
+            var topPixels = this.calculateTopPxForLargeRow(rowNumber);
+            var columnNumber = this.getColumnNumber(randomPoint);
+            var leftPixels = this.calculateLeftPxForLargeColumn(columnNumber);
+            return { top: topPixels + 'px', left: leftPixels + 'px' };
+        };
+        PlusMinusExercise5Item.prototype.calculateTopPxForLargeRow = function (rowNumber) {
             return (rowNumber * 25) + (rowNumber * 27) + 17;
         };
-        PlusMinusExercise5Item.prototype.calculateLeftPxForColumn = function (columnNumber) {
+        PlusMinusExercise5Item.prototype.calculateLeftPxForLargeColumn = function (columnNumber) {
             return (columnNumber * 25) + (columnNumber * 24) + 18;
+        };
+        PlusMinusExercise5Item.prototype.createSmallMinuendCSSPositions = function () {
+            for (var i = 0; i < this.randomNumbersForMinuend.length; i++) {
+                var styleObject = this.getSmallCSSStyleForRandomPoint(this.randomNumbersForMinuend[i]);
+                this.smallMinuendCssPositions.push(styleObject);
+            }
+        };
+        PlusMinusExercise5Item.prototype.createSmallSubtrahendCSSPositions = function () {
+            for (var i = 0; i < this.randomNumbersForSubtrahend.length; i++) {
+                var styleObject = this.getSmallCSSStyleForRandomPoint(this.randomNumbersForSubtrahend[i]);
+                this.smallSubtrahendCssPositions.push(styleObject);
+            }
+        };
+        PlusMinusExercise5Item.prototype.getSmallCSSStyleForRandomPoint = function (randomPoint) {
+            var rowNumber = this.getRowNumber(randomPoint);
+            var topPixels = this.calculatePixelsForSmallPoint(rowNumber);
+            var columnNumber = this.getColumnNumber(randomPoint);
+            var leftPixels = this.calculatePixelsForSmallPoint(columnNumber);
+            return { top: topPixels + 'px', left: leftPixels + 'px' };
+        };
+        PlusMinusExercise5Item.prototype.calculatePixelsForSmallPoint = function (positionSeq) {
+            return (positionSeq * this.smallPointSize) + (positionSeq * this.smallSpaceBetweenPoints) + this.smallInitPosition;
         };
         PlusMinusExercise5Item.prototype.getRowNumber = function (inputNumber) {
             var result = inputNumber / this.maxNumberInRow;

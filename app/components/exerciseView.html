@@ -511,12 +511,12 @@
                   <a href ng-click="vm.selectPage($index+1,$event)">
                       <div class="clearfix">
                         <div class="cube-small">
-                          <div class="point-on-square-small" ng-repeat="numberPoint in summary.getSmallPointsForSquare(1)" ng-style="{{numberPoint}}"></div>
+                          <div class="point-on-square-small" ng-repeat="numberPoint in summary.smallMinuendCssPositions" ng-style="{{numberPoint}}"></div>
                         </div>
                         <div class="minus-sign-small">
                         </div>
                         <div class="cube-small">
-                          <div class="point-on-square-small" ng-repeat="numberPoint in summary.getSmallPointsForSquare(2)" ng-style="{{numberPoint}}"></div>
+                          <div class="point-on-square-small" ng-repeat="numberPoint in summary.smallSubtrahendCssPositions" ng-style="{{numberPoint}}"></div>
                         </div>
                         <div class="equal-top-small">
                         </div>

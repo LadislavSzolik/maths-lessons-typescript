@@ -639,13 +639,22 @@ module exercises {
     public largeMinuendCssPositions:any[] = [];
     public largeSubtrahendCssPositions:any[] = [];
 
+    public smallMinuendCssPositions:any[] = [];
+    public smallSubtrahendCssPositions:any[] = [];
+
+    public smallInitPosition:number = 4;
+    public smallSpaceBetweenPoints:number = 5;
+    public smallPointSize:number = 5.5;
+
     constructor(public minuend: number, public subtrahend: number) {
       this.difference = this.minuend - this.subtrahend;
       this.generateRandomPostionsForMinuend();
       this.createLargeMinuendCSSPositions();
+      this.createSmallMinuendCSSPositions();
 
       this.generateRandomPostionsForSubtrahend();
       this.createLargeSubtrahendCSSPositions();
+      this.createSmallSubtrahendCSSPositions();
     }
 
     generateRandomPostionsForMinuend(){
@@ -674,34 +683,58 @@ module exercises {
 
     createLargeMinuendCSSPositions() {
       for(var i=0; i<this.randomNumbersForMinuend.length;i++){
-        var randomPoint = this.randomNumbersForMinuend[i];
-        var rowNumber:number = this.getRowNumber(randomPoint);
-        var topPixels: number = this.calculateTopPxForRow(rowNumber);
-        var columnNumber: number = this.getColumnNumber(randomPoint);
-        var leftPixels:number = this.calculateLeftPxForColumn(columnNumber);
-        var styleObject:any = {top:topPixels+'px',left:leftPixels+'px'}
+        var styleObject:any = this.getLargeCSSStyleForRandomPoint(this.randomNumbersForMinuend[i]);
         this.largeMinuendCssPositions.push(styleObject);
       }
     }
 
     createLargeSubtrahendCSSPositions() {
       for(var i=0; i<this.randomNumbersForSubtrahend.length;i++){
-        var randomPoint = this.randomNumbersForSubtrahend[i];
-        var rowNumber:number = this.getRowNumber(randomPoint);
-        var topPixels: number = this.calculateTopPxForRow(rowNumber);
-        var columnNumber: number = this.getColumnNumber(randomPoint);
-        var leftPixels:number = this.calculateLeftPxForColumn(columnNumber);
-        var styleObject:any = {top:topPixels+'px',left:leftPixels+'px'}
+        var styleObject:any = this.getLargeCSSStyleForRandomPoint(this.randomNumbersForSubtrahend[i]);
         this.largeSubtrahendCssPositions.push(styleObject);
       }
     }
 
-    calculateTopPxForRow(rowNumber:number){
+    getLargeCSSStyleForRandomPoint(randomPoint:number) {
+      var rowNumber:number = this.getRowNumber(randomPoint);
+      var topPixels: number = this.calculateTopPxForLargeRow(rowNumber);
+      var columnNumber: number = this.getColumnNumber(randomPoint);
+      var leftPixels:number = this.calculateLeftPxForLargeColumn(columnNumber);
+      return {top:topPixels+'px',left:leftPixels+'px'};
+    }
+
+    calculateTopPxForLargeRow(rowNumber:number){
       return (rowNumber*25) + (rowNumber*27) + 17;
     }
 
-    calculateLeftPxForColumn(columnNumber:number){
+    calculateLeftPxForLargeColumn(columnNumber:number){
       return (columnNumber*25) + (columnNumber*24) + 18;
+    }
+
+    createSmallMinuendCSSPositions() {
+      for(var i=0; i<this.randomNumbersForMinuend.length;i++){
+        var styleObject:any = this.getSmallCSSStyleForRandomPoint(this.randomNumbersForMinuend[i]);
+        this.smallMinuendCssPositions.push(styleObject);
+      }
+    }
+
+    createSmallSubtrahendCSSPositions() {
+      for(var i=0; i<this.randomNumbersForSubtrahend.length;i++){
+        var styleObject:any = this.getSmallCSSStyleForRandomPoint(this.randomNumbersForSubtrahend[i]);
+        this.smallSubtrahendCssPositions.push(styleObject);
+      }
+    }
+
+    getSmallCSSStyleForRandomPoint(randomPoint:number) {
+      var rowNumber:number = this.getRowNumber(randomPoint);
+      var topPixels: number = this.calculatePixelsForSmallPoint(rowNumber);
+      var columnNumber: number = this.getColumnNumber(randomPoint);
+      var leftPixels:number = this.calculatePixelsForSmallPoint(columnNumber);
+      return {top:topPixels+'px',left:leftPixels+'px'};
+    }
+
+    calculatePixelsForSmallPoint(positionSeq:number){
+      return (positionSeq*this.smallPointSize) + (positionSeq*this.smallSpaceBetweenPoints) + this.smallInitPosition;
     }
 
     getRowNumber(inputNumber:number) {
@@ -715,7 +748,6 @@ module exercises {
         return 4;
       }
       return mod -1;
-
     }
 
     changeEnteredNumber(incomingNumber: number) {
