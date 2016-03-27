@@ -619,9 +619,48 @@
             </div>
           </li>
         </ul>
-
       </div>
       <!-- end of plus minus exercise 6 view  -->
+
+      <!-- plus minus exercise 7 view -->
+      <div class="subexe-container-box pm-exe7-background" ng-switch-when="P2c">
+        <ul>
+          <li ng-if="vm.isCurrentExercise($index)" ng-repeat="subExercise in vm.plusMinusExe7Data.subexerciseListDTO">
+            <div  ng-if="vm.isSummaryActive() && $index == 0">
+              <ul>
+                <li ng-if="$index!==0" ng-repeat="summary in vm.plusMinusExe7Data.subexerciseListDTO" class="summary-li">
+                  <a href ng-click="vm.selectPage($index+1,$event)">
+                    <div class="pm-exe7-arrows-small">
+
+                    </div>
+                    <div class="clearfix pm-exe7-additional-arrows summary-sub-background" style="display:inline-block">
+                      <input ng-repeat="value in summary.values" ng-model="value.enteredValue"  class="form-control cube-{{$index}}-small" placeholder="?" ng-disabled="true" ng-class="{'valid-result':value.isCorrect() && vm.isSummaryActive() && value.isMissingValue , 'invalid-result':!value.isCorrect() && vm.isSummaryActive() && value.isMissingValue }"/>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div ng-if="!vm.isSummaryActive() || $index !== 0">
+              <div class="pm-exe7-arrows">
+
+              </div>
+              <div class="clearfix " style="display:inline-block">
+                <input ng-repeat="value in subExercise.values" ng-model="value.enteredValue" ng-style="subExercise.setHightlightIfSelected($index, vm.isSummaryActive())"  ng-focus="subExercise.selectSubExercise($index)" maxlength="2" class="form-control cube-{{$index}}" placeholder="?" ng-disabled="vm.isSummaryActive() || !value.isMissingValue " ng-class="{'valid-result':value.isCorrect() && vm.isSummaryActive() && value.isMissingValue , 'invalid-result':!value.isCorrect() && vm.isSummaryActive() && value.isMissingValue }"/>
+              </div>
+
+              <a animate-rubber-with-position class="remove-btn-pm" href ng-class="{hide:vm.isSummaryActive()}" ng-style="subExercise.getRubberPosition()" ng-click="subExercise.deleteSelectedNumber()">
+                <img src="./app/img/rubber.png"/>
+              </a>
+              <ul class="number-row-container">
+                <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
+                  <input animate-button class="input-number-row" ng-click="subExercise.changeEnteredNumber(key)" ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- end of plus minus exercise 7 view  -->
 
     </div>
 

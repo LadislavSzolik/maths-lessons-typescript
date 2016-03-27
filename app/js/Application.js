@@ -694,6 +694,68 @@ var exercises;
         return PlusMinusExercise6Item;
     }());
     exercises.PlusMinusExercise6Item = PlusMinusExercise6Item;
+    var PlusMinusExercise7Item = (function () {
+        function PlusMinusExercise7Item(expectedNumbers, missingNumberIndicators) {
+            this.expectedNumbers = expectedNumbers;
+            this.missingNumberIndicators = missingNumberIndicators;
+            this.values = [];
+            this.rubberPositions = [{ top: '0px', left: '390px' }, { top: '130px', left: '290px' }, { top: '130px', left: '485px' }, { top: '250px', left: '195px' }, { top: '250px', left: '390px' }, { top: '250px', left: '580px' }];
+            for (var i = 0; i < this.expectedNumbers.length; i++) {
+                var expectedNumber = this.expectedNumbers[i];
+                var isMissing = this.missingNumberIndicators[i];
+                this.values.push(new ValueForExercise7(expectedNumber, isMissing));
+                if (isMissing) {
+                    this.setFocus(i);
+                }
+            }
+        }
+        PlusMinusExercise7Item.prototype.setFocus = function (missingNumberIndex) {
+            this.focusedValueIndex = missingNumberIndex;
+        };
+        PlusMinusExercise7Item.prototype.selectSubExercise = function (index) {
+            this.focusedValueIndex = index;
+        };
+        PlusMinusExercise7Item.prototype.setHightlightIfSelected = function (index, isSummaryActive) {
+            if (!isSummaryActive && this.focusedValueIndex == index) {
+                return { background: 'white', color: '#75C9C8' };
+            }
+        };
+        PlusMinusExercise7Item.prototype.getRubberPosition = function () {
+            return this.rubberPositions[this.focusedValueIndex];
+        };
+        PlusMinusExercise7Item.prototype.deleteSelectedNumber = function () {
+            this.values[this.focusedValueIndex].enteredValue = null;
+        };
+        PlusMinusExercise7Item.prototype.changeEnteredNumber = function (incomingNumber) {
+            var value = this.values[this.focusedValueIndex];
+            if (angular.isUndefined(value.enteredValue) || value.enteredValue == null) {
+                value.enteredValue = incomingNumber;
+            }
+            else if (value.enteredValue.toString().length < 2) {
+                value.enteredValue = parseInt(String(value.enteredValue) + String(incomingNumber));
+            }
+            this.values[this.focusedValueIndex] = value;
+        };
+        return PlusMinusExercise7Item;
+    }());
+    exercises.PlusMinusExercise7Item = PlusMinusExercise7Item;
+    var ValueForExercise7 = (function () {
+        function ValueForExercise7(expectedValue, isMissingValue) {
+            this.expectedValue = expectedValue;
+            this.isMissingValue = isMissingValue;
+            this.setEnteredValue();
+        }
+        ValueForExercise7.prototype.setEnteredValue = function () {
+            if (!this.isMissingValue) {
+                this.enteredValue = this.expectedValue;
+            }
+        };
+        ValueForExercise7.prototype.isCorrect = function () {
+            return this.enteredValue == this.expectedValue;
+        };
+        return ValueForExercise7;
+    }());
+    exercises.ValueForExercise7 = ValueForExercise7;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -1574,7 +1636,7 @@ var exercises;
             this.exetype = "P2b";
             this.progressBarType = "pm-exe6";
             this.progressBarClass = "progress-color-pm-exe6";
-            this.titleText = texts.plusMinusExe5TitleText;
+            this.titleText = texts.plusMinusExe6TitleText;
             for (var i = 0; i < plusMinusExe6Data.subexerciseListDTO.length; i++) {
                 var minuend = plusMinusExe6Data.subexerciseListDTO[i].minuend;
                 var subtrahend = plusMinusExe6Data.subexerciseListDTO[i].subtrahend;
@@ -1593,6 +1655,38 @@ var exercises;
         return PlusMinusExercise6Ctrl;
     }(NavigationBase));
     exercises.PlusMinusExercise6Ctrl = PlusMinusExercise6Ctrl;
+    var PlusMinusExercise7Ctrl = (function (_super) {
+        __extends(PlusMinusExercise7Ctrl, _super);
+        function PlusMinusExercise7Ctrl($scope, $location, $route, $rootScope, plusMinusExe7Data, texts) {
+            _super.call(this, $scope, $location, $route, plusMinusExe7Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.plusMinusExe7Data = plusMinusExe7Data;
+            this.texts = texts;
+            this.exetype = "P2c";
+            this.progressBarType = "pm-exe7";
+            this.progressBarClass = "progress-color-pm-exe7";
+            this.titleText = texts.plusMinusExe7TitleText;
+            for (var i = 0; i < plusMinusExe7Data.subexerciseListDTO.length; i++) {
+                var expectedNumbers = plusMinusExe7Data.subexerciseListDTO[i].expectedNumbers;
+                var missingNumberIndicators = plusMinusExe7Data.subexerciseListDTO[i].missingNumberIndicators;
+                var exeItem = new exercises.PlusMinusExercise7Item(expectedNumbers.reverse(), missingNumberIndicators.reverse());
+                plusMinusExe7Data.subexerciseListDTO[i] = exeItem;
+            }
+        }
+        PlusMinusExercise7Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+                this.plusMinusExe7Data.subexerciseListDTO.unshift(new exercises.PlusMinusExercise7Item([], []));
+                this.totalItems = this.plusMinusExe7Data.subexerciseListDTO.length;
+            }
+        };
+        PlusMinusExercise7Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe7Data', 'texts'];
+        return PlusMinusExercise7Ctrl;
+    }(NavigationBase));
+    exercises.PlusMinusExercise7Ctrl = PlusMinusExercise7Ctrl;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -1878,6 +1972,7 @@ var exercises;
     mathApp.controller('plusMinusExercise4Ctrl', exercises.PlusMinusExercise4Ctrl);
     mathApp.controller('plusMinusExercise5Ctrl', exercises.PlusMinusExercise5Ctrl);
     mathApp.controller('plusMinusExercise6Ctrl', exercises.PlusMinusExercise6Ctrl);
+    mathApp.controller('plusMinusExercise7Ctrl', exercises.PlusMinusExercise7Ctrl);
     mathApp.service('exerciseServices', exercises.ExerciseServices);
     mathApp.directive('animateRubber', exercises.animateRubber);
     mathApp.directive('animateRubberWithPosition', exercises.animateRubberWithPosition);
@@ -2054,6 +2149,18 @@ var exercises;
                 resolve: {
                     'plusMinusExe6Data': function (exerciseServices) {
                         return exerciseServices.getExerciseFromJson("plusMinusExe6Data");
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            })
+                .when('/P2c', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'plusMinusExercise7Ctrl',
+                resolve: {
+                    'plusMinusExe7Data': function (exerciseServices) {
+                        return exerciseServices.getExerciseFromJson("plusMinusExe7Data");
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();

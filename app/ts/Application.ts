@@ -20,6 +20,7 @@ module exercises {
   mathApp.controller('plusMinusExercise4Ctrl', PlusMinusExercise4Ctrl);
   mathApp.controller('plusMinusExercise5Ctrl', PlusMinusExercise5Ctrl);
   mathApp.controller('plusMinusExercise6Ctrl', PlusMinusExercise6Ctrl);
+  mathApp.controller('plusMinusExercise7Ctrl', PlusMinusExercise7Ctrl);
 
   mathApp.service('exerciseServices', ExerciseServices);
 
@@ -207,6 +208,18 @@ module exercises {
       resolve: {
         'plusMinusExe6Data': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getExerciseFromJson("plusMinusExe6Data");
+        },
+        'texts': (exerciseServices: IExerciseServices) => {
+          return exerciseServices.getTexts();
+        }
+      }
+    })
+    .when('/P2c', {
+      templateUrl: 'app/components/exerciseView.html',
+      controller: 'plusMinusExercise7Ctrl',
+      resolve: {
+        'plusMinusExe7Data': (exerciseServices: IExerciseServices) => {
+          return exerciseServices.getExerciseFromJson("plusMinusExe7Data");
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();

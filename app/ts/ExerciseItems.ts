@@ -60,6 +60,10 @@ module exercises {
     subexerciseListDTO: PlusMinusExercise6Item[];
   }
 
+  export interface IPlusMinusExercise7 {
+    subexerciseListDTO: PlusMinusExercise7Item[];
+  }
+
   export class Exercise1Item {
     public givenNumber: number;
     public listOfPositions: ObjectPosition[];
@@ -775,7 +779,7 @@ module exercises {
     }
 
   }
-  // --------------------------------------------------------PM_EXE_5-----------------------------------------------------------------------
+  // --------------------------------------------------------PM_EXE_6-----------------------------------------------------------------------
   export class PlusMinusExercise6Item {
     public difference: number;
     public enteredNumber: number;
@@ -807,6 +811,75 @@ module exercises {
     }
 
   }
+// --------------------------------------------------------PM_EXE_7-----------------------------------------------------------------------
+  export class PlusMinusExercise7Item {
+      public values: ValueForExercise7[] = [];
+      public focusedValueIndex:number ;
+      public rubberPositions:any[] = [{top:'0px',left:'390px'},{top:'130px',left:'290px'}, {top:'130px',left:'485px'},{top:'250px',left:'195px'},{top:'250px',left:'390px'}, {top:'250px',left:'580px'}];
+
+      constructor(public expectedNumbers:number[], public missingNumberIndicators:boolean[]) {
+        for(var i =0; i<this.expectedNumbers.length; i++ ) {
+          var expectedNumber:number =  this.expectedNumbers[i];
+          var isMissing:boolean = this.missingNumberIndicators[i];
+          this.values.push(new ValueForExercise7(expectedNumber, isMissing));
+          if(isMissing) {
+            this.setFocus(i);
+          }
+        }
+      }
+
+      setFocus(missingNumberIndex:number){
+        this.focusedValueIndex = missingNumberIndex;
+      }
+
+      selectSubExercise(index:number){
+        this.focusedValueIndex = index;
+      }
+
+      setHightlightIfSelected(index:number, isSummaryActive:boolean){
+        if(!isSummaryActive && this.focusedValueIndex == index){
+          return {background:'white', color:'#75C9C8'};
+        }
+      }
+
+      getRubberPosition() {
+        return this.rubberPositions[this.focusedValueIndex];
+      }
+
+      deleteSelectedNumber() {
+        this.values[this.focusedValueIndex].enteredValue = null;
+      }
+
+      changeEnteredNumber(incomingNumber: number) {
+        var value: ValueForExercise7 = this.values[this.focusedValueIndex];
+        if (angular.isUndefined(value.enteredValue) || value.enteredValue == null) {
+          value.enteredValue = incomingNumber;
+        } else if (value.enteredValue.toString().length < 2) {
+          value.enteredValue = parseInt(String(value.enteredValue) + String(incomingNumber));
+        }
+        this.values[this.focusedValueIndex] = value;
+      }
+  }
+
+  export class ValueForExercise7 {
+    public enteredValue:number;
+    constructor(public expectedValue:number, public isMissingValue:boolean) {
+      this.setEnteredValue();
+    }
+
+    setEnteredValue(){
+      if(!this.isMissingValue) {
+        this.enteredValue = this.expectedValue;
+      }
+    }
+
+
+    isCorrect(){
+      return this.enteredValue == this.expectedValue;
+    }
+
+  }
+
   // --------------------------------------------------------EXE ?-----------------------------------------------------------------------
 
   export class ObjectPosition {

@@ -302,6 +302,21 @@ header, section
   .progress-color-pm-exe6
     border: 2px solid #4189A0
 
+  .progress-bar-pm-exe7
+    background-color: #F7F4EA
+    b
+      color: #60A4A3
+      font-size: 26px
+      position: absolute
+      text-align: center
+      top: 4px
+      width: 100%
+      z-index: 2
+      left: 0px
+
+  .progress-color-pm-exe7
+    border: 2px solid #75C9C8
+
 /* container with objects and result */
 @mixin exe-box-color($color)
   border-radius: 8px
@@ -1433,7 +1448,7 @@ header, section
     height: 5.5px
 
   .valid-result, .invalid-result
-    color: #ffffff  
+    color: #ffffff
 
 /*-------------------PM EXE 6 style -------------------*/
 .pm-exe6-background
@@ -1543,6 +1558,109 @@ header, section
 
   .valid-result, .invalid-result
     color: #ffffff
+
+/*-------------------PM EXE 7 style -------------------*/
+.pm-exe7-background
+  background-image: url(../img/pm_exe7_bcg.png)
+
+  .pm-exe7-arrows
+    width: 278px
+    height: 178px
+    position: absolute
+    top: 135px
+    left: 200px
+    background: url(../img/pm_exe7_arrows.png)  no-repeat
+
+  .cube-0, .cube-1,.cube-2, .cube-3,.cube-4, .cube-5,.cube-0-small, .cube-1-small,.cube-2-small, .cube-3-small,.cube-4-small, .cube-5-small
+    width: 110px
+    height: 110px
+    color: #ffffff
+    background-color: #75C9C8
+    border-radius: 5px
+    border: solid 0px
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.50)
+    font-size: 72px
+    font-weight: bold
+    text-align: center
+    padding: 0px
+    position: absolute
+
+  .cube-0
+    top: 15px
+    left: 285px
+
+  .cube-1, .cube-2
+    top: 134px
+    left: 188px
+
+  .cube-2
+    left: 381px
+
+  .cube-3, .cube-4, .cube-5
+    top: 253px
+    left: 91px
+
+  .cube-4
+    left: 285px
+
+  .cube-5
+    left: 478px
+
+  .number-row-container
+    margin-top: 375px
+
+  .remove-btn-pm
+    position: absolute
+    transition: all 0.1s ease-in-out
+    transform: scale(0.8)
+    &-animate
+      transform: scale(0.7)
+
+  .summary-li
+    width: 129px
+    height: 90px
+    display: inline-block
+    margin: 10px 35px 10px 35px
+    position: relative
+    cursor: pointer
+
+  .pm-exe7-arrows-small
+    width: 77px
+    height: 52px
+    position: absolute
+    top: 31px
+    left: 27px
+    background: url(../img/pm_exe7_arrows_small.png)  no-repeat
+
+  .cube-0-small, .cube-1-small,.cube-2-small, .cube-3-small,.cube-4-small, .cube-5-small
+    width: 28.5px
+    height: 28.5px
+    border-radius: 2px
+    font-size: 22px
+
+  .cube-0-small
+    top: 0px
+    left: 50px
+
+  .cube-1-small, .cube-2-small
+    top: 31px
+    left: 25px
+
+  .cube-2-small
+    left: 75px
+
+  .cube-3-small, .cube-4-small, .cube-5-small
+    top: 61px
+    left: 0px
+
+  .cube-4-small
+    left: 50px
+
+  .cube-5-small
+    left: 100px
+
+
+
 /*------------------- EXE 2 style -------------------*/
 
 .container-field-exe2-summary

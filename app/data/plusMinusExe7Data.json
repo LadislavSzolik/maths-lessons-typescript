@@ -1,0 +1,65 @@
+{
+  "id": 1,
+  "version": 1,
+  "exerciseContentDTO": {
+    "id": 1,
+    "version": 1,
+    "title": "Title P2b",
+    "content": "P2b"
+  },
+  "categoryDTO": {
+    "id": 1,
+    "version": 1,
+    "type": "PLUS_MINUS"
+  },
+  "subexerciseListDTO": [
+    {
+      "expectedNumbers" : [4,3,1,7,4,11],
+      "missingNumberIndicators" :[false,false,false,true,true,true]
+    },
+    {
+      "expectedNumbers" : [4,3,1,7,4,11],
+      "missingNumberIndicators" :[false,false,false,true,true,true]
+    },
+    {
+      "expectedNumbers" : [4,3,1,7,4,11],
+      "missingNumberIndicators" :[false,false,false,true,true,true]
+    },
+    {
+      "expectedNumbers" : [4,3,1,7,4,11],
+      "missingNumberIndicators" :[false,false,false,true,true,true]
+    },
+    {
+      "expectedNumbers" : [4,3,1,7,4,11],
+      "missingNumberIndicators" :[false,false,false,true,true,true]
+    },
+    {
+      "expectedNumbers" : [4,3,1,7,4,11],
+      "missingNumberIndicators" :[false,false,false,true,true,true]
+    },
+    {
+      "expectedNumbers" : [4,3,1,7,4,11],
+      "missingNumberIndicators" :[false,false,false,true,true,true]
+    },
+    {
+      "expectedNumbers" : [4,3,1,7,4,11],
+      "missingNumberIndicators" :[false,false,false,true,true,true]
+    },
+    {
+      "expectedNumbers" : [4,3,1,7,4,11],
+      "missingNumberIndicators" :[false,false,false,true,true,true]
+    },
+    {
+      "expectedNumbers" : [4,3,1,7,4,11],
+      "missingNumberIndicators" :[false,false,false,true,true,true]
+    },
+    {
+      "expectedNumbers" : [4,3,1,7,4,11],
+      "missingNumberIndicators" :[false,false,false,true,true,true]
+    },
+    {
+      "expectedNumbers" : [4,3,1,7,4,11],
+      "missingNumberIndicators" :[false,false,false,true,true,true]
+    }
+  ]
+}

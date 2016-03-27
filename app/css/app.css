@@ -331,6 +331,25 @@ header, section {
   border: 2px solid #4189A0;
 }
 
+.progess-container .progress-bar-pm-exe7 {
+  background-color: #F7F4EA;
+}
+
+.progess-container .progress-bar-pm-exe7 b {
+  color: #60A4A3;
+  font-size: 26px;
+  position: absolute;
+  text-align: center;
+  top: 4px;
+  width: 100%;
+  z-index: 2;
+  left: 0px;
+}
+
+.progess-container .progress-color-pm-exe7 {
+  border: 2px solid #75C9C8;
+}
+
 /* container with objects and result */
 .main-content .subexe-container-box {
   width: 680px;
@@ -1748,6 +1767,128 @@ header, section {
 
 .pm-exe6-background .valid-result, .pm-exe6-background .invalid-result {
   color: #ffffff;
+}
+
+/*-------------------PM EXE 7 style -------------------*/
+.pm-exe7-background {
+  background-image: url(../img/pm_exe7_bcg.png);
+}
+
+.pm-exe7-background .pm-exe7-arrows {
+  width: 278px;
+  height: 178px;
+  position: absolute;
+  top: 135px;
+  left: 200px;
+  background: url(../img/pm_exe7_arrows.png) no-repeat;
+}
+
+.pm-exe7-background .cube-0, .pm-exe7-background .cube-1, .pm-exe7-background .cube-2, .pm-exe7-background .cube-3, .pm-exe7-background .cube-4, .pm-exe7-background .cube-5, .pm-exe7-background .cube-0-small, .pm-exe7-background .cube-1-small, .pm-exe7-background .cube-2-small, .pm-exe7-background .cube-3-small, .pm-exe7-background .cube-4-small, .pm-exe7-background .cube-5-small {
+  width: 110px;
+  height: 110px;
+  color: #ffffff;
+  background-color: #75C9C8;
+  border-radius: 5px;
+  border: solid 0px;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.5);
+  font-size: 72px;
+  font-weight: bold;
+  text-align: center;
+  padding: 0px;
+  position: absolute;
+}
+
+.pm-exe7-background .cube-0 {
+  top: 15px;
+  left: 285px;
+}
+
+.pm-exe7-background .cube-1, .pm-exe7-background .cube-2 {
+  top: 134px;
+  left: 188px;
+}
+
+.pm-exe7-background .cube-2 {
+  left: 381px;
+}
+
+.pm-exe7-background .cube-3, .pm-exe7-background .cube-4, .pm-exe7-background .cube-5 {
+  top: 253px;
+  left: 91px;
+}
+
+.pm-exe7-background .cube-4 {
+  left: 285px;
+}
+
+.pm-exe7-background .cube-5 {
+  left: 478px;
+}
+
+.pm-exe7-background .number-row-container {
+  margin-top: 375px;
+}
+
+.pm-exe7-background .remove-btn-pm {
+  position: absolute;
+  transition: all 0.1s ease-in-out;
+  transform: scale(0.8);
+}
+
+.pm-exe7-background .remove-btn-pm-animate {
+  transform: scale(0.7);
+}
+
+.pm-exe7-background .summary-li {
+  width: 129px;
+  height: 90px;
+  display: inline-block;
+  margin: 10px 35px 10px 35px;
+  position: relative;
+  cursor: pointer;
+}
+
+.pm-exe7-background .pm-exe7-arrows-small {
+  width: 77px;
+  height: 52px;
+  position: absolute;
+  top: 31px;
+  left: 27px;
+  background: url(../img/pm_exe7_arrows_small.png) no-repeat;
+}
+
+.pm-exe7-background .cube-0-small, .pm-exe7-background .cube-1-small, .pm-exe7-background .cube-2-small, .pm-exe7-background .cube-3-small, .pm-exe7-background .cube-4-small, .pm-exe7-background .cube-5-small {
+  width: 28.5px;
+  height: 28.5px;
+  border-radius: 2px;
+  font-size: 22px;
+}
+
+.pm-exe7-background .cube-0-small {
+  top: 0px;
+  left: 50px;
+}
+
+.pm-exe7-background .cube-1-small, .pm-exe7-background .cube-2-small {
+  top: 31px;
+  left: 25px;
+}
+
+.pm-exe7-background .cube-2-small {
+  left: 75px;
+}
+
+.pm-exe7-background .cube-3-small, .pm-exe7-background .cube-4-small, .pm-exe7-background .cube-5-small {
+  top: 61px;
+  left: 0px;
+}
+
+.pm-exe7-background .cube-4-small {
+  left: 50px;
+}
+
+.pm-exe7-background .cube-5-small {
+  left: 100px;
 }
 
 /*------------------- EXE 2 style -------------------*/

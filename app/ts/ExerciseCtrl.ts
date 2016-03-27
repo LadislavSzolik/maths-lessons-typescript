@@ -911,7 +911,7 @@ module exercises {
       public plusMinusExe6Data: IPlusMinusExercise6,
       public texts: any) {
       super($scope, $location, $route, plusMinusExe6Data.subexerciseListDTO.length);
-      this.titleText = texts.plusMinusExe5TitleText;
+      this.titleText = texts.plusMinusExe6TitleText;
 
       for (var i: number = 0; i < plusMinusExe6Data.subexerciseListDTO.length; i++) {
         var minuend = plusMinusExe6Data.subexerciseListDTO[i].minuend;
@@ -926,6 +926,45 @@ module exercises {
         super.checkResult();
         this.plusMinusExe6Data.subexerciseListDTO.unshift(new PlusMinusExercise6Item(0, 0));
         this.totalItems = this.plusMinusExe6Data.subexerciseListDTO.length;
+      }
+    }
+  }
+
+  /***********************************************
+   *
+   * PlusMinusExercise 7 controller
+   *
+   ***********************************************/
+  export class PlusMinusExercise7Ctrl extends NavigationBase {
+    public exetype: String = "P2c";
+    public progressBarType: string = "pm-exe7";
+    public progressBarClass: string = "progress-color-pm-exe7";
+    public static $inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe7Data', 'texts'];
+    public titleText: string;
+
+
+    constructor(protected $scope: any,
+      protected $location: ng.ILocationService,
+      protected $route: any,
+      public $rootScope: any,
+      public plusMinusExe7Data: IPlusMinusExercise7,
+      public texts: any) {
+      super($scope, $location, $route, plusMinusExe7Data.subexerciseListDTO.length);
+      this.titleText = texts.plusMinusExe7TitleText;
+
+      for (var i: number = 0; i < plusMinusExe7Data.subexerciseListDTO.length; i++) {
+        var expectedNumbers: number[] = plusMinusExe7Data.subexerciseListDTO[i].expectedNumbers;
+        var missingNumberIndicators: boolean[] = plusMinusExe7Data.subexerciseListDTO[i].missingNumberIndicators;
+        var exeItem: PlusMinusExercise7Item = new PlusMinusExercise7Item(expectedNumbers.reverse(), missingNumberIndicators.reverse());
+        plusMinusExe7Data.subexerciseListDTO[i] = exeItem;
+      }
+    }
+
+    checkResult() {
+      if (!this.isSummaryActive()) {
+        super.checkResult();
+        this.plusMinusExe7Data.subexerciseListDTO.unshift(new PlusMinusExercise7Item([], []));
+        this.totalItems = this.plusMinusExe7Data.subexerciseListDTO.length;
       }
     }
   }
