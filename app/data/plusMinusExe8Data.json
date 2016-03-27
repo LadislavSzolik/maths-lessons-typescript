@@ -1,0 +1,65 @@
+{
+  "id": 1,
+  "version": 1,
+  "exerciseContentDTO": {
+    "id": 1,
+    "version": 1,
+    "title": "Title P2b",
+    "content": "P2b"
+  },
+  "categoryDTO": {
+    "id": 1,
+    "version": 1,
+    "type": "PLUS_MINUS"
+  },
+  "subexerciseListDTO": [
+    {
+      "givenAddend" : 5,
+      "missingAddend" :5
+    },
+    {
+      "givenAddend" : 1,
+      "missingAddend" :5
+    },
+    {
+      "givenAddend" : 8,
+      "missingAddend" :12
+    },
+    {
+      "givenAddend" : 5,
+      "missingAddend" :5
+    },
+    {
+      "givenAddend" : 15,
+      "missingAddend" :5
+    },
+    {
+      "givenAddend" : 5,
+      "missingAddend" :5
+    },
+    {
+      "givenAddend" : 5,
+      "missingAddend" :5
+    },
+    {
+      "givenAddend" : 5,
+      "missingAddend" :5
+    },
+    {
+      "givenAddend" : 5,
+      "missingAddend" :5
+    },
+    {
+      "givenAddend" : 5,
+      "missingAddend" :5
+    },
+    {
+      "givenAddend" : 5,
+      "missingAddend" :5
+    },
+    {
+      "givenAddend" : 15,
+      "missingAddend" :5
+    }
+  ]
+}

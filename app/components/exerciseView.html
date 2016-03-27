@@ -417,7 +417,7 @@
           <li ng-style="vm.getLiTagColor($index)" ng-repeat="subExercise in vm.plusMinusExe2Data.subexerciseListDTO">
 
             <span class="equation-sum">{{subExercise.equationForSum}}</span>
-            <input ng-model="subExercise.enteredNumber" maxlength="2" ng-style="vm.setWhiteBackgroundIfSelected($index)" ng-focus="vm.selectSubExercise($index)" class="user-input-field" ng-disabled="vm.isSummaryActive()" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}"/>
+            <input ng-model="subExercise.enteredNumber" maxlength="2" ng-style="vm.setWhiteBackgroundIfSelected($index)" ng-focus="vm.selectSubExercise($index)" class="user-input-field" ng-disabled="vm.isSummaryActive()" placeholder="?" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}"/>
           </li>
         </ul>
         <a animate-rubber-with-position class="remove-btn-pm" href ng-class="{hide:vm.isSummaryActive()}" ng-style="vm.getRubberPosition()" ng-click="vm.deleteEnteredInput()">
@@ -486,7 +486,7 @@
           <li ng-style="vm.getLiTagColor($index)" ng-repeat="subExercise in vm.plusMinusExe4Data.subexerciseListDTO">
 
             <span class="equation-sub">{{subExercise.equationForSub}}</span>
-            <input ng-model="subExercise.enteredNumber" maxlength="2" ng-focus="vm.selectSubExercise($index)" class="user-input-field" ng-style="vm.setWhiteBackgroundIfSelected($index)" ng-disabled="vm.isSummaryActive()" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}"/>
+            <input ng-model="subExercise.enteredNumber" maxlength="2" ng-focus="vm.selectSubExercise($index)" class="user-input-field" ng-style="vm.setWhiteBackgroundIfSelected($index)" ng-disabled="vm.isSummaryActive()" placeholder="?" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}"/>
           </li>
         </ul>
         <a animate-rubber-with-position class="remove-btn-pm" href ng-class="{hide:vm.isSummaryActive()}" ng-style="vm.getRubberPosition()" ng-click="vm.deleteEnteredInput()">
@@ -661,6 +661,66 @@
         </ul>
       </div>
       <!-- end of plus minus exercise 7 view  -->
+
+      <!-- plus minus exercise 8 view -->
+      <div class="subexe-container-box pm-exe8-background" ng-switch-when="P2d">
+        <ul class="subexe-ul">
+          <li ng-style="vm.getLiTagColor($index)" ng-repeat="subExercise in vm.plusMinusExe8Data.subexerciseListDTO">
+            <span class="equation-sub-1">{{subExercise.equationForSubPart1}}</span>
+            <input ng-model="subExercise.enteredNumber" maxlength="2" ng-focus="vm.selectSubExercise($index)" class="user-input-field" ng-style="vm.getCSS($index)" ng-disabled="vm.isSummaryActive()" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}" placeholder="?"/>
+            <span class="equation-sub-2">{{subExercise.equationForSubPart2}}</span>
+          </li>
+        </ul>
+        <a animate-rubber-with-position class="remove-btn-pm" href ng-class="{hide:vm.isSummaryActive()}" ng-style="vm.getRubberPosition()" ng-click="vm.deleteEnteredInput()">
+          <img src="./app/img/rubber.png"/>
+        </a>
+        <ul class="number-row-container">
+          <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
+            <input animate-button class="input-number-row" ng-click="vm.changeEnteredInput(key)" ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
+          </li>
+        </ul>
+      </div>
+      <!-- end of plus minus exercise 8 view  -->
+
+      <!-- plus minus exercise 9 view -->
+      <div class="subexe-container-box pm-exe9-background" ng-switch-when="P3a">
+        <ul class="subexe-ul">
+          <li ng-style="vm.getLiTagColor($index)" ng-repeat="subExercise in vm.plusMinusExe9Data.subexerciseListDTO">
+            <span class="equation-sub-1">{{subExercise.equationForSubPart1}}</span>
+            <input ng-model="subExercise.enteredNumber" maxlength="2" ng-focus="vm.selectSubExercise($index)" class="user-input-field" ng-style="vm.getCSS($index)" ng-disabled="vm.isSummaryActive()" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}" placeholder="?"/>
+            <span class="equation-sub-2">{{subExercise.equationForSubPart2}}</span>
+          </li>
+        </ul>
+        <a animate-rubber-with-position class="remove-btn-pm" href ng-class="{hide:vm.isSummaryActive()}" ng-style="vm.getRubberPosition()" ng-click="vm.deleteEnteredInput()">
+          <img src="./app/img/rubber.png"/>
+        </a>
+        <ul class="number-row-container">
+          <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
+            <input animate-button class="input-number-row" ng-click="vm.changeEnteredInput(key)" ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
+          </li>
+        </ul>
+      </div>
+      <!-- end of plus minus exercise 9 view  -->
+
+      <!-- plus minus exercise 10 view -->
+      <div class="subexe-container-box pm-exe10-background" ng-switch-when="P3b">
+        <ul class="subexe-ul">
+          <li ng-style="vm.getLiTagColor($index)" ng-repeat="subExercise in vm.plusMinusExe10Data.subexerciseListDTO">
+            <span class="equation-sub-1">{{subExercise.equationForSubPart1}}</span>
+            <input ng-model="subExercise.enteredNumber" maxlength="2" ng-focus="vm.selectSubExercise($index)" class="user-input-field" ng-style="vm.getCSS($index)" ng-disabled="vm.isSummaryActive()" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}" placeholder="?"/>
+            <span class="equation-sub-2">{{subExercise.equationForSubPart2}}</span>
+          </li>
+        </ul>
+        <a animate-rubber-with-position class="remove-btn-pm" href ng-class="{hide:vm.isSummaryActive()}" ng-style="vm.getRubberPosition()" ng-click="vm.deleteEnteredInput()">
+          <img src="./app/img/rubber.png"/>
+        </a>
+        <ul class="number-row-container">
+          <li class="input-number-row-li" ng-repeat="key in [0,1,2,3,4,5,6,7,8,9]">
+            <input animate-button class="input-number-row" ng-click="vm.changeEnteredInput(key)" ng-disabled="vm.isSummaryActive()" type="button" value="{{key}}"/>
+          </li>
+        </ul>
+      </div>
+      <!-- end of plus minus exercise 10 view  -->
 
     </div>
 

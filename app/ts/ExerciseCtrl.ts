@@ -968,4 +968,307 @@ module exercises {
       }
     }
   }
+
+  /***********************************************
+   *
+   * PlusMinusExercise 8 controller
+   *
+   ***********************************************/
+  export class PlusMinusExercise8Ctrl extends NavigationBase {
+    public exetype: String = "P2d";
+    public static $inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe8Data', 'texts'];
+    public titleText: string;
+    public selectedInput: number = 0;
+    public rubberPositions: any[] = [{ top: '-20px', left: '280px' },
+      { top: '-20px', left: '585px' },
+      { top: '45px', left: '280px' },
+      { top: '45px', left: '585px' },
+      { top: '105px', left: '280px' },
+      { top: '105px', left: '585px' },
+      { top: '165px', left: '280px' },
+      { top: '165px', left: '585px' },
+      { top: '230px', left: '280px' },
+      { top: '230px', left: '585px' },
+      { top: '290px', left: '280px' },
+      { top: '290px', left: '585px' }];
+
+    constructor(protected $scope: any,
+      protected $location: ng.ILocationService,
+      protected $route: any,
+      public $rootScope: any,
+      public plusMinusExe8Data: IPlusMinusExercise8,
+      public texts: any) {
+      super($scope, $location, $route, plusMinusExe8Data.subexerciseListDTO.length);
+      this.titleText = texts.plusMinusExe8TitleText;
+
+      for (var i: number = 0; i < plusMinusExe8Data.subexerciseListDTO.length; i++) {
+        var givenAddend = plusMinusExe8Data.subexerciseListDTO[i].givenAddend;
+        var missingAddend = plusMinusExe8Data.subexerciseListDTO[i].missingAddend;
+        var exeItem: PlusMinusExercise8Item = new PlusMinusExercise8Item(givenAddend, missingAddend);
+        plusMinusExe8Data.subexerciseListDTO[i] = exeItem;
+      }
+    }
+
+    isExerciseSinglePager() {
+      return true;
+    }
+
+    selectSubExercise(index: number) {
+      this.selectedInput = index;
+    }
+
+    getCSS(index: number) {
+      var styleObject:Object = {};
+      if(this.selectedInput == index) {
+        if(index%2 == 1) {
+          styleObject= {background:'white', border: 'solid 2px #2A8682'};
+        } else {
+          styleObject = {background: 'white'};
+        }
+
+
+      } else if(index%2 == 1) {
+        styleObject= {background:'#A6EDFF', border: 'solid 2px #2A8682'};
+      }
+      return styleObject;
+    }
+
+    getRubberPosition() {
+      return this.rubberPositions[this.selectedInput];
+    }
+
+    changeEnteredInput(incomingInput: number) {
+
+      var givenNumber: number = this.plusMinusExe8Data.subexerciseListDTO[this.selectedInput].enteredNumber;
+
+      if (angular.isUndefined(givenNumber) || givenNumber == null) {
+        givenNumber = incomingInput;
+      }
+      else if (givenNumber.toString().length < 2) {
+        givenNumber = parseInt(String(givenNumber) + String(incomingInput));
+      }
+      this.plusMinusExe8Data.subexerciseListDTO[this.selectedInput].enteredNumber = givenNumber;
+    }
+
+    deleteEnteredInput() {
+      this.plusMinusExe8Data.subexerciseListDTO[this.selectedInput].enteredNumber = null;
+    }
+
+    getLiTagColor(index: number) {
+      if (index % 2 == 1) {
+        return { color: '#2A8682' }
+      }
+    }
+    checkResult() {
+      if (!this.isSummaryActive()) {
+        super.checkResult();
+      }
+    }
+  }
+
+  /***********************************************
+   *
+   * PlusMinusExercise 9 controller
+   *
+   ***********************************************/
+  export class PlusMinusExercise9Ctrl extends NavigationBase {
+    public exetype: String = "P3a";
+    public static $inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe9Data', 'texts'];
+    public titleText: string;
+    public selectedInput: number = 0;
+    public rubberPositions: any[] = [{ top: '-20px', left: '280px' },
+      { top: '-20px', left: '575px' },
+      { top: '45px', left: '280px' },
+      { top: '45px', left: '575px' },
+      { top: '105px', left: '280px' },
+      { top: '105px', left: '575px' },
+      { top: '165px', left: '280px' },
+      { top: '165px', left: '575px' },
+      { top: '230px', left: '280px' },
+      { top: '230px', left: '575px' },
+      { top: '290px', left: '280px' },
+      { top: '290px', left: '575px' }];
+
+    constructor(protected $scope: any,
+      protected $location: ng.ILocationService,
+      protected $route: any,
+      public $rootScope: any,
+      public plusMinusExe9Data: IPlusMinusExercise9,
+      public texts: any) {
+      super($scope, $location, $route, plusMinusExe9Data.subexerciseListDTO.length);
+      this.titleText = texts.plusMinusExe9TitleText;
+
+      for (var i: number = 0; i < plusMinusExe9Data.subexerciseListDTO.length; i++) {
+        var minuend = plusMinusExe9Data.subexerciseListDTO[i].minuend;
+        var subtrahend = plusMinusExe9Data.subexerciseListDTO[i].subtrahend;
+        var exeItem: PlusMinusExercise9Item = new PlusMinusExercise9Item(minuend, subtrahend);
+        plusMinusExe9Data.subexerciseListDTO[i] = exeItem;
+      }
+    }
+
+    isExerciseSinglePager() {
+      return true;
+    }
+
+    selectSubExercise(index: number) {
+      this.selectedInput = index;
+    }
+
+    getCSS(index: number) {
+      var styleObject:Object = {};
+      if(this.selectedInput == index) {
+        if(index%2 == 1){
+          styleObject= {background:'white', border: 'solid 2px #BA30C0'};
+        } else {
+          styleObject = {background: 'white'};
+        }
+      } else if(index%2 == 1) {
+        styleObject= {background:'#FEE4FF', border: 'solid 2px #BA30C0'};
+      }
+      return styleObject;
+    }
+
+    getRubberPosition() {
+      return this.rubberPositions[this.selectedInput];
+    }
+
+    changeEnteredInput(incomingInput: number) {
+
+      var givenNumber: number = this.plusMinusExe9Data.subexerciseListDTO[this.selectedInput].enteredNumber;
+
+      if (angular.isUndefined(givenNumber) || givenNumber == null) {
+        givenNumber = incomingInput;
+      }
+      else if (givenNumber.toString().length < 2) {
+        givenNumber = parseInt(String(givenNumber) + String(incomingInput));
+      }
+      this.plusMinusExe9Data.subexerciseListDTO[this.selectedInput].enteredNumber = givenNumber;
+    }
+
+    deleteEnteredInput() {
+      this.plusMinusExe9Data.subexerciseListDTO[this.selectedInput].enteredNumber = null;
+    }
+
+    getLiTagColor(index: number) {
+      if (index % 2 == 1) {
+        return { color: '#BA30C0' }
+      }
+    }
+    checkResult() {
+      if (!this.isSummaryActive()) {
+        super.checkResult();
+      }
+    }
+  }
+
+  /***********************************************
+   *
+   * PlusMinusExercise 10 controller
+   *
+   ***********************************************/
+  export class PlusMinusExercise10Ctrl extends NavigationBase {
+    public exetype: String = "P3b";
+    public static $inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe10Data', 'texts'];
+    public titleText: string;
+    public selectedInput: number = 0;
+    public rubberPositions: any[] = [{ top: '-20px', left: '285px' },
+      { top: '-20px', left: '585px' },
+      { top: '45px', left: '285px' },
+      { top: '45px', left: '585px' },
+      { top: '105px', left: '285px' },
+      { top: '105px', left: '585px' },
+      { top: '165px', left: '285px' },
+      { top: '165px', left: '585px' },
+      { top: '230px', left: '285px' },
+      { top: '230px', left: '585px' },
+      { top: '290px', left: '285px' },
+      { top: '290px', left: '585px' }];
+
+    constructor(protected $scope: any,
+      protected $location: ng.ILocationService,
+      protected $route: any,
+      public $rootScope: any,
+      public plusMinusExe10Data: IPlusMinusExercise10,
+      public texts: any) {
+      super($scope, $location, $route, plusMinusExe10Data.subexerciseListDTO.length);
+      this.titleText = texts.plusMinusExe10TitleText;
+
+      for (var i: number = 0; i < plusMinusExe10Data.subexerciseListDTO.length; i++) {
+        var numberOne = plusMinusExe10Data.subexerciseListDTO[i].numberOne;
+        var numberTwo = plusMinusExe10Data.subexerciseListDTO[i].numberTwo;
+        var operator = plusMinusExe10Data.subexerciseListDTO[i].operator;
+        var exeItem: PlusMinusExercise10Item = new PlusMinusExercise10Item(numberOne, numberTwo, operator);
+        plusMinusExe10Data.subexerciseListDTO[i] = exeItem;
+      }
+    }
+
+    isExerciseSinglePager() {
+      return true;
+    }
+
+    selectSubExercise(index: number) {
+      this.selectedInput = index;
+    }
+
+    getCSS(index: number) {
+      var styleObject:Object = {};
+      if(this.selectedInput == index) {
+        if(index == 6 || index == 8 || index == 10){
+          styleObject = {background: 'white',  border: 'solid 2px #25B569'};
+        } else if(index == 7 || index == 9 || index == 11){
+          styleObject = {background: 'white',  border: 'solid 2px #EC5116'};
+        }
+        else if(index%2 == 0) {
+          styleObject = {background: 'white',  border: 'solid 2px #483668'};
+        } else {
+          styleObject = {background: 'white',  border: 'solid 2px #73AFB7'};
+        }
+      } else if(index == 6 || index == 8 || index == 10 ){
+        styleObject= {background:'#EAFFF4', border: 'solid 2px #25B569'};
+      } else if(index == 7 || index == 9 || index == 11) {
+        styleObject= {background:'#FCE3D9', border: 'solid 2px #EC5116'};
+      }
+      else if(index%2 == 0) {
+        styleObject= {background:'#E2D2FF', border: 'solid 2px #483668'};
+      }
+      return styleObject;
+    }
+
+    getRubberPosition() {
+      return this.rubberPositions[this.selectedInput];
+    }
+
+    changeEnteredInput(incomingInput: number) {
+
+      var givenNumber: number = this.plusMinusExe10Data.subexerciseListDTO[this.selectedInput].enteredNumber;
+
+      if (angular.isUndefined(givenNumber) || givenNumber == null) {
+        givenNumber = incomingInput;
+      }
+      else if (givenNumber.toString().length < 2) {
+        givenNumber = parseInt(String(givenNumber) + String(incomingInput));
+      }
+      this.plusMinusExe10Data.subexerciseListDTO[this.selectedInput].enteredNumber = givenNumber;
+    }
+
+    deleteEnteredInput() {
+      this.plusMinusExe10Data.subexerciseListDTO[this.selectedInput].enteredNumber = null;
+    }
+
+    getLiTagColor(index: number) {
+      if(index == 6 || index == 8 || index == 10){
+        return { color: '#25B569' }
+      } else if(index == 7 || index == 9 || index == 11) {
+        return { color: '#EC5116' }
+      }
+      else if (index % 2 == 0) {
+        return { color: '#483668' }
+      }
+    }
+    checkResult() {
+      if (!this.isSummaryActive()) {
+        super.checkResult();
+      }
+    }
+  }
 }

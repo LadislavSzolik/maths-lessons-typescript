@@ -180,6 +180,31 @@
                     "title": "Title P2d",
                     "content": "P2d"
                 }
+
+}
+,
+            {
+                "id": 15,
+                "version": 1,
+                "exerciseContentDTO": {
+                    "id": 8,
+                    "version": 1,
+                    "title": "Title P3a",
+                    "content": "P3a"
+                }
+
+}
+,
+            {
+                "id": 16,
+                "version": 1,
+                "exerciseContentDTO": {
+                    "id": 10,
+                    "version": 1,
+                    "title": "Title P3b",
+                    "content": "P3b"
+                }
+
 }
 ]
 },

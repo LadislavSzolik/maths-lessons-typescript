@@ -1,0 +1,77 @@
+{
+  "id": 1,
+  "version": 1,
+  "exerciseContentDTO": {
+    "id": 1,
+    "version": 1,
+    "title": "Title P3a",
+    "content": "P3a"
+  },
+  "categoryDTO": {
+    "id": 1,
+    "version": 1,
+    "type": "PLUS_MINUS"
+  },
+  "subexerciseListDTO": [
+    {
+      "numberOne": 4,
+      "numberTwo": 1,
+      "operator" : "+"
+    },
+    {
+      "numberOne": 6,
+      "numberTwo": 6,
+      "operator" : "+"
+    },
+    {
+      "numberOne": 12,
+      "numberTwo": 10,
+      "operator" : "+"
+    },
+    {
+      "numberOne": 10,
+      "numberTwo": 6,
+      "operator" : "+"
+    },
+    {
+      "numberOne": 5,
+      "numberTwo": 1,
+      "operator" : "+"
+    },
+    {
+      "numberOne": 6,
+      "numberTwo": 3,
+      "operator" : "+"
+    },
+    {
+      "numberOne": 7,
+      "numberTwo": 6,
+      "operator" : "-"
+    },
+    {
+      "numberOne": 9,
+      "numberTwo": 6,
+      "operator" : "-"
+    },
+    {
+      "numberOne": 11,
+      "numberTwo": 1,
+      "operator" : "-"
+    },
+    {
+      "numberOne": 7,
+      "numberTwo": 4,
+      "operator" : "-"
+    },
+    {
+      "numberOne": 5,
+      "numberTwo": 2,
+      "operator" : "-"
+    },
+    {
+      "numberOne": 20,
+      "numberTwo":1,
+      "operator" : "-"
+    }
+  ]
+}

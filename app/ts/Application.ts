@@ -21,6 +21,9 @@ module exercises {
   mathApp.controller('plusMinusExercise5Ctrl', PlusMinusExercise5Ctrl);
   mathApp.controller('plusMinusExercise6Ctrl', PlusMinusExercise6Ctrl);
   mathApp.controller('plusMinusExercise7Ctrl', PlusMinusExercise7Ctrl);
+  mathApp.controller('plusMinusExercise8Ctrl', PlusMinusExercise8Ctrl);
+  mathApp.controller('plusMinusExercise9Ctrl', PlusMinusExercise9Ctrl);
+  mathApp.controller('plusMinusExercise10Ctrl', PlusMinusExercise10Ctrl);
 
   mathApp.service('exerciseServices', ExerciseServices);
 
@@ -220,6 +223,42 @@ module exercises {
       resolve: {
         'plusMinusExe7Data': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getExerciseFromJson("plusMinusExe7Data");
+        },
+        'texts': (exerciseServices: IExerciseServices) => {
+          return exerciseServices.getTexts();
+        }
+      }
+    })
+    .when('/P2d', {
+      templateUrl: 'app/components/exerciseView.html',
+      controller: 'plusMinusExercise8Ctrl',
+      resolve: {
+        'plusMinusExe8Data': (exerciseServices: IExerciseServices) => {
+          return exerciseServices.getExerciseFromJson("plusMinusExe8Data");
+        },
+        'texts': (exerciseServices: IExerciseServices) => {
+          return exerciseServices.getTexts();
+        }
+      }
+    })
+    .when('/P3a', {
+      templateUrl: 'app/components/exerciseView.html',
+      controller: 'plusMinusExercise9Ctrl',
+      resolve: {
+        'plusMinusExe9Data': (exerciseServices: IExerciseServices) => {
+          return exerciseServices.getExerciseFromJson("plusMinusExe9Data");
+        },
+        'texts': (exerciseServices: IExerciseServices) => {
+          return exerciseServices.getTexts();
+        }
+      }
+    })
+    .when('/P3b', {
+      templateUrl: 'app/components/exerciseView.html',
+      controller: 'plusMinusExercise10Ctrl',
+      resolve: {
+        'plusMinusExe10Data': (exerciseServices: IExerciseServices) => {
+          return exerciseServices.getExerciseFromJson("plusMinusExe10Data");
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();

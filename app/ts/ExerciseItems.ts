@@ -64,6 +64,18 @@ module exercises {
     subexerciseListDTO: PlusMinusExercise7Item[];
   }
 
+  export interface IPlusMinusExercise8 {
+    subexerciseListDTO: PlusMinusExercise8Item[];
+  }
+
+  export interface IPlusMinusExercise9 {
+    subexerciseListDTO: PlusMinusExercise9Item[];
+  }
+
+  export interface IPlusMinusExercise10 {
+    subexerciseListDTO: PlusMinusExercise10Item[];
+  }
+
   export class Exercise1Item {
     public givenNumber: number;
     public listOfPositions: ObjectPosition[];
@@ -873,12 +885,78 @@ module exercises {
       }
     }
 
-
     isCorrect(){
       return this.enteredValue == this.expectedValue;
     }
 
   }
+
+// --------------------------------------------------------PM_EXE_8-----------------------------------------------------------------------
+  export class PlusMinusExercise8Item {
+    public equationForSubPart1: string;
+    public equationForSubPart2: string;
+    public enteredNumber: number;
+    public sum: number;
+
+    constructor(public givenAddend: number, public missingAddend: number) {
+      this.sum = this.givenAddend + this.missingAddend;
+      this.equationForSubPart1 = this.givenAddend + " + ";
+      this.equationForSubPart2 = "= "+this.sum;
+    }
+
+    isCorrect() {
+      if (angular.isDefined(this.enteredNumber) && this.enteredNumber == (this.missingAddend)) {
+        return true;
+      }
+      return false;
+    }
+  }
+
+  // --------------------------------------------------------PM_EXE_9-----------------------------------------------------------------------
+    export class PlusMinusExercise9Item {
+      public equationForSubPart1: string;
+      public equationForSubPart2: string;
+      public enteredNumber: number;
+      public difference : number;
+
+      constructor(public minuend: number, public subtrahend: number) {
+        this.difference = this.minuend - this.subtrahend;
+        this.equationForSubPart1 = this.minuend + " - ";
+        this.equationForSubPart2 = "= "+this.difference;
+      }
+
+      isCorrect() {
+        if (angular.isDefined(this.enteredNumber) && this.enteredNumber == (this.subtrahend)) {
+          return true;
+        }
+        return false;
+      }
+    }
+
+    // --------------------------------------------------------PM_EXE_10-----------------------------------------------------------------------
+      export class PlusMinusExercise10Item {
+        public equationForSubPart1: string;
+        public equationForSubPart2: string;
+        public enteredNumber: number;
+        public result : number;
+
+        constructor(public numberOne: number, public numberTwo: number, public operator:string) {
+          if(operator == "+") {
+              this.result = this.numberOne + this.numberTwo;
+          } else {
+            this.result = this.numberOne - this.numberTwo;
+          }
+          this.equationForSubPart1 = this.numberOne + " "+this.operator;
+          this.equationForSubPart2 = "= "+this.result;
+        }
+
+        isCorrect() {
+          if (angular.isDefined(this.enteredNumber) && this.enteredNumber == (this.numberTwo)) {
+            return true;
+          }
+          return false;
+        }
+      }
 
   // --------------------------------------------------------EXE ?-----------------------------------------------------------------------
 

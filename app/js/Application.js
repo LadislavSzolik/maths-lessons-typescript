@@ -756,6 +756,63 @@ var exercises;
         return ValueForExercise7;
     }());
     exercises.ValueForExercise7 = ValueForExercise7;
+    var PlusMinusExercise8Item = (function () {
+        function PlusMinusExercise8Item(givenAddend, missingAddend) {
+            this.givenAddend = givenAddend;
+            this.missingAddend = missingAddend;
+            this.sum = this.givenAddend + this.missingAddend;
+            this.equationForSubPart1 = this.givenAddend + " + ";
+            this.equationForSubPart2 = "= " + this.sum;
+        }
+        PlusMinusExercise8Item.prototype.isCorrect = function () {
+            if (angular.isDefined(this.enteredNumber) && this.enteredNumber == (this.missingAddend)) {
+                return true;
+            }
+            return false;
+        };
+        return PlusMinusExercise8Item;
+    }());
+    exercises.PlusMinusExercise8Item = PlusMinusExercise8Item;
+    var PlusMinusExercise9Item = (function () {
+        function PlusMinusExercise9Item(minuend, subtrahend) {
+            this.minuend = minuend;
+            this.subtrahend = subtrahend;
+            this.difference = this.minuend - this.subtrahend;
+            this.equationForSubPart1 = this.minuend + " - ";
+            this.equationForSubPart2 = "= " + this.difference;
+        }
+        PlusMinusExercise9Item.prototype.isCorrect = function () {
+            if (angular.isDefined(this.enteredNumber) && this.enteredNumber == (this.subtrahend)) {
+                return true;
+            }
+            return false;
+        };
+        return PlusMinusExercise9Item;
+    }());
+    exercises.PlusMinusExercise9Item = PlusMinusExercise9Item;
+    var PlusMinusExercise10Item = (function () {
+        function PlusMinusExercise10Item(numberOne, numberTwo, operator) {
+            this.numberOne = numberOne;
+            this.numberTwo = numberTwo;
+            this.operator = operator;
+            if (operator == "+") {
+                this.result = this.numberOne + this.numberTwo;
+            }
+            else {
+                this.result = this.numberOne - this.numberTwo;
+            }
+            this.equationForSubPart1 = this.numberOne + " " + this.operator;
+            this.equationForSubPart2 = "= " + this.result;
+        }
+        PlusMinusExercise10Item.prototype.isCorrect = function () {
+            if (angular.isDefined(this.enteredNumber) && this.enteredNumber == (this.numberTwo)) {
+                return true;
+            }
+            return false;
+        };
+        return PlusMinusExercise10Item;
+    }());
+    exercises.PlusMinusExercise10Item = PlusMinusExercise10Item;
     var ObjectPosition = (function () {
         function ObjectPosition(largePositionTop, largePositionLeft, smallPositionTop, smallPositionLeft) {
             this.largePositionTop = largePositionTop;
@@ -1687,6 +1744,274 @@ var exercises;
         return PlusMinusExercise7Ctrl;
     }(NavigationBase));
     exercises.PlusMinusExercise7Ctrl = PlusMinusExercise7Ctrl;
+    var PlusMinusExercise8Ctrl = (function (_super) {
+        __extends(PlusMinusExercise8Ctrl, _super);
+        function PlusMinusExercise8Ctrl($scope, $location, $route, $rootScope, plusMinusExe8Data, texts) {
+            _super.call(this, $scope, $location, $route, plusMinusExe8Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.plusMinusExe8Data = plusMinusExe8Data;
+            this.texts = texts;
+            this.exetype = "P2d";
+            this.selectedInput = 0;
+            this.rubberPositions = [{ top: '-20px', left: '280px' },
+                { top: '-20px', left: '585px' },
+                { top: '45px', left: '280px' },
+                { top: '45px', left: '585px' },
+                { top: '105px', left: '280px' },
+                { top: '105px', left: '585px' },
+                { top: '165px', left: '280px' },
+                { top: '165px', left: '585px' },
+                { top: '230px', left: '280px' },
+                { top: '230px', left: '585px' },
+                { top: '290px', left: '280px' },
+                { top: '290px', left: '585px' }];
+            this.titleText = texts.plusMinusExe8TitleText;
+            for (var i = 0; i < plusMinusExe8Data.subexerciseListDTO.length; i++) {
+                var givenAddend = plusMinusExe8Data.subexerciseListDTO[i].givenAddend;
+                var missingAddend = plusMinusExe8Data.subexerciseListDTO[i].missingAddend;
+                var exeItem = new exercises.PlusMinusExercise8Item(givenAddend, missingAddend);
+                plusMinusExe8Data.subexerciseListDTO[i] = exeItem;
+            }
+        }
+        PlusMinusExercise8Ctrl.prototype.isExerciseSinglePager = function () {
+            return true;
+        };
+        PlusMinusExercise8Ctrl.prototype.selectSubExercise = function (index) {
+            this.selectedInput = index;
+        };
+        PlusMinusExercise8Ctrl.prototype.getCSS = function (index) {
+            var styleObject = {};
+            if (this.selectedInput == index) {
+                if (index % 2 == 1) {
+                    styleObject = { background: 'white', border: 'solid 2px #2A8682' };
+                }
+                else {
+                    styleObject = { background: 'white' };
+                }
+            }
+            else if (index % 2 == 1) {
+                styleObject = { background: '#A6EDFF', border: 'solid 2px #2A8682' };
+            }
+            return styleObject;
+        };
+        PlusMinusExercise8Ctrl.prototype.getRubberPosition = function () {
+            return this.rubberPositions[this.selectedInput];
+        };
+        PlusMinusExercise8Ctrl.prototype.changeEnteredInput = function (incomingInput) {
+            var givenNumber = this.plusMinusExe8Data.subexerciseListDTO[this.selectedInput].enteredNumber;
+            if (angular.isUndefined(givenNumber) || givenNumber == null) {
+                givenNumber = incomingInput;
+            }
+            else if (givenNumber.toString().length < 2) {
+                givenNumber = parseInt(String(givenNumber) + String(incomingInput));
+            }
+            this.plusMinusExe8Data.subexerciseListDTO[this.selectedInput].enteredNumber = givenNumber;
+        };
+        PlusMinusExercise8Ctrl.prototype.deleteEnteredInput = function () {
+            this.plusMinusExe8Data.subexerciseListDTO[this.selectedInput].enteredNumber = null;
+        };
+        PlusMinusExercise8Ctrl.prototype.getLiTagColor = function (index) {
+            if (index % 2 == 1) {
+                return { color: '#2A8682' };
+            }
+        };
+        PlusMinusExercise8Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+            }
+        };
+        PlusMinusExercise8Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe8Data', 'texts'];
+        return PlusMinusExercise8Ctrl;
+    }(NavigationBase));
+    exercises.PlusMinusExercise8Ctrl = PlusMinusExercise8Ctrl;
+    var PlusMinusExercise9Ctrl = (function (_super) {
+        __extends(PlusMinusExercise9Ctrl, _super);
+        function PlusMinusExercise9Ctrl($scope, $location, $route, $rootScope, plusMinusExe9Data, texts) {
+            _super.call(this, $scope, $location, $route, plusMinusExe9Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.plusMinusExe9Data = plusMinusExe9Data;
+            this.texts = texts;
+            this.exetype = "P3a";
+            this.selectedInput = 0;
+            this.rubberPositions = [{ top: '-20px', left: '280px' },
+                { top: '-20px', left: '575px' },
+                { top: '45px', left: '280px' },
+                { top: '45px', left: '575px' },
+                { top: '105px', left: '280px' },
+                { top: '105px', left: '575px' },
+                { top: '165px', left: '280px' },
+                { top: '165px', left: '575px' },
+                { top: '230px', left: '280px' },
+                { top: '230px', left: '575px' },
+                { top: '290px', left: '280px' },
+                { top: '290px', left: '575px' }];
+            this.titleText = texts.plusMinusExe9TitleText;
+            for (var i = 0; i < plusMinusExe9Data.subexerciseListDTO.length; i++) {
+                var minuend = plusMinusExe9Data.subexerciseListDTO[i].minuend;
+                var subtrahend = plusMinusExe9Data.subexerciseListDTO[i].subtrahend;
+                var exeItem = new exercises.PlusMinusExercise9Item(minuend, subtrahend);
+                plusMinusExe9Data.subexerciseListDTO[i] = exeItem;
+            }
+        }
+        PlusMinusExercise9Ctrl.prototype.isExerciseSinglePager = function () {
+            return true;
+        };
+        PlusMinusExercise9Ctrl.prototype.selectSubExercise = function (index) {
+            this.selectedInput = index;
+        };
+        PlusMinusExercise9Ctrl.prototype.getCSS = function (index) {
+            var styleObject = {};
+            if (this.selectedInput == index) {
+                if (index % 2 == 1) {
+                    styleObject = { background: 'white', border: 'solid 2px #BA30C0' };
+                }
+                else {
+                    styleObject = { background: 'white' };
+                }
+            }
+            else if (index % 2 == 1) {
+                styleObject = { background: '#FEE4FF', border: 'solid 2px #BA30C0' };
+            }
+            return styleObject;
+        };
+        PlusMinusExercise9Ctrl.prototype.getRubberPosition = function () {
+            return this.rubberPositions[this.selectedInput];
+        };
+        PlusMinusExercise9Ctrl.prototype.changeEnteredInput = function (incomingInput) {
+            var givenNumber = this.plusMinusExe9Data.subexerciseListDTO[this.selectedInput].enteredNumber;
+            if (angular.isUndefined(givenNumber) || givenNumber == null) {
+                givenNumber = incomingInput;
+            }
+            else if (givenNumber.toString().length < 2) {
+                givenNumber = parseInt(String(givenNumber) + String(incomingInput));
+            }
+            this.plusMinusExe9Data.subexerciseListDTO[this.selectedInput].enteredNumber = givenNumber;
+        };
+        PlusMinusExercise9Ctrl.prototype.deleteEnteredInput = function () {
+            this.plusMinusExe9Data.subexerciseListDTO[this.selectedInput].enteredNumber = null;
+        };
+        PlusMinusExercise9Ctrl.prototype.getLiTagColor = function (index) {
+            if (index % 2 == 1) {
+                return { color: '#BA30C0' };
+            }
+        };
+        PlusMinusExercise9Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+            }
+        };
+        PlusMinusExercise9Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe9Data', 'texts'];
+        return PlusMinusExercise9Ctrl;
+    }(NavigationBase));
+    exercises.PlusMinusExercise9Ctrl = PlusMinusExercise9Ctrl;
+    var PlusMinusExercise10Ctrl = (function (_super) {
+        __extends(PlusMinusExercise10Ctrl, _super);
+        function PlusMinusExercise10Ctrl($scope, $location, $route, $rootScope, plusMinusExe10Data, texts) {
+            _super.call(this, $scope, $location, $route, plusMinusExe10Data.subexerciseListDTO.length);
+            this.$scope = $scope;
+            this.$location = $location;
+            this.$route = $route;
+            this.$rootScope = $rootScope;
+            this.plusMinusExe10Data = plusMinusExe10Data;
+            this.texts = texts;
+            this.exetype = "P3b";
+            this.selectedInput = 0;
+            this.rubberPositions = [{ top: '-20px', left: '285px' },
+                { top: '-20px', left: '585px' },
+                { top: '45px', left: '285px' },
+                { top: '45px', left: '585px' },
+                { top: '105px', left: '285px' },
+                { top: '105px', left: '585px' },
+                { top: '165px', left: '285px' },
+                { top: '165px', left: '585px' },
+                { top: '230px', left: '285px' },
+                { top: '230px', left: '585px' },
+                { top: '290px', left: '285px' },
+                { top: '290px', left: '585px' }];
+            this.titleText = texts.plusMinusExe10TitleText;
+            for (var i = 0; i < plusMinusExe10Data.subexerciseListDTO.length; i++) {
+                var numberOne = plusMinusExe10Data.subexerciseListDTO[i].numberOne;
+                var numberTwo = plusMinusExe10Data.subexerciseListDTO[i].numberTwo;
+                var operator = plusMinusExe10Data.subexerciseListDTO[i].operator;
+                var exeItem = new exercises.PlusMinusExercise10Item(numberOne, numberTwo, operator);
+                plusMinusExe10Data.subexerciseListDTO[i] = exeItem;
+            }
+        }
+        PlusMinusExercise10Ctrl.prototype.isExerciseSinglePager = function () {
+            return true;
+        };
+        PlusMinusExercise10Ctrl.prototype.selectSubExercise = function (index) {
+            this.selectedInput = index;
+        };
+        PlusMinusExercise10Ctrl.prototype.getCSS = function (index) {
+            var styleObject = {};
+            if (this.selectedInput == index) {
+                if (index == 6 || index == 8 || index == 10) {
+                    styleObject = { background: 'white', border: 'solid 2px #25B569' };
+                }
+                else if (index == 7 || index == 9 || index == 11) {
+                    styleObject = { background: 'white', border: 'solid 2px #EC5116' };
+                }
+                else if (index % 2 == 0) {
+                    styleObject = { background: 'white', border: 'solid 2px #483668' };
+                }
+                else {
+                    styleObject = { background: 'white', border: 'solid 2px #73AFB7' };
+                }
+            }
+            else if (index == 6 || index == 8 || index == 10) {
+                styleObject = { background: '#EAFFF4', border: 'solid 2px #25B569' };
+            }
+            else if (index == 7 || index == 9 || index == 11) {
+                styleObject = { background: '#FCE3D9', border: 'solid 2px #EC5116' };
+            }
+            else if (index % 2 == 0) {
+                styleObject = { background: '#E2D2FF', border: 'solid 2px #483668' };
+            }
+            return styleObject;
+        };
+        PlusMinusExercise10Ctrl.prototype.getRubberPosition = function () {
+            return this.rubberPositions[this.selectedInput];
+        };
+        PlusMinusExercise10Ctrl.prototype.changeEnteredInput = function (incomingInput) {
+            var givenNumber = this.plusMinusExe10Data.subexerciseListDTO[this.selectedInput].enteredNumber;
+            if (angular.isUndefined(givenNumber) || givenNumber == null) {
+                givenNumber = incomingInput;
+            }
+            else if (givenNumber.toString().length < 2) {
+                givenNumber = parseInt(String(givenNumber) + String(incomingInput));
+            }
+            this.plusMinusExe10Data.subexerciseListDTO[this.selectedInput].enteredNumber = givenNumber;
+        };
+        PlusMinusExercise10Ctrl.prototype.deleteEnteredInput = function () {
+            this.plusMinusExe10Data.subexerciseListDTO[this.selectedInput].enteredNumber = null;
+        };
+        PlusMinusExercise10Ctrl.prototype.getLiTagColor = function (index) {
+            if (index == 6 || index == 8 || index == 10) {
+                return { color: '#25B569' };
+            }
+            else if (index == 7 || index == 9 || index == 11) {
+                return { color: '#EC5116' };
+            }
+            else if (index % 2 == 0) {
+                return { color: '#483668' };
+            }
+        };
+        PlusMinusExercise10Ctrl.prototype.checkResult = function () {
+            if (!this.isSummaryActive()) {
+                _super.prototype.checkResult.call(this);
+            }
+        };
+        PlusMinusExercise10Ctrl.$inject = ['$scope', '$location', '$route', '$rootScope', 'plusMinusExe10Data', 'texts'];
+        return PlusMinusExercise10Ctrl;
+    }(NavigationBase));
+    exercises.PlusMinusExercise10Ctrl = PlusMinusExercise10Ctrl;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -1973,6 +2298,9 @@ var exercises;
     mathApp.controller('plusMinusExercise5Ctrl', exercises.PlusMinusExercise5Ctrl);
     mathApp.controller('plusMinusExercise6Ctrl', exercises.PlusMinusExercise6Ctrl);
     mathApp.controller('plusMinusExercise7Ctrl', exercises.PlusMinusExercise7Ctrl);
+    mathApp.controller('plusMinusExercise8Ctrl', exercises.PlusMinusExercise8Ctrl);
+    mathApp.controller('plusMinusExercise9Ctrl', exercises.PlusMinusExercise9Ctrl);
+    mathApp.controller('plusMinusExercise10Ctrl', exercises.PlusMinusExercise10Ctrl);
     mathApp.service('exerciseServices', exercises.ExerciseServices);
     mathApp.directive('animateRubber', exercises.animateRubber);
     mathApp.directive('animateRubberWithPosition', exercises.animateRubberWithPosition);
@@ -2161,6 +2489,42 @@ var exercises;
                 resolve: {
                     'plusMinusExe7Data': function (exerciseServices) {
                         return exerciseServices.getExerciseFromJson("plusMinusExe7Data");
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            })
+                .when('/P2d', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'plusMinusExercise8Ctrl',
+                resolve: {
+                    'plusMinusExe8Data': function (exerciseServices) {
+                        return exerciseServices.getExerciseFromJson("plusMinusExe8Data");
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            })
+                .when('/P3a', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'plusMinusExercise9Ctrl',
+                resolve: {
+                    'plusMinusExe9Data': function (exerciseServices) {
+                        return exerciseServices.getExerciseFromJson("plusMinusExe9Data");
+                    },
+                    'texts': function (exerciseServices) {
+                        return exerciseServices.getTexts();
+                    }
+                }
+            })
+                .when('/P3b', {
+                templateUrl: 'app/components/exerciseView.html',
+                controller: 'plusMinusExercise10Ctrl',
+                resolve: {
+                    'plusMinusExe10Data': function (exerciseServices) {
+                        return exerciseServices.getExerciseFromJson("plusMinusExe10Data");
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
