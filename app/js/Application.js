@@ -921,9 +921,519 @@ var exercises;
         ExerciseServices.prototype.getTexts = function () {
             return this.$http.get('app/data/appTexts.json').then(function (result) { return result.data; });
         };
+        ExerciseServices.prototype.getRandomData = function (choosenExercise) {
+            switch (choosenExercise) {
+                case 'n-exe1':
+                    return this.getExe1RandomData();
+                case 'n-exe2':
+                    return this.getExe2RandomData();
+                case 'n-exe3':
+                    return this.getExe3RandomData();
+                case 'n-exe4':
+                    return this.getExe4RandomData();
+                case 'n-exe5':
+                    return this.getExe5RandomData();
+                case 'n-exe6':
+                    return this.getExe6RandomData();
+                case 'n-exe7':
+                    return this.getExe7RandomData();
+                case 'n-exe8':
+                    return this.getExe8RandomData();
+                case 'pm-exe1':
+                    return this.getPmExe1RandomData();
+                case 'pm-exe2':
+                    return this.getPmExe2RandomData();
+                case 'pm-exe3':
+                    return this.getPmExe3RandomData();
+                case 'pm-exe4':
+                    return this.getPmExe4RandomData();
+                case 'pm-exe5':
+                    return this.getPmExe5RandomData();
+                case 'pm-exe6':
+                    return this.getPmExe6RandomData();
+                case 'pm-exe7':
+                    return this.getPmExe7RandomData();
+                case 'pm-exe8':
+                    return this.getPmExe8RandomData();
+                case 'pm-exe9':
+                    return this.getPmExe9RandomData();
+                case 'pm-exe10':
+                    return this.getPmExe10RandomData();
+                default:
+                    return {};
+            }
+        };
+        ExerciseServices.prototype.getExe1RandomData = function () {
+            var randomize = new RandomizeDataHelper(3);
+            randomize.createRandomArray(12, 0, 20);
+            var subexerciseListDTO = [];
+            for (var i = 0; i < randomize.randimzedArray.length; i++) {
+                subexerciseListDTO.push(new exercises.Exercise1Item(randomize.randimzedArray[i]));
+            }
+            var exercise1Data = {};
+            exercise1Data.subexerciseListDTO = subexerciseListDTO;
+            exercise1Data.numberOfElements = 20;
+            exercise1Data.numberOfRange = 20;
+            return exercise1Data;
+        };
+        ExerciseServices.prototype.getExe2RandomData = function () {
+            var randomize = new RandomizeDataHelper(3);
+            randomize.createRandomArray(12, 0, 20);
+            var subexerciseListDTO = [];
+            for (var i = 0; i < randomize.randimzedArray.length; i++) {
+                subexerciseListDTO.push(new exercises.Exercise2Item(randomize.randimzedArray[i]));
+            }
+            var exercise2Data = {};
+            exercise2Data.subexerciseListDTO = subexerciseListDTO;
+            exercise2Data.numberOfElements = 20;
+            exercise2Data.numberOfRange = 20;
+            return exercise2Data;
+        };
+        ExerciseServices.prototype.getExe3RandomData = function () {
+            var randomize = new RandomizeDataHelper(3);
+            randomize.createRandomArray(12, 0, 20);
+            var subexerciseListDTO = [];
+            for (var i = 0; i < randomize.randimzedArray.length; i++) {
+                var startFrom = RandomizeDataHelper.getRandomNumber(0, 12);
+                var missingNumbers = RandomizeDataHelper.getRandomNumbersWithGivenNeigbours(startFrom, 4, 9);
+                subexerciseListDTO.push(new exercises.Exercise3Item(startFrom, missingNumbers));
+            }
+            var exercise3Data = {};
+            exercise3Data.subexerciseListDTO = subexerciseListDTO;
+            return exercise3Data;
+        };
+        ExerciseServices.prototype.getExe4RandomData = function () {
+            var randomize = new RandomizeDataHelper(3);
+            randomize.createRandomArray(12, 0, 20);
+            var subexerciseListDTO = [];
+            for (var i = 0; i < randomize.randimzedArray.length; i++) {
+                var startFrom = RandomizeDataHelper.getRandomNumber(0, 12);
+                var blockedNumbers = RandomizeDataHelper.getRandomNumbersWithGivenNeigbours(startFrom, 2, 10);
+                var missingNumbers = RandomizeDataHelper.getRandomNumbersWithGivenNeigbours(startFrom, 5, 10, blockedNumbers);
+                subexerciseListDTO.push(new exercises.Exercise4Item(startFrom, missingNumbers, blockedNumbers));
+            }
+            var exercise4Data = {};
+            exercise4Data.subexerciseListDTO = subexerciseListDTO;
+            return exercise4Data;
+        };
+        ExerciseServices.prototype.getExe5RandomData = function () {
+            var randomize = new RandomizeDataHelper(0);
+            var subexerciseListDTO = [];
+            for (var i = 0; i < 12; i++) {
+                randomize.randimzedArray = [];
+                randomize.createRandomArray(5, 1, 25);
+                var randomNumbeRow = randomize.randimzedArray.slice(0);
+                var arrangedNumbers = randomize.randimzedArray.sort(this.compareNumbers);
+                subexerciseListDTO.push(new exercises.Exercise5Item(randomNumbeRow, arrangedNumbers));
+            }
+            var exercise5Data = {};
+            exercise5Data.subexerciseListDTO = subexerciseListDTO;
+            return exercise5Data;
+        };
+        ExerciseServices.prototype.compareNumbers = function (a, b) {
+            return a - b;
+        };
+        ExerciseServices.prototype.getExe6RandomData = function () {
+            var subexerciseListDTO = [];
+            var randomize = new RandomizeDataHelper(3);
+            randomize.createRandomArray(12, 0, 25);
+            var firstNumbers = randomize.randimzedArray.slice(0);
+            randomize.randimzedArray = [];
+            randomize.createRandomArray(12, 0, 25);
+            var secondNumbers = randomize.randimzedArray.slice(0);
+            for (var i = 0; i < 12; i++) {
+                var firstNumber = firstNumbers[i];
+                var secondNumber = secondNumbers[i];
+                var resultSign = "";
+                if (firstNumber > secondNumber) {
+                    resultSign = ">";
+                }
+                else if (firstNumber < secondNumber) {
+                    resultSign = "<";
+                }
+                else {
+                    resultSign = "=";
+                }
+                subexerciseListDTO.push(new exercises.Exercise6Item(firstNumber, secondNumber, resultSign));
+            }
+            var exercise6Data = {};
+            exercise6Data.subexerciseListDTO = subexerciseListDTO;
+            return exercise6Data;
+        };
+        ExerciseServices.prototype.getExe7RandomData = function () {
+            var randomize = new RandomizeDataHelper(3);
+            randomize.createRandomArray(12, 1, 10);
+            var subexerciseListDTO = [];
+            subexerciseListDTO.push(new exercises.Exercise7Item(randomize.randimzedArray));
+            var exercise7Data = {};
+            exercise7Data.subexerciseListDTO = subexerciseListDTO;
+            return exercise7Data;
+        };
+        ExerciseServices.prototype.getExe8RandomData = function () {
+            var randomize = new RandomizeDataHelper(3);
+            randomize.createRandomArrayWithEvenNumbers(12, 1, 20);
+            var subexerciseListDTO = [];
+            subexerciseListDTO.push(new exercises.Exercise8Item(randomize.randimzedArray));
+            var exercise8Data = {};
+            exercise8Data.subexerciseListDTO = subexerciseListDTO;
+            return exercise8Data;
+        };
+        ExerciseServices.prototype.getPmExe1RandomData = function () {
+            var subexerciseListDTO = [];
+            var randomize = new RandomizeDataHelper(5);
+            randomize.createRandomArray(12, 0, 6);
+            var firstNumbers = randomize.randimzedArray.slice(0);
+            randomize.randimzedArray = [];
+            randomize.createRandomArray(12, 0, 6);
+            var secondNumbers = randomize.randimzedArray.slice(0);
+            for (var i = 0; i < 12; i++) {
+                var firstNumber = firstNumbers[i];
+                var secondNumber = secondNumbers[i];
+                subexerciseListDTO.push(new exercises.PlusMinusExercise1Item(firstNumber, secondNumber));
+            }
+            var plusMinusExe1Data = {};
+            plusMinusExe1Data.subexerciseListDTO = subexerciseListDTO;
+            return plusMinusExe1Data;
+        };
+        ExerciseServices.prototype.getPmExe2RandomData = function () {
+            var subexerciseListDTO = [];
+            var randomize = new RandomizeDataHelper(5);
+            randomize.createRandomArray(12, 0, 20);
+            var firstNumbers = randomize.randimzedArray.slice(0);
+            randomize.randimzedArray = [];
+            randomize.createRandomArray(12, 0, 20);
+            var secondNumbers = randomize.randimzedArray.slice(0);
+            for (var i = 0; i < 12; i++) {
+                var firstNumber = firstNumbers[i];
+                var secondNumber = secondNumbers[i];
+                var firstNumberToSum = Math.abs(firstNumber - secondNumber);
+                var secondNumberToSum = 0;
+                if (firstNumber >= secondNumber) {
+                    secondNumberToSum = secondNumber;
+                }
+                else {
+                    secondNumberToSum = firstNumber;
+                }
+                subexerciseListDTO.push(new exercises.PlusMinusExercise2Item(firstNumberToSum, secondNumberToSum));
+            }
+            var plusMinusExe2Data = {};
+            plusMinusExe2Data.subexerciseListDTO = subexerciseListDTO;
+            return plusMinusExe2Data;
+        };
+        ExerciseServices.prototype.getPmExe3RandomData = function () {
+            var subexerciseListDTO = [];
+            var randomize = new RandomizeDataHelper(5);
+            randomize.createRandomArray(12, 0, 12);
+            var firstNumbers = randomize.randimzedArray.slice(0);
+            randomize.randimzedArray = [];
+            randomize.createRandomArray(12, 0, 12);
+            var secondNumbers = randomize.randimzedArray.slice(0);
+            for (var i = 0; i < 12; i++) {
+                var minuend = 0;
+                var subtrahend = 0;
+                if (firstNumbers[i] >= secondNumbers[i]) {
+                    minuend = firstNumbers[i];
+                    subtrahend = secondNumbers[i];
+                }
+                else {
+                    minuend = secondNumbers[i];
+                    subtrahend = firstNumbers[i];
+                }
+                subexerciseListDTO.push(new exercises.PlusMinusExercise3Item(minuend, subtrahend));
+            }
+            var plusMinusExe3Data = {};
+            plusMinusExe3Data.subexerciseListDTO = subexerciseListDTO;
+            return plusMinusExe3Data;
+        };
+        ;
+        ExerciseServices.prototype.getPmExe4RandomData = function () {
+            var subexerciseListDTO = [];
+            var randomize = new RandomizeDataHelper(5);
+            randomize.createRandomArray(12, 0, 20);
+            var firstNumbers = randomize.randimzedArray.slice(0);
+            randomize.randimzedArray = [];
+            randomize.createRandomArray(12, 0, 20);
+            var secondNumbers = randomize.randimzedArray.slice(0);
+            for (var i = 0; i < 12; i++) {
+                var minuend = 0;
+                var subtrahend = 0;
+                if (firstNumbers[i] >= secondNumbers[i]) {
+                    minuend = firstNumbers[i];
+                    subtrahend = secondNumbers[i];
+                }
+                else {
+                    minuend = secondNumbers[i];
+                    subtrahend = firstNumbers[i];
+                }
+                subexerciseListDTO.push(new exercises.PlusMinusExercise4Item(minuend, subtrahend));
+            }
+            var plusMinusExe4Data = {};
+            plusMinusExe4Data.subexerciseListDTO = subexerciseListDTO;
+            return plusMinusExe4Data;
+        };
+        ;
+        ExerciseServices.prototype.getPmExe5RandomData = function () {
+            var subexerciseListDTO = [];
+            var randomize = new RandomizeDataHelper(5);
+            randomize.createRandomArray(12, 0, 20);
+            var firstNumbers = randomize.randimzedArray.slice(0);
+            randomize.randimzedArray = [];
+            randomize.createRandomArray(12, 0, 20);
+            var secondNumbers = randomize.randimzedArray.slice(0);
+            for (var i = 0; i < 12; i++) {
+                var minuend = 0;
+                var subtrahend = 0;
+                if (firstNumbers[i] >= secondNumbers[i]) {
+                    minuend = firstNumbers[i];
+                    subtrahend = secondNumbers[i];
+                }
+                else {
+                    minuend = secondNumbers[i];
+                    subtrahend = firstNumbers[i];
+                }
+                subexerciseListDTO.push(new exercises.PlusMinusExercise5Item(minuend, subtrahend));
+            }
+            var plusMinusExe5Data = {};
+            plusMinusExe5Data.subexerciseListDTO = subexerciseListDTO;
+            return plusMinusExe5Data;
+        };
+        ;
+        ExerciseServices.prototype.getPmExe6RandomData = function () {
+            var subexerciseListDTO = [];
+            var randomize = new RandomizeDataHelper(5);
+            randomize.createRandomArray(12, 0, 20);
+            var firstNumbers = randomize.randimzedArray.slice(0);
+            randomize.randimzedArray = [];
+            randomize.createRandomArray(12, 0, 20);
+            var secondNumbers = randomize.randimzedArray.slice(0);
+            for (var i = 0; i < 12; i++) {
+                var minuend = 0;
+                var subtrahend = 0;
+                if (firstNumbers[i] >= secondNumbers[i]) {
+                    minuend = firstNumbers[i];
+                    subtrahend = secondNumbers[i];
+                }
+                else {
+                    minuend = secondNumbers[i];
+                    subtrahend = firstNumbers[i];
+                }
+                subexerciseListDTO.push(new exercises.PlusMinusExercise6Item(minuend, subtrahend));
+            }
+            var plusMinusExe6Data = {};
+            plusMinusExe6Data.subexerciseListDTO = subexerciseListDTO;
+            return plusMinusExe6Data;
+        };
+        ;
+        ExerciseServices.prototype.getPmExe7RandomData = function () {
+            var subexerciseListDTO = [];
+            var randomize = new RandomizeDataHelper(5);
+            randomize.createRandomArray(12, 3, 20);
+            var finalNumbers = randomize.randimzedArray.slice(0);
+            for (var i = 0; i < 12; i++) {
+                var numberContainer = RandomizeDataHelper.createThreeRandomNumbers(0, 20);
+                var expectedNumbers = [];
+                expectedNumbers.push(numberContainer.number1 + 2 * numberContainer.number2 + numberContainer.number3);
+                expectedNumbers.push(numberContainer.number2 + numberContainer.number3);
+                expectedNumbers.push(numberContainer.number1 + numberContainer.number2);
+                expectedNumbers.push(numberContainer.number3);
+                expectedNumbers.push(numberContainer.number2);
+                expectedNumbers.push(numberContainer.number1);
+                var chooseType = RandomizeDataHelper.getRandomNumber(0, 2);
+                var missingNumberIndicators = [];
+                switch (chooseType) {
+                    case 0:
+                        missingNumberIndicators = [false, false, false, true, true, true];
+                        break;
+                    case 1:
+                        missingNumberIndicators = [false, true, false, false, true, true];
+                        break;
+                    case 2:
+                        missingNumberIndicators = [true, true, false, false, true, false];
+                        break;
+                }
+                subexerciseListDTO.push(new exercises.PlusMinusExercise7Item(expectedNumbers, missingNumberIndicators));
+            }
+            var plusMinusExe7Data = {};
+            plusMinusExe7Data.subexerciseListDTO = subexerciseListDTO;
+            return plusMinusExe7Data;
+        };
+        ;
+        ExerciseServices.prototype.getPmExe8RandomData = function () {
+            var subexerciseListDTO = [];
+            for (var i = 0; i < 12; i++) {
+                var numberObject = RandomizeDataHelper.createTwoRandomNumbers(0, 20);
+                subexerciseListDTO.push(new exercises.PlusMinusExercise8Item(numberObject.number1, numberObject.number2));
+            }
+            var plusMinusExe8Data = {};
+            plusMinusExe8Data.subexerciseListDTO = subexerciseListDTO;
+            return plusMinusExe8Data;
+        };
+        ;
+        ExerciseServices.prototype.getPmExe9RandomData = function () {
+            var subexerciseListDTO = [];
+            var randomize = new RandomizeDataHelper(5);
+            randomize.createRandomArray(12, 0, 20);
+            var firstNumbers = randomize.randimzedArray.slice(0);
+            randomize.randimzedArray = [];
+            randomize.createRandomArray(12, 0, 20);
+            var secondNumbers = randomize.randimzedArray.slice(0);
+            for (var i = 0; i < 12; i++) {
+                var minuend = 0;
+                var subtrahend = 0;
+                if (firstNumbers[i] >= secondNumbers[i]) {
+                    minuend = firstNumbers[i];
+                    subtrahend = secondNumbers[i];
+                }
+                else {
+                    minuend = secondNumbers[i];
+                    subtrahend = firstNumbers[i];
+                }
+                subexerciseListDTO.push(new exercises.PlusMinusExercise9Item(minuend, subtrahend));
+            }
+            var plusMinusExe9Data = {};
+            plusMinusExe9Data.subexerciseListDTO = subexerciseListDTO;
+            return plusMinusExe9Data;
+        };
+        ;
+        ExerciseServices.prototype.getPmExe10RandomData = function () {
+            var subexerciseListDTO = [];
+            for (var i = 0; i < 6; i++) {
+                var numberObject = RandomizeDataHelper.createTwoRandomNumbers(0, 20);
+                subexerciseListDTO.push(new exercises.PlusMinusExercise10Item(numberObject.number1, numberObject.number2, "+"));
+            }
+            var randomize = new RandomizeDataHelper(5);
+            randomize.createRandomArray(6, 0, 20);
+            var firstNumbers = randomize.randimzedArray.slice(0);
+            randomize.randimzedArray = [];
+            randomize.createRandomArray(6, 0, 20);
+            var secondNumbers = randomize.randimzedArray.slice(0);
+            for (var i = 0; i < 6; i++) {
+                var minuend = 0;
+                var subtrahend = 0;
+                if (firstNumbers[i] >= secondNumbers[i]) {
+                    minuend = firstNumbers[i];
+                    subtrahend = secondNumbers[i];
+                }
+                else {
+                    minuend = secondNumbers[i];
+                    subtrahend = firstNumbers[i];
+                }
+                subexerciseListDTO.push(new exercises.PlusMinusExercise10Item(minuend, subtrahend, "-"));
+            }
+            var plusMinusExe10Data = {};
+            plusMinusExe10Data.subexerciseListDTO = subexerciseListDTO;
+            return plusMinusExe10Data;
+        };
+        ;
         return ExerciseServices;
     }());
     exercises.ExerciseServices = ExerciseServices;
+    var RandomizeDataHelper = (function () {
+        function RandomizeDataHelper(numberOfRepeatedElements) {
+            this.numberOfRepeatedElements = numberOfRepeatedElements;
+            this.randimzedArray = [];
+        }
+        RandomizeDataHelper.createTwoRandomNumbers = function (min, max) {
+            var found = false;
+            while (!found) {
+                var numberCandidate1 = RandomizeDataHelper.getRandomNumber(min, max);
+                var numberCandidate2 = RandomizeDataHelper.getRandomNumber(min, max);
+                if (numberCandidate1 + numberCandidate2 <= max) {
+                    found = true;
+                }
+            }
+            return { number1: numberCandidate1, number2: numberCandidate2 };
+        };
+        RandomizeDataHelper.createThreeRandomNumbers = function (min, max) {
+            var found = false;
+            while (!found) {
+                var numberCandidate1 = RandomizeDataHelper.getRandomNumber(min, max);
+                var numberCandidate2 = RandomizeDataHelper.getRandomNumber(min, max);
+                var numberCandidate3 = RandomizeDataHelper.getRandomNumber(min, max);
+                if (numberCandidate1 + 2 * numberCandidate2 + numberCandidate3 <= max) {
+                    found = true;
+                }
+            }
+            return { number1: numberCandidate1, number2: numberCandidate2, number3: numberCandidate3 };
+        };
+        RandomizeDataHelper.prototype.createRandomArrayWithEvenNumbers = function (size, min, max) {
+            var nums = [];
+            this.randimzedArray = [];
+            for (var element = 0; element < size; element++) {
+                var temp = -1;
+                while (temp == -1) {
+                    var numberCandidate = RandomizeDataHelper.getRandomNumber(min, max);
+                    if (numberCandidate % 2 == 0) {
+                        temp = this.searchNumberInArray(numberCandidate, nums);
+                    }
+                }
+                nums[element] = temp;
+            }
+            this.randimzedArray = nums;
+        };
+        RandomizeDataHelper.prototype.createRandomArray = function (size, min, max) {
+            var nums = [];
+            for (var element = 0; element < size; element++) {
+                var temp = -1;
+                while (temp == -1) {
+                    temp = this.searchNumberInArray(RandomizeDataHelper.getRandomNumber(min, max), nums);
+                }
+                nums[element] = temp;
+            }
+            this.randimzedArray = nums;
+        };
+        RandomizeDataHelper.getRandomNumber = function (min, max) {
+            return (Math.round((max - min) * Math.random() + min));
+        };
+        RandomizeDataHelper.prototype.searchNumberInArray = function (randomNumber, numberArray) {
+            var countOfRepeat = 0;
+            for (var element = 0; element < numberArray.length; element++) {
+                if (randomNumber == numberArray[element]) {
+                    countOfRepeat++;
+                }
+            }
+            if (countOfRepeat > this.numberOfRepeatedElements) {
+                return -1;
+            }
+            else {
+                return randomNumber;
+            }
+        };
+        RandomizeDataHelper.getRandomNumbersWithGivenNeigbours = function (arrayStartsFrom, maxMissing, maxCount, blockedNumbers) {
+            var numbers = [];
+            for (var i = arrayStartsFrom; i < arrayStartsFrom + maxCount; i++) {
+                numbers.push(i);
+            }
+            var numberOfMissing = RandomizeDataHelper.getRandomNumber(1, maxMissing);
+            var missingNumberArray = [];
+            for (var i = 0; i < numberOfMissing; i++) {
+                var choosenFound = false;
+                var whileKiller = 0;
+                while (!choosenFound) {
+                    whileKiller++;
+                    if (whileKiller > 10) {
+                        console.log('while killer used');
+                        choosenFound = true;
+                    }
+                    var choosenToBeHidden = (numbers.splice(Math.floor(Math.random() * numbers.length), 1))[0];
+                    if (angular.isDefined(blockedNumbers) && blockedNumbers.length > 0 && blockedNumbers.indexOf(choosenToBeHidden) == -1 || angular.isUndefined(blockedNumbers)) {
+                        var indexInArray = missingNumberArray.indexOf(choosenToBeHidden);
+                        if (indexInArray == -1) {
+                            var neigbourOne = choosenToBeHidden - 1;
+                            var neigbourTwo = choosenToBeHidden + 1;
+                            if (missingNumberArray.indexOf(neigbourOne, 0) < 0 && missingNumberArray.indexOf(neigbourTwo, 0) < 0) {
+                                missingNumberArray.push(choosenToBeHidden);
+                                choosenFound = true;
+                            }
+                        }
+                    }
+                }
+            }
+            return missingNumberArray;
+        };
+        return RandomizeDataHelper;
+    }());
+    exercises.RandomizeDataHelper = RandomizeDataHelper;
 })(exercises || (exercises = {}));
 var exercises;
 (function (exercises) {
@@ -1335,6 +1845,13 @@ var exercises;
         Exercise7Ctrl.prototype.selectSubExercise = function (index) {
             this.selectedInput = index;
         };
+        Exercise7Ctrl.prototype.getCSS = function (index) {
+            var styleObject = {};
+            if (this.selectedInput == index) {
+                styleObject = { background: 'white' };
+            }
+            return styleObject;
+        };
         Exercise7Ctrl.prototype.changeSelectedInput = function (value) {
             if (angular.isUndefined(this.selectedInput)) {
                 return;
@@ -1393,6 +1910,13 @@ var exercises;
         Exercise8Ctrl.prototype.selectSubExercise = function (index, oneOfTheSides) {
             this.selectedInput = index;
             this.selectedSide = oneOfTheSides;
+        };
+        Exercise8Ctrl.prototype.getCSS = function (index, side) {
+            var styleObject = {};
+            if (this.selectedInput == index && this.selectedSide == side) {
+                styleObject = { background: 'white' };
+            }
+            return styleObject;
         };
         Exercise8Ctrl.prototype.changeSelectedInput = function (value) {
             if (angular.isUndefined(this.selectedInput) || angular.isUndefined(this.selectedSide)) {
@@ -1483,17 +2007,17 @@ var exercises;
             this.exetype = "P1b";
             this.selectedInput = 0;
             this.rubberPositions = [{ top: '-20px', left: '275px' },
-                { top: '-20px', left: '555px' },
+                { top: '-20px', left: '565px' },
                 { top: '45px', left: '275px' },
-                { top: '45px', left: '555px' },
+                { top: '45px', left: '565px' },
                 { top: '105px', left: '275px' },
-                { top: '105px', left: '555px' },
+                { top: '105px', left: '565px' },
                 { top: '165px', left: '275px' },
-                { top: '165px', left: '555px' },
+                { top: '165px', left: '565px' },
                 { top: '230px', left: '275px' },
-                { top: '230px', left: '555px' },
+                { top: '230px', left: '565px' },
                 { top: '290px', left: '275px' },
-                { top: '290px', left: '555px' }];
+                { top: '290px', left: '565px' }];
             this.titleText = texts.plusMinusExe2TitleText;
             for (var i = 0; i < plusMinusExe2Data.subexerciseListDTO.length; i++) {
                 var firstNumberToSumFromFile = plusMinusExe2Data.subexerciseListDTO[i].firstNumberToSum;
@@ -1729,7 +2253,7 @@ var exercises;
             for (var i = 0; i < plusMinusExe7Data.subexerciseListDTO.length; i++) {
                 var expectedNumbers = plusMinusExe7Data.subexerciseListDTO[i].expectedNumbers;
                 var missingNumberIndicators = plusMinusExe7Data.subexerciseListDTO[i].missingNumberIndicators;
-                var exeItem = new exercises.PlusMinusExercise7Item(expectedNumbers.reverse(), missingNumberIndicators.reverse());
+                var exeItem = new exercises.PlusMinusExercise7Item(expectedNumbers, missingNumberIndicators.reverse());
                 plusMinusExe7Data.subexerciseListDTO[i] = exeItem;
             }
         }
@@ -2329,7 +2853,7 @@ var exercises;
                 controller: 'exercise1Ctrl',
                 resolve: {
                     'exercise1Data': function (exerciseServices) {
-                        return exerciseServices.getExercise1Data();
+                        return exerciseServices.getRandomData('n-exe1');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2340,7 +2864,7 @@ var exercises;
                 controller: 'exercise2Ctrl',
                 resolve: {
                     'exercise2Data': function (exerciseServices) {
-                        return exerciseServices.getExercise2Data();
+                        return exerciseServices.getRandomData('n-exe2');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2351,7 +2875,7 @@ var exercises;
                 controller: 'exercise3Ctrl',
                 resolve: {
                     'exercise3Data': function (exerciseServices) {
-                        return exerciseServices.getExercise3Data();
+                        return exerciseServices.getRandomData('n-exe3');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2362,7 +2886,7 @@ var exercises;
                 controller: 'exercise4Ctrl',
                 resolve: {
                     'exercise4Data': function (exerciseServices) {
-                        return exerciseServices.getExercise4Data();
+                        return exerciseServices.getRandomData('n-exe4');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2373,7 +2897,7 @@ var exercises;
                 controller: 'exercise5Ctrl',
                 resolve: {
                     'exercise5Data': function (exerciseServices) {
-                        return exerciseServices.getExercise5Data();
+                        return exerciseServices.getRandomData('n-exe5');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2385,7 +2909,7 @@ var exercises;
                 controller: 'exercise6Ctrl',
                 resolve: {
                     'exercise6Data': function (exerciseServices) {
-                        return exerciseServices.getExercise6Data();
+                        return exerciseServices.getRandomData('n-exe6');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2396,7 +2920,7 @@ var exercises;
                 controller: 'exercise7Ctrl',
                 resolve: {
                     'exercise7Data': function (exerciseServices) {
-                        return exerciseServices.getExercise7Data();
+                        return exerciseServices.getRandomData('n-exe7');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2407,7 +2931,7 @@ var exercises;
                 controller: 'exercise8Ctrl',
                 resolve: {
                     'exercise8Data': function (exerciseServices) {
-                        return exerciseServices.getExercise8Data();
+                        return exerciseServices.getRandomData('n-exe8');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2419,7 +2943,7 @@ var exercises;
                 controller: 'plusMinusExercise1Ctrl',
                 resolve: {
                     'plusMinusExe1Data': function (exerciseServices) {
-                        return exerciseServices.getExerciseFromJson("plusMinusExe1Data");
+                        return exerciseServices.getRandomData('pm-exe1');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2430,7 +2954,7 @@ var exercises;
                 controller: 'plusMinusExercise2Ctrl',
                 resolve: {
                     'plusMinusExe2Data': function (exerciseServices) {
-                        return exerciseServices.getExerciseFromJson("plusMinusExe2Data");
+                        return exerciseServices.getRandomData('pm-exe2');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2441,7 +2965,7 @@ var exercises;
                 controller: 'plusMinusExercise3Ctrl',
                 resolve: {
                     'plusMinusExe3Data': function (exerciseServices) {
-                        return exerciseServices.getExerciseFromJson("plusMinusExe3Data");
+                        return exerciseServices.getRandomData('pm-exe3');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2452,7 +2976,7 @@ var exercises;
                 controller: 'plusMinusExercise4Ctrl',
                 resolve: {
                     'plusMinusExe4Data': function (exerciseServices) {
-                        return exerciseServices.getExerciseFromJson("plusMinusExe4Data");
+                        return exerciseServices.getRandomData('pm-exe4');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2464,7 +2988,7 @@ var exercises;
                 controller: 'plusMinusExercise5Ctrl',
                 resolve: {
                     'plusMinusExe5Data': function (exerciseServices) {
-                        return exerciseServices.getExerciseFromJson("plusMinusExe5Data");
+                        return exerciseServices.getRandomData('pm-exe5');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2476,7 +3000,7 @@ var exercises;
                 controller: 'plusMinusExercise6Ctrl',
                 resolve: {
                     'plusMinusExe6Data': function (exerciseServices) {
-                        return exerciseServices.getExerciseFromJson("plusMinusExe6Data");
+                        return exerciseServices.getRandomData('pm-exe6');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2488,7 +3012,7 @@ var exercises;
                 controller: 'plusMinusExercise7Ctrl',
                 resolve: {
                     'plusMinusExe7Data': function (exerciseServices) {
-                        return exerciseServices.getExerciseFromJson("plusMinusExe7Data");
+                        return exerciseServices.getRandomData('pm-exe7');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2500,7 +3024,7 @@ var exercises;
                 controller: 'plusMinusExercise8Ctrl',
                 resolve: {
                     'plusMinusExe8Data': function (exerciseServices) {
-                        return exerciseServices.getExerciseFromJson("plusMinusExe8Data");
+                        return exerciseServices.getRandomData('pm-exe8');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2512,7 +3036,7 @@ var exercises;
                 controller: 'plusMinusExercise9Ctrl',
                 resolve: {
                     'plusMinusExe9Data': function (exerciseServices) {
-                        return exerciseServices.getExerciseFromJson("plusMinusExe9Data");
+                        return exerciseServices.getRandomData('pm-exe9');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();
@@ -2524,7 +3048,7 @@ var exercises;
                 controller: 'plusMinusExercise10Ctrl',
                 resolve: {
                     'plusMinusExe10Data': function (exerciseServices) {
-                        return exerciseServices.getExerciseFromJson("plusMinusExe10Data");
+                        return exerciseServices.getRandomData('pm-exe10');
                     },
                     'texts': function (exerciseServices) {
                         return exerciseServices.getTexts();

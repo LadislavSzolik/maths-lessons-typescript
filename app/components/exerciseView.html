@@ -309,11 +309,11 @@
 
       <!-- exercise 7 view -->
       <div class="subexe-container-box exe7-background" ng-switch-when="N2c">
-        <div class="highlight-tool" ng-hide="vm.isSummaryActive()" ng-style="vm.getHighlightPosition()"></div>
+        <!--<div class="highlight-tool" ng-hide="vm.isSummaryActive()" ng-style="vm.getHighlightPosition()"></div> -->
         <ul class="subexe-ul">
           <li ng-repeat="subExercise in vm.exercise7Data.subexerciseListDTO[0].givenNumbers" ng-click="vm.selectSubExercise($index)">
             <div class="clearfix">
-              <input class="double-input form-control" focus-if="vm.isSubExerciseSelected($index)" ng-focus="vm.selectSubExercise($index)" maxlength="2" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.enteredDouble" placeholder="?" required="" type="text"/>
+              <input class="double-input form-control" focus-if="vm.isSubExerciseSelected($index)" ng-focus="vm.selectSubExercise($index)" ng-style="vm.getCSS($index)" maxlength="2" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.enteredDouble" placeholder="?" required="" type="text"/>
             </div>
             <div class="clearfix">
               <div class="single-left">
@@ -342,9 +342,9 @@
               <span>{{subExercise.toBeSplit}}</span>
             </div>
             <div class="clearfix">
-              <input class="split-input form-control" ng-focus="vm.selectSubExercise($index, 0)" maxlength="2" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.enteredFirstSplit" placeholder="?" required="" type="text"/>
+              <input class="split-input form-control" ng-focus="vm.selectSubExercise($index, 0)" maxlength="2" ng-style="vm.getCSS($index, 0)"  ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.enteredFirstSplit" placeholder="?" required="" type="text"/>
               <span class="plus-sign">+</span>
-              <input class="split-input form-control" ng-focus="vm.selectSubExercise($index, 1)" maxlength="2" ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.enteredSecondSplit" placeholder="?" required="" type="text"/>
+              <input class="split-input form-control" ng-focus="vm.selectSubExercise($index, 1)" maxlength="2" ng-style="vm.getCSS($index, 1)"  ng-class="{'valid-result':subExercise.isCorrect() && vm.isSummaryActive() , 'invalid-result':!subExercise.isCorrect() && vm.isSummaryActive()}" ng-disabled="vm.isSummaryActive()" ng-model="subExercise.enteredSecondSplit" placeholder="?" required="" type="text"/>
             </div>
           </li>
         </ul>

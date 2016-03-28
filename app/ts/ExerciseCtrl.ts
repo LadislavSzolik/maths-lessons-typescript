@@ -480,6 +480,14 @@ module exercises {
       this.selectedInput = index;
     }
 
+    getCSS(index: number) {
+      var styleObject: Object = {};
+      if (this.selectedInput == index ) {
+        styleObject = { background: 'white' };
+      }
+      return styleObject;
+    }
+
     changeSelectedInput(value: number) {
 
       if (angular.isUndefined(this.selectedInput)) {
@@ -548,6 +556,14 @@ module exercises {
     selectSubExercise(index: number, oneOfTheSides: number) {
       this.selectedInput = index;
       this.selectedSide = oneOfTheSides;
+    }
+
+    getCSS(index: number, side:number) {
+      var styleObject: Object = {};
+      if (this.selectedInput == index && this.selectedSide ==side) {
+        styleObject = { background: 'white' };
+      }
+      return styleObject;
     }
 
     changeSelectedInput(value: number) {
@@ -647,17 +663,17 @@ module exercises {
     public titleText: string;
     public selectedInput: number = 0;
     public rubberPositions: any[] = [{ top: '-20px', left: '275px' },
-      { top: '-20px', left: '555px' },
+      { top: '-20px', left: '565px' },
       { top: '45px', left: '275px' },
-      { top: '45px', left: '555px' },
+      { top: '45px', left: '565px' },
       { top: '105px', left: '275px' },
-      { top: '105px', left: '555px' },
+      { top: '105px', left: '565px' },
       { top: '165px', left: '275px' },
-      { top: '165px', left: '555px' },
+      { top: '165px', left: '565px' },
       { top: '230px', left: '275px' },
-      { top: '230px', left: '555px' },
+      { top: '230px', left: '565px' },
       { top: '290px', left: '275px' },
-      { top: '290px', left: '555px' }];
+      { top: '290px', left: '565px' }];
 
     constructor(protected $scope: any,
       protected $location: ng.ILocationService,
@@ -712,8 +728,8 @@ module exercises {
     }
 
     setWhiteBackgroundIfSelected(index: number) {
-      if(this.selectedInput == index) {
-        return {background: 'white'};
+      if (this.selectedInput == index) {
+        return { background: 'white' };
       }
     }
 
@@ -814,8 +830,8 @@ module exercises {
     }
 
     setWhiteBackgroundIfSelected(index: number) {
-      if(this.selectedInput == index) {
-        return {background: 'white'};
+      if (this.selectedInput == index) {
+        return { background: 'white' };
       }
     }
 
@@ -955,7 +971,7 @@ module exercises {
       for (var i: number = 0; i < plusMinusExe7Data.subexerciseListDTO.length; i++) {
         var expectedNumbers: number[] = plusMinusExe7Data.subexerciseListDTO[i].expectedNumbers;
         var missingNumberIndicators: boolean[] = plusMinusExe7Data.subexerciseListDTO[i].missingNumberIndicators;
-        var exeItem: PlusMinusExercise7Item = new PlusMinusExercise7Item(expectedNumbers.reverse(), missingNumberIndicators.reverse());
+        var exeItem: PlusMinusExercise7Item = new PlusMinusExercise7Item(expectedNumbers, missingNumberIndicators.reverse());
         plusMinusExe7Data.subexerciseListDTO[i] = exeItem;
       }
     }
@@ -1018,17 +1034,17 @@ module exercises {
     }
 
     getCSS(index: number) {
-      var styleObject:Object = {};
-      if(this.selectedInput == index) {
-        if(index%2 == 1) {
-          styleObject= {background:'white', border: 'solid 2px #2A8682'};
+      var styleObject: Object = {};
+      if (this.selectedInput == index) {
+        if (index % 2 == 1) {
+          styleObject = { background: 'white', border: 'solid 2px #2A8682' };
         } else {
-          styleObject = {background: 'white'};
+          styleObject = { background: 'white' };
         }
 
 
-      } else if(index%2 == 1) {
-        styleObject= {background:'#A6EDFF', border: 'solid 2px #2A8682'};
+      } else if (index % 2 == 1) {
+        styleObject = { background: '#A6EDFF', border: 'solid 2px #2A8682' };
       }
       return styleObject;
     }
@@ -1115,15 +1131,15 @@ module exercises {
     }
 
     getCSS(index: number) {
-      var styleObject:Object = {};
-      if(this.selectedInput == index) {
-        if(index%2 == 1){
-          styleObject= {background:'white', border: 'solid 2px #BA30C0'};
+      var styleObject: Object = {};
+      if (this.selectedInput == index) {
+        if (index % 2 == 1) {
+          styleObject = { background: 'white', border: 'solid 2px #BA30C0' };
         } else {
-          styleObject = {background: 'white'};
+          styleObject = { background: 'white' };
         }
-      } else if(index%2 == 1) {
-        styleObject= {background:'#FEE4FF', border: 'solid 2px #BA30C0'};
+      } else if (index % 2 == 1) {
+        styleObject = { background: '#FEE4FF', border: 'solid 2px #BA30C0' };
       }
       return styleObject;
     }
@@ -1211,25 +1227,25 @@ module exercises {
     }
 
     getCSS(index: number) {
-      var styleObject:Object = {};
-      if(this.selectedInput == index) {
-        if(index == 6 || index == 8 || index == 10){
-          styleObject = {background: 'white',  border: 'solid 2px #25B569'};
-        } else if(index == 7 || index == 9 || index == 11){
-          styleObject = {background: 'white',  border: 'solid 2px #EC5116'};
+      var styleObject: Object = {};
+      if (this.selectedInput == index) {
+        if (index == 6 || index == 8 || index == 10) {
+          styleObject = { background: 'white', border: 'solid 2px #25B569' };
+        } else if (index == 7 || index == 9 || index == 11) {
+          styleObject = { background: 'white', border: 'solid 2px #EC5116' };
         }
-        else if(index%2 == 0) {
-          styleObject = {background: 'white',  border: 'solid 2px #483668'};
+        else if (index % 2 == 0) {
+          styleObject = { background: 'white', border: 'solid 2px #483668' };
         } else {
-          styleObject = {background: 'white',  border: 'solid 2px #73AFB7'};
+          styleObject = { background: 'white', border: 'solid 2px #73AFB7' };
         }
-      } else if(index == 6 || index == 8 || index == 10 ){
-        styleObject= {background:'#EAFFF4', border: 'solid 2px #25B569'};
-      } else if(index == 7 || index == 9 || index == 11) {
-        styleObject= {background:'#FCE3D9', border: 'solid 2px #EC5116'};
+      } else if (index == 6 || index == 8 || index == 10) {
+        styleObject = { background: '#EAFFF4', border: 'solid 2px #25B569' };
+      } else if (index == 7 || index == 9 || index == 11) {
+        styleObject = { background: '#FCE3D9', border: 'solid 2px #EC5116' };
       }
-      else if(index%2 == 0) {
-        styleObject= {background:'#E2D2FF', border: 'solid 2px #483668'};
+      else if (index % 2 == 0) {
+        styleObject = { background: '#E2D2FF', border: 'solid 2px #483668' };
       }
       return styleObject;
     }
@@ -1256,9 +1272,9 @@ module exercises {
     }
 
     getLiTagColor(index: number) {
-      if(index == 6 || index == 8 || index == 10){
+      if (index == 6 || index == 8 || index == 10) {
         return { color: '#25B569' }
-      } else if(index == 7 || index == 9 || index == 11) {
+      } else if (index == 7 || index == 9 || index == 11) {
         return { color: '#EC5116' }
       }
       else if (index % 2 == 0) {

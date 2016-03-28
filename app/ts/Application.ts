@@ -62,7 +62,8 @@ module exercises {
       controller: 'exercise1Ctrl',
       resolve: {
         'exercise1Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExercise1Data();
+          //return exerciseServices.getExercise1Data();
+            return exerciseServices.getRandomData('n-exe1');
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -74,7 +75,8 @@ module exercises {
       controller: 'exercise2Ctrl',
       resolve: {
         'exercise2Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExercise2Data();
+          return exerciseServices.getRandomData('n-exe2');
+          //return exerciseServices.getExercise2Data();
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -85,7 +87,8 @@ module exercises {
       controller: 'exercise3Ctrl',
       resolve: {
         'exercise3Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExercise3Data();
+          return exerciseServices.getRandomData('n-exe3');
+          //return exerciseServices.getExercise3Data();
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -96,7 +99,8 @@ module exercises {
       controller: 'exercise4Ctrl',
       resolve: {
         'exercise4Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExercise4Data();
+          return exerciseServices.getRandomData('n-exe4');
+          //return exerciseServices.getExercise4Data();
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -107,7 +111,8 @@ module exercises {
       controller: 'exercise5Ctrl',
       resolve: {
         'exercise5Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExercise5Data();
+          return exerciseServices.getRandomData('n-exe5');
+          //return exerciseServices.getExercise5Data();
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -119,7 +124,8 @@ module exercises {
       controller: 'exercise6Ctrl',
       resolve: {
         'exercise6Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExercise6Data();
+          return exerciseServices.getRandomData('n-exe6');
+          //return exerciseServices.getExercise6Data();
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -130,7 +136,8 @@ module exercises {
       controller: 'exercise7Ctrl',
       resolve: {
         'exercise7Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExercise7Data();
+          return exerciseServices.getRandomData('n-exe7');
+          //return exerciseServices.getExercise7Data();
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -141,7 +148,8 @@ module exercises {
       controller: 'exercise8Ctrl',
       resolve: {
         'exercise8Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExercise8Data();
+          return exerciseServices.getRandomData('n-exe8');
+          //return exerciseServices.getExercise8Data();
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -153,7 +161,8 @@ module exercises {
       controller: 'plusMinusExercise1Ctrl',
       resolve: {
         'plusMinusExe1Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExerciseFromJson("plusMinusExe1Data");
+          return exerciseServices.getRandomData('pm-exe1');
+          //return exerciseServices.getExerciseFromJson("plusMinusExe1Data");
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -164,7 +173,8 @@ module exercises {
       controller: 'plusMinusExercise2Ctrl',
       resolve: {
         'plusMinusExe2Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExerciseFromJson("plusMinusExe2Data");
+          return exerciseServices.getRandomData('pm-exe2');
+          //return exerciseServices.getExerciseFromJson("plusMinusExe2Data");
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -175,7 +185,8 @@ module exercises {
       controller: 'plusMinusExercise3Ctrl',
       resolve: {
         'plusMinusExe3Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExerciseFromJson("plusMinusExe3Data");
+          return exerciseServices.getRandomData('pm-exe3');
+          //return exerciseServices.getExerciseFromJson("plusMinusExe3Data");
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -186,7 +197,8 @@ module exercises {
       controller: 'plusMinusExercise4Ctrl',
       resolve: {
         'plusMinusExe4Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExerciseFromJson("plusMinusExe4Data");
+          return exerciseServices.getRandomData('pm-exe4');
+          //return exerciseServices.getExerciseFromJson("plusMinusExe4Data");
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -198,7 +210,8 @@ module exercises {
       controller: 'plusMinusExercise5Ctrl',
       resolve: {
         'plusMinusExe5Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExerciseFromJson("plusMinusExe5Data");
+          return exerciseServices.getRandomData('pm-exe5');
+          //return exerciseServices.getExerciseFromJson("plusMinusExe5Data");
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -210,7 +223,8 @@ module exercises {
       controller: 'plusMinusExercise6Ctrl',
       resolve: {
         'plusMinusExe6Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExerciseFromJson("plusMinusExe6Data");
+          return exerciseServices.getRandomData('pm-exe6');
+          //return exerciseServices.getExerciseFromJson("plusMinusExe6Data");
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -222,7 +236,8 @@ module exercises {
       controller: 'plusMinusExercise7Ctrl',
       resolve: {
         'plusMinusExe7Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExerciseFromJson("plusMinusExe7Data");
+          return exerciseServices.getRandomData('pm-exe7');
+          //return exerciseServices.getExerciseFromJson("plusMinusExe7Data");
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -234,7 +249,8 @@ module exercises {
       controller: 'plusMinusExercise8Ctrl',
       resolve: {
         'plusMinusExe8Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExerciseFromJson("plusMinusExe8Data");
+          return exerciseServices.getRandomData('pm-exe8');
+          //return exerciseServices.getExerciseFromJson("plusMinusExe8Data");
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -246,7 +262,8 @@ module exercises {
       controller: 'plusMinusExercise9Ctrl',
       resolve: {
         'plusMinusExe9Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExerciseFromJson("plusMinusExe9Data");
+          return exerciseServices.getRandomData('pm-exe9');
+          //return exerciseServices.getExerciseFromJson("plusMinusExe9Data");
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();
@@ -258,7 +275,8 @@ module exercises {
       controller: 'plusMinusExercise10Ctrl',
       resolve: {
         'plusMinusExe10Data': (exerciseServices: IExerciseServices) => {
-          return exerciseServices.getExerciseFromJson("plusMinusExe10Data");
+          return exerciseServices.getRandomData('pm-exe10');
+          //return exerciseServices.getExerciseFromJson("plusMinusExe10Data");
         },
         'texts': (exerciseServices: IExerciseServices) => {
           return exerciseServices.getTexts();

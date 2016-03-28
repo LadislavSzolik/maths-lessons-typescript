@@ -1284,7 +1284,7 @@ header, section {
 .pm-exe2-background .subexe-ul > li {
   display: inline-block;
   width: 250px;
-  margin-right: 15px;
+  margin-right: 25px;
   margin-left: 15px;
   margin-top: 5px;
 }
@@ -1294,7 +1294,7 @@ header, section {
   display: inline-block;
   float: left;
   margin-right: 20px;
-  width: 159px;
+  width: 170px;
   text-align: right;
   margin-right: 10px;
 }
@@ -1416,7 +1416,7 @@ header, section {
 }
 
 .pm-exe3-background .flower-garden-small {
-  width: 145px;
+  width: 120px;
   height: 63px;
   border-radius: 5px;
   margin: 5px 0px 8px 0px;
@@ -2034,6 +2034,7 @@ header, section {
 }
 
 .pm-exe9-background .valid-result, .pm-exe9-background .invalid-result {
+  border: solid 0px !important;
   color: #ffffff;
 }
 
@@ -2107,6 +2108,7 @@ header, section {
 }
 
 .pm-exe10-background .valid-result, .pm-exe10-background .invalid-result {
+  border: solid 0px !important;
   color: #ffffff;
 }
 
